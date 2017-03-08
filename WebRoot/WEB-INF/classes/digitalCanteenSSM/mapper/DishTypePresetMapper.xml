@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.DishTypePresetMapper">
+
+	<!-- 查询所有的菜品类型的信息,以降序排列(后录入的排在前面) -->
+	<select id="findAllDishType" resultType="DishType">
+		SELECT * 
+		FROM ctdishtype 
+		ORDER BY DishTypeID DESC
+	</select>
+	
+	<!-- 根据DishTypeID查询该菜品类型信息 -->
+	<select id="findDishTypeById"  parameterType="int" resultType="DishType">
+		SELECT * 
+		FROM ctdishtype 
+		WHERE ctdishtype.DishTypeID=#{dishTypeID}		
+	</select>
+	
+	<!-- 根据DishTypeName查询该菜品类型信息 -->
+	<select id="findDishTypeByName"  parameterType="String" resultType="DishType">
+		SELECT * 
+		FROM ctdishtype 
+		WHERE ctdishtype.DishTypeName=#{dishTypeName}		
+	</select>
+	
+	<!-- 根据DishTypeID更新菜品类型信息 -->
+	<select id="updateDishType"  parameterType="DishType">
+		UPDATE ctdishtype 
+		SET ctdishtype.DishTypeName= #{dishTypeName} 
+		WHERE ctdishtype.DishTypeID=#{dishTypeID};		
+	</select>
+	
+	<!-- 根据DishTypeID删除菜品类型信息 -->
+	<select id="deleteDishTypeById"  parameterType="DishType">
+		Delete from ctdishtype 
+		where ctdishtype.DishTypeID=#{dishTypeID}
+	</select>
+	
+	<!-- 添加菜品类型信息 -->
+	<select id="insertDishType"  parameterType="DishType">
+		Insert into ctdishtype (ctdishtype.DishTypeName,ctdishtype.DishTypeNote) 
+		values (#{dishTypeName},#{dishTypeNote})
+	</select>
+</mapper>

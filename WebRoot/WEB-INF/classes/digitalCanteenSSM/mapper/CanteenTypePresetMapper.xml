@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.CanteenTypePresetMapper">
+
+	<!-- 查询所有的食堂类型的信息,以降序排列(后录入的排在前面) -->
+	<select id="findAllCanteenType" resultType="CanteenType">
+		SELECT * 
+		FROM ctcanttype 
+		ORDER BY CantTypeID DESC
+	</select>
+	
+	<!-- 根据CanteenTypeID查询该食堂类型信息 -->
+	<select id="findCanteenTypeById"  parameterType="int" resultType="CanteenType">
+		SELECT * 
+		FROM ctcanttype 
+		WHERE ctcanttype.CantTypeID=#{cantTypeID}		
+	</select>
+	
+	<!-- 根据CanteenTypeName查询该食堂类型信息 -->
+	<select id="findCanteenTypeByName"  parameterType="String" resultType="CanteenType">
+		SELECT * 
+		FROM ctcanttype 
+		WHERE ctcanttype.CantTypeName=#{cantTypeName}		
+	</select>
+	
+	<!-- 根据CanteenTypeID更新食堂类型信息 -->
+	<select id="updateCanteenType"  parameterType="CanteenType">
+		UPDATE ctcanttype 
+		SET ctcanttype.CantTypeName= #{cantTypeName} 
+		WHERE ctcanttype.CantTypeID=#{cantTypeID};		
+	</select>
+	
+	<!-- 根据CanteenTypeID删除食堂类型信息 -->
+	<select id="deleteCanteenTypeById"  parameterType="CanteenType">
+		Delete from ctcanttype 
+		where ctcanttype.CantTypeID=#{cantTypeID}
+	</select>
+	
+	<!-- 添加食堂类型信息 -->
+	<select id="insertCanteenType"  parameterType="CanteenType">
+		Insert into ctcanttype (ctcanttype.CantTypeName,ctcanttype.CantTypeNote) 
+		values (#{cantTypeName},#{cantTypeNote})
+	</select>
+</mapper>

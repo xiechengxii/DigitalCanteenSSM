@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.DetailMapper">
+
+	<!-- 查询某个食堂某一天的历史录入信息,以窗口ID排列 -->
+	<select id="findDetailDish" parameterType="Integer" resultType="Detail">
+		SELECT * 
+		FROM ctdetail
+		WHERE ctdetail.DetailRecordID = #{recordID }
+		ORDER BY DetailWndID
+	</select>
+	
+	<!-- 根据DetailID删除该记录信息 -->
+	<select id="deleteDetailDish"  parameterType="Integer" >
+		DELETE	FROM ctdetail 
+		WHERE ctdetail.DetailID=#{detailID}		
+	</select>
+	
+	<!-- 根据RecordID删除该记录信息 -->
+	<select id="deleteDetailDishByRecordId"  parameterType="Integer" >
+		DELETE	FROM ctdetail 
+		WHERE ctdetail.DetailRecordID=#{recordID}		
+	</select>
+	
+	<!-- 插入Detail记录信息 -->
+	<select id="insertDetailDish"  parameterType="DishItems">
+		Insert into ctdetail (ctdetail.DetailDishTypeID,
+		ctdetail.DetailDishPrice,
+		ctdetail.DetailDishPhoto,ctdetail.DetailDishDate,
+		ctdetail.DetailDishRecmd,ctdetail.DetailDishKeep,
+		ctdetail.DetailDishQuality,ctdetail.DetailDishSale,
+		ctdetail.DetailDishInDate,ctdetail.DetailDishInState,
+		ctdetail.DetailDishNote,ctdetail.DetailDishDelete,
+		ctdetail.DetailDishID,ctdetail.DetailDishName,
+		ctdetail.DetailRecordID,ctdetail.DetailWndID,
+		ctdetail.DetailWndName) 
+		values (#{dishTypeID},#{dishPrice},
+		#{dishPhoto},#{dishDate},
+		#{dishRecmd},#{dishKeep},
+		#{dishQuality},#{dishSale},
+		#{dishInDate},#{dishInState},
+		#{dishNote},#{dishDelete},
+		#{dishID},#{dishName},
+		#{dishRecordID},#{wndID},
+		#{wndName})	
+	</select>
+</mapper>

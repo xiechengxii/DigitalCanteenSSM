@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.CampusPresetMapper">
+
+	<!-- 查询所有的校区的信息,以降序排列(后录入的排在前面) -->
+	<select id="findAllCampuses" resultType="Campus">
+		SELECT * 
+		FROM ctcampus 
+		ORDER BY CampusID DESC
+	</select>
+	
+	<!-- 根据CampusID查询该校区信息 -->
+	<select id="findCampusById"  parameterType="int" resultType="Campus">
+		SELECT * 
+		FROM ctcampus 
+		WHERE ctcampus.CampusID=#{campusID}		
+	</select>
+	
+	<!-- 根据CampusName查询该校区信息 -->
+	<select id="findCampusByName"  parameterType="String" resultType="Campus">
+		SELECT * 
+		FROM ctcampus 
+		WHERE ctcampus.CampusName=#{campusName}		
+	</select>
+	
+	<!-- 根据CampusID更新校区信息 -->
+	<select id="updateCampus"  parameterType="Campus">
+		UPDATE ctcampus 
+		SET ctcampus.CampusName= #{campusName} 
+		WHERE ctcampus.CampusID=#{campusID};		
+	</select>
+	
+	<!-- 根据CampusID删除校区信息 -->
+	<select id="deleteCampusById"  parameterType="Campus">
+		Delete from ctcampus 
+		where ctcampus.CampusID=#{campusID}
+	</select>
+	
+	<!-- 添加校区信息 -->
+	<select id="insertCampus"  parameterType="Campus">
+		Insert into ctcampus (ctcampus.CampusName,ctcampus.CampusNote) 
+		values (#{campusName},#{campusNote})
+	</select>
+</mapper>

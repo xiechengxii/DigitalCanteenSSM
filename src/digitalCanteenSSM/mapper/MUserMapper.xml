@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.MUserMapper">
+
+	<!-- 查询所有的管理员 -->
+	<select id="findAllMUser"  resultType="MUserItems">
+		SELECT * 
+		FROM ctmuser,ctcant,ctcampus,ctrole
+		WHERE ctmuser.MUserCantID = ctcant.CantID and 
+			ctmuser.MUserCampusID = ctcampus.CampusID and
+			ctmuser.MUserRoleID = ctrole.RoleID
+		ORDER BY RoleID,CampusID ,CantID
+	</select>
+	
+	<!-- 通过管理员ID查询管理员信息 -->
+	<select id="findMUserInfoById" parameterType="Integer" resultType="MUserItems">
+		SELECT * 
+		FROM ctmuser,ctrole
+		WHERE ctmuser.MUserID=#{muserID} and ctmuser.MUserRoleID = ctrole.RoleID
+	</select>
+	
+	<!-- 根据食堂管理员Name查询该管理员的信息 -->
+	<select id="findMUserByName" parameterType="MUser" resultType="MUserItems">
+		SELECT * 
+		FROM ctmuser,ctcant,ctcampus,ctrole
+		WHERE ctmuser.MUserName=#{muserName} and 
+			ctmuser.MUserCantID = ctcant.CantID and 
+			ctmuser.MUserCampusID = ctcampus.CampusID and
+			ctmuser.MUserRoleID = ctrole.RoleID
+	</select>
+
+	<!-- 通过管理员Name查询管理员信息 -->
+	<select id="findMUserInfoByName" parameterType="String" resultType="MUserItems">
+		SELECT * 
+		FROM ctmuser,ctrole
+		WHERE ctmuser.MUserName=#{muserName} and ctmuser.MUserRoleID = ctrole.RoleID
+	</select>
+	<!-- 更新管理用户信息 -->
+	<select id="updateMUser"  parameterType="MUser">
+		UPDATE ctmuser 
+		SET ctmuser.MUserCantID= #{muserCantID},
+			ctmuser.MUserCampusID= #{muserCampusID},
+			ctmuser.MUserRoleID= #{muserRoleID}, 
+			ctmuser.MUserName=#{muserName},
+			ctmuser.MUserPwd=#{muserPwd},
+			ctmuser.MUserTel= #{muserTel},
+			ctmuser.MUserPhoto= #{muserPhoto},  
+			ctmuser.MUserEmail= #{muserEmail},
+			ctmuser.MUserState= #{muserState},
+			ctmuser.MUserRegDate= #{muserRegDate},
+			ctmuser.MUserLastDate= #{muserLastDate},
+			ctmuser.MUserNote= #{muserNote}
+		WHERE ctmuser.MUserID=#{muserID}		
+	</select>
+	
+	<!-- 添加管理员信息 -->
+	<select id="insertMUser" parameterType="MUser" >
+		Insert into ctmuser (ctmuser.MUserCantID,ctmuser.MUserCampusID,
+		ctmuser.MUserRoleID,ctmuser.MUserName,
+		ctmuser.MUserPwd,ctmuser.MUserTel,
+		ctmuser.MUserPhoto,ctmuser.MUserEmail,
+		ctmuser.MUserState,ctmuser.MUserRegDate,
+		ctmuser.MUserLastDate,ctmuser.MUserNote) 
+		values (#{muserCantID},#{muserCampusID},
+		#{muserRoleID},#{muserName},
+		#{muserPwd},#{muserTel},	
+		#{muserPhoto},#{muserEmail},	
+		#{muserState},#{muserRegDate},
+		#{muserLastDate},#{muserNote})
+	</select>
+	
+	<!-- 删除管理用户 -->
+	<select id="deleteMUserById" parameterType="Integer">
+		delete from ctmuser 
+		where ctmuser.MUserID=#{muserID}
+	</select>
+</mapper>

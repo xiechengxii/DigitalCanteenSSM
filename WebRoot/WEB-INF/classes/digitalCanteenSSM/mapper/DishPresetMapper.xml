@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.DishPresetMapper">
+	
+	<!-- 查询所有的菜品的信息,以降序排列(后录入的排在前面) -->
+	<select id="findAllDishPreset" resultType="DishPreset">
+		SELECT * 
+		FROM ctdishpreset
+		ORDER BY DishPresetID DESC
+	</select>
+	
+	<!-- 根据DishPresetID查询该菜品预置信息 -->
+	<select id="findDishPresetById"  parameterType="Integer" resultType="DishPreset">
+		SELECT * 
+		FROM ctdishpreset
+		WHERE ctdishpreset.DishPresetID=#{dishPresetID}		
+	</select>
+
+	<!-- 根据DishPresetName查询预置菜品信息 -->
+	<select id="findDishPresetByName"  parameterType="String" resultType="DishPreset">
+		SELECT * 
+		FROM ctdishpreset 
+		WHERE ctdishpreset.DishPresetName=#{dishPresetName} 
+	</select>
+	
+	<!-- 根据DishPresetID更新菜品预置信息 -->
+	<select id="updateDishPreset"  parameterType="DishPreset">
+		UPDATE ctdishpreset 
+		SET ctdishpreset.DishPresetName= #{ dishPresetName}
+		WHERE ctdishpreset.DishPresetID=#{ dishPresetID};		
+	</select>
+	
+	
+	<!-- 根据DishPresetID删除菜品预置信息 -->
+	<select id="deleteDishPresetById"  parameterType="Integer">
+		Delete from ctdishpreset 
+		where ctdishpreset.DishPresetID=#{ dishPresetID}
+	</select>
+	
+	<!-- 添加菜品预置信息 -->
+	<select id="insertDishPreset"  parameterType="DishPreset">
+		Insert into ctdishpreset (ctdishpreset.DishPresetName)
+		values (#{ dishPresetName})
+	</select>
+	
+</mapper>

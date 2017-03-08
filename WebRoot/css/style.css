@@ -1,0 +1,57 @@
+﻿html,body,p,h1,h2,h3,h4,h5,h6,form,input,textarea,select,button,fieldset,legend,img,ul,ol,li,dl,dt,dd,th,td,pre,
+blockquote{margin:0;padding:0}
+html{height:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
+body{background:#fff ;color:#000;}
+body,button,input,select,textarea,h2,h3,h4,h5,h6{font:14px 'Hiragino Sans GB', 'Microsoft Yahei',
+ '微软雅黑', '宋体', \5b8b\4f53, Tahoma, Arial}
+img,fieldset{border:0;vertical-align:middle}
+input{padding:0;margin:0;outline:none;}
+a{text-decoration:none;color:#4c4c4c;}
+a:hover{text-decoration:none;}
+ul,li,ol{list-style:none}
+.clear{clear:both;height:0;line-height:0;font-size:0;visibility:hidden;overflow:hidden}
+.clearfix:after{visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;zoom:1;}
+.l{float:left;}.r{float:right;}
+/*reset样式重置*/
+.btn3{position:fixed;
+  z-index:3;
+  bottom:0px;
+  border-top:1px solid #b3b3b3;
+  background:#e6e6e6;
+  width:100%;
+  text-align:center;
+  box-sizing:border-box;
+  -webkit-box-sizing:border-box;}
+.menu{position:relative;
+    float:left;
+    width:33.33%;                                        /*宽度修改,4行是需改为25%*/
+    height:50px;
+    line-height:20px;
+    background:#fff;
+    border-right:1px solid #ebebeb;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;}
+.menu:last-child{border-right:none;}
+.bt-name{font-size:16px;color:#000;}
+
+.bt-name a{
+  display:block;
+  font-size:16px;
+  color:#00CED1;
+  text-decoration: none;
+}
+    
+    .weixin{
+      -webkit-transform:translate(0px,14.5px);
+      }
+    .tianjia{
+      width:100%;
+      height:45px;
+      background-color:#ADD8E6;
+    }
+    .yanse{
+      font-family:Microsoft Yahei;
+      color:#fff;
+      font-size:20px;
+      font-weight:20px;
+    }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.WindowPresetMapper">
+	
+	<!-- 查询所有的档口的信息,以降序排列(后录入的排在前面) -->
+	<select id="findAllWindows" resultType="WindowItems">
+		SELECT ctwnd.*,ctcant.cantID,ctcant.CantName, ctcant.cantCampusID,ctcampus.campusID,ctcampus.CampusName
+		FROM ctwnd,ctcant,ctcampus
+		WHERE ctwnd.WndCantID = ctcant.cantID and ctcant.CantCampusID=ctcampus.campusID
+		ORDER BY WndID DESC
+	</select>
+	
+	<!-- 根据WndID查询该档口信息 -->
+	<select id="findWindowById"  parameterType="int" resultType="WindowItems">
+		SELECT * 
+		FROM ctwnd,ctcant,ctcampus
+		WHERE ctwnd.WndID=#{wndID}	and ctwnd.WndCantID = ctcant.cantID and ctcant.CantCampusID=ctcampus.campusID	
+	</select>
+	
+	<!-- 根据WndName查询该档口信息 -->
+	<select id="findWindowByName"  parameterType="WindowItems" resultType="WindowItems">
+		SELECT * 
+		FROM ctwnd 
+		WHERE ctwnd.WndName=#{wndName} and ctwnd.WndCantID=#{wndCantID}		
+	</select>
+			
+	<!-- 查询一个食堂下的所有档口 -->
+	<select id="findWindowsInCanteen" parameterType="Integer" resultType="WindowItems">
+		SELECT * 
+		FROM ctwnd 
+		WHERE ctwnd.WndCantID=#{cantID}
+	</select>
+	
+	<!-- 根据WndID更新档口信息 -->
+	<select id="updateWindow"  parameterType="WindowItems">
+		UPDATE ctwnd 
+		SET ctwnd.WndCantID= #{wndCantID},
+			ctwnd.WndName= #{wndName}, 
+			ctwnd.WndAddr= #{wndAddr}, 
+			ctwnd.WndPriceRange= #{wndPriceRange}, 
+			ctwnd.WndSaleHours= #{wndSaleHours},  
+			ctwnd.WndPayment= #{wndPayment}, 
+			ctwnd.WndDescription= #{wndDescription},  
+			ctwnd.WndNote= #{wndNote}  
+		WHERE ctwnd.WndID=#{wndID}		
+	</select>
+	
+	<!-- 根据WndID删除档口信息 -->
+	<select id="deleteWindowById"  parameterType="Window">
+		Delete from ctwnd 
+		where ctwnd.WndID=#{wndID}
+	</select>
+	
+	<!-- 添加档口信息 -->
+	<select id="insertWindow"  parameterType="Window">
+		Insert into ctwnd (ctwnd.WndCantID,
+		ctwnd.WndName,ctwnd.WndAddr,
+		ctwnd.WndPriceRange,ctwnd.WndSaleHours,
+		ctwnd.WndPayment,ctwnd.WndDescription,
+		ctwnd.WndNote) 
+		values (#{wndCantID},
+		#{wndName},#{wndAddr},
+		#{wndPriceRange},#{wndSaleHours},
+		#{wndPayment},#{wndDescription},
+		#{wndNote})
+	</select>
+	
+</mapper>

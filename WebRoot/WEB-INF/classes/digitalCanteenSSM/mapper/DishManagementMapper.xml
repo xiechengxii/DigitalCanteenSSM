@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.DishManagementMapper">
+	
+	<!-- 查询所有的菜品的信息,以降序排列(后录入的排在前面) -->
+	<select id="findAllDishes" resultType="DishItems">
+		SELECT ctdish.*, ctwnd.wndID,ctwnd.wndName,
+				ctcant.cantID,ctcant.CantName, ctcant.cantCampusID,
+				ctcampus.campusID,ctcampus.CampusName,
+				ctdishtype.DishTypeID,ctdishtype.DishTypeName
+		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
+        WHERE ctdish.DishWndID = ctwnd.WndID and  
+        		ctwnd.WndCantID = ctcant.cantID and 
+        		ctcant.CantCampusID=ctcampus.campusID and
+        		ctdish.DishTypeID=ctdishtype.DishTypeID
+		ORDER BY CampusID ,CantID,WndID,DishID
+	</select>
+	
+	<!-- 查询一个食堂下的所有菜品 -->
+	<select id="findDishInCanteen" parameterType="Integer" resultType="DishItems">
+		SELECT ctdish.*, ctwnd.wndID,ctwnd.wndName,
+				ctcant.cantID,ctcant.CantName, ctcant.cantCampusID,
+				ctcampus.campusID,ctcampus.CampusName,
+				ctdishtype.DishTypeID,ctdishtype.DishTypeName
+		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
+        WHERE ctdish.DishWndID = ctwnd.WndID and  
+        		ctwnd.WndCantID = ctcant.cantID and 
+        		ctcant.CantCampusID=ctcampus.campusID and
+        		ctdish.DishTypeID=ctdishtype.DishTypeID and
+        		ctcant.CantID=#{cantID}
+		ORDER BY CampusID,CantID,WndID,DishID DESC
+	</select>
+	
+	<!-- 查询一个校区下的所有菜品 -->
+	<select id="findDishInCampus" parameterType="Integer" resultType="DishItems">
+		SELECT ctdish.*, ctwnd.wndID,ctwnd.wndName,
+				ctcant.cantID,ctcant.CantName, ctcant.cantCampusID,
+				ctcampus.campusID,ctcampus.CampusName,
+				ctdishtype.DishTypeID,ctdishtype.DishTypeName
+		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
+        WHERE ctdish.DishWndID = ctwnd.WndID and  
+        		ctwnd.WndCantID = ctcant.cantID and 
+        		ctcant.CantCampusID=ctcampus.campusID and
+        		ctdish.DishTypeID=ctdishtype.DishTypeID and
+        		ctcampus.CampusID=#{campusID}
+		ORDER BY CampusID,CantID,WndID,DishID DESC
+	</select>
+	
+	<!-- 查询出所有的新菜申请的菜品 -->
+	<select id="findApplyDish" parameterType="String" resultType="DishItems">
+		SELECT ctdish.*, ctwnd.wndID,ctwnd.wndName,
+				ctcant.cantID,ctcant.CantName, ctcant.cantCampusID,
+				ctcampus.campusID,ctcampus.CampusName,
+				ctdishtype.DishTypeID,ctdishtype.DishTypeName
+		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
+		WHERE ctdish.DishWndID = ctwnd.WndID and  
+        		ctwnd.WndCantID = ctcant.cantID and 
+        		ctcant.CantCampusID=ctcampus.campusID and
+        		ctdish.DishTypeID=ctdishtype.DishTypeID and
+        		ctdish.DishInState=#{dishInState}
+		ORDER BY CampusID ,CantID,WndID,DishID DESC
+	</select>
+	
+	<!-- 待审核菜品审核通过 -->
+	<select id="updateCheckDishPass" parameterType="Dish" >
+		UPDATE ctdish 
+		SET ctdish.DishInState= #{dishInState}
+		WHERE ctdish.DishID=#{dishID}		
+	</select>
+	
+	<!-- 根据DishID查询该菜品信息 -->
+	<select id="findDishById"  parameterType="Dish" resultType="DishItems">
+		SELECT * 
+		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
+		WHERE ctdish.DishID=#{dishID} and ctdish.DishWndID = ctwnd.WndID and 
+				ctwnd.WndCantID = ctcant.cantID and ctcant.CantCampusID=ctcampus.campusID and
+				ctdish.DishTypeID=ctdishtype.DishTypeID	
+	</select>
+	
+	<!-- 根据DishName查询该菜品信息 -->
+	<select id="findDishByName"  parameterType="Dish" resultType="DishItems">
+		SELECT * 
+		FROM ctdish 
+		WHERE ctdish.DishName=#{dishName} and ctdish.DishWndID=#{dishWndID}		
+	</select>
+	
+	<!-- 查询一个档口下的所有菜品 -->
+	<select id="findDishesInWindow" parameterType="Window" resultType="Dish">
+		SELECT * 
+		FROM ctdish 
+		WHERE ctdish.DishWndID=window.wndID
+	</select>
+	
+	<!-- 根据DishID更新菜品信息 -->
+	<select id="updateDish"  parameterType="dishItems">
+		UPDATE ctdish 
+		SET ctdish.DishWndID= #{dishWndID},
+			ctdish.DishTypeID= #{dishTypeID},
+			ctdish.DishName= #{dishName}, 
+			ctdish.DishPhoto=#{dishPhoto},
+			ctdish.DishPrice= #{dishPrice},
+			ctdish.DishDate= #{dishDate},  
+			ctdish.DishRecmd= #{dishRecmd},
+			ctdish.DishKeep= #{dishKeep},
+			ctdish.DishQuality= #{dishQuality},
+			ctdish.DishSale= #{dishSale}, 
+			ctdish.DishInDate= #{dishInDate},  
+			ctdish.DishInState= #{dishInState},
+			ctdish.DishNote= #{dishNote},
+			ctdish.DishDelete= #{dishDelete} 
+		WHERE ctdish.DishID=#{dishID}		
+	</select>
+	
+	<!-- 根据DishID删除菜品信息 -->
+	<select id="deleteDishById"  parameterType="Dish">
+		Delete from ctdish 
+		where ctdish.DishID=#{dishID}
+	</select>
+	
+	<!-- 添加菜品信息 -->
+	<select id="insertDish"  parameterType="Dish">
+		Insert into ctdish (ctdish.DishWndID,ctdish.DishTypeID,ctdish.DishName,ctdish.DishPhoto,
+		ctdish.DishPrice,ctdish.DishDate,
+		ctdish.DishRecmd,ctdish.DishKeep, 		
+		ctdish.DishQuality,ctdish.DishSale,
+		ctdish.DishInDate,ctdish.DishInState,
+		ctdish.DishNote,ctdish.DishDelete) 
+		values (#{dishWndID},#{dishTypeID},#{dishName},#{dishPhoto},
+		#{dishPrice},#{dishDate},	
+		#{dishRecmd},#{dishKeep},	
+		#{dishQuality},#{dishSale},
+		#{dishInDate},#{dishInState},
+		#{dishNote},#{dishDelete})
+	</select>
+	
+</mapper>

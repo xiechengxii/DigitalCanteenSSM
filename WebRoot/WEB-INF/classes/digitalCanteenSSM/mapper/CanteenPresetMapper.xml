@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.CanteenPresetMapper">
+	
+	<!-- 查询所有的食堂的信息,以降序排列(后录入的排在前面) -->
+	<select id="findAllCanteens" resultType="CanteenItems">
+		SELECT *
+		FROM ctcant,ctcampus,ctcanttype
+		WHERE ctcant.cantCampusID = ctcampus.campusID and ctcant.CantTypeID=ctcanttype.CantTypeID
+		ORDER BY CantID DESC
+	</select>
+	
+	<!-- 根据CanteenID查询该食堂信息 -->
+	<select id="findCanteenById"  parameterType="int" resultType="CanteenItems">
+		SELECT * 
+		FROM ctcant,ctcampus,ctcanttype
+		WHERE ctcant.CantID=#{cantID} and ctcant.cantCampusID = ctcampus.campusID and ctcant.CantTypeID=ctcanttype.CantTypeID		
+	</select>
+	
+	<!-- 根据CanteenName和CampusID查询该食堂信息 -->
+	<select id="findCanteenByName"  parameterType="CanteenItems" resultType="CanteenItems">
+		SELECT * 
+		FROM ctcant 
+		WHERE ctcant.CantName=#{cantName} and ctcant.CantCampusID=#{cantCampusID}		
+	</select>
+	
+	<!-- 根据CampusName查询一个校区下的所有食堂 -->
+	<select id="findCanteenByCampus"  parameterType="Integer" resultType="CanteenItems">
+		SELECT * 
+		FROM ctcant 
+		WHERE ctcant.CantCampusID=#{cantCampusID}
+		ORDER BY CantID	DESC
+	</select>
+	
+	<!-- 查询一个校区下的所有食堂 -->
+	<select id="findCanteensInCampus" parameterType="Campus" resultType="CanteenItems">
+		SELECT * 
+		FROM ctcant,ctcampus,ctcanttype 
+		WHERE ctcant.CantCampusID=campusID and ctcant.CantTypeID=ctcanttype.CantTypeID
+	</select>
+	
+	<!-- 根据CanteenID更新食堂信息 -->
+	<select id="updateCanteen"  parameterType="CanteenItems">
+		UPDATE ctcant 
+		SET ctcant.CantCampusID= #{cantCampusID}, 
+			ctcant.CantName= #{cantName}, 
+			ctcant.CantTypeID=#{cantTypeID},
+			ctcant.CantAddr= #{cantAddr}, 
+			ctcant.CantDescription= #{cantDescription}  
+		WHERE ctcant.CantID=#{cantID}		
+	</select>
+	
+	<!-- 根据CanteenID删除食堂信息 -->
+	<select id="deleteCanteenById"  parameterType="Canteen">
+		Delete from ctcant 
+		where ctcant.CantID=#{cantID}
+	</select>
+	
+	<!-- 添加食堂信息 -->
+	<select id="insertCanteen"  parameterType="Canteen">
+		Insert into ctcant (
+			ctcant.CantCampusID,ctcant.CantName,ctcant.CantTypeID,
+			ctcant.CantAddr,ctcant.CantDescription) 
+		values (
+			#{cantCampusID},#{cantName},#{cantTypeID},
+			#{cantAddr},#{cantDescription})
+	</select>
+	
+</mapper>

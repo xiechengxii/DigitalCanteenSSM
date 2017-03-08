@@ -1,0 +1,94 @@
+/*食堂菜品录入管理系统的颜色字体背景色的样式制定*/
+.navbar-default .navbar-brand {
+ color: #FFFFFF;   
+}
+
+.navbar-brand {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.navbar{
+background-color: rgb(51, 122, 183);
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+}
+
+/*标题上的导航栏样式*/
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #FFFFFF;
+    background-color:#206DE3;
+}
+
+/*您好，管理员的样式制定*/
+.navbar-default .navbar-nav>li>a {
+    color:#FFFFFF;
+}
+/*下拉菜单点击的时候的字体颜色*/
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    color: #FFFFFF;
+    background-color: rgb(51, 122, 183);
+}
+
+
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #eee;
+    border-color: #337ab7;
+}
+
+
+.dropdown-menu{
+	
+	min-width: auto;
+	
+}
+
+/*导航栏的边框样式*/
+.nav-tabs{
+
+
+	padding-right: 0px;
+	padding-left: 0px;
+		
+}
+
+.nav-stacked > li {
+	border-width:1px;
+	border-style:solid;
+    border-color:#e7e7e7;
+}
+
+/*设置日历和按钮的间隔*/
+.btn {
+    margin-left: 5px;
+	margin-right: 5px;
+}
+
+/*可折叠排成一行*/
+.panel-group .panel+.panel {
+    margin-top: 0px;
+}
+
+/*设置树状的高度*/
+.panel-heading {
+ 
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.panel-body {
+    padding: 8px;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 28px;
+}
+/*设置树状的颜色*/
+.panel-default>.panel-heading {
+    color: #000000;
+    /*background-color: #337ab7;*/
+    background-color: #cccccc;
+}

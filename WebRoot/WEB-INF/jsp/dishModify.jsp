@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
     
   	    </script>
-  	    <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>
+  	    <script src="././My97DatePicker/WdatePicker.js"></script>
     </head>
     
     <body>
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		<br><br>
    		<!-- 菜品图片录入 -->		
    		<tr>
-   			<td>菜品图片：</td><br/>		
+   			<td>菜品图片：</td> <br>		
    			<td>
    				<c:if test="${dishItems.dishPhoto != null }">
 					<img src="/upload/pic/${dishItems.dishPhoto }" width=160 height=120/>

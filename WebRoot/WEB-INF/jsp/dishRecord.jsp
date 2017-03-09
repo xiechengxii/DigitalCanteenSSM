@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
@@ -7,30 +6,35 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'dishRecord.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+    <head>
+        <base href="<%=basePath%>">
+        
+	    <meta name="viewport" content="width=device-width, 
+                                                     initial-scale=0.3, 
+                                                     maximum-scale=1.0, 
+                                                     user-scalable=true">
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="expires" content="0">
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!--自定义-->      
+        <link rel="stylesheet" href="css/my-custom.css">
+        <!--分页控件--> 
+        <link rel="stylesheet" href="css/qunit-1.11.0.css">
+        
+        <!--bootstrap-->    
+        <script src="js/jquery-1.10.1.min.js"></script>       
+        
+        <!--bootstrap-->    
+        <script src="js/bootstrap.min.js"></script>
 
-  </head>
+    </head>
   	
   	
-  <body> 
-  	<form method="post" action="muserBackGround.action">
-    	<input type="submit" value="跳回后台页面">
-    </form>  
-    <!-- 导入在一个食堂中的记录信息 -->	
-   	<%@ include file="recordInCanteen.jsp" %>
-  </body>
+    <body>
+   	    <%@ include file="recordInCanteen.jsp" %>
+    </body>
 </html>

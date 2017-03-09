@@ -1,6 +1,9 @@
 package digitalCanteenSSM.controller;
 
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import digitalCanteenSSM.po.Campus;
+import digitalCanteenSSM.po.CanteenItems;
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.service.CampusPresetService;
@@ -36,14 +41,54 @@ public class MUserBackGroundController {
 	@Autowired
 	private UploadFileService uploadFileService;
 	
+	@RequestMapping("/backgroundHomepage")
+	public String backgroundHomepage(HttpSession session) throws Exception{
+		List<Campus> campusList = campusPresetService.findAllCampuses();
+		if(campusList != null){
+			Iterator<Campus> iterator_campus = campusList.iterator();
+			Campus campus = (Campus) iterator_campus.next();
+			
+			List<CanteenItems> canteenItemsList = canteenPresetService.findCanteenByCampus(campus.getCampusID());
+			if(canteenItemsList != null){
+				Iterator<CanteenItems> iterator_canteenItems = canteenItemsList.iterator();
+				CanteenItems canteenItems = iterator_canteenItems.next();
+				
+				return "forward:muserBackGround.action?recordCantID="+canteenItems.getCantID();
+			}
+		}			
+		
+		return "forward:campusPreset.action";
+	}
+	
 	//后台管理员记录菜品页面显示
 	@RequestMapping("/muserBackGround")
-	public ModelAndView muserBackGround(HttpSession session)throws Exception{
+	public ModelAndView muserBackGround(HttpSession session, Integer recordCantID)throws Exception{
 	
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
-		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());		
+		/*
+		 * 需要查询数据库中当天的菜品记录，
+		 * 获取当前日期并将时分秒设置为0，
+		 * （数据库中日期的时分秒为零）
+		 * */
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		Date now = cal.getTime();
+		
+		Record rc = new Record();
+		rc.setRecordDate(now);
+		
+		CanteenItems canteenItems = canteenPresetService.findCanteenById(recordCantID);
+		
+		modelAndView.addObject("canteenItems", canteenItems);
+		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
+		modelAndView.addObject("canteenItemsList", canteenPresetService.findAllCanteens());	
+		modelAndView.addObject("RecordItemsList", recordService.findRecordByDate(rc));
+		modelAndView.addObject("dishRecordList", recordService.findRecordInCanteen(recordCantID));
+		
 		modelAndView.setViewName("/WEB-INF/jsp/muserBackGround.jsp");
 		
 		return modelAndView;

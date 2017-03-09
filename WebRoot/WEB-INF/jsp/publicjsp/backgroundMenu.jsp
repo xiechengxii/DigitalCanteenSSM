@@ -3,12 +3,12 @@
 <nav class="navbar navbar-default " role="navigation">
     <div class="navbar-all">
         <div class="navbar-header">		
-        	<a class="navbar-brand" href="#"><FONT style="FONT-FAMILY:楷体">后台管理系统</FONT></a>
+        	<a class="navbar-brand" href="${pageContext.request.contextPath }/backgroundHomepage.action"><FONT style="FONT-FAMILY:楷体">后台管理系统</FONT></a>
         </div>
   	
   		<ul class="nav navbar-nav">
     	    <li>
-                <a href="#"><FONT style="FONT-FAMILY:黑体">首页</FONT></a>
+                <a href="${pageContext.request.contextPath }/backgroundHomepage.action"><FONT style="FONT-FAMILY:黑体">首页</FONT></a>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -10,7 +10,7 @@ public interface RecordMapper {
 	
 	public Integer findRecordID(Record record) throws Exception;
 	
-	public Record findRecordByDate(Record record) throws Exception;
+	public List<Record> findRecordByDate(Record record) throws Exception;
 	
 	public Record findRecordInCanteenAndDate(Record reocrd) throws Exception;
 	

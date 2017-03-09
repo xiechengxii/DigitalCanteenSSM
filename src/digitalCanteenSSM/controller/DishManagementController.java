@@ -91,7 +91,7 @@ public class DishManagementController {
 		
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCampus(muserItems.getCampusID()));
-		modelAndView.addObject("muserItems",muserItems);	
+		modelAndView.addObject("muserItems",muserItems);
 		modelAndView.setViewName("/WEB-INF/jsp/dishInCampus.jsp");
 		
 		return modelAndView;

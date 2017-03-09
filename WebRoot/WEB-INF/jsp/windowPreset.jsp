@@ -46,14 +46,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	
         		if(objValue == ""){
         			objForm.wndCantID.disabled = true;
-        		}else{   			 	
+        		}else{  
         			objForm.wndCantID.disabled = false; 
         			objForm.wndCantID.options.length = 0;
         			
         			<c:forEach items="${canteenItemsList }" var="item" >  	
         	 			var cantCampusID = ${item.cantCampusID };
  	     				var optionObj = document.createElement("option");
-        	 			if( cantCampusID == Number(objValue)){	 				
+        	 			if( cantCampusID == Number(objValue)){
 	                        optionObj.text = "${item.cantName }";
 	                        optionObj.value = "${item.cantID }";
 	                        objForm.wndCantID.add(optionObj);

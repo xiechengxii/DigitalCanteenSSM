@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="container-fluid">	
     		<div class="panel panel-default">
 
-    			<div class="panel panel-heading">
+    			<div class="panel-heading">
     				<div class="row">
  						<div class="col-sm-1">
 					   		<label>所属校区：</label>${muserItems.campusName}

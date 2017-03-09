@@ -16,18 +16,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.service.MUserService;
 
+
 @Controller
 public class LoginController {
-
 	@Autowired
 	private MUserService mUserService;
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(String userName, String password, HttpServletRequest request, HttpSession session){
+	public String login(String userName, String password, HttpServletRequest request, HttpSession session) throws Exception{
 
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
 		Subject currentUser = SecurityUtils.getSubject();
@@ -67,21 +68,21 @@ public class LoginController {
 				*查询，不然获取不到校区和食堂信息
 				*/
 				MUser mUser = new MUser();
-				mUser.setMuserName(mUserItems.getMuserName());
-				try {
-					mUserItems = mUserService.findMUserByName(mUser);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				mUser.setMuserName(mUserItems.getMuserName());				
+				mUserItems = mUserService.findMUserByName(mUser);
 
 				session.setAttribute("muserItems", mUserItems);
 				return "forward:muserCanteenHostPage.action";
-			}else if("super".equals(mUserItems.getRoleName())){
-				session.setAttribute("muserItems", mUserItems);
-				return "forward:muserBackGround.action";
+				
+			}else if("super".equals(mUserItems.getRoleName())){	
+				
+				session.setAttribute("muserItems", mUserItems);				
+				return "forward:backgroundHomepage.action";
+				
 			}else{
 				session.setAttribute("muserItems", mUserItems);
 				return "forward:findAllCampuses.action";
+				
 			}
 
 		}else{

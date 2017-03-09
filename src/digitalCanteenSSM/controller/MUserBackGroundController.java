@@ -1,6 +1,8 @@
 package digitalCanteenSSM.controller;
 
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -42,8 +44,24 @@ public class MUserBackGroundController {
 	
 		ModelAndView modelAndView = new ModelAndView();
 		
+		/*
+		 * 需要查询数据库中当天的菜品记录，
+		 * 获取当前日期并将时分秒设置为0，
+		 * （数据库中日期的时分秒为零）
+		 * */
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		Date now = cal.getTime();
+		
+		Record rc = new Record();
+		rc.setRecordDate(now);
+		
 		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
-		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());		
+		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());	
+		modelAndView.addObject("RecordItemsList", recordService.findRecordByDate(rc));
+		
 		modelAndView.setViewName("/WEB-INF/jsp/muserBackGround.jsp");
 		
 		return modelAndView;

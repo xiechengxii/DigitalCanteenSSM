@@ -78,7 +78,7 @@ public class LoginController {
 				return "forward:muserCanteenHostPage.action";
 			}else if("super".equals(mUserItems.getRoleName())){
 				session.setAttribute("muserItems", mUserItems);
-				return "forward:findAllCampuses.action";
+				return "forward:muserBackGround.action";
 			}else{
 				session.setAttribute("muserItems", mUserItems);
 				return "forward:findAllCampuses.action";

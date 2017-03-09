@@ -44,7 +44,7 @@ public class RecordServiceImpl implements RecordService{
 	}
 
 	@Override
-	public Record findRecordByDate(Record record) throws Exception {
+	public List<Record> findRecordByDate(Record record) throws Exception {
 		
 		return recordMapper.findRecordByDate(record);
 	}

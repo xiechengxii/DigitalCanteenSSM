@@ -10,7 +10,7 @@ public interface RecordService {
 	
 	public Integer findRecordID(Record record) throws Exception;
 	
-	public Record findRecordByDate(Record reocrd) throws Exception;
+	public List<Record> findRecordByDate(Record reocrd) throws Exception;
 	
 	public Record findRecordInCanteenAndDate(Record record) throws Exception;
 	

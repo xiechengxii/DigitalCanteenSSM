@@ -51,13 +51,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			<c:forEach items="${campusList }" var="item_campus">
 	    				<div class="panel panel-default">
 	    					<div class="panel-heading">
-	    						<h4 class="panel-title">
-	    							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-	    								${item_campus.campusName }
-	    							</a>
+	    						<h4 class="panel-title">	    							
+	    							${item_campus.campusName }	    							
 	    						</h4>
 	    					</div>
-	    					<div id="collapseOne" class="panel-collapse collapse in">
+	    					<div class="panel-collapse collapse in">
 	    						<c:forEach items="${canteenItemsList }" var="item_canteen">
 	    							<c:if test="${item_canteen.campusName == item_campus.campusName}">
 	    								<div class="panel-body">

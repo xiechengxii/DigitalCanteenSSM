@@ -202,8 +202,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <!-- wndID=${item.wndID}& -->
                                         <td style='vertical-align: middle;text-align: center;'>
                                             <div class="form-group btn-group btn-group-sm">
-                                                <a href="modifyWindow.action?wndID=${item.wndID}&cantCampusID=${item.cantCampusID}" class="btn btn-default">修改</a>
-                                                <a href="deleteWindowById.action?wndID=${item.wndID}" class="btn btn-default">删除</a>
+                                                <a href="modifyWindow.action?wndID=${item.wndID}&cantCampusID=${item.cantCampusID}" class="btn btn-info">修改</a>
+                                                <a href="deleteWindowById.action?wndID=${item.wndID}" class="btn btn-danger">删除</a>
                                             </div>
                                         </td>
                                     </tr>

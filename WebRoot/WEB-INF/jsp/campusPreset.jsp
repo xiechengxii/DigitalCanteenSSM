@@ -84,8 +84,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									    <td style='vertical-align: middle;text-align: center;'>${item.campusName }</td>
 									    <td style='vertical-align: middle;text-align: center;'>
 									    	<div class="form-group btn-group btn-group-sm">
-									    		<a href="modifyCampus.action?campusID=${item.campusID}" class="btn btn-default" role="button">修改</a>
-									    		<a href="deleteCampusById.action?campusID=${item.campusID}" class="btn btn-default" role="button">删除</a>
+									    		<a href="modifyCampus.action?campusID=${item.campusID}" class="btn btn-info" >修改</a>
+									    		<a href="deleteCampusById.action?campusID=${item.campusID}" class="btn btn-danger">删除</a>
 									    	</div>
 									    </td>
 									</tr>

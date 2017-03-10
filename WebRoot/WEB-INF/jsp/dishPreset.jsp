@@ -84,8 +84,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    		    <td style='vertical-align: middle;text-align: center;'>${item.dishPresetName }</td>
 						    		    <td style='vertical-align: middle;text-align: center;'>						    		    	
 						    		    	<div class="form-group btn-group btn-group-sm">
-						    		    		<a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}" class="btn btn-default" role="button">修改</a>
-						    		    		<a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}" class="btn btn-default" role="button">删除</a>
+						    		    		<a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}" class="btn btn-info">修改</a>
+						    		    		<a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}" class="btn btn-danger">删除</a>
 						    		    	</div>						    		    	
 						    		    </td>
 						    		</tr>

@@ -79,8 +79,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    	    <td style='vertical-align: middle;text-align: center;'>${item.dishTypeName }</td>
 						    	    <td style='vertical-align: middle;text-align: center;'>
 						    	    	<div class="form-group btn-group btn-group-sm">
-						    	    		<a href="modifyDishType.action?dishTypeID=${item.dishTypeID}" class="btn btn-default">修改</a>
-						    	    		<a href="deleteDishTypeById.action?dishTypeID=${item.dishTypeID}" class="btn btn-default">删除</a>
+						    	    		<a href="modifyDishType.action?dishTypeID=${item.dishTypeID}" class="btn btn-info">修改</a>
+						    	    		<a href="deleteDishTypeById.action?dishTypeID=${item.dishTypeID}" class="btn btn-danger">删除</a>
 						    	    	</div>
 						    	    </td>
 						    	</tr>

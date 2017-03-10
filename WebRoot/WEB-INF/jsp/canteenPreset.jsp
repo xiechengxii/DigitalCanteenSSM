@@ -108,8 +108,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <td style='vertical-align: middle;text-align: center;'>${item.cantName }</td>
                                         <td style='vertical-align: middle;text-align: center;'>
                                             <div class="form-group btn-group btn-group-sm">
-                                                <a href="modifyCanteen.action?cantID=${item.cantID}" class="btn btn-default">修改</a>
-                                                <a href="deleteCanteenById.action?cantID=${item.cantID}" class="btn btn-default">删除</a>
+                                                <a href="modifyCanteen.action?cantID=${item.cantID}" class="btn btn-info">修改</a>
+                                                <a href="deleteCanteenById.action?cantID=${item.cantID}" class="btn btn-danger">删除</a>
                                             </div>
                                         </td>
                                     </tr>

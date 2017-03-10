@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               	    <td style='vertical-align: middle;text-align: center;'>${item.recordSubmitState }</td>
 	                               	    <td style='vertical-align: middle;text-align: center;'>
                                             <div class="form-group btn-group btn-group-sm">
-	                               	    		<a href="findRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-default">查看</a>
+	                               	    		<a href="findRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-success">查看</a>
                                             </div>
 	                               	    </td>
 	                               </tr>

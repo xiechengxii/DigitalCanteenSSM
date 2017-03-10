@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishKeep }</td>
 	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishQuality }</td>	
                                         <td style='vertical-align: middle;text-align: center;'>
-                                            <a href="deleteDetailDish.action?detailID=${item.detailID}&recordID=${record.recordID}" class="btn btn-default">删除</a>
+                                            <a href="deleteDetailDish.action?detailID=${item.detailID}&recordID=${record.recordID}" class="btn btn-danger">删除</a>
                                         </td>
 	                    	        </tr>
 	                    	    </c:forEach>

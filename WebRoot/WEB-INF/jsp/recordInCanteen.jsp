@@ -22,9 +22,9 @@
 	        	<td style='vertical-align: middle;text-align: center;'>${item.recordSubmitState }</td>
 	        	<td style='vertical-align: middle;text-align: center;'>
                     <div class="form-group btn-group btn-group-sm">
-                        <a href="modifyRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-default">修改</a>
-	        		    <a href="findRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-default">查看</a>
-	        	        <a href="deleteRecord.action?recordID=${item.recordID}" class="btn btn-default">删除</a>
+                        <a href="modifyRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-info">修改</a>
+	        		    <a href="findRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-success">查看</a>
+	        	        <a href="deleteRecord.action?recordID=${item.recordID}" class="btn btn-danger">删除</a>
                     </div>
 	        	</td>
 	        </tr>

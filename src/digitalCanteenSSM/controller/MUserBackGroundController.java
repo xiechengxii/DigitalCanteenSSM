@@ -54,6 +54,8 @@ public class MUserBackGroundController {
 				CanteenItems canteenItems = iterator_canteenItems.next();
 				
 				return "forward:muserBackGround.action?recordCantID="+canteenItems.getCantID();
+			}else{
+				return "forward:canteenPreset.action";
 			}
 		}			
 		

@@ -12,17 +12,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<package name="digitalCanteenSSM.po"/>
 	</typeAliases>
 
-	<!-- 配置分页插件 -->
-    <plugins>
-        <plugin interceptor="com.github.pagehelper.PageHelper">
-            <!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->        
-            <property name="dialect" value="mysql"/>
-            
-            <!-- 启用合理化，当pagenum<1时查询第一页 -->
-            <property name="reasonable" value="true"/>
-        </plugin>
-    </plugins>
-    
 	<!-- 配置mapper
 	由于使用spring和mybatis的整合包进行mapper扫描，这里不需要配置了。
 	必须遵循：mapper.xml和mapper.java文件同名且在一个目录 

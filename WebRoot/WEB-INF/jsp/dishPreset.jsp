@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    	</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${dishPersetList }" var="item" >
+								<c:forEach items="${pagehelper.list }" var="item" >
 						    		<tr>
 						    		    <td style='vertical-align: middle;text-align: center;'>${item.dishPresetName }</td>
 						    		    <td style='vertical-align: middle;text-align: center;'>						    		    	
@@ -92,6 +92,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</c:forEach>
 							</tbody>
 						</table>
+						<div>
+							<div class="message">
+								<p class="text-center">
+									共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
+								</p>
+							</div>
+							<div style="text-align:center;">
+								<ul class="pagination">
+									<c:if test="${!pagehelper.isFirstPage}">										
+										<li>
+											<a href="findAllDishPreset.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
+										</li>
+									</c:if>
+
+									<c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">	
+
+										<c:if test="${navigatepageNum==pagehelper.pageNum}">
+											<li class="active">
+												<a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+											</li>
+										</c:if>
+
+										<c:if test="${navigatepageNum!=pagehelper.pageNum}">
+											<li>
+												<a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+											</li>
+										</c:if>
+
+									</c:forEach>
+
+									<c:if test="${!pagehelper.isLastPage}">
+										<li>
+											<a href="findAllDishPreset.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+										</li>
+									</c:if>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 				

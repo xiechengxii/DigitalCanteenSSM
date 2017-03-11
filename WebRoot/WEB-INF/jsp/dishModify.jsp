@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <option value="否">否</option>
                                             </c:when>
                                             <c:otherwise>
-                                                <option value="否" selected="selected"}>否</option>
+                                                <option value="否" selected="selected">否</option>
                                                 <option value="是" >是</option>
                                             </c:otherwise>    
                                         </c:choose>
@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <option value="否">否</option>
                                             </c:when>
                                             <c:otherwise>
-                                                <option value="否" selected="selected"}>否</option>
+                                                <option value="否" selected="selected">否</option>
                                                 <option value="是" >是</option>
                                             </c:otherwise>    
                                         </c:choose>

@@ -49,7 +49,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <input type="hidden" name = "campusID" value="${muserItems.campusID }" >
 	                    <input type="hidden" name = "cantID" value="${muserItems.cantID }" >
 	                    <input type="hidden" name = "muserID" value="${muserItems.cantID }" >
-	                    <%@ include file="recordInCanteen.jsp" %>
+                        <div class="form-group">                            
+                            <a href="importReplenishDish.action" class="btn btn-primary">补录菜品</a>
+                            <br><br>
+	                        <%@ include file="recordInCanteen.jsp" %>
+                        </div>
                     </form> 
                 </div>
 

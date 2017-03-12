@@ -6,7 +6,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
 <html >
 <head>
     <base href="<%=basePath%>">
@@ -74,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 	</script>
-	<script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>
+	<script src="././My97DatePicker/WdatePicker.js"></script>
 </head>
   
  <!-- html自动调用JS中的函数 --><!-- onload="checkBoxSelect()" -->

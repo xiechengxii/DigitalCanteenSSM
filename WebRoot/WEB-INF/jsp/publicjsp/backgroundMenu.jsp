@@ -15,9 +15,7 @@
                     <FONT style="FONT-FAMILY:黑体">菜品管理</FONT>
                     <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">菜品查询</a></li>
-                    <li class="divider"></li>
+                <ul class="dropdown-menu">                    
                     <li><a href="#">菜品导出</a></li>
                     <li class="divider"></li>
                     <li><a href="${pageContext.request.contextPath }/checkDish.action">新菜审核</a></li>

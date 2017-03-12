@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     		<thead>
                     		    <tr>
                     		    	<th style='text-align: center;'>管理员类型</th>
-                    		    	<th style='text-align: center;'>管理员名字</th>
+                    		    	<th style='text-align: center;'>管理员用户名</th>
                     		    	<th style='text-align: center;'>电话</th>
                     		    	<th style='text-align: center;'>照片</th>
                     		    	<th style='text-align: center;'>Email</th>

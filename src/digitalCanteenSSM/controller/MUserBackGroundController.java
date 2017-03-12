@@ -154,7 +154,7 @@ public class MUserBackGroundController {
 			String muserphoto=uploadFileService.uploadFile(muserPhotoFile, DishManagementController.getPicturepath());
 			//未输入图片则使用默认的
 			if( muserphoto== null){			
-				muser.setMuserPhoto(DishManagementController.getDefaultpicturepath());
+				muser.setMuserPhoto(DishManagementController.getUserDefaultpicturepath());
 			}
 			else{
 				muser.setMuserPhoto(muserphoto);

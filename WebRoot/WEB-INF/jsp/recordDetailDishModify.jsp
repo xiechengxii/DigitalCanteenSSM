@@ -43,7 +43,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			var checkbox = document.getElementById(dishID);	
     			checkbox.checked=true;
     		}
-    	
+
+            var checkflag=false;
+            function getAllDishSelect(name){
+                var allvalue = document.getElementsByName(name);
+                
+                if(checkflag==false){
+                    for (var i = 0; i < allvalue.length; i++) {        
+                        if ((allvalue[i].type == "checkbox"))             
+                        allvalue[i].checked = true;                            
+                    }  
+                    checkflag=true;
+                }else{
+                    for (var i = 0; i < allvalue.length; i++) {        
+                        if ((allvalue[i].type == "checkbox"))             
+                        allvalue[i].checked = false;                           
+                    }  
+                    checkflag=false;
+                }
+            }    	
     	</script>
     </head>
   
@@ -71,7 +89,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<table class="table table-striped table-bordered table-hover table-responsive text-center">
                     		<thead>
                     			<tr>
-                    				<th style='text-align: center;'>选择</th>
+                    				<th style='text-align: center;'>
+                                        <input type="checkbox" id="selectAll" name="selectAll" onclick="getAllDishSelect('dishIDList')">
+                                    </th>
                     				<th style='text-align: center;'>校区名称</th>
                     				<th style='text-align: center;'>食堂名称</th>
                     				<th style='text-align: center;'>档口名称</th>

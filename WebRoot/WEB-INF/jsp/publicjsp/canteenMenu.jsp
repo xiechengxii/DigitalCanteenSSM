@@ -16,6 +16,10 @@
                 <a href="${pageContext.request.contextPath }/importDish.action"><FONT style="FONT-FAMILY:黑体">菜品录入</FONT></a>
             </li>
 
+            <li>
+                <a href="${pageContext.request.contextPath }/importReplenishDish.action"><FONT style="FONT-FAMILY:黑体">菜品补录</FONT></a>
+            </li>
+
         	<li class="dropdown">
   				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
   					<FONT style="FONT-FAMILY:黑体">菜品管理</FONT>

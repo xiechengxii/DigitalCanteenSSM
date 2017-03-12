@@ -207,7 +207,6 @@ public class DishManagementController {
 	@RequestMapping("/getDishInImportReplenishDate")
 	public ModelAndView getDishInImportReplenishDate(HttpSession session,HttpServletRequest request,Record record,Date muserSubmitDate)throws Exception{
 		ModelAndView modelAndView =new ModelAndView();
-		
 		if(recordService.findRecordByDate(record) != null){
 			MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 			muserItems.setMuserSubmitDate(muserSubmitDate);

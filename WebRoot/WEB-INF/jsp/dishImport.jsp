@@ -76,6 +76,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		checkbox.checked=true;
 	    	}
 	    
+	    	var checkflag=false;
+    		function getAllDishSelect(name){
+    			var allvalue = document.getElementsByName(name);
+    			
+    			if(checkflag==false){
+    				for (var i = 0; i < allvalue.length; i++) {        
+    		        	if ((allvalue[i].type == "checkbox"))             
+    		            allvalue[i].checked = true;  	                       
+        			}  
+        			checkflag=true;
+    			}else{
+    				for (var i = 0; i < allvalue.length; i++) {        
+    		        	if ((allvalue[i].type == "checkbox"))             
+    		            allvalue[i].checked = false;  	                       
+        			}  
+        			checkflag=false;
+    			}
+    		}
 	    </script>
     </head>
   
@@ -101,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
     	                <input type="hidden" name = "muserSubmitDate" >
     	                <div class="form-group">
-    	                	导入记录：<%@ include file="dateInput.html" %>
+    	                	<b>导入记录：</b><input name ="recordDate" class="Wdate" type="text" onClick="WdatePicker()"> 
     	                	<input type="button" class="btn btn-primary" value="导入" onClick=getDishInImportDate()> 
     	                	<p class="help-block">通过选择日期来导入某一天的菜品录入记录</p>
     	            	</div>
@@ -109,7 +127,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	                <table  class="table table-striped table-bordered table-hover table-responsive text-center">
     	                	<thead>
                     			<tr>
-                    				<th style='text-align: center;'>选择</th>
+                    				<th style='text-align: center;'>
+                    					<input type="checkbox" id="selectAll" name="selectAll" onclick="getAllDishSelect('dishIDList')">
+                    				</th>
                     				<th style='text-align: center;'>校区名称</th>
                     				<th style='text-align: center;'>食堂名称</th>
                     				<th style='text-align: center;'>档口名称</th>

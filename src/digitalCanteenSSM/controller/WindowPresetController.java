@@ -1,9 +1,17 @@
 package digitalCanteenSSM.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import digitalCanteenSSM.po.Window;
 import digitalCanteenSSM.po.WindowItems;
@@ -33,13 +41,34 @@ public class WindowPresetController {
 	//查找所有档口
 	//返回档口预置页面显示
 	@RequestMapping ("/findAllWindows")
-	public ModelAndView findAllWindows(Integer cantCampusID) throws Exception{
+	public ModelAndView findAllWindows(Integer cantCampusID, HttpServletRequest request) throws Exception{
+		//本段代码运行时优先从request中读取的页码和单页内容数量，
+		//如果请求从其它controller发出，并无这两个对象，
+		//则使用的是默认的值
+		String pageNum = request.getParameter("pageNum");
+		String pageSize = request.getParameter("pageSize");
+		int num = 1;
+		int size = 10;
+		if (pageNum != null && !"".equals(pageNum)) {
+			num = Integer.parseInt(pageNum);
+		}
+		if (pageSize != null && !"".equals(pageSize)) {
+			size = Integer.parseInt(pageSize);
+		}
+		
+		//配置pagehelper的排序及分页
+		String sortString = "id.desc";
+		Order.formString(sortString);
+		PageHelper.startPage(num, size);
+		
+		List<WindowItems> windowItemsList = windowPresetService.findAllWindows();
+		PageInfo<WindowItems> pagehelper = new PageInfo<WindowItems>(windowItemsList);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
-		modelAndView.addObject("windowItemsList",windowPresetService.findAllWindows());	
+		modelAndView.addObject("pagehelper", pagehelper);	
 		modelAndView.setViewName("/WEB-INF/jsp/windowPreset.jsp");
 		
 		return modelAndView;

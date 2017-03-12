@@ -15,7 +15,7 @@
 	    </tr>
     </thead>
     <tbody>
-	    <c:forEach items="${dishRecordList }" var="item">
+	    <c:forEach items="${pagehelper.list }" var="item">
 	        <tr>
 	        	<td style='vertical-align: middle;text-align: center;'>${item.recordCampusName }</td>
 	        	<td style='vertical-align: middle;text-align: center;'>${item.recordCantName }</td>

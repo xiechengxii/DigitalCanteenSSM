@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryAllDishes" resultType="Dish">
 		SELECT * 
 		FROM ctdish
-		ORDER BY DishID DESC
+		ORDER BY DishWndID DESC, DishID DESC
 	</select>
 	
 	<!-- 根据DishID查询该菜品信息 -->

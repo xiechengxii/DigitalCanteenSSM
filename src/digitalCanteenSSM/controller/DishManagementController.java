@@ -13,9 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.Dish;
 import digitalCanteenSSM.po.DishItems;
+import digitalCanteenSSM.po.DishPreset;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.service.DetailService;
@@ -77,12 +82,35 @@ public class DishManagementController {
 	
 	//查找该管理员所属食堂下所有菜品
 	@RequestMapping ("/findDishInCanteen")
-	public ModelAndView findDishInCanteen(HttpSession session ) throws Exception{
+	public ModelAndView findDishInCanteen(HttpSession session, HttpServletRequest request) throws Exception{
+		//本段代码运行时优先从request中读取的页码和单页内容数量，
+		//如果请求从其它controller发出，并无这两个对象，
+		//则使用的是默认的值
+		String pageNum = request.getParameter("pageNum");
+		String pageSize = request.getParameter("pageSize");
+		int num = 1;
+		//菜品信息带有图片，所以一页只放五个元素
+		int size = 5;
+		if (pageNum != null && !"".equals(pageNum)) {
+			num = Integer.parseInt(pageNum);
+		}
+		if (pageSize != null && !"".equals(pageSize)) {
+			size = Integer.parseInt(pageSize);
+		}
+		
+		//配置pagehelper的排序及分页
+		String sortString = "id.desc";
+		Order.formString(sortString);
+		PageHelper.startPage(num, size);
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
-		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		
+		List<DishItems> dishItemsList = dishManagementService.findDishInCanteen(muserItems.getCantID());
+		PageInfo<DishItems> pagehelper = new PageInfo<DishItems>(dishItemsList);
+		
+		modelAndView.addObject("pagehelper", pagehelper);
 		modelAndView.addObject("muserItems",muserItems);	
 		modelAndView.setViewName("/WEB-INF/jsp/dishInCanteen.jsp");
 		

@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	            		    		</c:otherwise>
     	            		    	</c:choose>
     	            		    </c:forEach>
-    	            		</div>
+    	            		</tbody>
                     	</table>
                     	<div class="form-group">
                     		<input type="button" class="btn btn-primary" value="保存" onClick=modifyRecordDetailDishSave() > 

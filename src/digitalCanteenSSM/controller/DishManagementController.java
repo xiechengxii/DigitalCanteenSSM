@@ -4,6 +4,7 @@ package digitalCanteenSSM.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,14 +125,31 @@ public class DishManagementController {
 		
 	//录入菜品页面显示
 	@RequestMapping ("/importDish")
-	public ModelAndView importDish(HttpSession session) throws Exception{
+	public ModelAndView importDish(HttpSession session, HttpServletRequest request) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		Date recordDate = (Date) request.getAttribute("recordDate");
+		modelAndView.addObject("recordDate",recordDate);
 		modelAndView.addObject("muserItems",muserItems);
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
 		modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
+		
+		return modelAndView;
+	}
+
+	//补充录入以前日期的菜品
+	@RequestMapping("/importReplenishDish")
+	public ModelAndView importReplenishDish(HttpSession session,HttpServletRequest request) throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		Date recordDate = (Date) request.getAttribute("recordDateReplenish");
+		modelAndView.addObject("recordDate",recordDate);
+		modelAndView.addObject("muserItems",muserItems);
+		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		modelAndView.setViewName("/WEB-INF/jsp/dishImportReplenish.jsp");
 		
 		return modelAndView;
 	}
@@ -169,19 +187,38 @@ public class DishManagementController {
 	}
 	
 	@RequestMapping("/getDishInImportDate")
-	public ModelAndView getDishInImportDate(HttpSession session,Record record)throws Exception{
+	public ModelAndView getDishInImportDate(HttpSession session, HttpServletRequest request, Record record)throws Exception{
 		ModelAndView modelAndView =new ModelAndView();
 		
 		if(recordService.findRecordByDate(record) != null){
 			MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 			record.setRecordCantID(muserItems.getCantID());
 			int recordid= recordService.findRecordID(record);
+			request.setAttribute("recordDate",record.getRecordDate());
 			List<Detail> dishDetailInDateList = detailService.findDetailDish(recordid);
 			modelAndView.addObject("dishDetailInDateList",dishDetailInDateList);
 			modelAndView.addObject("muserItems",muserItems);
 			modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
 		}
 		modelAndView.setViewName("importDish.action");
+		return modelAndView;
+	}
+
+	@RequestMapping("/getDishInImportReplenishDate")
+	public ModelAndView getDishInImportReplenishDate(HttpSession session,HttpServletRequest request,Record record,Date muserSubmitDate)throws Exception{
+		ModelAndView modelAndView =new ModelAndView();
+		if(recordService.findRecordByDate(record) != null){
+			MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+			muserItems.setMuserSubmitDate(muserSubmitDate);
+			record.setRecordCantID(muserItems.getCantID());
+			int recordid= recordService.findRecordID(record);
+			request.setAttribute("recordDateReplenish",record.getRecordDate());
+			List<Detail> dishDetailInDateList = detailService.findDetailDish(recordid);
+			modelAndView.addObject("dishDetailInDateList",dishDetailInDateList);
+			modelAndView.addObject("muserItems",muserItems);
+			modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		}
+		modelAndView.setViewName("importReplenishDish.action");
 		return modelAndView;
 	}
 	

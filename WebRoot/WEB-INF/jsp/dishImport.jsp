@@ -95,6 +95,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			}
     		}
 	    </script>
+
+	    <script src="././My97DatePicker/WdatePicker.js"></script>
     </head>
   
     <body >

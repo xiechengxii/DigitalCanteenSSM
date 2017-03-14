@@ -74,8 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<table class="table table-striped table-bordered table-hover table-responsive text-center">
 							<thead>
 								<tr>
-									<th style='text-align: center;'><b>校区名称</b></th>
-									<th style='text-align: center;'><b>操作</b></th>
+									<th style='text-align: center;'>校区名称</th>
+									<th style='text-align: center;'>操作</th>
 								</tr>
 							</thead>
 							<tbody>

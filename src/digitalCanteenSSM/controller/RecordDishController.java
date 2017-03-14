@@ -76,4 +76,6 @@ public class RecordDishController {
 		}
 		return "forward:muserCanteenHostPage.action";
 	}
+	
+	
 }

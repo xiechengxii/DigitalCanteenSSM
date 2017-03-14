@@ -1,15 +1,17 @@
 package digitalCanteenSSM.controller;
 
-
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +25,7 @@ import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.service.DetailService;
+import digitalCanteenSSM.service.DishExportToExcelService;
 import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.DishPresetService;
 import digitalCanteenSSM.service.DishTypePresetService;
@@ -35,6 +38,8 @@ public class DishManagementController {
 
 	//图片实际存放路径，Tomcat虚拟路径定为/upload/pic，在页面dishManagement.jsp中使用到虚拟路径
 	private static final  String picturePath = "E:\\webproject\\upload\\picture\\";
+	private static final  String exportPath = "E:\\webproject\\export";
+	
 	//默认图片设置
 	private static final  String defaultPicturePath = "default.jpg";
 	private static final  String defaultUserPicturePath = "user-default.jpg";
@@ -52,6 +57,8 @@ public class DishManagementController {
 	private RecordService recordService;
 	@Autowired
 	private DetailService detailService;
+	@Autowired
+	private DishExportToExcelService dishExportToExcelService;
 	
 	public static String getPicturepath() {
 		return picturePath;
@@ -236,6 +243,7 @@ public class DishManagementController {
 		return modelAndView;
 	}
 
+	//补录
 	@RequestMapping("/getDishInImportReplenishDate")
 	public ModelAndView getDishInImportReplenishDate(HttpSession session,HttpServletRequest request,Record record,Date muserSubmitDate)throws Exception{
 		ModelAndView modelAndView =new ModelAndView();
@@ -251,6 +259,32 @@ public class DishManagementController {
 			modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
 		}
 		modelAndView.setViewName("importReplenishDish.action");
+		return modelAndView;
+	}
+	
+	//导出菜品
+	@RequestMapping("/findDishExportToExcel")
+	public ModelAndView findDishExportToExcel() throws Exception {
+
+		List<DishItems> dishItemsList = dishManagementService.findAllDishes();
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("dishExcel", dishItemsList);
+		modelAndView.setViewName("WEB-INF/jsp/dishToExportExcel.jsp");
+
+		return modelAndView;
+	}
+	
+	//导出excel根据查询条件
+	@RequestMapping(value="/dishExportToExcel",method=RequestMethod.POST)
+	public @ResponseBody ModelAndView dishExportToExcel(HttpServletResponse res) throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		List<DishItems> dishItemsList = dishManagementService.findAllDishes();
+		dishExportToExcelService.writeExcel(dishItemsList,res);
+		modelAndView.addObject("dishExcel", dishItemsList);
+		modelAndView.setViewName("WEB-INF/jsp/dishToExportExcel.jsp");
+
 		return modelAndView;
 	}
 	

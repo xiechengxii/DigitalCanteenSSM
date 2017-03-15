@@ -31,7 +31,7 @@ public class CampusPresetController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());	
-		modelAndView.setViewName("/WEB-INF/jsp/campusPreset.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_campusPreset.jsp");
 		
 		return modelAndView;
 	}

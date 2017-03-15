@@ -222,7 +222,7 @@ public class DishManagementController {
 	public ModelAndView getDishInImportDate(HttpSession session, HttpServletRequest request, Record record)throws Exception{
 		ModelAndView modelAndView =new ModelAndView();
 		
-		if(recordService.findRecordByDate(record) != null){
+		if(!(recordService.findRecordByDate(record).isEmpty())){
 			MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 			record.setRecordCantID(muserItems.getCantID());
 			int recordid= recordService.findRecordID(record);
@@ -239,7 +239,7 @@ public class DishManagementController {
 	@RequestMapping("/getDishInImportReplenishDate")
 	public ModelAndView getDishInImportReplenishDate(HttpSession session,HttpServletRequest request,Record record,Date muserSubmitDate)throws Exception{
 		ModelAndView modelAndView =new ModelAndView();
-		if(recordService.findRecordByDate(record) != null){
+		if(!(recordService.findRecordByDate(record).isEmpty())){
 			MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 			muserItems.setMuserSubmitDate(muserSubmitDate);
 			record.setRecordCantID(muserItems.getCantID());

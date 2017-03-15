@@ -44,12 +44,12 @@ public class MUserBackGroundController {
 	@RequestMapping("/backgroundHomepage")
 	public String backgroundHomepage(HttpSession session) throws Exception{
 		List<Campus> campusList = campusPresetService.findAllCampuses();
-		if(campusList != null){
+		if(!campusList.isEmpty()){
 			Iterator<Campus> iterator_campus = campusList.iterator();
 			Campus campus = (Campus) iterator_campus.next();
 			
 			List<CanteenItems> canteenItemsList = canteenPresetService.findCanteenByCampus(campus.getCampusID());
-			if(canteenItemsList != null){
+			if(!canteenItemsList.isEmpty()){
 				Iterator<CanteenItems> iterator_canteenItems = canteenItemsList.iterator();
 				CanteenItems canteenItems = iterator_canteenItems.next();
 				

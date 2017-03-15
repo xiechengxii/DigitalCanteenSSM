@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		$.ajax({
 			type:'post',
-			url:'${pageContext.request.contextPath}/dishExportToExcel.action',
+			url:'${pageContext.request.contextPath}/campusRecordExportToExcel.action',
 			contentType:'application/x-www-form-urlencoded',
 			//发送的是key/value，接收的是json
 			data:'',
@@ -48,6 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	}
 
+	function findCampusRecord(){
+		document.listFrom.action="findRecordInCampus.action";
+    	document.listFrom.submit();
+	}
 	</script>
 </head>
 	<%@ include file="publicjsp/backgroundMenu.jsp" %>
@@ -64,7 +68,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div> 
 					<div class="panel-body"> 
 						<div class="row"> 	
-							<form id="listFrom" name="listFrom" action="${pageContext.request.contextPath}/dishExportToExcel.action" method="post">																		
+							<form id="listFrom" name="listFrom" action="${pageContext.request.contextPath}/campusRecordExportToExcel.action" method="post">																		
+								<div class="col-sm-3">    
+                                    <!-- 选择食堂所属校区 -->
+                                    <select class="form-control" name="campusID">
+                                        <option value="">请选择食堂所属校区</option>
+                                        <c:forEach items="${campusList }" var="item" >
+                                            <option value="${item.campusID }">${item.campusName }</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>                                
+								<div  class="col-sm-3">
+									<button type="button" class="btn btn-primary" onclick="findCampusRecord()">搜索</button> 
+								</div> 
 								<div  class="form-group col-sm-3">						
 										<div class="input-group" style="width: 240px; margin-left: 0px;">
 										    <input type="text" class="form-control date-picker" id="dateTimeRange"/>
@@ -72,19 +88,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
 										    </span>
 										    <input type="hidden" name="beginTime" id="beginTime"  />
-										    
 										    <input type="hidden" name="endTime" id="endTime"  />								    
 										</div>													
 								</div>
-								<div  class="col-sm-6">
+								<div  class="col-sm-3">
 									<button onclick="exportExcel()" class="btn btn-primary">导出</button>
-								</div>
-								<div class="form-group col-sm-2">
-									<input type="text" class="form-control" placeholder="Search">
-								</div>
-								<div  class="col-sm-1">
-									<button type="button" class="btn btn-primary">搜索</button> 
-								</div>  
+								</div>                                                               
 							</form>							
 				        </div>
 

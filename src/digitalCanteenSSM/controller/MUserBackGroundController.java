@@ -6,21 +6,27 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
+import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.service.CampusPresetService;
 import digitalCanteenSSM.service.CanteenPresetService;
+import digitalCanteenSSM.service.DishExportToExcelService;
+import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.MUserService;
 import digitalCanteenSSM.service.RecordService;
 import digitalCanteenSSM.service.RoleService;
@@ -40,6 +46,10 @@ public class MUserBackGroundController {
 	private MUserService muserService;
 	@Autowired
 	private UploadFileService uploadFileService;
+	@Autowired
+	private DishExportToExcelService dishExportToExcelService;
+	@Autowired
+	private DishManagementService dishManagementService;
 	
 	@RequestMapping("/backgroundHomepage")
 	public String backgroundHomepage(HttpSession session) throws Exception{
@@ -211,6 +221,40 @@ public class MUserBackGroundController {
 		muserService.deleteMUserById(muserID);
 		modelAndView.setViewName("findAllMUser.action");
 		
+		return modelAndView;
+	}
+	
+	//导出菜品
+	@RequestMapping("/recordExportToExcel")
+	public ModelAndView recordExportToExcel() throws Exception {
+
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
+		modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
+
+		return modelAndView;
+	}
+	//查询某个校区的 所有菜品记录
+	@RequestMapping("/findRecordInCampus")
+	public ModelAndView findRecordInCampus(Integer campusID) throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
+
+		return modelAndView;
+	}
+	
+	//导出excel根据查询条件
+	@RequestMapping(value="/campusRecordExportToExcel",method=RequestMethod.POST)
+	public @ResponseBody ModelAndView campusRecordExportToExcel(HttpServletResponse res) throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		List<DishItems> dishItemsList = dishManagementService.findAllDishes();
+		dishExportToExcelService.writeExcel(dishItemsList,res);
+		modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
+
 		return modelAndView;
 	}
 }

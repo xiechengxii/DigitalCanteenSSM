@@ -57,8 +57,7 @@ public class DishManagementController {
 	private RecordService recordService;
 	@Autowired
 	private DetailService detailService;
-	@Autowired
-	private DishExportToExcelService dishExportToExcelService;
+	
 	
 	public static String getPicturepath() {
 		return picturePath;
@@ -262,31 +261,7 @@ public class DishManagementController {
 		return modelAndView;
 	}
 	
-	//导出菜品
-	@RequestMapping("/findDishExportToExcel")
-	public ModelAndView findDishExportToExcel() throws Exception {
-
-		List<DishItems> dishItemsList = dishManagementService.findAllDishes();
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("dishExcel", dishItemsList);
-		modelAndView.setViewName("WEB-INF/jsp/dishToExportExcel.jsp");
-
-		return modelAndView;
-	}
 	
-	//导出excel根据查询条件
-	@RequestMapping(value="/dishExportToExcel",method=RequestMethod.POST)
-	public @ResponseBody ModelAndView dishExportToExcel(HttpServletResponse res) throws Exception{
-		ModelAndView modelAndView = new ModelAndView();
-		
-		List<DishItems> dishItemsList = dishManagementService.findAllDishes();
-		dishExportToExcelService.writeExcel(dishItemsList,res);
-		modelAndView.addObject("dishExcel", dishItemsList);
-		modelAndView.setViewName("WEB-INF/jsp/dishToExportExcel.jsp");
-
-		return modelAndView;
-	}
 	
 	//添加已预置的菜品
 	@RequestMapping ("/addDish")

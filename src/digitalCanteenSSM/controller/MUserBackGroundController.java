@@ -44,12 +44,12 @@ public class MUserBackGroundController {
 	@RequestMapping("/backgroundHomepage")
 	public String backgroundHomepage(HttpSession session) throws Exception{
 		List<Campus> campusList = campusPresetService.findAllCampuses();
-		if(campusList != null){
+		if(!campusList.isEmpty()){
 			Iterator<Campus> iterator_campus = campusList.iterator();
 			Campus campus = (Campus) iterator_campus.next();
 			
 			List<CanteenItems> canteenItemsList = canteenPresetService.findCanteenByCampus(campus.getCampusID());
-			if(canteenItemsList != null){
+			if(!canteenItemsList.isEmpty()){
 				Iterator<CanteenItems> iterator_canteenItems = canteenItemsList.iterator();
 				CanteenItems canteenItems = iterator_canteenItems.next();
 				
@@ -139,7 +139,7 @@ public class MUserBackGroundController {
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
 		modelAndView.addObject("roleList",roleService.findAllRole());
-		modelAndView.setViewName("/WEB-INF/jsp/muserAdd.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_muserAdd.jsp");
 		
 		return modelAndView;
 	}

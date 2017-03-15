@@ -30,7 +30,7 @@ public class CanteenTypePresetController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("canteenTypeList",canteenTypePresetService.findAllCanteenType());
-		modelAndView.setViewName("WEB-INF/jsp/canteenTypePreset.jsp");
+		modelAndView.setViewName("WEB-INF/jsp/m_canteenTypePreset.jsp");
 		
 		return modelAndView;
 	}
@@ -56,7 +56,7 @@ public class CanteenTypePresetController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("canteenType",findCanteenTypeById(cantTypeID));	
-		modelAndView.setViewName("/WEB-INF/jsp/canteenTypeModify.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_canteenTypeModify.jsp");
 		
 		return modelAndView;
 	}

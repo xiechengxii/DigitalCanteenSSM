@@ -139,7 +139,7 @@ public class MUserBackGroundController {
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
 		modelAndView.addObject("roleList",roleService.findAllRole());
-		modelAndView.setViewName("/WEB-INF/jsp/muserAdd.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_muserAdd.jsp");
 		
 		return modelAndView;
 	}

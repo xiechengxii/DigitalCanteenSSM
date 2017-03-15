@@ -69,7 +69,7 @@ public class CanteenPresetController {
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenTypeList", canteenTypePresetService.findAllCanteenType());
 		modelAndView.addObject("pagehelper", pagehelper);	
-		modelAndView.setViewName("/WEB-INF/jsp/canteenPreset.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_canteenPreset.jsp");
 		
 		return modelAndView;
 	}
@@ -96,7 +96,7 @@ public class CanteenPresetController {
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItems",findCanteenById(cantID));	
 		modelAndView.addObject("canteenTypeList", canteenTypePresetService.findAllCanteenType());
-		modelAndView.setViewName("/WEB-INF/jsp/canteenModify.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_canteenModify.jsp");
 		
 		return modelAndView;
 	}

@@ -23,6 +23,7 @@ public class RecordDishController {
 	private RecordService recordService;
 	@Autowired
 	private DishManagementService dishManagementService;
+	
 	//查看某个食堂某一天记录的详细菜品信息
 	@RequestMapping("/findRecordDetailDish")
 	public ModelAndView findDetailDish(Record record) throws Exception{
@@ -76,4 +77,6 @@ public class RecordDishController {
 		}
 		return "forward:muserCanteenHostPage.action";
 	}
+	
+	
 }

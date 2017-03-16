@@ -32,63 +32,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="css/icons.css" />
     <link rel="stylesheet" type="text/css" href="css/component.css" />
     <link rel='stylesheet' href='http://fonts.googleapis.com/icon?family=Material+Icons' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/sidenav.min.css" />
+    
 </head>  
 <body>
 
-<div id="st-container" class="st-container">
-    <div class="st-pusher">
+<div class="container">
+    <div class="mp-pusher" id="mp-pusher">
     <%@ include file="publicjsp/index.jsp" %>               
-        <div class="st-content">
-        	<div class="st-content-inner">
-                <div class="main clearfix">                    
-                    <div id="st-trigger-effects">
-                       <button data-effect="st-effect-3" >
-                            <div class="burger-container" z-index="-1">
-                                <span class="burger-bun-top"></span>
-                                <span class="burger-filling"></span>
-                                <span class="burger-bun-bot"></span>
-                            </div>                                
-                        </button>
-                        <h3>预置校区</h3>
-                    </div>
-							
-			<form action="insertCampus.action" method="post">
-			<!-- 添加校区 -->							
-				<div class="form-group" >
-				    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"> </div>
-					<br>
-				    <div align="center"><input  type="submit" value="添加校区"  class="btn btn-primary btn-wide" data-role="none"></div>
-				</div>
-														
-			<!-- 列举所有已录入校区 -->
-					<table   class="table table-striped table-bordered table-condensed">
-						<thead>
-					    <tr style="background:#7acfa6;text-align:center;color:white;">
-					   	 	<td >校区名称</td>
-					        <td colspan="2">编辑</td>
-					    </tr>
-						</thead>
-						<c:forEach items="${campusList }" var="item" >
-					    <tr align="center">
-					        <td>${item.campusName }</td>
-					        <td><a href="modifyCampus.action?campusID=${item.campusID}">修改</a></td>
-					        <td><a href="deleteCampusById.action?campusID=${item.campusID}">删除</a></td>
-					    </tr>
-						</c:forEach>
-					</table>								
-			</form>
-			</div>
+        <div class="scroller" style="background:#f3efe0">
+        	<div class="scroller-inner">
+        	    <header class="codrops-header" style="background:#7acfa6">
+        	         <div id="trigger" >
+						     <a href="javascript:;" >
+	                            <i class="material-icons" style="position:absolute;left:10px">menu</i>
+	                         </a>
+	                 </div>
+                       <!--  <a href="#" id="trigger" class="menu-trigger"></a> -->											
+					<h1>预置校区</h1>
+				</header>
+				
+                <div class="content clearfix">                                       							
+					<form action="insertCampus.action" method="post">
+					<!-- 添加校区 -->							
+						<div class="form-group" >
+						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"> </div>
+							<br>
+						    <div align="center"><input  type="submit" value="添加校区"  class="btn btn-primary btn-wide" data-role="none"></div>
+						</div>
+																
+					<!-- 列举所有已录入校区 -->
+							<table   class="table table-striped table-bordered table-condensed">
+								<thead>
+							    <tr style="background:#7acfa6;text-align:center;color:white;font-size:15px">
+							   	 	<td >校区名称</td>
+							        <td colspan="2">编辑</td>
+							    </tr>
+								</thead>
+								<c:forEach items="${campusList }" var="item" >
+							    <tr align="center" style="color:black;font-size:15px">
+							        <td>${item.campusName }</td>
+							        <td><a href="modifyCampus.action?campusID=${item.campusID}">修改</a></td>
+							        <td><a href="deleteCampusById.action?campusID=${item.campusID}">删除</a></td>
+							    </tr>
+								</c:forEach>
+							</table>								
+					</form>
+			    </div>
 			</div>
         </div>
     </div>
 </div>
 <script src="js/classie.js"></script>
-<script src="js/sidebarEffects.js"></script>
+<script src="js/mlpushmenu.js"></script>
+<script>
+   new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+</script>
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
-<script src="js/sidenav.min.js"></script>
-<script>$('[data-sidenav]').sidenav();</script>
+
+
 
 <!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓3列菜单开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
 <!--<div class="btn3 clearfix">

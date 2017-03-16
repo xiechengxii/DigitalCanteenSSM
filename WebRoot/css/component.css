@@ -1,589 +1,297 @@
 *,
 *:after,
 *::before {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-html,
-body,
-.st-container,
-.st-pusher,
-.st-content {
+html, body, .container, .scroller {
 	height: 100%;
 }
 
-.st-content {
+/*.scroller {
 	overflow-y: scroll;
+}
+*/
+.scroller,
+.scroller-inner {
+	position: relative;
+}
+
+.container {
+	position: relative;
+	overflow: hidden;
 	background: #f3efe0;
 }
 
-.st-content,
-.st-content-inner {
+.menu-trigger {
 	position: relative;
+	padding-left:60px;
+	font-size: 0.9em;
 }
 
-.st-container {
-	position: relative;
-	overflow: hidden;
+.menu-trigger:before {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 30px;
+	height: 3px;
+	background: #fff;
+	box-shadow: 0 6px #34495e, 0 12px #fff, 0 18px #34495e, 0 24px #fff;
+	content: '';
 }
 
-.st-pusher {
+.mp-pusher {
 	position: relative;
 	left: 0;
-	z-index: 99;
 	height: 100%;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
 }
 
-.st-pusher::after {
+.mp-menu {
+	position: absolute; /* we can't use fixed here :( */
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 250px;
+	height: 100%;
+	-webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
+
+.mp-level {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(243,239,224,0.95);
+	-webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
+
+/* overlays for pusher and for level that gets covered */
+.mp-pusher::after,
+.mp-level::after,
+.mp-level::before {
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 0;
 	height: 0;
-	background: rgba(0,0,0,0.2);
 	content: '';
 	opacity: 0;
-	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
 }
 
-.st-menu-open .st-pusher::after {
+.mp-pusher::after,
+.mp-level::after {
+	background: rgba(0,0,0,0.3);
+	-webkit-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+	-moz-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+	transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+}
+
+.mp-level::after {
+	z-index: -1;
+}
+
+.mp-pusher.mp-pushed::after,
+.mp-level.mp-level-overlay::after {
 	width: 100%;
 	height: 100%;
 	opacity: 1;
-	-webkit-transition: opacity 0.5s;
-	transition: opacity 0.5s;
+	-webkit-transition: opacity 0.3s;
+	-moz-transition: opacity 0.3s;
+	transition: opacity 0.3s;
 }
 
-.st-menu {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 100;
-	visibility: hidden;
-	width: 300px;
+.mp-level.mp-level-overlay {
+	cursor: pointer;
+}
+
+.mp-level.mp-level-overlay.mp-level::before {
+	width: 100%;
 	height: 100%;
-	/*background: #7acfa6;*/
+	background: transparent;
+	opacity: 1;
+}
+
+.mp-pusher,
+.mp-level {
 	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
 	transition: all 0.5s;
 }
 
-.st-menu::after {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,0.2);
-	content: '';
-	opacity: 1;
-	-webkit-transition: opacity 0.5s;
-	transition: opacity 0.5s;
+/* overlap */
+.mp-overlap .mp-level.mp-level-open {
+	box-shadow: 1px 0 2px rgba(0,0,0,0.2);
+	-webkit-transform: translate3d(-40px, 0, 0);
+	-moz-transform: translate3d(-40px, 0, 0);
+	transform: translate3d(-80px, 0, 0);
 }
 
-.st-menu-open .st-menu::after {
-	width: 0;
-	height: 0;
-	opacity: 0;
-	-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-	transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+/* First level */
+.mp-menu > .mp-level,
+.mp-menu > .mp-level.mp-level-open,
+.mp-menu.mp-overlap > .mp-level,
+.mp-menu.mp-overlap > .mp-level.mp-level-open {
+	box-shadow: none;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+/* cover */
+.mp-cover .mp-level.mp-level-open {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.mp-cover .mp-level.mp-level-open > ul > li > .mp-level:not(.mp-level-open) {
+	-webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
 }
 
 /* content style */
-
-.st-menu ul {
+.mp-menu ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 
-.st-menu h2 {
+.mp-menu h2 {
 	margin: 0;
-	padding: 0.7em;
-	color: rgba(0,0,0,0.4);
+	padding: 1em;
+	color: rgba(0,0,0,0.9);
 	text-shadow: 0 0 1px rgba(0,0,0,0.1);
 	font-weight: 300;
-	font-size: 25px;
+	font-size: 2em;
 }
 
-.st-menu ul li a {
+.mp-menu.mp-overlap h2::before {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-right: 8px;
+	font-size: 75%;
+	line-height: 1.8;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.1s 0.3s;
+	-moz-transition: opacity 0.3s, -moz-transform 0.1s 0.3s;
+	transition: opacity 0.3s, transform 0.1s 0.3s;
+	-webkit-transform: translateX(-100%);
+	-moz-transform: translateX(-100%);
+	transform: translateX(-100%);
+}
+
+.mp-menu.mp-cover h2 {
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 1px;
+	font-size: 1em;
+}
+
+.mp-overlap .mp-level.mp-level-overlay > h2::before {
+	opacity: 1;
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	-moz-transition: -moz-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+	-webkit-transform: translateX(0);
+	-moz-transform: translateX(0);
+	transform: translateX(0);
+}
+
+.mp-menu ul li > a {
 	display: block;
-	padding: 1em 1em 1em 1.2em;
+	padding: 1em 1em 1em 1.8em;
 	outline: none;
 	box-shadow: inset 0 -1px rgba(0,0,0,0.2);
-	color: #f3efe0;
-	text-transform: uppercase;
 	text-shadow: 0 0 1px rgba(255,255,255,0.1);
-	letter-spacing: 1px;
-	font-weight: 400;
+	font-size: 1.4em;
 	-webkit-transition: background 0.3s, box-shadow 0.3s;
+	-moz-transition: background 0.3s, box-shadow 0.3s;
 	transition: background 0.3s, box-shadow 0.3s;
 }
 
-.st-menu ul li:first-child a {
+.mp-menu ul li::before {
+	position: absolute;
+	left: 10px;
+	z-index: -1;
+	color: rgba(0,0,0,0.2);
+	line-height: 3.5;
+}
+
+.mp-level > ul > li:first-child > a {
 	box-shadow: inset 0 -1px rgba(0,0,0,0.2), inset 0 1px rgba(0,0,0,0.2);
 }
 
-.st-menu ul li a:hover {
+.mp-menu ul li a:hover,
+.mp-level > ul > li:first-child > a:hover {
 	background: rgba(0,0,0,0.2);
 	box-shadow: inset 0 -1px rgba(0,0,0,0);
+}
+
+.mp-menu .mp-level.mp-level-overlay > ul > li > a,
+.mp-level.mp-level-overlay > ul > li:first-child > a {
+	box-shadow: inset 0 -1px rgba(0,0,0,0);
+}
+
+.mp-level > ul > li:first-child > a:hover,
+.mp-level.mp-level-overlay > ul > li:first-child > a {
+	box-shadow: inset 0 -1px rgba(0,0,0,0), inset 0 1px rgba(0,0,0,0);
+} /* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
+
+.mp-back {
+	background: rgba(0,0,0,0.1);
+	outline: none;
 	color: #fff;
-}
-
-/* Individual effects */
-
-/* Effect 1: Slide in on top */
-.st-effect-1.st-menu {
-	visibility: visible;
-	-webkit-transform: translate3d(-100%, 0, 0);
-	transform: translate3d(-100%, 0, 0);
-}
-
-.st-effect-1.st-menu-open .st-effect-1.st-menu {
-	visibility: visible;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-
-.st-effect-1.st-menu::after {
-	display: none;
-}
-
-/* Effect 2: Reveal */
-.st-effect-2.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-2.st-menu {
-	z-index: 1;
-}
-
-.st-effect-2.st-menu-open .st-effect-2.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-}
-
-.st-effect-2.st-menu::after {
-	display: none;
-}
-
-/* Effect 3: Push*/
-.st-effect-3.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-3.st-menu {
-	-webkit-transform: translate3d(-100%, 0, 0);
-	transform: translate3d(-100%, 0, 0);
-}
-
-.st-effect-3.st-menu-open .st-effect-3.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-}
-
-.st-effect-3.st-menu::after {
-	display: none;
-}
-
-/* Effect 4: Slide along */
-.st-effect-4.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-4.st-menu {
-	z-index: 1;
-	-webkit-transform: translate3d(-50%, 0, 0);
-	transform: translate3d(-50%, 0, 0);
-}
-
-.st-effect-4.st-menu-open .st-effect-4.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-
-.st-effect-4.st-menu::after {
-	display: none;
-}
-
-/* Effect 5: Reverse slide out */
-.st-effect-5.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-5.st-menu {
-	z-index: 1;
-	-webkit-transform: translate3d(50%, 0, 0);
-	transform: translate3d(50%, 0, 0);
-}
-
-.st-effect-5.st-menu-open .st-effect-5.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-
-/* Effect 6: Rotate pusher */
-
-.st-effect-6.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-}
-
-.st-effect-6 .st-pusher {
-	-webkit-transform-origin: 0% 50%;
-	transform-origin: 0% 50%;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-6.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0) rotateY(-15deg);
-	transform: translate3d(300px, 0, 0) rotateY(-15deg);
-}
-
-.st-effect-6.st-menu {
-	-webkit-transform: translate3d(-100%, 0, 0);
-	transform: translate3d(-100%, 0, 0);
-	-webkit-transform-origin: 100% 50%;
-	transform-origin: 100% 50%;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-6.st-menu-open .st-effect-6.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(-100%, 0, 0) rotateY(15deg);
-	transform: translate3d(-100%, 0, 0) rotateY(15deg);
-}
-
-.st-effect-6.st-menu::after {
-	display: none;
-}
-
-/* Effect 7: 3D rotate in */
-
-.st-effect-7.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-	-webkit-perspective-origin: 0% 50%;
-	perspective-origin: 0% 50%;
-}
-
-.st-effect-7 .st-pusher {
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-7.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-7.st-menu {
-	-webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg);
-	transform: translate3d(-100%, 0, 0) rotateY(-90deg);
-	-webkit-transform-origin: 100% 50%;
-	transform-origin: 100% 50%;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-7.st-menu-open .st-effect-7.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(-100%, 0, 0) rotateY(0deg);
-	transform: translate3d(-100%, 0, 0) rotateY(0deg);
-}
-
-/* Effect 8: 3D rotate out */
-
-.st-effect-8.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-	-webkit-perspective-origin: 0% 50%;
-	perspective-origin: 0% 50%;
-}
-
-.st-effect-8 .st-pusher {
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-8.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-8.st-menu {
-	-webkit-transform: translate3d(-100%, 0, 0) rotateY(90deg);
-	transform: translate3d(-100%, 0, 0) rotateY(90deg);
-	-webkit-transform-origin: 100% 50%;
-	transform-origin: 100% 50%;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-8.st-menu-open .st-effect-8.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(-100%, 0, 0) rotateY(0deg);
-	transform: translate3d(-100%, 0, 0) rotateY(0deg);
-}
-
-.st-effect-8.st-menu::after {
-	display: none;
-}
-
-/* Effect 9: Scale down pusher */
-
-.st-effect-9.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-}
-
-.st-effect-9 .st-pusher {
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-9.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(0, 0, -300px);
-	transform: translate3d(0, 0, -300px);
-}
-
-.st-effect-9.st-menu {
-	opacity: 1;
-	-webkit-transform: translate3d(-100%, 0, 0);
-	transform: translate3d(-100%, 0, 0);
-}
-
-.st-effect-9.st-menu-open .st-effect-9.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-
-.st-effect-9.st-menu::after {
-	display: none;
-}
-
-/* Effect 10: Scale up */
-
-.st-effect-10.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-	-webkit-perspective-origin: 0% 50%;
-	perspective-origin: 0% 50%;
-}
-
-.st-effect-10.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-10.st-menu {
-	z-index: 1;
-	opacity: 1;
-	-webkit-transform: translate3d(0, 0, -300px);
-	transform: translate3d(0, 0, -300px);
-}
-
-.st-effect-10.st-menu-open .st-effect-10.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-
-/* Effect 11: Scale and rotate pusher */
-
-.st-effect-11.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-}
-
-.st-effect-11 .st-pusher {
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-11.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(100px, 0, -600px) rotateY(-20deg);
-	transform: translate3d(100px, 0, -600px) rotateY(-20deg);
-}
-
-.st-effect-11.st-menu {
-	opacity: 1;
-	-webkit-transform: translate3d(-100%, 0, 0);
-	transform: translate3d(-100%, 0, 0);
-}
-
-.st-effect-11.st-menu-open .st-effect-11.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-
-.st-effect-11.st-menu::after {
-	display: none;
-}
-
-/* Effect 12: Open door */
-
-.st-effect-12.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-}
-
-.st-effect-12 .st-pusher {
-	-webkit-transform-origin: 100% 50%;
-	transform-origin: 100% 50%;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-12.st-menu-open .st-pusher {
-	-webkit-transform: rotateY(-10deg);
-	transform: rotateY(-10deg);
-}
-
-.st-effect-12.st-menu {
-	opacity: 1;
-	-webkit-transform: translate3d(-100%, 0, 0);
-	transform: translate3d(-100%, 0, 0);
-}
-
-.st-effect-12.st-menu-open .st-effect-12.st-menu {
-	visibility: visible;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-}
-
-.st-effect-12.st-menu::after {
-	display: none;
-}
-
-/* Effect 13: Fall down */
-
-.st-effect-13.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-	-webkit-perspective-origin: 0% 50%;
-	perspective-origin: 0% 50%;
-}
-
-.st-effect-13.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-13.st-menu {
-	z-index: 1;
-	opacity: 1;
-	-webkit-transform: translate3d(0, -100%, 0);
-	transform: translate3d(0, -100%, 0);
-}
-
-.st-effect-13.st-menu-open .st-effect-13.st-menu {
-	visibility: visible;
-	-webkit-transition-timing-function: ease-in-out;
-	transition-timing-function: ease-in-out;
-	-webkit-transition-property: -webkit-transform;
-	transition-property: transform;
-	-webkit-transform: translate3d(0, 0, 0);
-	transform: translate3d(0, 0, 0);
-	-webkit-transition-speed: 0.2s;
-	transition-speed: 0.2s;
-}
-
-/* Effect 14: Delayed 3D rotate */
-
-.st-effect-14.st-container {
-	-webkit-perspective: 1500px;
-	perspective: 1500px;
-	-webkit-perspective-origin: 0% 50%;
-	perspective-origin: 0% 50%;
-}
-
-.st-effect-14 .st-pusher {
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-14.st-menu-open .st-pusher {
-	-webkit-transform: translate3d(300px, 0, 0);
-	transform: translate3d(300px, 0, 0);
-}
-
-.st-effect-14.st-menu {
-	-webkit-transform: translate3d(-100%, 0, 0) rotateY(90deg);
-	transform: translate3d(-100%, 0, 0) rotateY(90deg);
-	-webkit-transform-origin: 0% 50%;
-	transform-origin: 0% 50%;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.st-effect-14.st-menu-open .st-effect-14.st-menu {
-	visibility: visible;
-	-webkit-transition-delay: 0.1s;
-	transition-delay: 0.1s;
-	-webkit-transition-timing-function: ease-in-out;
-	transition-timing-function: ease-in-out;
-	-webkit-transition-property: -webkit-transform;
-	transition-property: transform;
-	-webkit-transform: translate3d(-100%, 0, 0) rotateY(0deg);
-	transform: translate3d(-100%, 0, 0) rotateY(0deg);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	display: block;
+	font-size: 0.8em;
+	padding: 1em;
+	position: relative;
+	box-shadow: inset 0 1px rgba(0,0,0,0.1);
+	-webkit-transition: background 0.3s;
+	-moz-transition: background 0.3s;
+	transition: background 0.3s;
+}
+
+.mp-back::after {
+	font-family: 'linecons';
+	position: absolute;
+	content: "\e037";
+	right: 10px;
+	font-size: 1.3em;
+	color: rgba(0,0,0,0.3);
+}
+
+.mp-menu .mp-level.mp-level-overlay > .mp-back,
+.mp-menu .mp-level.mp-level-overlay > .mp-back::after {
+	background: transparent;
+	box-shadow: none;
+	color: transparent;
 }
 
 /* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
-.no-csstransforms3d .st-pusher,
-.no-js .st-pusher {
+/* We'll show the first level only */
+.no-csstransforms3d .mp-pusher,
+.no-js .mp-pusher {
 	padding-left: 300px;
 }
 
-.burger-container {
-    position: relative;
-    height: 28px;
-	width: 36px;
+.no-csstransforms3d .mp-menu .mp-level,
+.no-js .mp-menu .mp-level {
+	display: none;
 }
-.burger-bun-top, .burger-bun-bot, .burger-filling {
-    position: absolute;
-    display: block;
-    height: 4px;
-    width: 36px;
-    border-radius: 2px;
-    background: #66afe9;
-}
-.burger-filling {
-    top: 12px;
-}
-.burger-bun-bot {
-    bottom: 0;
+
+.no-csstransforms3d .mp-menu > .mp-level,
+.no-js .mp-menu > .mp-level {
+	display: block;
 }

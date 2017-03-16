@@ -126,7 +126,7 @@ public class MUserBackGroundController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("muserItemsList",muserService.findAllMUser());
-		modelAndView.setViewName("/WEB-INF/jsp/muserAllInfo.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_muserAllInfo.jsp");
 		return modelAndView;
 	}
 	

@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <td colspan="2">编辑</td>
 			    </tr>
 			    </thead>
-				<c:forEach items="${dishPersetList }" var="item" >
+				<c:forEach items="${pagehelper.list }" var="item" >
 			    <tr align="center">
 			        <td>${item.dishPresetName }</td>
 			        <td><a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}">修改</a></td>

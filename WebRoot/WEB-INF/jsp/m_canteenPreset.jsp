@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		      <td colspan="2">编辑</td>
 		    </tr>
         </thead>
-			<c:forEach items="${canteenItemsList }" var="item" >
+			<c:forEach items="${pagehelper.list }" var="item" >
 				<tr align="center">
 				 	<td>${item.campusName }</td>
 				 	<td>${item.cantTypeName }</td>

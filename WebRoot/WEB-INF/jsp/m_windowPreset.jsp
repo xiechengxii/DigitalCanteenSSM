@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <div align="center">
       <select name="cantCampusID" onchange="getCanteen(this.value)" data-toggle="select" class="form-control select select-primary mrs mbm" >
         <option value="">请选择食堂所属校区</option>
-        <c:forEach items="${campusList }" var="item" >
+        <c:forEach items="${pagehelper.list }" var="item" >
           <option value="${item.campusID }">${item.campusName }</option>
         </c:forEach>
       </select>

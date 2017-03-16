@@ -18,9 +18,7 @@
 	text-transform: none;
 	line-height: 1;
 	display: inline-block;
-	vertical-align: bottom;
-	margin-right: 0.8em;
-	font-size: 1.2em;
+	margin-right: 0.6em;
 	-webkit-font-smoothing: antialiased;
 }
 .icon-female:before {
@@ -31,6 +29,7 @@
 }
 .icon-arrow-left:before {
 	content: "\e032";
+	
 }
 .icon-arrow-left-2:before {
 	content: "\e034";

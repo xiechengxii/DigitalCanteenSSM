@@ -18,11 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="format-detection" content="telephone=no">
-		
-
-	<!--<script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-	<link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" type="text/css" href="css/flat-ui.min.css" />--> 
+ 
 	<script src="js/modernizr.custom.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -46,8 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						     <a href="javascript:;" >
 	                            <i class="material-icons" style="position:absolute;left:10px">menu</i>
 	                         </a>
-	                 </div>
-                       <!--  <a href="#" id="trigger" class="menu-trigger"></a> -->											
+	                 </div>		
 					<h1>预置校区</h1>
 				</header>
 				
@@ -61,21 +56,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 																
 					<!-- 列举所有已录入校区 -->
-							<table   class="table table-striped table-bordered table-condensed">
-								<thead>
-							    <tr style="background:#7acfa6;text-align:center;color:white;font-size:15px">
-							   	 	<td >校区名称</td>
-							        <td colspan="2">编辑</td>
-							    </tr>
-								</thead>
-								<c:forEach items="${campusList }" var="item" >
-							    <tr align="center" style="color:black;font-size:15px">
-							        <td>${item.campusName }</td>
-							        <td><a href="modifyCampus.action?campusID=${item.campusID}">修改</a></td>
-							        <td><a href="deleteCampusById.action?campusID=${item.campusID}">删除</a></td>
-							    </tr>
-								</c:forEach>
-							</table>								
+						<table   class="table table-striped table-bordered table-condensed">
+							<thead>
+						    <tr style="background:#7acfa6;text-align:center;color:white;font-size:15px">
+						   	 	<td >校区名称</td>
+						        <td colspan="2">编辑</td>
+						    </tr>
+							</thead>
+							<c:forEach items="${campusList }" var="item" >
+						    <tr align="center" style="color:black;font-size:15px">
+						        <td>${item.campusName }</td>
+						        <td><a href="modifyCampus.action?campusID=${item.campusID}">修改</a></td>
+						        <td><a href="deleteCampusById.action?campusID=${item.campusID}">删除</a></td>
+						    </tr>
+							</c:forEach>
+						</table>								
 					</form>
 			    </div>
 			</div>
@@ -88,41 +83,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
 </script>
 <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
-
-
-
-<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓3列菜单开始↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-<!--<div class="btn3 clearfix">
-    <div class="menu">
-        <div class="bt-name">
-        	<div data-role="main" class="ui-content">
-			<a href="campusPreset.action" data-transition="slide">
-        	<span class="glyphicon glyphicon-home" style="color:#2FA2DB"></span>
-        	</a>
-        	</div>
-        </div>
-    </div>
-
-    <div class="menu">
-        <div class="bt-name">
-        	<div data-role="main" class="ui-content">
-        	<a href="campusPreset.action" data-transition="slide">
-        	<span class="glyphicon glyphicon-cutlery" style="color:#2FA2DB"></span>
-        	</a>
-        	</div>
-        </div>
-    </div>
-
-    <div class="menu">
-        <div class="bt-name">
-        	<div data-role="main" class="ui-content">
-        	<a href="campusPreset.action" data-transition="slide">
-        	<span class="glyphicon glyphicon-user" style="color:#2FA2DB"></span>
-        	</a>
-        	</div>
-        </div>
-    </div>
-</div> -->
-
 </body>
 </html>

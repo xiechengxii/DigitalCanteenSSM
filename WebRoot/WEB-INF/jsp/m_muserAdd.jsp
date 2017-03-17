@@ -22,11 +22,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <meta name="format-detection" content="telephone=no">
     
         <script src="js/modernizr.custom.js"></script>
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/m_bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="css/normalize.css" />
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/icons.css" />
         <link rel="stylesheet" type="text/css" href="css/component.css" />
+        <link rel='stylesheet' href='http://fonts.googleapis.com/icon?family=Material+Icons' type='text/css'>
+
+
     </head> 
     <body>
         <script>
@@ -135,29 +140,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }	
         </script>
 
-        <div id="st-container" class="st-container">
-        <div class="st-pusher">
-        <%@ include file="publicjsp/index.jsp" %>
-        <div class="st-content">
-            <div class="st-content-inner">
-              <div class="main clearfix">
-                <div id="st-trigger-effects">
-                  <button data-effect="st-effect-3" >
-                    <div class="burger-container" z-index="-1">
-                      <span class="burger-bun-top"></span>
-                      <span class="burger-filling"></span>
-                      <span class="burger-bun-bot"></span>
-                    </div>
-                  </button>
-                </div>
-                <div>
-                    <h3>新增管理员账户</h3>
-                </div>
+<div class="container">
+    <div class="mp-pusher" id="mp-pusher">
+    <%@ include file="publicjsp/index.jsp" %>               
+        <div class="scroller" style="background:#f3efe0">
+          <div class="scroller-inner">
+              <header class="codrops-header" style="background:#7acfa6">
+                   <div id="trigger" >
+                      <a href="javascript:;" >
+                        <i class="material-icons" style="position:absolute;left:10px">menu</i>
+                      </a>
+                   </div>
+                    <h1>新增管理员账户</h1>
+                </header>
 
+                    <div class="content clearfix">
                         <form  role="form" name="muserInsertForm" method="post" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-xs-3"><label>管理员类型</label></div>
-   	    	                        <div class="col-xs-9">
+                            <div class="row form-group">
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">管理员类型</label>
+   	    	                        <div class="col-xs-8">
                                         <select name="muserRoleID" class="form-control select select-primary mrs mbm" data-toggle="select" onchange="selectRole(this.value)">
    	    	                        	<option value="">请选择添加的管理员类型</option>
    	    	                        	<c:forEach items="${roleList }" var="item" >
@@ -166,55 +167,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	    	                            </select>
                                     </div>
                             </div>
-                            <div class="row">
-                                <div class="col-xs-3"><label id="campusLabel">管理员校区</label></div>
-                                    <div class="col-xs-9">
+                            <br>
+                            <div class="row form-group">
+                                <label id="campusLabel" class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">管理员校区</label>
+                                    <div class="col-xs-8">
    	    	                        <select name="muserCampusID" class="form-control select select-primary mrs mbm" onchange="selectCanteen(this.value)" data-toggle="select">
    	    	                        	<option value="">请选择食堂管理员的所属校区</option>
    	    	                        </select>
                                     </div>
                             </div>
-   	    	                <div class="row">
-                                <div class="col-xs-3"><label id="canteenLabel">管理员食堂</label></div>
-                                    <div class="col-xs-9">
+                            <br>
+   	    	                <div class="row form-group"> 
+                                <label class="col-xs-4 control-label" id="canteenLabel" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">管理员食堂</label>
+                                    <div class="col-xs-8">
    	    	                        <select name="muserCantID" class="form-control select select-primary mrs mbm" data-toggle="select">
    	    	                        	<option value="">请选择食堂管理员的所属食堂</option>
    	    	                        </select>
                                     </div>
                             </div>
+                            <br>
    	    	                <div class="form-group">
                                 <div class="row">
-                                <label class="col-xs-3 control-label">用户名</label>
-                                <div class="col-xs-9">
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">用户名</label>
+                                <div class="col-xs-8">
    	    	                        <input type="text" class="form-control" placeholder="请在此输入管理员名字" name="muserName">
                                 </div>
                                 </div>
-
+                                <br>
                                 <div class="row">
-                                <label class="col-xs-3 control-label">密码</label>
-                                <div class="col-xs-9">
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">密码</label>
+                                <div class="col-xs-8">
    	    	                        <input type="text" class="form-control" placeholder="请在此输入管理员密码" name="muserPwd">
                                 </div>
                                 </div>
-
+                                <br>
                                 <div class="row">
-                                <label class="col-xs-3 control-label">联系电话</label>
-                                <div class="col-xs-9">
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">联系电话</label>
+                                <div class="col-xs-8">
    	    	                        <input type="text" class="form-control" placeholder="请在此输入管理员电话" name="muserTel">
                                 </div>
                                 </div>
-
+                                <br>
                                 <div class="row">
-                                <label class="col-xs-3 control-label">Email</label>
-                                <div class="col-xs-9">
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">Email</label>
+                                <div class="col-xs-8">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员Email" name="muserEmail">
                                 </div>
                                 </div>
-
+                                <br>
                                 <div class="row">
-   	    	                    <label class="col-xs-3 control-label">照片</label>
-   	    	                	<div class="col-xs-9">
+   	    	                    <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">照片</label>
+   	    	                	<div class="col-xs-8">
+                                    <a href="javascript:;" class="file" style="font-size:15px;">选择文件
    	    	                		<input type="file" name="muserPhotoFile"/>
+                                    </a>
                                 </div>
                                 </div>   	    	               
                             </div>
@@ -230,6 +236,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
     <script src="js/classie.js"></script>
-    <script src="js/sidebarEffects.js"></script>
+    <script src="js/mlpushmenu.js"></script>
+    <script>
+        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+    </script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
     </body>
 </html>

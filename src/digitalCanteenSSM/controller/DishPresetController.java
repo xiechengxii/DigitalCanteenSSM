@@ -60,7 +60,7 @@ public class DishPresetController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("pagehelper", pagehelper);
-		modelAndView.setViewName("/WEB-INF/jsp/dishPreset.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_dishPreset.jsp");
 		
 		return modelAndView;
 	}
@@ -79,7 +79,7 @@ public class DishPresetController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("dishPreset",findDishPresetById(dishPresetID));	
-		modelAndView.setViewName("/WEB-INF/jsp/dishPresetModify.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_dishPresetModify.jsp");
 		
 		return modelAndView;
 	}

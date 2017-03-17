@@ -69,7 +69,7 @@ public class WindowPresetController {
 		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
 		modelAndView.addObject("pagehelper", pagehelper);	
-		modelAndView.setViewName("/WEB-INF/jsp/windowPreset.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_windowPreset.jsp");
 		
 		return modelAndView;
 	}
@@ -91,7 +91,7 @@ public class WindowPresetController {
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
 		modelAndView.addObject("canteenItemsInCampus",canteenPresetService.findCanteenByCampus(cantCampusID));
 		modelAndView.addObject("windowItems",findWindowById(wndID));	
-		modelAndView.setViewName("/WEB-INF/jsp/windowModify.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_windowModify.jsp");
 		
 		return modelAndView;
 	}

@@ -91,7 +91,7 @@ public class MUserBackGroundController {
 		modelAndView.addObject("RecordItemsList", recordService.findRecordByDate(rc));
 		modelAndView.addObject("dishRecordList", recordService.findRecordInCanteen(recordCantID));
 		
-		modelAndView.setViewName("/WEB-INF/jsp/muserBackGround.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_muserBackGround.jsp");
 		
 		return modelAndView;
 	}
@@ -126,7 +126,7 @@ public class MUserBackGroundController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("muserItemsList",muserService.findAllMUser());
-		modelAndView.setViewName("/WEB-INF/jsp/m_muserAllInfo.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/muserAllInfo.jsp");
 		return modelAndView;
 	}
 	

@@ -21,63 +21,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="format-detection" content="telephone=no">
 		
 		<script src="js/modernizr.custom.js"></script>
-    	<link rel="stylesheet" href="css/m_bootstrap.min.css"/>
-    	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-    	<link rel="stylesheet" type="text/css" href="css/demo.css" />
-    	<link rel="stylesheet" type="text/css" href="css/icons.css" />
-    	<link rel="stylesheet" type="text/css" href="css/component.css" />  
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/m_bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel='stylesheet' href='http://fonts.googleapis.com/icon?family=Material+Icons' type='text/css'>  
     </head>   
     <body>
-    <div id="st-container" class="st-container">
-    	<div class="st-pusher">
+    <div class="container">
+    <div class="mp-pusher" id="mp-pusher">
     		<%@ include file="publicjsp/index.jsp" %>               
-        	<div class="st-content">
-        		<div class="st-content-inner">
-        			<div class="main clearfix">
-        				<div id="st-trigger-effects">
-            			   <button data-effect="st-effect-3">
-            			   	<div class="burger-container" z-index="-1">
-                                <span class="burger-bun-top"></span>
-                                <span class="burger-filling"></span>
-                                <span class="burger-bun-bot"></span>
-                            </div>
-            			   </button>
-            			</div>
-    					<div> 
-						   <h3>预置菜品</h3>  
-						</div>
+        	<div class="scroller" style="background:#f3efe0">
+            <div class="scroller-inner">
+                <header class="codrops-header" style="background:#7acfa6">
+                     <div id="trigger" >
+                             <a href="javascript:;" >
+                                <i class="material-icons" style="position:absolute;left:10px">menu</i>
+                             </a>
+                     </div>
+						         <h1>预置菜品</h1>  
+						    </header>
 
-		<form action="insetDishPreset.action" method="post">
+                <div class="content clearfix">
+		            <form action="insetDishPreset.action" method="post">
 			<!-- 添加预置菜品-->
-			<div class="form-group" >
-    			<div> <input name="dishPresetName" class="form-control " type="text" placeholder="请输入预置菜品"> </div>
-    			<br>
-    			<div align="center"><input  type="submit" value="添加菜品"  class="btn btn-primary btn-wide" data-role="none"></div>
-  			</div>
+			           <div class="form-group" >
+    			         <div> 
+                      <input name="dishPresetName" class="form-control " type="text" placeholder="请输入预置菜品"> 
+                    </div>
+    			         <br>
+    			         <div align="center">
+                      <input  type="submit" value="添加菜品"  class="btn btn-primary btn-wide" data-role="none">
+                   </div>
+  			         </div>
 
 			<!-- 列举所有已录入的预置菜品 --> 
-			<table  class="table table-striped table-bordered table-condensed">
-				<thead>
-			    <tr style="background:#7acfa6;text-align:center;color:white;">
-			   	 	<td>预置菜品名称</td>
-			        <td colspan="2">编辑</td>
-			    </tr>
-			    </thead>
-				<c:forEach items="${pagehelper.list }" var="item" >
-			    <tr align="center">
-			        <td>${item.dishPresetName }</td>
-			        <td><a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}">修改</a></td>
-			        <td><a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}">删除</a></td>
-			    </tr>
-				</c:forEach>
-			</table>		
-		</form>
+			           <table  class="table table-striped table-bordered table-condensed">
+			           	<thead>
+			               <tr style="background:#7acfa6;text-align:center;color:white;font-size:15px">
+			              	 	<td>预置菜品名称</td>
+			                  <td colspan="2">编辑</td>
+			               </tr>
+			            </thead>
+			           	<c:forEach items="${pagehelper.list }" var="item" >
+			               <tr align="center" style="color:black;font-size:15px">
+			                   <td>${item.dishPresetName }</td>
+			                   <td><a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}">修改</a></td>
+			                   <td><a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}">删除</a></td>
+			               </tr>
+			           	</c:forEach>
+			           </table>		
+		            </form>
 		</div>
 		</div>
 		</div>
-	</div>
+	  </div>
     </div>
     <script src="js/classie.js"></script>
-    <script src="js/sidebarEffects.js"></script>
+    <script src="js/mlpushmenu.js"></script>
+    <script>
+      new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+    </script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
   	</body>
 </html>

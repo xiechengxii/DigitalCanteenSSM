@@ -10,7 +10,7 @@
 									<h2 class="icon icon-display" style="padding: 1em 1em 1em 4.5em;font-size:17px; background:rgba(122,207,166,0.95)">菜品管理</h2>
 									<ul>
 										<li >
-											<a class="icon icon-phone" href="${pageContext.request.contextPath }/checkDish.action" style="padding: 1em 1em 1em 4.5em;font-weight:300;font-size:15px;color:#484848">菜品导出</a>
+											<a class="icon icon-phone" href="#" style="padding: 1em 1em 1em 4.5em;font-weight:300;font-size:15px;color:#484848">菜品导出</a>
 										</li>
 										<li >
 											<a class="icon icon-tv" href="${pageContext.request.contextPath }/checkDish.action" style="padding: 1em 1em 1em 4.5em;font-weight:300;font-size:15px;color:#484848">新菜审核</a>

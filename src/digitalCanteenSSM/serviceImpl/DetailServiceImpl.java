@@ -1,5 +1,6 @@
 package digitalCanteenSSM.serviceImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import digitalCanteenSSM.mapper.DetailMapper;
 import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.DishItems;
+import digitalCanteenSSM.po.RecordItems;
 import digitalCanteenSSM.service.DetailService;
 
 
@@ -23,6 +25,13 @@ public class DetailServiceImpl implements DetailService{
 	}
 	
 	@Override
+	public List<RecordItems> findRecordAndDetailDish(Integer recordID)
+			throws Exception {
+		
+		return detailMapper.findRecordAndDetailDish(recordID);
+	}
+	
+	@Override
 	public void deleteDetailDishByRecordId(Integer recordID) throws Exception{
 		detailMapper.deleteDetailDishByRecordId(recordID);
 	}
@@ -34,6 +43,8 @@ public class DetailServiceImpl implements DetailService{
 	public void insertDetailDish(DishItems dishItems) throws Exception{
 		detailMapper.insertDetailDish(dishItems);
 	}
+
+	
 
 	
 	

@@ -14,6 +14,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY RecordDate DESC
 	</select>
 	
+	<!-- 查询某个校区的历史录入信息 -->
+	<select id="findRecordInCampus" parameterType="Integer" resultType="Record">
+		SELECT *
+		FROM ctrecord
+		WHERE ctrecord.RecordCampusID = #{campusID} 
+		ORDER BY RecordCampusID,RecordDate DESC
+	</select>
+	
+	<!-- 按时间查询某个校区的历史录入信息 -->
+	<select id="findRecordInCampusByDate"  resultType="Record">
+		SELECT *
+		FROM ctrecord
+		WHERE ctrecord.RecordCampusID = #{0} 
+		and  DATE_FORMAT(ctrecord.RecordDate,'%Y-%m-%d') between  DATE_FORMAT(#{1}, '%Y-%m-%d')  and  DATE_FORMAT(#{2}, '%Y-%m-%d') 	
+		ORDER BY RecordCampusID,RecordDate DESC
+	</select>
+
 	<!-- 查询某个食堂某一天的录入RecordID -->
 	<select id="findRecordID" parameterType="Record" resultType="Integer">
 		SELECT ctrecord.RecordID 

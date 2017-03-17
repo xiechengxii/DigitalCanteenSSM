@@ -1,10 +1,14 @@
 package digitalCanteenSSM.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,11 +24,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
+import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.Record;
+import digitalCanteenSSM.po.RecordItems;
 import digitalCanteenSSM.service.CampusPresetService;
 import digitalCanteenSSM.service.CanteenPresetService;
+import digitalCanteenSSM.service.DetailService;
 import digitalCanteenSSM.service.DishExportToExcelService;
 import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.MUserService;
@@ -49,7 +56,8 @@ public class MUserBackGroundController {
 	@Autowired
 	private DishExportToExcelService dishExportToExcelService;
 	@Autowired
-	private DishManagementService dishManagementService;
+	private DetailService detailService;
+
 	
 	@RequestMapping("/backgroundHomepage")
 	public String backgroundHomepage(HttpSession session) throws Exception{
@@ -235,12 +243,16 @@ public class MUserBackGroundController {
 
 		return modelAndView;
 	}
+	
 	//查询某个校区的 所有菜品记录
 	@RequestMapping("/findRecordInCampus")
-	public ModelAndView findRecordInCampus(Integer campusID) throws Exception{
-		
+	public ModelAndView findRecordInCampus(Integer campusID) throws Exception{	
 		ModelAndView modelAndView = new ModelAndView();
 		
+		List<Record> recordList = recordService.findRecordInCampus(campusID);
+		modelAndView.addObject("campusID",campusID);
+		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
+		modelAndView.addObject("recordList",recordList);
 		modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
 
 		return modelAndView;
@@ -248,11 +260,23 @@ public class MUserBackGroundController {
 	
 	//导出excel根据查询条件
 	@RequestMapping(value="/campusRecordExportToExcel",method=RequestMethod.POST)
-	public @ResponseBody ModelAndView campusRecordExportToExcel(HttpServletResponse res) throws Exception{
+	public @ResponseBody ModelAndView campusRecordExportToExcel(HttpServletResponse response,Integer campusID,Date beginTime,Date endTime) throws Exception{
 		ModelAndView modelAndView = new ModelAndView();
 		
-		List<DishItems> dishItemsList = dishManagementService.findAllDishes();
-		dishExportToExcelService.writeExcel(dishItemsList,res);
+		if(beginTime==null && endTime==null){
+			SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");  
+			String dateString=simpleDateFormat.format(new Date());
+			Date date=simpleDateFormat.parse(dateString);	
+			beginTime=date;
+			endTime=date;
+		}
+		
+		List<RecordItems> recordItemsList = new ArrayList<RecordItems>();
+		List<Record> recordList = recordService.findRecordInCampusByDate(campusID,beginTime,endTime);
+		for(Record record:recordList){
+			recordItemsList.addAll(detailService.findRecordAndDetailDish(record.getRecordID()));
+		}
+		dishExportToExcelService.writeExcel(recordItemsList,response);
 		modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
 
 		return modelAndView;

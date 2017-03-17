@@ -24,6 +24,7 @@ import digitalCanteenSSM.po.Dish;
 import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
+import digitalCanteenSSM.po.RecordItems;
 import digitalCanteenSSM.service.DetailService;
 import digitalCanteenSSM.service.DishExportToExcelService;
 import digitalCanteenSSM.service.DishManagementService;

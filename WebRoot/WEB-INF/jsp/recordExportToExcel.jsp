@@ -29,23 +29,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="js/moment.js"></script>
     <script type="text/javascript" src="js/daterangepicker-1.3.7.js"></script>
 
+
+</head>
+	<%@ include file="publicjsp/backgroundMenu.jsp" %>
+<body>
 	<script type="text/javascript">
 
 	function exportExcel(){
-
-		$.ajax({
+		/* document.listFrom.action="campusRecordExportToExcel.action";
+    	document.listFrom.submit();	 */
+    	$.ajax({
 			type:'post',
 			url:'${pageContext.request.contextPath}/campusRecordExportToExcel.action',
 			contentType:'application/x-www-form-urlencoded',
 			//发送的是key/value，接收的是json
-			data:'',
+			data:{beginTime:$('#beginTime'),endTime:$('#endTime')},
 			//回调函数:返回json结果
 			success:function(data){
-					alert("导出成功");
+					alert("导出成功！");
 			}
 		
 		});
-		
 	}
 
 	function findCampusRecord(){
@@ -53,14 +57,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	document.listFrom.submit();
 	}
 	</script>
-</head>
-	<%@ include file="publicjsp/backgroundMenu.jsp" %>
-<body>
     
     <div class="container-fluid">    
 		<div class="row-fluid">
-
-
 			<div class="container  col-sm-12 col-sm-offset-0"> 
 				<div class="panel panel-default ">
 					<div class="panel-heading">
@@ -74,11 +73,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <select class="form-control" name="campusID">
                                         <option value="">请选择食堂所属校区</option>
                                         <c:forEach items="${campusList }" var="item" >
-                                            <option value="${item.campusID }">${item.campusName }</option>
+                                            <c:choose>
+	                   		                    <c:when test="${item.campusID == campusID }">
+	                   		                        <option value="${item.campusID }" selected="selected">${item.campusName }</option>
+	                   		                    </c:when>
+	                   		                    <c:otherwise>
+	                   		                         <option value="${item.campusID }">${item.campusName }</option>
+	                   		                    </c:otherwise>
+	                   		                </c:choose>
                                         </c:forEach>
                                     </select>
                                 </div>                                
-								<div  class="col-sm-3">
+								<div  class="col-sm-2">
 									<button type="button" class="btn btn-primary" onclick="findCampusRecord()">搜索</button> 
 								</div> 
 								<div  class="form-group col-sm-3">						
@@ -87,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										    <span class="input-group-addon">
 										        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
 										    </span>
-										    <input type="hidden" name="beginTime" id="beginTime"  />
+										    <input type="hidden" name="beginTime" id="beginTime" />
 										    <input type="hidden" name="endTime" id="endTime"  />								    
 										</div>													
 								</div>
@@ -96,93 +102,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>                                                               
 							</form>							
 				        </div>
-
-						<table class="table table-striped table-bordered table-hover table-condensed table-responsive text-center" >
-							<thead>
-								<tr>
-									<th style='text-align: center;'>校区名称</th>
-    								<th style='text-align: center;'>食堂名称</th>
-    								<th style='text-align: center;'>档口名称</th>
-    								<th style='text-align: center;'>菜品类型</th>
-    								<th style='text-align: center;'>菜品名称</th>
-    								<th style='text-align: center;'>菜品图片</th>
-    								<th style='text-align: center;'>菜品价格</th>
-    								<th style='text-align: center;'>菜品销售时间</th>
-    								<th style='text-align: center;'>菜品销售状态</th>			
-    								<th style='text-align: center;'>菜品录入日期</th>
-    								<th style='text-align: center;'>菜品录入状态</th>
-    								<th style='text-align: center;'>菜品推荐</th>
-    								<th style='text-align: center;'>菜品留样</th>
-    								<th style='text-align: center;'>菜品合格</th> 			
-								</tr>
-							</thead>
-							<tbody>
-							<c:forEach items="${dishExcel }" var="item" >
-					    			 <c:choose>
-								    	<c:when test="${item.dishInState == '待审核'}">
-											<tr>
-											 	<td style='vertical-align: middle;text-align: center;'>${item.campusName }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.cantName }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.wndName }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishTypeName }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishName }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>
-												   	<c:if test="${item.dishPhoto != null }">
-								   						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="100" width="120"/>
-								   					</c:if>
-						   						</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishPrice }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishDate }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishSale }</td>
-											   	<td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td> 
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishInState }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishRecmd }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishKeep }</td>
-											   	<td style='vertical-align: middle;text-align: center;'>${item.dishQuality }</td>			   	
-											    <td style='vertical-align: middle;text-align: center;'>
-											    	<div class="form-group btn-group btn-group-sm">
-												    	<a href="deleteDishById.action?dishID=${item.dishID}" class="btn btn-danger">删除</a>
-													</div>
-											    </td>
-											</tr>
-								    	</c:when>
-									</c:choose>
-								</c:forEach>
-								
-								<c:forEach items="${dishExcel }" var="item" >
-					    			 <c:choose>
-								    	<c:when test="${item.dishInState == '待审核'}">
-								    	</c:when>
-										<c:otherwise>
-											<tr>
-										 		<td style='vertical-align: middle;text-align: center;'>${item.campusName }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.cantName }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.wndName }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishTypeName }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishName }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>
-												   	<c:if test="${item.dishPhoto != null }">												   	
-						   								<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="100" width="120"/>
-						   							</c:if>
-					   							</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishPrice }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishDate }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishSale }</td>
-										   		<td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td> 
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishInState }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishRecmd }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishKeep }</td>
-										   		<td style='vertical-align: middle;text-align: center;'>${item.dishQuality }</td>	
-											</tr>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-							</tbody>
-						</table>											
+				        
+						<table class="table table-striped table-bordered table-hover table-responsive text-center">
+						    <thead>
+							    <tr>
+							    	<th style='text-align: center;'>校区</th>
+							    	<th style='text-align: center;'>食堂</th> 
+							    	<th style='text-align: center;'>操作人</th> 
+							    	<th style='text-align: center;'>日期</th> 
+							    	<th style='text-align: center;'>提交状态</th> 	
+							    	<th style='text-align: center;'>编辑</th> 		
+							    </tr>
+						    </thead>
+						    <tbody>
+							    <c:forEach items="${recordList }" var="item">
+							        <tr>
+							        	<td style='vertical-align: middle;text-align: center;'>${item.recordCampusName }</td>
+							        	<td style='vertical-align: middle;text-align: center;'>${item.recordCantName }</td>
+							        	<td style='vertical-align: middle;text-align: center;'>${item.recordMUserName }</td>
+							        	<td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></td>
+							        	<td style='vertical-align: middle;text-align: center;'>${item.recordSubmitState }</td>  	
+							        	<td style='vertical-align: middle;text-align: center;'>
+						                    <div class="form-group btn-group btn-group-sm">
+						                        <a href="modifyRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-info">修改</a>
+							        		    <a href="findRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-success">查看</a>
+							        	        <a href="deleteRecord.action?recordID=${item.recordID}" class="btn btn-danger">删除</a>
+						                    </div>
+							        	</td>
+							        </tr>
+						        </c:forEach>
+						    </tbody>
+						</table>													
 					</div>					
 				</div> 
-			</div>
-		       
+			</div>      
 		</div>
 	</div>
 
@@ -201,13 +154,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            firstDay : 1
 		        },
 		        ranges : {
-		            //'最近1小时': [moment().subtract('hours',1), moment()],
+		            /* '最近1小时': [moment().subtract('hours',1), moment()], */
 		            '今日': [moment().startOf('day'), moment()],
-		            '昨日': [moment().subtract('days', 1).startOf('day'), moment().subtract('days', 1).endOf('day')],
+		            /* '昨日': [moment().subtract('days', 1).startOf('day'), moment().subtract('days', 1).endOf('day')],
 		            '最近7日': [moment().subtract('days', 6), moment()],
-		            '最近30日': [moment().subtract('days', 29), moment()],
-		            '本月': [moment().startOf("month"),moment().endOf("month")],
-		            '上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")]
+		            '最近30日': [moment().subtract('days', 29), moment()], */
+		            '本月': [moment().startOf("month"),moment()],
+		            /* '上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")] */
 		        },
 		        opens : 'right',    // 日期选择框的弹出位置
 		        separator : ' 至 ',

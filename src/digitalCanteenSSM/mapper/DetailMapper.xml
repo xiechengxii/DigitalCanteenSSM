@@ -14,6 +14,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY DetailWndID
 	</select>
 	
+	<select id="findRecordAndDetailDish" parameterType="Integer" resultType="RecordItems">
+		SELECT * 
+		FROM ctdetail,ctrecord
+		WHERE ctdetail.DetailRecordID = ctrecord.RecordID and ctrecord.RecordID = #{recordID } 
+		ORDER BY DetailWndID
+	</select>
+	
 	<!-- 根据DetailID删除该记录信息 -->
 	<select id="deleteDetailDish"  parameterType="Integer" >
 		DELETE	FROM ctdetail 

@@ -31,7 +31,7 @@ public class DishTypePresetController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("dishTypeList",dishTypePresetService.findAllDishType());	
-		modelAndView.setViewName("/WEB-INF/jsp/dishTypePreset.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_dishTypePreset.jsp");
 		
 		return modelAndView;
 	}
@@ -57,7 +57,7 @@ public class DishTypePresetController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("dishType",findDishTypeById(dishTypeID));	
-		modelAndView.setViewName("/WEB-INF/jsp/dishTypeModify.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_dishTypeModify.jsp");
 		
 		return modelAndView;
 	}

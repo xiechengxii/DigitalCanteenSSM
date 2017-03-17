@@ -45,7 +45,7 @@ a:hover, a:focus {
 }
 
 .codrops-header {
-	margin: 0 5px 0 0;
+	margin: 0 0 0 0;
 	padding: 2em;
 	background: rgba(26,237,239,0.01);
 	text-align: center;
@@ -145,7 +145,7 @@ a:hover, a:focus {
 }
 
 .content {
-	padding: 4em 2em;
+	padding: 1em 1em;
 	max-width: 1200px;
 	margin: 0 auto;
 }

@@ -266,7 +266,7 @@ public class DishManagementController {
 		modelAndView.addObject("dishTypeList", dishTypePresetService.findAllDishType());
 		modelAndView.addObject("dishPresetList",dishPresetService.findAllDishPreset());
 		modelAndView.addObject("dishItemsList",dishManagementService.findAllDishes());
-		modelAndView.setViewName("/WEB-INF/jsp/dishAdd.jsp");
+		modelAndView.setViewName("/WEB-INF/jsp/m_dishAdd.jsp");
 		
 		return modelAndView;
 	}

@@ -5,10 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,8 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
-import digitalCanteenSSM.po.Detail;
-import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.po.RecordItems;
@@ -33,7 +29,6 @@ import digitalCanteenSSM.service.CampusPresetService;
 import digitalCanteenSSM.service.CanteenPresetService;
 import digitalCanteenSSM.service.DetailService;
 import digitalCanteenSSM.service.DishExportToExcelService;
-import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.MUserService;
 import digitalCanteenSSM.service.RecordService;
 import digitalCanteenSSM.service.RoleService;
@@ -273,10 +268,11 @@ public class MUserBackGroundController {
 		
 		List<RecordItems> recordItemsList = new ArrayList<RecordItems>();
 		List<Record> recordList = recordService.findRecordInCampusByDate(campusID,beginTime,endTime);
+		List<CanteenItems> canteenList = canteenPresetService.findCanteenByCampus(campusID);
 		for(Record record:recordList){
 			recordItemsList.addAll(detailService.findRecordAndDetailDish(record.getRecordID()));
 		}
-		dishExportToExcelService.writeExcel(recordItemsList,response);
+		dishExportToExcelService.writeExcel(recordItemsList,canteenList,response);
 		modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
 
 		return modelAndView;

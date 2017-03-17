@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -20,6 +21,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Service;
 
+import digitalCanteenSSM.po.CanteenItems;
 import digitalCanteenSSM.po.RecordItems;
 import digitalCanteenSSM.service.DishExportToExcelService;
 
@@ -27,61 +29,68 @@ import digitalCanteenSSM.service.DishExportToExcelService;
 public class DishExportToExcelServiceImpl implements DishExportToExcelService{
 
 	@Override
-	public void writeExcel(List<RecordItems> recordItemsList,HttpServletResponse res) throws IOException, ParseException {
+	public void writeExcel(List<RecordItems> recordItemsList,List<CanteenItems> canteenList,HttpServletResponse res) throws IOException, ParseException {
 		// TODO Auto-generated method stub
 		// 1.创建一个workbook，对应一个Excel文件
         HSSFWorkbook workBook = new HSSFWorkbook();
-        // 2.在workbook中添加一个sheet，对应Excel中的一个sheet
-        HSSFSheet sheet = workBook.createSheet("菜品表");
-        // 3.在sheet中添加表头第0行，老版本poi对excel行数列数有限制short
-        HSSFRow row = sheet.createRow((int) 0);
-        // 4.创建单元格，设置值表头，设置表头居中
-        HSSFCellStyle style = workBook.createCellStyle();
-        // 居中格式
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
         //设置日期格式
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        short df=workBook.createDataFormat().getFormat("yyyy-mm-dd hh:mm"); 
-        style.setDataFormat(df); 
-        // 设置表头
-        HSSFCell cell = row.createCell(0);
-        cell.setCellValue("食堂名称");
-        cell.setCellStyle(style);
+        String fileName = new String();
+        //按食堂分sheet导出记录
+        for(CanteenItems canteenItems:canteenList){
+        	//设置每写入新的食堂表的表头行
+        	int j = 0;
+        	fileName = canteenItems.getCampusName()+"校区菜品记录表";
+        	// 2.在workbook中添加一个sheet，对应Excel中的一个sheet
+            HSSFSheet sheet = workBook.createSheet(canteenItems.getCantName()+"记录表");
+            // 3.在sheet中添加表头第0行，老版本poi对excel行数列数有限制short
+            HSSFRow row = sheet.createRow((int) 0);
+            // 4.创建单元格，设置值表头，设置表头居中
+            HSSFCellStyle style = workBook.createCellStyle();
+            // 居中格式
+            style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            // 设置表头
+            HSSFCell cell = row.createCell(0);
+            cell.setCellValue("食堂名称");
+            cell.setCellStyle(style);
+            
+            cell = row.createCell(1);
+            cell.setCellValue("记录日期");
+            cell.setCellStyle(style);
+            
+            cell = row.createCell(2);
+            cell.setCellValue("操作人");
+            cell.setCellStyle(style);
+            
+            cell = row.createCell(3);
+            cell.setCellValue("菜品名");
+            cell.setCellStyle(style);
+            
+            cell = row.createCell(4);
+            cell.setCellValue("菜品时间档");
+            cell.setCellStyle(style);
+            
+            cell = row.createCell(5);
+            cell.setCellValue("是否留样");
+            cell.setCellStyle(style);
+            
+    		// 循环将数据写入Excel
+            for (int i = 0; i < recordItemsList.size(); i++) {
+            	RecordItems recordItems= (RecordItems)recordItemsList.get(i);
+            	if(recordItems.getRecordCantID() == canteenItems.getCantID()){
+            		// 创建单元格，设置值
+            		row = sheet.createRow((int) j + 1);  
+            		j++;
+                    row.createCell(0).setCellValue(recordItems.getRecordCantName());
+                    row.createCell(1).setCellValue(formatter.format(recordItems.getRecordDate()));
+                    row.createCell(2).setCellValue(recordItems.getRecordMUserName());
+                    row.createCell(3).setCellValue(recordItems.getDetailDishName());
+                    row.createCell(4).setCellValue(recordItems.getDetailDishDate());
+                    row.createCell(5).setCellValue(recordItems.getDetailDishKeep());
+            	}
+            }
+        }       
         
-        cell = row.createCell(1);
-        cell.setCellValue("记录日期");
-        cell.setCellStyle(style);
-        
-        cell = row.createCell(2);
-        cell.setCellValue("操作人");
-        cell.setCellStyle(style);
-        
-        cell = row.createCell(3);
-        cell.setCellValue("菜品名");
-        cell.setCellStyle(style);
-        
-        cell = row.createCell(4);
-        cell.setCellValue("菜品时间档");
-        cell.setCellStyle(style);
-        
-        cell = row.createCell(5);
-        cell.setCellValue("是否留样");
-        cell.setCellStyle(style);
-        
-		// 循环将数据写入Excel
-        for (int i = 0; i < recordItemsList.size(); i++) {
-            row = sheet.createRow((int) i + 1);
-            RecordItems recordItems= (RecordItems)recordItemsList.get(i);
-            // 创建单元格，设置值
-            row.createCell(0).setCellValue(recordItems.getRecordCantName());
-            row.createCell(1).setCellValue(formatter.format(recordItems.getRecordDate()));
-            row.createCell(2).setCellValue(recordItems.getRecordMUserName());
-            row.createCell(3).setCellValue(recordItems.getDetailDishName());
-            row.createCell(4).setCellValue(recordItems.getDetailDishDate());
-            row.createCell(5).setCellValue(recordItems.getDetailDishKeep());
-        }
-        
-        String fileName = "菜品记录表";
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         workBook.write(os);
         byte[] content = os.toByteArray();

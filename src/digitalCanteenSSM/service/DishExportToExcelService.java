@@ -6,10 +6,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import digitalCanteenSSM.po.CanteenItems;
 import digitalCanteenSSM.po.RecordItems;
 
 public interface DishExportToExcelService {
 
-	public void writeExcel(List<RecordItems> recordItemsList,HttpServletResponse res)
+	public void writeExcel(List<RecordItems> recordItemsList,List<CanteenItems> canteenList,HttpServletResponse res)
 			throws IOException, ParseException;
 }

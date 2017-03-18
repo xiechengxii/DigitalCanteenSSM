@@ -8,7 +8,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <html>
     <head>
@@ -19,9 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<meta name="viewport" content="width=device-width, 
                                              initial-scale=0.3, 
                                              maximum-scale=1.0, 
-                                             user-scalable=true">
-        <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-        
+                                             user-scalable=true">        
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!--自定义-->      
         <link rel="stylesheet" href="css/my-custom.css">
@@ -36,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--日历控件-->	
 		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs3.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-1.3.7.css" />
-	    <script type="text/javascript" src="js/moment.js"></script>
-	    <script type="text/javascript" src="js/daterangepicker-1.3.7.js"></script>		
+	    <script src="js/moment.js"></script>
+	    <script src="js/daterangepicker-1.3.7.js"></script>		
     </head>
   
     <body>

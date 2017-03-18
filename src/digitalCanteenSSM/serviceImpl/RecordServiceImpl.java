@@ -2,7 +2,6 @@ package digitalCanteenSSM.serviceImpl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,13 @@ public class RecordServiceImpl implements RecordService{
 	public List<Record> findRecordInCampus(Integer campusID) throws Exception{
 		
 		return recordMapper.findRecordInCampus(campusID);
+	}
+	
+	@Override
+	public List<Record> findRecordInCanteenByDate(Integer cantID,
+			Date beginDate, Date endDate) throws Exception {
+		
+		return recordMapper.findRecordInCanteenByDate(cantID, beginDate, endDate);
 	}
 	
 	@Override
@@ -64,6 +70,8 @@ public class RecordServiceImpl implements RecordService{
 		
 		return recordMapper.findRecordInCanteen(recordCantID);
 	}
+
+
 
 	
 	

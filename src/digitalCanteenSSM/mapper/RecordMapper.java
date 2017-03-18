@@ -2,13 +2,14 @@ package digitalCanteenSSM.mapper;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import digitalCanteenSSM.po.Record;
 
 public interface RecordMapper {
 	
 	public List<Record> findRecordInCanteen(Integer recordCantID) throws Exception;
+
+	public List<Record> findRecordInCanteenByDate(Integer cantID,Date beginDate,Date endDate) throws Exception;
 	
 	public List<Record> findRecordInCampus(Integer campusID) throws Exception;
 	

@@ -9,6 +9,8 @@ public interface RecordService {
 	
 	public List<Record> findRecordInCanteen(Integer recordCantID) throws Exception;
 	
+	public List<Record> findRecordInCanteenByDate(Integer cantID,Date beginDate,Date endDate) throws Exception;
+
 	public List<Record> findRecordInCampus(Integer campusID) throws Exception;
 	
 	public List<Record> findRecordInCampusByDate(Integer campusID,Date beginDate,Date endDate) throws Exception;

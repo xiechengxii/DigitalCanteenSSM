@@ -29,7 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="js/moment.js"></script>
     <script type="text/javascript" src="js/daterangepicker-1.3.7.js"></script>
 
-
 </head>
 	<%@ include file="publicjsp/backgroundMenu.jsp" %>
 <body>

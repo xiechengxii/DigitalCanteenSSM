@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -40,7 +39,12 @@ public class DishExportToExcelServiceImpl implements DishExportToExcelService{
         for(CanteenItems canteenItems:canteenList){
         	//设置每写入新的食堂表的表头行
         	int j = 0;
-        	fileName = canteenItems.getCampusName()+"校区菜品记录表";
+        	if(canteenList.size() > 1){
+        		fileName = canteenItems.getCampusName()+"校区菜品记录表";
+        	}else{
+        		fileName = canteenItems.getCantName()+"食堂菜品记录表";
+        	}
+        	
         	// 2.在workbook中添加一个sheet，对应Excel中的一个sheet
             HSSFSheet sheet = workBook.createSheet(canteenItems.getCantName()+"记录表");
             // 3.在sheet中添加表头第0行，老版本poi对excel行数列数有限制short

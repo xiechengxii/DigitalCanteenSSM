@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.service.MUserService;
+import digitalCanteenSSM.util.CheckMobile;
 
 
 @Controller
@@ -47,15 +48,29 @@ public class LoginController {
 			request.setAttribute("message_login", "用户名或密码不正确");
 		}
 		
+		
+		//判断用户访问的设备类型并写入到session			
+		try{
+			String userAgent = request.getHeader("USER-AGENT").toLowerCase();
+			if(null == userAgent){
+				userAgent = "";
+			}
+			if(CheckMobile.check(userAgent)){
+				System.out.println("Using Mobile");
+				session.setAttribute("ua", "mobile");
+			}else{
+				System.out.println("Using PC");
+				session.setAttribute("ua", "pc");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}	
+		
 		//判断登录用户的类型，跳转到不同的页面
 		if(currentUser.isAuthenticated()){
-			MUserItems mUserItems = new MUserItems();
-			try {
-				mUserItems = mUserService.findMUserInfoByName(userName);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
+			
+			MUserItems	mUserItems = mUserService.findMUserInfoByName(userName);
+			
 			if("canteen".equals(mUserItems.getRoleName())){
 
 				/*

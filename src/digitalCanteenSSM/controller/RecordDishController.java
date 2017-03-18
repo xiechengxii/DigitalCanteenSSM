@@ -23,14 +23,20 @@ public class RecordDishController {
 	private RecordService recordService;
 	@Autowired
 	private DishManagementService dishManagementService;
+	
 	//查看某个食堂某一天记录的详细菜品信息
 	@RequestMapping("/findRecordDetailDish")
-	public ModelAndView findDetailDish(Record record) throws Exception{
+	public ModelAndView findDetailDish(Record record, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("record",record);
 		modelAndView.addObject("dishDetailList",detailService.findDetailDish(record.getRecordID()));
-		modelAndView.setViewName("WEB-INF/jsp/detailDish.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("WEB-INF/jsp/detailDish.jsp");
+		}else{
+			modelAndView.setViewName("WEB-INF/jsp/m_detailDish.jsp");
+		}
 		
 		return modelAndView;
 	}
@@ -57,7 +63,12 @@ public class RecordDishController {
 		modelAndView.addObject("record",record);
 		modelAndView.addObject("dishDetailList",detailService.findDetailDish(record.getRecordID()));
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
-		modelAndView.setViewName("WEB-INF/jsp/recordDetailDishModify.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("WEB-INF/jsp/recordDetailDishModify.jsp");
+		}else{
+			modelAndView.setViewName("WEB-INF/jsp/m_recordDetailDishModify.jsp");
+		}		
 		
 		return modelAndView;
 	}
@@ -76,4 +87,6 @@ public class RecordDishController {
 		}
 		return "forward:muserCanteenHostPage.action";
 	}
+	
+	
 }

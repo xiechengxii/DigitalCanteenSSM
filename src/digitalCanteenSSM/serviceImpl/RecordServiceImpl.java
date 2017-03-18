@@ -1,5 +1,6 @@
 package digitalCanteenSSM.serviceImpl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,24 @@ public class RecordServiceImpl implements RecordService{
 
 	@Autowired
 	private RecordMapper recordMapper;
+	
 	@Override
-	public List<Record> findRecordInCanteen(Integer recordCantID) throws Exception{
+	public List<Record> findRecordInCampus(Integer campusID) throws Exception{
 		
-		return recordMapper.findRecordInCanteen(recordCantID);
+		return recordMapper.findRecordInCampus(campusID);
+	}
+	
+	@Override
+	public List<Record> findRecordInCanteenByDate(Integer cantID,
+			Date beginDate, Date endDate) throws Exception {
+		
+		return recordMapper.findRecordInCanteenByDate(cantID, beginDate, endDate);
+	}
+	
+	@Override
+	public List<Record> findRecordInCampusByDate(Integer campusID,Date beginDate,Date endDate) throws Exception {
+		
+		return recordMapper.findRecordInCampusByDate(campusID, beginDate, endDate);
 	}
 	
 	@Override
@@ -48,6 +63,17 @@ public class RecordServiceImpl implements RecordService{
 		
 		return recordMapper.findRecordByDate(record);
 	}
+
+	@Override
+	public List<Record> findRecordInCanteen(Integer recordCantID)
+			throws Exception {
+		
+		return recordMapper.findRecordInCanteen(recordCantID);
+	}
+
+
+
+	
 	
 	
 }

@@ -28,11 +28,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ctcant.CantName=#{cantName} and ctcant.CantCampusID=#{cantCampusID}		
 	</select>
 	
-	<!-- 根据CampusName查询一个校区下的所有食堂 -->
+	<!-- 根据CampusID查询一个校区下的所有食堂 -->
 	<select id="findCanteenByCampus"  parameterType="Integer" resultType="CanteenItems">
 		SELECT * 
-		FROM ctcant 
-		WHERE ctcant.CantCampusID=#{cantCampusID}
+		FROM ctcant,ctcampus 
+		WHERE ctcant.CantCampusID=#{cantCampusID} and ctcant.CantCampusID = ctcampus.CampusID
 		ORDER BY CantID	DESC
 	</select>
 	
@@ -41,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * 
 		FROM ctcant,ctcampus,ctcanttype 
 		WHERE ctcant.CantCampusID=campusID and ctcant.CantTypeID=ctcanttype.CantTypeID
+		ORDER BY CantID	DESC
 	</select>
 	
 	<!-- 根据CanteenID更新食堂信息 -->

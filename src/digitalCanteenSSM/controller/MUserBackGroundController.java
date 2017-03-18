@@ -1,17 +1,22 @@
 package digitalCanteenSSM.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,8 +24,11 @@ import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.Record;
+import digitalCanteenSSM.po.RecordItems;
 import digitalCanteenSSM.service.CampusPresetService;
 import digitalCanteenSSM.service.CanteenPresetService;
+import digitalCanteenSSM.service.DetailService;
+import digitalCanteenSSM.service.DishExportToExcelService;
 import digitalCanteenSSM.service.MUserService;
 import digitalCanteenSSM.service.RecordService;
 import digitalCanteenSSM.service.RoleService;
@@ -40,6 +48,11 @@ public class MUserBackGroundController {
 	private MUserService muserService;
 	@Autowired
 	private UploadFileService uploadFileService;
+	@Autowired
+	private DishExportToExcelService dishExportToExcelService;
+	@Autowired
+	private DetailService detailService;
+
 	
 	@RequestMapping("/backgroundHomepage")
 	public String backgroundHomepage(HttpSession session) throws Exception{
@@ -91,55 +104,80 @@ public class MUserBackGroundController {
 		modelAndView.addObject("RecordItemsList", recordService.findRecordByDate(rc));
 		modelAndView.addObject("dishRecordList", recordService.findRecordInCanteen(recordCantID));
 		
-		modelAndView.setViewName("/WEB-INF/jsp/muserBackGround.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/muserBackGround.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_muserBackGround.jsp");
+		}
 		
 		return modelAndView;
 	}
 	
 	//菜品记录页面,显示某个食堂所有的菜品记录（按日期倒序）
 	@RequestMapping("/recordDish")
-	public ModelAndView recordDish(Integer recordCantID) throws Exception{
+	public ModelAndView recordDish(Integer recordCantID, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		List<Record> dishRecordList = recordService.findRecordInCanteen(recordCantID);
 		modelAndView.addObject("dishRecordList",dishRecordList);
-		modelAndView.setViewName("/WEB-INF/jsp/dishRecord.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishRecord.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishRecord.jsp");
+		}
 		
 		return modelAndView;
 	}
 	
 	//后台管理员用户管理页面
 	@RequestMapping("/muserBackGroundUserManagement")
-	public ModelAndView muserBackGroundUserManagement() throws Exception{
+	public ModelAndView muserBackGroundUserManagement(HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.setViewName("/WEB-INF/jsp/muserBackGroundUserManagement.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/muserBackGroundUserManagement.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_muserBackGroundUserManagement.jsp");
+		}
+		
 		return modelAndView;
 	}
 	
 	//所有管理员用户信息页面
 	@RequestMapping("/findAllMUser")
-	public ModelAndView muserInAll() throws Exception{
+	public ModelAndView muserInAll(HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("muserItemsList",muserService.findAllMUser());
-		modelAndView.setViewName("/WEB-INF/jsp/m_muserAllInfo.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/muserAllInfo.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_muserAllInfo.jsp");
+		}
+		
 		return modelAndView;
 	}
 	
 	//后台管理员添加用户
 	@RequestMapping ("/addMUser")
-	public ModelAndView addMUser() throws Exception{
+	public ModelAndView addMUser(HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
 		modelAndView.addObject("roleList",roleService.findAllRole());
-		modelAndView.setViewName("/WEB-INF/jsp/m_muserAdd.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/muserAdd.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_muserAdd.jsp");
+		}		
 		
 		return modelAndView;
 	}
@@ -167,7 +205,7 @@ public class MUserBackGroundController {
 	}
 	//修改用户信息
 	@RequestMapping("/modifyMUser")
-	public ModelAndView modifyMUser(Integer muserID) throws Exception{
+	public ModelAndView modifyMUser(Integer muserID, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -175,7 +213,13 @@ public class MUserBackGroundController {
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
 		modelAndView.addObject("roleList",roleService.findAllRole());
 		modelAndView.addObject("muserItems",muserService.findMUserInfoById(muserID));
-		modelAndView.setViewName("/WEB-INF/jsp/muserModify.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/muserModify.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_muserModify.jsp");
+		}
+		
 		return modelAndView;
 	}
 	
@@ -213,4 +257,72 @@ public class MUserBackGroundController {
 		
 		return modelAndView;
 	}
+	
+	//导出菜品
+	@RequestMapping("/recordExportToExcel")
+	public ModelAndView recordExportToExcel(HttpSession session) throws Exception {
+
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
+		}else{
+			modelAndView.setViewName("WEB-INF/jsp/m_recordExportToExcel.jsp");
+		}
+
+		return modelAndView;
+	}
+	
+	//查询某个校区的 所有菜品记录
+	@RequestMapping("/findRecordInCampus")
+	public ModelAndView findRecordInCampus(Integer campusID, HttpSession session) throws Exception{	
+		ModelAndView modelAndView = new ModelAndView();
+		
+		List<Record> recordList = recordService.findRecordInCampus(campusID);
+		modelAndView.addObject("campusID",campusID);
+		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
+		modelAndView.addObject("recordList",recordList);
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
+		}else{
+			modelAndView.setViewName("WEB-INF/jsp/m_recordExportToExcel.jsp");
+		}
+
+		return modelAndView;
+	}
+	
+	//导出excel根据查询条件
+	@RequestMapping(value="/campusRecordExportToExcel",method=RequestMethod.POST)
+	public @ResponseBody ModelAndView campusRecordExportToExcel(HttpSession session, HttpServletResponse response,Integer campusID,Date beginTime,Date endTime) throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if(beginTime==null && endTime==null){
+			SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");  
+			String dateString=simpleDateFormat.format(new Date());
+			Date date=simpleDateFormat.parse(dateString);	
+			beginTime=date;
+			endTime=date;
+		}
+		
+		List<RecordItems> recordItemsList = new ArrayList<RecordItems>();
+		List<Record> recordList = recordService.findRecordInCampusByDate(campusID,beginTime,endTime);
+		List<CanteenItems> canteenList = canteenPresetService.findCanteenByCampus(campusID);
+		for(Record record:recordList){
+			recordItemsList.addAll(detailService.findRecordAndDetailDish(record.getRecordID()));
+		}
+		dishExportToExcelService.writeExcel(recordItemsList,canteenList,response);
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
+		}else{
+			modelAndView.setViewName("WEB-INF/jsp/m_recordExportToExcel.jsp");
+		}
+
+		return modelAndView;
+	}
+	
+
 }

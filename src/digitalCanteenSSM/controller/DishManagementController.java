@@ -76,7 +76,12 @@ public class DishManagementController {
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
 		modelAndView.addObject("muserItems",muserItems);	
-		modelAndView.setViewName("/WEB-INF/jsp/dishManagement.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishManagement.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishManagement.jsp");
+		}
+		
 		
 		return modelAndView;
 	}
@@ -113,7 +118,11 @@ public class DishManagementController {
 		
 		modelAndView.addObject("pagehelper", pagehelper);
 		modelAndView.addObject("muserItems",muserItems);	
-		modelAndView.setViewName("/WEB-INF/jsp/dishInCanteen.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishInCanteen.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishInCanteen.jsp");
+		}		
 		
 		return modelAndView;
 	}
@@ -127,19 +136,27 @@ public class DishManagementController {
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCampus(muserItems.getCampusID()));
 		modelAndView.addObject("muserItems",muserItems);
-		modelAndView.setViewName("/WEB-INF/jsp/dishInCampus.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishInCampus.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishInCampus.jsp");
+		}		
 		
 		return modelAndView;
 	}
 
 	//新申请的菜品审核页面
 	@RequestMapping("/checkDish")
-	public ModelAndView checkDish() throws Exception{
+	public ModelAndView checkDish(HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("dishItemsList",dishManagementService.findApplyDish("待审核"));
-		modelAndView.setViewName("/WEB-INF/jsp/dishCheck.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishCheck.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishCheck.jsp");
+		}
 		
 		return modelAndView;
 	}
@@ -168,7 +185,11 @@ public class DishManagementController {
 		modelAndView.addObject("recordDate",recordDate);
 		modelAndView.addObject("muserItems",muserItems);
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
-		modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishImport.jsp");
+		}
 		
 		return modelAndView;
 	}
@@ -183,7 +204,11 @@ public class DishManagementController {
 		modelAndView.addObject("recordDate",recordDate);
 		modelAndView.addObject("muserItems",muserItems);
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
-		modelAndView.setViewName("/WEB-INF/jsp/dishImportReplenish.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishImportReplenish.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishImportReplenish.jsp");
+		}		
 		
 		return modelAndView;
 	}
@@ -271,7 +296,11 @@ public class DishManagementController {
 		modelAndView.addObject("dishTypeList", dishTypePresetService.findAllDishType());
 		modelAndView.addObject("dishPresetList",dishPresetService.findAllDishPreset());
 		modelAndView.addObject("dishItemsList",dishManagementService.findAllDishes());
-		modelAndView.setViewName("/WEB-INF/jsp/dishAdd.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishAdd.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishAdd.jsp");
+		}
 		
 		return modelAndView;
 	}
@@ -289,7 +318,12 @@ public class DishManagementController {
 		modelAndView.addObject("dishPresetList",dishPresetService.findAllDishPreset());
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
 		
-		modelAndView.setViewName("/WEB-INF/jsp/dishApply.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishApply.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishApply.jsp");
+		}
+		
 		return modelAndView;
 	}	
 	
@@ -302,7 +336,7 @@ public class DishManagementController {
 		
 	//修改菜品：跳转到dishModify.jsp显示具体修改信息
 	@RequestMapping ("/modifyDish")	
-	public ModelAndView modifyDish(DishItems dishItems,HttpSession session) throws Exception{
+	public ModelAndView modifyDish(DishItems dishItems, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 			
@@ -312,7 +346,12 @@ public class DishManagementController {
 		modelAndView.addObject("dishTypeList", dishTypePresetService.findAllDishType());
 		modelAndView.addObject("dishPresetList",dishPresetService.findAllDishPreset());
 		modelAndView.addObject("dishItems",findDishById(dishItems.getDishID()));	
-		modelAndView.setViewName("/WEB-INF/jsp/dishModify.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishModify.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishModify.jsp");
+		}
 		
 		return modelAndView;
 	}

@@ -4,6 +4,7 @@ package digitalCanteenSSM.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class CanteenPresetController {
 	//查找所有食堂
 	//返回食堂预置页面显示
 	@RequestMapping("/findAllCanteens")
-	public ModelAndView findAllCanteens(HttpServletRequest request) throws Exception{
+	public ModelAndView findAllCanteens(HttpServletRequest request, HttpSession session) throws Exception{
 		//本段代码运行时优先从request中读取的页码和单页内容数量，
 		//如果请求从其它controller发出，并无这两个对象，
 		//则使用的是默认的值
@@ -69,7 +70,11 @@ public class CanteenPresetController {
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenTypeList", canteenTypePresetService.findAllCanteenType());
 		modelAndView.addObject("pagehelper", pagehelper);	
-		modelAndView.setViewName("/WEB-INF/jsp/canteenPreset.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/canteenPreset.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_canteenPreset.jsp");
+		}		
 		
 		return modelAndView;
 	}
@@ -89,14 +94,19 @@ public class CanteenPresetController {
 	
 	//修改食堂：跳转到canteenModify.jsp显示具体修改信息
 	@RequestMapping ("/modifyCanteen")	
-	public ModelAndView modifyCanteen(int cantID) throws Exception{
+	public ModelAndView modifyCanteen(int cantID, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItems",findCanteenById(cantID));	
 		modelAndView.addObject("canteenTypeList", canteenTypePresetService.findAllCanteenType());
-		modelAndView.setViewName("/WEB-INF/jsp/canteenModify.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/canteenModify.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_canteenModify.jsp");
+		}
+		
 		
 		return modelAndView;
 	}

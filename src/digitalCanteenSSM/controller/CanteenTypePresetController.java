@@ -1,6 +1,8 @@
 package digitalCanteenSSM.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +28,15 @@ public class CanteenTypePresetController {
 	//查找所有食堂类型
 	//返回食堂类型预置页面显示
 	@RequestMapping ("/findAllCanteenType")
-	public ModelAndView findAllCanteenType() throws Exception{		
+	public ModelAndView findAllCanteenType(HttpSession session) throws Exception{		
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("canteenTypeList",canteenTypePresetService.findAllCanteenType());
-		modelAndView.setViewName("WEB-INF/jsp/canteenTypePreset.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("WEB-INF/jsp/canteenTypePreset.jsp");
+		}else{
+			modelAndView.setViewName("WEB-INF/jsp/m_canteenTypePreset.jsp");
+		}		
 		
 		return modelAndView;
 	}
@@ -51,12 +57,16 @@ public class CanteenTypePresetController {
 	
 	//修改食堂类型：跳转到cantTypeModify.jsp显示具体修改信息
 	@RequestMapping ("/modifyCanteenType")	
-	public ModelAndView modifyCanteenType(int cantTypeID) throws Exception{
+	public ModelAndView modifyCanteenType(int cantTypeID, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("canteenType",findCanteenTypeById(cantTypeID));	
-		modelAndView.setViewName("/WEB-INF/jsp/canteenTypeModify.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/canteenTypeModify.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_canteenTypeModify.jsp");
+		}		
 		
 		return modelAndView;
 	}

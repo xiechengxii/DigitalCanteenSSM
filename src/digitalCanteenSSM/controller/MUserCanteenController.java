@@ -1,9 +1,13 @@
 package digitalCanteenSSM.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +19,13 @@ import com.github.miemiedev.mybatis.paginator.domain.Order;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import digitalCanteenSSM.po.CanteenItems;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
+import digitalCanteenSSM.po.RecordItems;
+import digitalCanteenSSM.service.CanteenPresetService;
+import digitalCanteenSSM.service.DetailService;
+import digitalCanteenSSM.service.DishExportToExcelService;
 import digitalCanteenSSM.service.RecordService;
 
 @Controller 
@@ -24,7 +33,12 @@ public class MUserCanteenController {
 
 	@Autowired
 	private RecordService recordService;
-	
+	@Autowired
+	private DetailService detailService;
+	@Autowired
+	private CanteenPresetService canteenPresetService;
+	@Autowired
+	private DishExportToExcelService dishExportToExcelService;
 	//食堂管理员首页
 	@RequestMapping ("/muserCanteenHostPage")
 	public ModelAndView muserCanteenHostPage(HttpSession session, HttpServletRequest request) throws Exception{		
@@ -60,4 +74,31 @@ public class MUserCanteenController {
 		
 		return modelAndView;
 	}
+	
+	//食堂菜品记录导出
+	@RequestMapping ("/canteenRecordExportToExcel")
+	public ModelAndView canteenRecordExportToExcel(HttpServletResponse response,Integer cantID,Date beginTime,Date endTime) throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if(beginTime==null && endTime==null){
+			SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");  
+			String dateString=simpleDateFormat.format(new Date());
+			Date date=simpleDateFormat.parse(dateString);	
+			beginTime=date;
+			endTime=date;
+		}
+		List<RecordItems> recordItemsList = new ArrayList<RecordItems>();
+		List<Record> recordList  = recordService.findRecordInCanteenByDate(cantID, beginTime, endTime);
+		List<CanteenItems> canteenList = new ArrayList<CanteenItems>();
+		canteenList.add(canteenPresetService.findCanteenById(cantID));
+		for(Record record:recordList){
+			recordItemsList.addAll(detailService.findRecordAndDetailDish(record.getRecordID()));
+		}
+		dishExportToExcelService.writeExcel(recordItemsList,canteenList,response);
+		modelAndView.setViewName("muserCanteenHostPage.action");
+
+		return modelAndView;
+	}
+	
+	
 }

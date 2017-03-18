@@ -1,6 +1,5 @@
 package digitalCanteenSSM.mapper;
 
-import java.util.Date;
 import java.util.List;
 
 import digitalCanteenSSM.po.Detail;

@@ -12,9 +12,7 @@
 										<li >
 											<a class="icon icon-phone" href="#" style="padding: 1em 1em 1em 4.5em;font-weight:300;font-size:15px;color:#484848">菜品导出</a>
 										</li>
-										<li >
-											<a class="icon icon-tv" href="${pageContext.request.contextPath }/checkDish.action" style="padding: 1em 1em 1em 4.5em;font-weight:300;font-size:15px;color:#484848">新菜审核</a>
-										</li>
+
 										<li >
 											<a class="icon icon-camera" href="#" style="padding: 1em 1em 1em 4.5em;font-weight:300;font-size:15px;color:#484848">广告推送管理</a>									
 										</li>

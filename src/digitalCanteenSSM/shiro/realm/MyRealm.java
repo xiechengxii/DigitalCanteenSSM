@@ -59,27 +59,10 @@ public class MyRealm extends AuthorizingRealm {
 				}
 
 				simpleAuthorInfo.addStringPermission("canteen:"+mUserItems.getCampusName()+mUserItems.getCantName());
-				System.out.println("已赋予权限：");
-				System.out.println("canteen:"+mUserItems.getCampusName()+mUserItems.getCantName());
 			}
 
 			return simpleAuthorInfo;
 		}
-		
-		/*
-		if(null!=currentUserName && "yuliu".equals(currentUserName)){
-			simpleAuthorInfo.addRole("admin");
-			
-			simpleAuthorInfo.addStringPermission("admin:管理");
-			return simpleAuthorInfo;
-		}
-		
-		if(null!=currentUserName && "liuyu".equals(currentUserName)){
-			simpleAuthorInfo.addRole("admin");
-			
-			simpleAuthorInfo.addStringPermission("admin:view");
-			return simpleAuthorInfo;
-		}*/
 		
 		return null;
 	}
@@ -103,22 +86,7 @@ public class MyRealm extends AuthorizingRealm {
 
 			return authcInfo;
 		}
-		
-		/*
-		if("yuliu".equals(token.getUsername())){
-			AuthenticationInfo authcInfo = new SimpleAuthenticationInfo("yuliu", "123456", this.getName());
-			this.setAuthenticationSession("yuliu");
-			
-			return authcInfo;
-		}
-		
-		if("liuyu".equals(token.getUsername())){
-			AuthenticationInfo authcInfo = new SimpleAuthenticationInfo("liuyu", "654321", this.getName());
-			this.setAuthenticationSession("liuyu");
-			
-			return authcInfo;
-		}
-		*/
+
 		return null;
 	}
 	

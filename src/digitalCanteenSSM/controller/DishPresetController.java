@@ -4,6 +4,7 @@ package digitalCanteenSSM.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class DishPresetController {
 	//查找所有预置菜品
 	//返回菜品预置页面显示
 	@RequestMapping ("/findAllDishPreset")
-	public ModelAndView findAllDishPreset(HttpServletRequest request) throws Exception{
+	public ModelAndView findAllDishPreset(HttpServletRequest request, HttpSession session) throws Exception{
 		//本段代码运行时优先从request中读取的页码和单页内容数量，
 		//如果请求从其它controller发出，并无这两个对象，
 		//则使用的是默认的值
@@ -60,7 +61,12 @@ public class DishPresetController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("pagehelper", pagehelper);
-		modelAndView.setViewName("/WEB-INF/jsp/m_dishPreset.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishPreset.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishPreset.jsp");
+		}
 		
 		return modelAndView;
 	}
@@ -74,12 +80,17 @@ public class DishPresetController {
 	
 	//修改预置菜品：跳转到dishPresetModify.jsp显示具体修改信息
 	@RequestMapping ("/modifyDishPreset")	
-	public ModelAndView modifyDishPreset(int dishPresetID) throws Exception{
+	public ModelAndView modifyDishPreset(int dishPresetID, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("dishPreset",findDishPresetById(dishPresetID));	
-		modelAndView.setViewName("/WEB-INF/jsp/m_dishPresetModify.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishPresetModify.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishPresetModify.jsp");
+		}
 		
 		return modelAndView;
 	}

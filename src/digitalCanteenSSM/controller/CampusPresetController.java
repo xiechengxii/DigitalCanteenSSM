@@ -1,6 +1,8 @@
 package digitalCanteenSSM.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +28,17 @@ public class CampusPresetController {
 	//查找所有校区
 	//返回校区预置页面显示
 	@RequestMapping ("/findAllCampuses")
-	public ModelAndView findAllCampuses() throws Exception{		
+	public ModelAndView findAllCampuses(HttpSession session) throws Exception{		
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());	
-		modelAndView.setViewName("/WEB-INF/jsp/m_campusPreset.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/campusPreset.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_campusPreset.jsp");
+		}
+		
 		
 		return modelAndView;
 	}
@@ -52,11 +59,16 @@ public class CampusPresetController {
 	
 	//修改校区：跳转到campusModify.jsp显示具体修改信息
 	@RequestMapping ("/modifyCampus")	
-	public ModelAndView modifyCampus(int campusID) throws Exception{
+	public ModelAndView modifyCampus(int campusID, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("campus",findCampusById(campusID));	
-		modelAndView.setViewName("/WEB-INF/jsp/m_campusModify.jsp");
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/campusModify.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_campusModify.jsp");
+		}
+		
 		
 		return modelAndView;
 	}

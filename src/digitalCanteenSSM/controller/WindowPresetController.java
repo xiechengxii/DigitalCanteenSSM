@@ -3,6 +3,7 @@ package digitalCanteenSSM.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class WindowPresetController {
 	//查找所有档口
 	//返回档口预置页面显示
 	@RequestMapping ("/findAllWindows")
-	public ModelAndView findAllWindows(Integer cantCampusID, HttpServletRequest request) throws Exception{
+	public ModelAndView findAllWindows(Integer cantCampusID, HttpServletRequest request, HttpSession session) throws Exception{
 		//本段代码运行时优先从request中读取的页码和单页内容数量，
 		//如果请求从其它controller发出，并无这两个对象，
 		//则使用的是默认的值
@@ -69,7 +70,12 @@ public class WindowPresetController {
 		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
 		modelAndView.addObject("pagehelper", pagehelper);	
-		modelAndView.setViewName("/WEB-INF/jsp/m_windowPreset.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/windowPreset.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_windowPreset.jsp");
+		}
 		
 		return modelAndView;
 	}
@@ -83,7 +89,7 @@ public class WindowPresetController {
 		
 	//修改档口：跳转到windowModify.jsp显示具体修改信息
 	@RequestMapping ("/modifyWindow")	
-	public ModelAndView modifyWindow(Integer wndID,Integer cantCampusID) throws Exception{
+	public ModelAndView modifyWindow(Integer wndID, Integer cantCampusID, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -91,7 +97,12 @@ public class WindowPresetController {
 		modelAndView.addObject("canteenItemsList",canteenPresetService.findAllCanteens());
 		modelAndView.addObject("canteenItemsInCampus",canteenPresetService.findCanteenByCampus(cantCampusID));
 		modelAndView.addObject("windowItems",findWindowById(wndID));	
-		modelAndView.setViewName("/WEB-INF/jsp/m_windowModify.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/windowModify.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_windowModify.jsp");
+		}
 		
 		return modelAndView;
 	}

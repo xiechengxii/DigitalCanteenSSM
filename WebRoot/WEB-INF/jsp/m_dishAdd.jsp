@@ -28,7 +28,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/icons.css" />
         <link rel="stylesheet" type="text/css" href="css/component.css" />
-        <link rel="stylesheet" href='http://fonts.googleapis.com/icon?family=Material+Icons' type='text/css'>
 
         <!-- 日期控件导入 -->
         <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>
@@ -93,12 +92,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="scroller" style="background:#f3efe0">
           <div class="scroller-inner">
               <header class="codrops-header" style="background:#7acfa6">
-                   <div id="trigger" >
-                      <a href="javascript:;" >
-                        <i class="material-icons" style="position:absolute;left:10px">menu</i>
-                      </a>
-                   </div>
-                    <h1 class="panel-title">菜品上架</h1>
+                   <div class="row">
+                    <div id="trigger" class="burger-container">
+                    <span class="burger-bun-top"></span>
+                    <span class="burger-filling"></span>
+                    <span class="burger-bun-bot"></span>
+                    </div>         
+                    <h1>菜品上架</h1>
+                    </div>  
               </header>
     
                     <div class="content clearfix">

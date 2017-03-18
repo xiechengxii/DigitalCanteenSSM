@@ -28,7 +28,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/icons.css" />
     <link rel="stylesheet" type="text/css" href="css/component.css" />
-    <link rel='stylesheet' href='http://fonts.googleapis.com/icon?family=Material+Icons' type='text/css'>  
+    <!--分页控件--> 
+    <link rel="stylesheet" href="css/qunit-1.11.0.css">  
     </head>   
     <body>
     <div class="container">
@@ -37,12 +38,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<div class="scroller" style="background:#f3efe0">
             <div class="scroller-inner">
                 <header class="codrops-header" style="background:#7acfa6">
-                     <div id="trigger" >
-                             <a href="javascript:;" >
-                                <i class="material-icons" style="position:absolute;left:10px">menu</i>
-                             </a>
-                     </div>
-						         <h1>预置菜品</h1>  
+                  <div class="row">
+                   <div id="trigger" class="burger-container">
+                      <span class="burger-bun-top"></span>
+                      <span class="burger-filling"></span>
+                      <span class="burger-bun-bot"></span>
+                  </div>         
+                  <h1>预置菜品</h1>
+                  </div>  
 						    </header>
 
                 <div class="content clearfix">
@@ -73,7 +76,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                   <td><a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}">删除</a></td>
 			               </tr>
 			           	</c:forEach>
-			           </table>		
+			           </table>
+
+            <div>
+              <div class="message">
+                <p class="text-center">
+                  共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
+                </p>
+              </div>
+              <div style="text-align:center;">
+                <ul class="pagination">
+                  <c:if test="${!pagehelper.isFirstPage}">                    
+                    <li>
+                      <a href="findAllDishPreset.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
+                    </li>
+                  </c:if>
+
+                  <c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">  
+
+                    <c:if test="${navigatepageNum==pagehelper.pageNum}">
+                      <li class="active">
+                        <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                      </li>
+                    </c:if>
+
+                    <c:if test="${navigatepageNum!=pagehelper.pageNum}">
+                      <li>
+                        <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                      </li>
+                    </c:if>
+
+                  </c:forEach>
+
+                  <c:if test="${!pagehelper.isLastPage}">
+                    <li>
+                      <a href="findAllDishPreset.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                    </li>
+                  </c:if>
+                </ul>
+              </div>
+            </div>
 		            </form>
 		</div>
 		</div>

@@ -299,23 +299,25 @@ html, body, .container, .scroller {
 
 .burger-container {
     position: relative;
-    height: 28px;
-width: 36px;}
+    height: 24px;
+	width: 30px;
+	top:8px;
+	left:10px;}
 
 .burger-bun-top, .burger-bun-bot, .burger-filling {
     position: absolute;
     display: block;
-    height: 4px;
-    width: 36px;
-    border-radius: 2px;
+    height: 2px;
+    width: 30px;
+    /*border-radius: 2px;*/
     background: #fff;
 }
 
 .burger-filling {
-    top: 12px;
+    top: 10px;
 }
 .burger-bun-bot {
-    bottom: 0;}
+    bottom: 2px;}
 
 .file {
     position: relative;

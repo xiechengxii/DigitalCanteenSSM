@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/icons.css" />
         <link rel="stylesheet" type="text/css" href="css/component.css" />
-        <link rel='stylesheet' href='http://fonts.googleapis.com/icon?family=Material+Icons' type='text/css'>
+        <link rel="stylesheet" href='http://fonts.googleapis.com/icon?family=Material+Icons' type='text/css'>
 
         <!-- 日期控件导入 -->
         <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>
@@ -120,6 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                                 </div>
                             </div>
+                            <br>
                             <div class="row form-group">  
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">档口</label>
                                 <div class="col-xs-8">
@@ -238,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     </select>
                                 </div>
                             </div>
-
+                            <br>
                             <div class="form-group">
                                 <div align="center">
                                     <input type="submit" class="btn btn-primary" value="添加菜品" onClick="return check(dishInsertForm)">

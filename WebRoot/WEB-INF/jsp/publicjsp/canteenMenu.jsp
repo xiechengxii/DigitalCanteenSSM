@@ -43,7 +43,7 @@
     	                <b class="caret"></b>
     	            </a>
     	            <ul class="dropdown-menu">
-    	                <li><a href="#">修改密码</a></li>
+    	                <li><a href="${pageContext.request.contextPath }/profileEdit.action?muserID=${muserItems.muserID}">账户信息</a></li>
     	                <li class="divider"></li>
     	                <li><a href="${pageContext.request.contextPath }/logout.action">注销</a></li>
     	            </ul>

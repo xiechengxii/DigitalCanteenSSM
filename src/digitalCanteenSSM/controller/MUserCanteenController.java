@@ -70,7 +70,12 @@ public class MUserCanteenController {
 
 		modelAndView.addObject("muserItems",muserItems);
 		modelAndView.addObject("pagehelper", pagehelper);
-		modelAndView.setViewName("WEB-INF/jsp/muserCanteenHostPage.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("WEB-INF/jsp/muserCanteenHostPage.jsp");
+		}else{
+			modelAndView.setViewName("WEB-INF/jsp/m_muserCanteenHostPage.jsp");
+		}
 		
 		return modelAndView;
 	}

@@ -67,10 +67,100 @@
         -->
         <property name="filterChainDefinitions">
             <value>
-                /canteenPreset.action  = anon
-                
-                /importHandle.action   = authc
-                /findDetailDish.action = authc
+                /campusPreset.action                  = roles[super]
+                /findAllCampuses.action               = roles[super]
+                /findCampusById.action                = roles[super]
+                /findCampusByName.action              = roles[super]
+                /modifyCampus.action                  = roles[super]
+                /modifyCampusSave.action              = roles[super]
+                /updateCampus.action                  = roles[super]
+                /deleteCampusById.action              = roles[super]
+                /insertCampus.action                  = roles[super]
+              
+                /canteenPreset.action                 = roles[super]
+                /findAllCanteens.action               = roles[super]
+                /findCanteenById.action               = roles[super]
+                /modifyCanteen.action                 = roles[super]
+                /modifyCanteenSave.action             = roles[super]
+                /deleteCanteenById.action             = roles[super]
+                /insertCanteen.action                 = roles[super]
+         
+                /canteenTypePreset.action             = roles[super]
+                /findAllCanteenType.action            = roles[super]
+                /findCanteenTypeById.action           = roles[super]
+                /findCanteenTypeByName.action         = roles[super]
+                /modifyCanteenType.action             = roles[super]
+                /modifyCanteenTypeSave.action         = roles[super]
+                /updateCanteenType.action             = roles[super]
+                /deleteCanteenTypeById.action         = roles[super]
+                /insertCanteenType.action             = roles[super]
+ 
+                /dishPreset.action                    = roles[super]
+                /findAllDishPreset.action             = roles[super]
+                /findDishPresetById.action            = roles[super]
+                /modifyDishPreset.action              = roles[super]
+                /modifyDishPresetSave.action          = roles[super]
+                /deleteDishPresetById.action          = roles[super]
+                /insetDishPreset.action               = roles[super]
+
+                /dishTypePreset.action                = roles[super]
+                /findAllDishType.action               = roles[super]
+                /findDishTypeById.action              = roles[super]
+                /findDishTypeByName.action            = roles[super]
+                /modifyDishType.action                = roles[super]
+                /modifyDishTypeSave.action            = roles[super]
+                /updateDishType.action                = roles[super]
+                /deleteDishTypeById.action            = roles[super]
+                /insertDishType.action                = roles[super]
+
+                /backgroundHomepage.action            = roles[super]
+                /muserBackGround.action               = roles[super]
+                /recordDish.action                    = roles[super]
+                /muserBackGroundUserManagement.action = roles[super]
+                /findAllMUser.action                  = roles[super]
+                /addMUser.action                      = roles[super]
+                /insertmuser.action                   = roles[super]
+                /deleteMUserById.action               = roles[super]
+                /findRecordInCampus.action            = roles[super]
+                /recordExportToExcel.action           = roles[super]
+                /campusRecordExportToExcel.action     = roles[super]
+                /modifyMUser.action                   = authc
+                /modifyMUserSave.action               = authc
+
+                /windowPreset.action                  = roles[super]
+                /findAllWindows.action                = roles[super]
+                /findWindowById.action                = roles[super]
+                /modifyWindow.action                  = roles[super]
+                /modifyWindowSave.action              = roles[super]
+                /deleteWindowById.action              = roles[super]
+                /insertWindow.action                  = roles[super]
+
+                /dishManagement.action                = roles[canteen]
+                /findDishInCanteen.action             = roles[canteen]
+                /findDishInCampus.action              = roles[canteen]
+                /checkDish.action                     = roles[canteen]
+                /checkDishPass.action                 = roles[canteen]
+                /importDish.action                    = roles[canteen]
+                /importReplenishDish.action           = roles[canteen]
+                /importHandle.action                  = roles[canteen]
+                /getDishInImportDate.action           = roles[canteen]
+                /getDishInImportReplenishDate.action  = roles[canteen]
+                /addDish.action                       = roles[canteen]
+                /applyDish.action                     = roles[canteen]
+                /findDishById.action                  = roles[canteen]
+                /modifyDish.action                    = roles[canteen]
+                /modifyDishSave.action                = roles[canteen]
+                /insertDish.action                    = roles[canteen]
+                /deleteDishById.action                = roles[canteen]
+ 
+                /muserCanteenHostPage.action          = roles[canteen]
+ 
+                /deleteDetailDish.action              = roles[canteen]
+ 
+                /findRecordDetailDish.action          = authc
+                /deleteRecord.action                  = authc
+                /modifyRecordDetailDish.action        = authc
+                /modifyRecordDetailDishSave.action    = authc
             </value>
         </property>
 	</bean>

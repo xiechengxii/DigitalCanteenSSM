@@ -1,6 +1,8 @@
 package digitalCanteenSSM.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +28,17 @@ public class DishTypePresetController {
 	//查找所有菜品类型
 	//返回菜品类型预置页面显示
 	@RequestMapping ("/findAllDishType")
-	public ModelAndView findAllDishType() throws Exception{		
+	public ModelAndView findAllDishType(HttpSession session) throws Exception{		
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("dishTypeList",dishTypePresetService.findAllDishType());	
-		modelAndView.setViewName("/WEB-INF/jsp/dishTypePreset.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishTypePreset.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishTypePreset.jsp");
+		}
 		
 		return modelAndView;
 	}
@@ -52,12 +59,17 @@ public class DishTypePresetController {
 	
 	//修改菜品类型：跳转到dishTypeModify.jsp显示具体修改信息
 	@RequestMapping ("/modifyDishType")	
-	public ModelAndView modifyDishType(int dishTypeID) throws Exception{
+	public ModelAndView modifyDishType(int dishTypeID, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("dishType",findDishTypeById(dishTypeID));	
-		modelAndView.setViewName("/WEB-INF/jsp/dishTypeModify.jsp");
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/dishTypeModify.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_dishTypeModify.jsp");
+		}
 		
 		return modelAndView;
 	}

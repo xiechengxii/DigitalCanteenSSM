@@ -23,8 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
 import digitalCanteenSSM.po.MUser;
+import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.po.RecordItems;
+import digitalCanteenSSM.po.Role;
 import digitalCanteenSSM.service.CampusPresetService;
 import digitalCanteenSSM.service.CanteenPresetService;
 import digitalCanteenSSM.service.DetailService;
@@ -203,7 +205,67 @@ public class MUserBackGroundController {
 		
 		return modelAndView;
 	}
-	//修改用户信息
+	
+	//用户修改自己的账号信息
+	@RequestMapping(value="/profileEdit")
+	public ModelAndView profileEdit(HttpSession session, Integer muserID) throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		
+		/*
+		*MUserService的mapper中findMUserByName查询限定了
+		*用户所属校区和食堂的ID，用于查询食堂和饮食公司
+		*这一级别的用户
+		*findMUserInfoByName查询没有限定校区和食堂的ID，
+		*用于查询后台管理员用户
+		*所以这里对于食堂管理员额外使用了一次findMUserByName
+		*查询，不然获取不到校区和食堂信息
+		*/
+		MUserItems muserItems = muserService.findMUserInfoById(muserID);
+		MUser mUser = new MUser();
+		mUser.setMuserName(muserItems.getMuserName());
+		muserItems = muserService.findMUserByName(mUser);
+		
+		modelAndView.addObject("muserItems", muserItems);
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/muserProfile.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_muserProfile.jsp");
+		}
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/profileEditSave")
+	public String profileEditSave(MUser muser, MultipartFile muserPhotoFile, HttpSession session) throws Exception{
+		
+		String muserphoto=uploadFileService.uploadFile(muserPhotoFile, DishManagementController.getPicturepath());
+		//未改变图片则用原来的
+		if( muserphoto == null){
+			MUser museritem = muserService.findMUserInfoById(muser.getMuserID());
+			muser.setMuserPhoto(museritem.getMuserPhoto());
+		}
+		else{
+			muser.setMuserPhoto(muserphoto);
+		}
+		
+		muserService.updateMUser(muser);
+		
+		
+		if(roleService.findRoleById(muser.getMuserRoleID()).getRoleName().equals("super")){
+			return "forward:backgroundHomepage.action";
+		}else if(roleService.findRoleById(muser.getMuserRoleID()).getRoleName().equals("canteen")){
+			return "forward:muserCanteenHostPage.action";
+		}else{
+			//!!!!!!!!!!
+			//记得修改成饮食公司主页
+			//!!!!!!!!!!
+			return "forward:backGroundHomepage.action";
+		}
+		
+	}
+	
+	//管理员修改用户信息
 	@RequestMapping("/modifyMUser")
 	public ModelAndView modifyMUser(Integer muserID, HttpSession session) throws Exception{
 		
@@ -223,16 +285,16 @@ public class MUserBackGroundController {
 		return modelAndView;
 	}
 	
-	//修改用户信息
+	//管理员保存修改的用户信息
 	@RequestMapping("/modifyMUserSave")
-	public ModelAndView modifyMUserSave(MUser muser,MultipartFile muserPhotoFile) throws Exception{
+	public ModelAndView modifyMUserSave(MUser muser, MultipartFile muserPhotoFile) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if(muserService.findMUserByName(muser) == null || muserService.findMUserByName(muser).getMuserID() == muser.getMuserID()){		
 			String muserphoto=uploadFileService.uploadFile(muserPhotoFile, DishManagementController.getPicturepath());
 			//未改变图片则用原来的
-			if( muserphoto== null){			
+			if( muserphoto == null){
 				MUser museritem = muserService.findMUserInfoById(muser.getMuserID());
 				muser.setMuserPhoto(museritem.getMuserPhoto());
 			}
@@ -323,6 +385,4 @@ public class MUserBackGroundController {
 
 		return modelAndView;
 	}
-	
-
 }

@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findRoleById" parameterType="Integer" resultType="Role">
 		SELECT *
 		FROM ctrole
-		WHERE ctrole.RoleID=roleID
+		WHERE ctrole.RoleID = #{roleID}
 	</select>
 	
 	<!-- 查找所有的角色信息 -->

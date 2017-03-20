@@ -83,7 +83,7 @@ public class LoginController {
 				*查询，不然获取不到校区和食堂信息
 				*/
 				MUser mUser = new MUser();
-				mUser.setMuserName(mUserItems.getMuserName());				
+				mUser.setMuserName(mUserItems.getMuserName());
 				mUserItems = mUserService.findMUserByName(mUser);
 
 				session.setAttribute("muserItems", mUserItems);

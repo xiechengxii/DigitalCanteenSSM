@@ -248,8 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                             </div>
    	                    	<div class="form-group">
-                                <div class="col-sm-2 col-sm-offset-5">
-                                    <!-- 菜品添加按钮 -->
+                                <div class="col-sm-2 col-sm-offset-5">                                    
                                     <input type="submit" class="btn btn-primary" value="保存">
                                 </div>
                             </div>    

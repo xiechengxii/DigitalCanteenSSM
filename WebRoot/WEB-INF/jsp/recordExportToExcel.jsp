@@ -21,8 +21,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
 
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!--自定义-->		
 	<link rel="stylesheet" href="css/my-custom.css">
+	<!--分页控件--> 
+    <link rel="stylesheet" href="css/qunit-1.11.0.css">
 	
 	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>

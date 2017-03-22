@@ -16,26 +16,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	
     	<title>食堂管理首页</title>
 
-    	<meta name="viewport" content="width=device-width, 
-                                             initial-scale=0.3, 
-                                             maximum-scale=1.0, 
-                                             user-scalable=true">        
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!--自定义-->      
-        <link rel="stylesheet" href="css/my-custom.css">
-        <!--分页控件--> 
-        <link rel="stylesheet" href="css/qunit-1.11.0.css">
-    	
-        <!--bootstrap-->    
-        <script src="js/jquery-1.10.1.min.js"></script>       
-    
-        <!--bootstrap-->    
-        <script src="js/bootstrap.min.js"></script>   
-        <!--日历控件-->	
+    	<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0">   
+ 		<meta charset="utf-8">
+ 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+        
+        <script src="js/modernizr.custom.js"></script>
+    	<script src="js/jquery-2.1.1.min.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+    	<!--日历控件-->	
 		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs3.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-1.3.7.css" />
 	    <script src="js/moment.js"></script>
-	    <script src="js/daterangepicker-1.3.7.js"></script>		
+	    <script src="js/daterangepicker-1.3.7.js"></script>
+	    
+    	<link rel="stylesheet" href="css/m_bootstrap.min.css"/>
+    	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+    	<link rel="stylesheet" type="text/css" href="css/icons.css" />
+    	<link rel="stylesheet" type="text/css" href="css/component.css" />
+    	
+    	<!-- 日期控件导入 -->
+        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>   	
     </head>
   
     <body>
@@ -58,80 +65,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}); */
 		}
 		</script>
-	
-    	<%@ include file="publicjsp/canteenMenu.jsp" %>
-        <div class="container-fluid">
-            <div class="panel panel-default">
-
-                <div class="panel-heading">
-                    <h3 class="panel-title">${muserItems.cantName }  菜品录入记录</h3>
-                </div> 	
-                <div class="panel-body">
-                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
-                    	<div  class="form-group col-sm-3">						
-							<div class="input-group" style="width: 240px; margin-left: 0px;">
-							    <input type="text" class="form-control date-picker" id="dateTimeRange"/>
-							    <span class="input-group-addon">
-							        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-							    </span>
-							    <input type="hidden" name="beginTime" id="beginTime" />
-							    <input type="hidden" name="endTime" id="endTime"  />								    
-							</div>													
-						</div>
-						<div  class="col-sm-3">
-							<button onclick="exportExcelInCanteen()" class="btn btn-primary">导出</button>
-						</div>
-						
-	                    <!-- 食堂管理员 -->
-	                    <input type="hidden" name = "campusID" value="${muserItems.campusID }" >
-	                    <input type="hidden" name = "cantID" value="${muserItems.cantID }" >
-	                    <input type="hidden" name = "muserID" value="${muserItems.cantID }" >
-                        <div class="form-group">                            
-	                        <%@ include file="recordInCanteen.jsp" %>
-                            <div>
-                                <div class="message">
-                                    <p class="text-center">
-                                        共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
-                                    </p>
-                                </div>
-                                <div style="text-align:center;">
-                                    <ul class="pagination">
-                                        <c:if test="${!pagehelper.isFirstPage}">                                        
-                                            <li>
-                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
-                                            </li>
-                                        </c:if>
-    
-                                        <c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">    
-    
-                                            <c:if test="${navigatepageNum==pagehelper.pageNum}">
-                                                <li class="active">
-                                                    <a href="muserCanteenHostPage.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
-                                                </li>
-                                            </c:if>
-    
-                                            <c:if test="${navigatepageNum!=pagehelper.pageNum}">
-                                                <li>
-                                                    <a href="muserCanteenHostPage.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
-                                                </li>
-                                            </c:if>
-    
-                                        </c:forEach>
-    
-                                        <c:if test="${!pagehelper.isLastPage}">
-                                            <li>
-                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                </div>
-                            </div> 
-                        </div>
-                    </form> 
+  <div class="container">
+      <div class="mp-pusher" id="mp-pusher">
+      <%@ include file="publicjsp/canteennavindex.jsp" %> 
+          <!-- 食堂管理系统的页面 -->
+         <div class="scroller" style="background:#f3efe0">
+           <div class="scroller-inner">
+        	    <header class="codrops-header" style="background:#7acfa6">
+        	         <div class="row">
+        	         <div id="trigger" class="burger-container">
+						<span class="burger-bun-top"></span>
+						<span class="burger-filling"></span>
+						<span class="burger-bun-bot"></span>
+					 </div>					
+					<h1>食堂管理系统</h1>
+					</div>
+				</header> 		           	                   	
+                <div class="content clearfix">
+                <div class="container-fluid">
+                   <div class="panel panel-default">
+                       <div class="panel-heading">
+                           <h3 class="panel-title">${muserItems.cantName }  菜品录入记录</h3>
+                       </div>
+                       <div class="panel-body">
+                            <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
+		                    	                          
+			                        <%@ include file="m_recordInCanteen.jsp" %>
+		                            <div>
+		                                <div class="message">
+		                                    <p class="text-center">
+		                                        共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
+		                                    </p>
+		                                </div>
+		                                <div style="text-align:center;">
+		                                    <ul class="pagination">
+		                                        <c:if test="${!pagehelper.isFirstPage}">                                        
+		                                            <li>
+		                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
+		                                            </li>
+		                                        </c:if>
+		    
+		                                        <c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">    
+		    
+		                                            <c:if test="${navigatepageNum==pagehelper.pageNum}">
+		                                                <li class="active">
+		                                                    <a href="muserCanteenHostPage.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+		                                                </li>
+		                                            </c:if>
+		    
+		                                            <c:if test="${navigatepageNum!=pagehelper.pageNum}">
+		                                                <li>
+		                                                    <a href="muserCanteenHostPage.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+		                                                </li>
+		                                            </c:if>
+		    
+		                                        </c:forEach>
+		    
+		                                        <c:if test="${!pagehelper.isLastPage}">
+		                                            <li>
+		                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+		                                            </li>
+		                                        </c:if>
+		                                    </ul>
+		                                </div>
+		                            </div> 
+		                        </div>
+		                    </form>
+                       </div>
+                   </div>                   
+                </div> 
                 </div>
-
-            </div>
-        </div> 
+             </div>     
+          </div>
+       </div>
+  </div> 
+  <script src="js/classie.js"></script>
+    <script src="js/mlpushmenu.js"></script>
+    <script>
+        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+    </script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
 <!--日期控件-->
   	<script type="text/javascript">
 		$(function() {

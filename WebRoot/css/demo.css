@@ -52,10 +52,11 @@ a:hover, a:focus {
 }
 
 .codrops-header h1 {
-	margin: -20px;
+	margin: -25px 50px -15px 50px;
 	font-weight: 300;
 	font-size:25px;
 	line-height: 1.3;
+	padding:6px;
 }
 
 .codrops-header span {

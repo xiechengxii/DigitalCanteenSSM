@@ -4,8 +4,11 @@
 					<div class="mp-level">
 						<h2  style="font-size:18px; background:#7acfa6">食堂管理系统</h2>
 						<ul>
+						    <li >
+								<a class="icon icon-shop" href="${pageContext.request.contextPath }/muserCanteenHostPage.action" style="font-size:17px">首页</a>
+							</li>
 							<li >
-								<a class="icon icon-display" href="${pageContext.request.contextPath }/importDish.action" style="font-size:17px">菜品录入</a>
+								<a class="icon icon-news" href="${pageContext.request.contextPath }/importDish.action" style="font-size:17px">菜品录入</a>
 							</li>
 							<li >
 								<a class="icon icon-news" href="${pageContext.request.contextPath }/importReplenishDish.action" style="font-size:17px">菜品补录</a>
@@ -23,7 +26,7 @@
 							</li>
 						</ul>
 					</div>
-					<button style="position:absolute;left:20px;top:93%;border:none"><a href="${pageContext.request.contextPath }/logout.action"><span style="font-size:15px;color:#000000;">注销</span></a></button>
+					<button style="position:absolute;left:20px;top:80%;border:none"><a href="${pageContext.request.contextPath }/logout.action"><span style="font-size:15px;color:#000000;">注销</span></a></button>
 				</nav>
 
     

@@ -33,24 +33,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 添加用户 -->
-	<SELECT id="insertUser" parameterType="User">
+	<select id="insertUser" parameterType="User" >
 		Insert into ctuser (ctuser.UserID, ctuser.UserCantID, ctuser.UserCampusID,
 							ctuser.UserRoleID, ctuser.UserName, ctuser.UserPwd,
 							ctuser.UserTel, ctuser.UserSex, ctuser.UserPhoto,
 							ctuser.UserGrade, ctuser.UserAcadamy, ctuser.UserClass,
 							ctuser.UserEmail, ctuser.UserState, ctuser.UserRegDate,
-							ctuser.UserLastDate, ctuser.UserNote)
-							
+							ctuser.UserLastDate, ctuser.UserNote)							
 					values (#{userID}, #{userCantID}, #{userCampusID},
 							#{userRoleID}, #{userName}, #{userPwd},
 							#{userTel}, #{userSex}, #{userPhoto},
 							#{userGrade}, #{userAcadamy}, #{userClass},
 							#{userEmail}, #{userState}, #{userRegDate},
 							#{userLastDate}, #{userNote})
-	</SELECT>
+	</select>
 	
 	<!-- 修改用户 -->
-	<SELECT id="updateUser" patameterType="User">
+	<select id="updateUser" parameterType="User">
 		UPDATE ctuser
 		SET ctuser.UserCantID=#{userCantID},
 			ctuser.UserCampusID=#{userCampusID},
@@ -69,11 +68,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ctuser.UserLastDate=#{userLastDate},
 			ctuser.UserNote=#{userNote}
 		WHERE ctuser.UserID=#{userID}
-	</SELECT>
+	</select>
 	
 	<!-- 删除用户 -->
-	<SELECT id="deleteUserByID" parameterType="Integer">
+	<select id="deleteUserByID" parameterType="Integer">
 		delete from ctuser
 		where ctuser.UserID=#{userID}
-	</SELECT>
+	</select>
 </mapper>

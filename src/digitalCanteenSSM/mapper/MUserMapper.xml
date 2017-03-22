@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ctmuser.MUserCantID = ctcant.CantID and 
 			ctmuser.MUserCampusID = ctcampus.CampusID and
 			ctmuser.MUserRoleID = ctrole.RoleID
-		ORDER BY RoleID,CampusID ,CantID
+		ORDER BY RoleID, CampusID, CantID
 	</select>
 	
 	<!-- 通过管理员ID查询管理员信息 -->

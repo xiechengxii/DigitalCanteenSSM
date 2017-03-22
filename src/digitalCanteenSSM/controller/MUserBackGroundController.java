@@ -186,7 +186,7 @@ public class MUserBackGroundController {
 	
 	//新增管理用户
 	@RequestMapping ("/insertmuser")
-	public ModelAndView insertmuser(MUser muser,MultipartFile muserPhotoFile) throws Exception{
+	public ModelAndView insertmuser(MUser muser, MultipartFile muserPhotoFile) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 

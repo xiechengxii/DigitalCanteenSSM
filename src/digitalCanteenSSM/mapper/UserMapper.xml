@@ -6,6 +6,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
 <mapper namespace="digitalCanteenSSM.mapper.UserMapper">
 
+	<!-- 查询所有的用户 -->
+	<select id="findAllUser" resultType="UserItems">
+		SELECT * 
+		FROM ctuser,ctrole,ctcant,ctcampus 
+		WHERE ctuser.UserRoleID = ctrole.RoleID and
+			  ctuser.UserCantID = ctcant.CantID and
+			  ctuser.UserCampusID = ctcampus.CampusID
+		ORDER BY UserRoleID DESC
+	</select>
+	
 	<!-- 根据Name查询该用户的信息 -->
 	<select id="findUserByName" parameterType="User" resultType="UserItems">
 		SELECT * 
@@ -20,5 +30,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM ctuser,ctrole
 		WHERE ctuser.UserID=#{userID} and 
 			ctuser.UserRoleID = ctrole.RoleID
+	</select>
+	
+	<!-- 添加用户 -->
+	<select id="insertUser" parameterType="User" >
+		Insert into ctuser (ctuser.UserID, ctuser.UserCantID, ctuser.UserCampusID,
+							ctuser.UserRoleID, ctuser.UserName, ctuser.UserPwd,
+							ctuser.UserTel, ctuser.UserSex, ctuser.UserPhoto,
+							ctuser.UserGrade, ctuser.UserAcadamy, ctuser.UserClass,
+							ctuser.UserEmail, ctuser.UserState, ctuser.UserRegDate,
+							ctuser.UserLastDate, ctuser.UserNote)							
+					values (#{userID}, #{userCantID}, #{userCampusID},
+							#{userRoleID}, #{userName}, #{userPwd},
+							#{userTel}, #{userSex}, #{userPhoto},
+							#{userGrade}, #{userAcadamy}, #{userClass},
+							#{userEmail}, #{userState}, #{userRegDate},
+							#{userLastDate}, #{userNote})
+	</select>
+	
+	<!-- 修改用户 -->
+	<select id="updateUser" parameterType="User">
+		UPDATE ctuser
+		SET ctuser.UserCantID=#{userCantID},
+			ctuser.UserCampusID=#{userCampusID},
+			ctuser.UserRoleID=#{userRoleID},
+			ctuser.UserName=#{userName},
+			ctuser.UserPwd=#{userPwd},
+			ctuser.UserTel=#{userTel},
+			ctuser.UserSex=#{userSex},
+			ctuser.UserPhoto=#{userPhoto},
+			ctuser.UserGrade=#{userGrade},
+			ctuser.UserAcadamy=#{userAcadamy},
+			ctuser.UserClass=#{userClass},
+			ctuser.UserEmail=#{userEmail},
+			ctuser.UserState=#{userState},
+			ctuser.UserRegDate=#{userRegDate},
+			ctuser.UserLastDate=#{userLastDate},
+			ctuser.UserNote=#{userNote}
+		WHERE ctuser.UserID=#{userID}
+	</select>
+	
+	<!-- 删除用户 -->
+	<select id="deleteUserByID" parameterType="Integer">
+		delete from ctuser
+		where ctuser.UserID=#{userID}
 	</select>
 </mapper>

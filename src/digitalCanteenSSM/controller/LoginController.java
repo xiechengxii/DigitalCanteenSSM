@@ -56,10 +56,8 @@ public class LoginController {
 				userAgent = "";
 			}
 			if(CheckMobile.check(userAgent)){
-				System.out.println("Using Mobile");
 				session.setAttribute("ua", "mobile");
 			}else{
-				System.out.println("Using PC");
 				session.setAttribute("ua", "pc");
 			}
 		}catch(Exception e){

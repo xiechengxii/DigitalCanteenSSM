@@ -1,6 +1,8 @@
 package digitalCanteenSSM.serviceImpl;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,25 @@ public class UserServiceImpl implements UserService{
 		return userMapper.findUserByID(userID);
 	}
 
-
+	@Override
+	public List<UserItems> findAllUser() throws Exception {
+		return userMapper.findAllUser();
+	}
+	
+	@Override
+	public void insertUser(User user) throws Exception {
+		userMapper.insertUser(user);
+	}
+	
+	@Override 
+	public void updateUser(User user) throws Exception {
+		userMapper.updateUser(user);
+	}
+	
+	@Override
+	public void deleteUserByID(Integer userID) throws Exception{
+		userMapper.deleteUserByID(userID);
+	}
 }
 
 

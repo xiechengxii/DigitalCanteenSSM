@@ -3,6 +3,7 @@ package digitalCanteenSSM.po;
 public class UserItems extends User{
 	private int role;
 	private String roleName;
+	
 	public int getRole() {
 		return role;
 	}

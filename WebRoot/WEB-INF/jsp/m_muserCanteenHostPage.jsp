@@ -16,12 +16,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	
     	<title>食堂管理首页</title>
 
-    	<meta http-equiv="pragma" content="no-cache" />
-		<meta http-equiv="cache-control" content="no-cache" />
+    	<meta http-equiv="pragma" content="no-cache" >
+		<meta http-equiv="cache-control" content="no-cache" >
 		<meta http-equiv="expires" content="0">   
  		<meta charset="utf-8">
  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" >
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="format-detection" content="telephone=no">
@@ -42,11 +42,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<link rel="stylesheet" type="text/css" href="css/component.css" />
     	
     	<!-- 日期控件导入 -->
-        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>   	
+        <script src="././My97DatePicker/WdatePicker.js"></script>   	
     </head>
   
     <body>
-	    <script type="text/javascript">
+	    <script>
 	
 		function exportExcelInCanteen(){
 			document.muserCanteenForm.action="canteenRecordExportToExcel.action";
@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                                    </ul>
 		                                </div>
 		                            </div> 
-		                        </div>
+		                       
 		                    </form>
                        </div>
                    </div>                   
@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
        </div>
   </div> 
-  <script src="js/classie.js"></script>
+    <script src="js/classie.js"></script>
     <script src="js/mlpushmenu.js"></script>
     <script>
         new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );

@@ -1,17 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="digitalCanteenSSM.po.Dish" %>
+<%@ page import="java.util.*"%>
 <%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
 <!DOCTYPE html>
-
 <html>
-    <head>
+  	<head>
     	<meta charset="utf-8">
     	
     	<title>食堂管理首页</title>
@@ -29,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="js/modernizr.custom.js"></script>
     	<script src="js/jquery-2.1.1.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
+    	<script src="js/jquery.mobile-1.4.3.min.js"></script>
     	<!--日历控件-->	
 		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs3.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-1.3.7.css" />
@@ -40,14 +40,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<link rel="stylesheet" type="text/css" href="css/demo.css" />
     	<link rel="stylesheet" type="text/css" href="css/icons.css" />
     	<link rel="stylesheet" type="text/css" href="css/component.css" />
+    	<link rel="stylesheet" type="text/css" href="css/leftDelete.css"  />
     	
     	<!-- 日期控件导入 -->
         <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>   	
-    </head>
+  	</head>
   
-    <body>
-	    <script type="text/javascript">
-	
+  	<body>
+  		
+		<script type="text/javascript">
 		function exportExcelInCanteen(){
 			document.muserCanteenForm.action="canteenRecordExportToExcel.action";
 	    	document.muserCanteenForm.submit();	
@@ -65,87 +66,97 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}); */
 		}
 		</script>
-  <div class="container">
-      <div class="mp-pusher" id="mp-pusher">
+		
+		
+ <div class="container">
+     <div class="mp-pusher" id="mp-pusher">
       <%@ include file="publicjsp/canteennavindex.jsp" %> 
-          <!-- 食堂管理系统的页面 -->
-         <div class="scroller" style="background:#f3efe0">
-           <div class="scroller-inner">
-        	    <header class="codrops-header" style="background:#7acfa6">
+      	<div class="scroller" style="background:#f3efe0">
+            <div class="scroller-inner">
+           		<header class="codrops-header" style="background:#7acfa6">
         	         <div class="row">
-        	         <div id="trigger" class="burger-container">
-						<span class="burger-bun-top"></span>
-						<span class="burger-filling"></span>
-						<span class="burger-bun-bot"></span>
-					 </div>					
-					<h1>食堂管理系统</h1>
-					</div>
-				</header> 		           	                   	
-                <div class="content clearfix">
-                <div class="container-fluid">
-                   <div class="panel panel-default">
-                       <div class="panel-heading">
-                           <h3 class="panel-title">${muserItems.cantName }  菜品录入记录</h3>
-                       </div>
-                       <div class="panel-body">
-                            <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
-		                    	                          
-			                        <%@ include file="m_recordInCanteen.jsp" %>
-		                            <div>
-		                                <div class="message">
-		                                    <p class="text-center">
-		                                        共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
-		                                    </p>
-		                                </div>
-		                                <div style="text-align:center;">
-		                                    <ul class="pagination">
-		                                        <c:if test="${!pagehelper.isFirstPage}">                                        
-		                                            <li>
-		                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
-		                                            </li>
-		                                        </c:if>
-		    
-		                                        <c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">    
-		    
-		                                            <c:if test="${navigatepageNum==pagehelper.pageNum}">
-		                                                <li class="active">
-		                                                    <a href="muserCanteenHostPage.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
-		                                                </li>
-		                                            </c:if>
-		    
-		                                            <c:if test="${navigatepageNum!=pagehelper.pageNum}">
-		                                                <li>
-		                                                    <a href="muserCanteenHostPage.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
-		                                                </li>
-		                                            </c:if>
-		    
-		                                        </c:forEach>
-		    
-		                                        <c:if test="${!pagehelper.isLastPage}">
-		                                            <li>
-		                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
-		                                            </li>
-		                                        </c:if>
-		                                    </ul>
-		                                </div>
-		                            </div> 
-		                        </div>
-		                    </form>
-                       </div>
-                   </div>                   
-                </div> 
-                </div>
-             </div>     
-          </div>
-       </div>
-  </div> 
-  <script src="js/classie.js"></script>
+	        	         <div id="trigger" class="burger-container">
+							<span class="burger-bun-top"></span>
+							<span class="burger-filling"></span>
+							<span class="burger-bun-bot"></span>
+						 </div>					
+						<h1>食堂管理系统</h1>
+					 </div>
+				</header> 
+				
+				
+	                <div class="container-fluid">
+	                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
+	                     <div class="row">
+	                    	<div  class="form-group col-xs-7" style="position:relative;top:2px;">						
+								<div class="input-group" style="width: 240px; margin-left: 0px;">
+								    <input type="text" class="form-control date-picker" id="dateTimeRange"/>
+								    <span class="input-group-addon">
+								        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+								    </span>
+								    <input type="hidden" name="beginTime" id="beginTime" />
+								    <input type="hidden" name="endTime" id="endTime"  />								    
+								</div>													
+							</div>
+							<div  class="col-xs-4" style="position:relative;left:30px;top:2px;">
+								<button onclick="exportExcelInCanteen()" class="btn btn-primary">导出</button>
+							</div>
+							
+							
+		                    <!-- 食堂管理员 -->
+		                    <input type="hidden" name = "campusID" value="${muserItems.campusID }" >
+		                    <input type="hidden" name = "cantID" value="${muserItems.cantID }" >
+		                    <input type="hidden" name = "muserID" value="${muserItems.cantID }" >
+		                </div>
+		                
+		                <!-- <div class="row" style="padding:-4%;">  -->
+		                <div class="form-group">
+		                  <div class="item-wrap">
+		                   <!--  <div class="row" style="position:relative;left:4%">-->
+		                  <c:forEach items="${pagehelper.list }" var="item">
+		                      	                    
+						  	    <div class="item clearfix" >
+						  	      <div class="row">	 					  	     
+						  	          <div class="col-xs-6 txt-item">
+						  	               <p class="name">${item.recordCampusName } ${item.recordCantName }</p>  
+						  	          </div>						  	          
+						  	          <div class="col-xs-6 txt-item">
+						  	               <p class="name">${item.recordMUserName }</p>  
+						  	          </div>
+						  	      </div>
+						  	       <div class="row">						  	     								  
+								  	  <div class="col-xs-6 txt-item">
+								  	      <p class="txt"><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></p>  
+								  	  </div>
+								  	  <div class="col-xs-6 txt-item">
+								  	      <p class="txt">${item.recordSubmitState }</p>  
+								  	  </div>
+								   </div>							  								   							    					  	 		      				   
+						             <a href="deleteRecord.action?recordID=${item.recordID}" class="delect-btn">删除</a>
+						         </div>	
+						      					  							  	
+						  </c:forEach>
+						  <!--  </div>	-->						  						  						  							  
+					    </div> 
+					  </div>  
+					 <!--  </div> -->
+					  
+			        </form> 			             
+	             </div>	                 	
+		     </div>
+		 </div>
+     </div>
+</div>
+  		
+    
+    
+    <script src="js/classie.js"></script>
     <script src="js/mlpushmenu.js"></script>
     <script>
         new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
     </script>
-    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
-<!--日期控件-->
+    <script type="text/javascript">
+    <!--日期控件-->
   	<script type="text/javascript">
 		$(function() {
 		    $('#dateTimeRange').daterangepicker({
@@ -200,5 +211,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $('#endTime').val('');
 		}
 	</script>
-    </body>
+	
+	<script>
+  		$(".item").on('swipeleft', function(event) {
+    		event.preventDefault();
+    		
+    		$(this).addClass('selected').siblings('.item').removeClass('selected');
+    		$(this).find('.delect-btn').on('click', function(event) {
+      			event.preventDefault();
+    		});
+  		});
+  		$(".item").on('swiperight', function(event) {
+    		event.preventDefault();
+    		
+    		$(this).removeClass('selected');
+  		});
+  		/* $(".item").on('swiperight', function(event) {
+    		event.preventDefault();
+    		/* Act on the event */
+    		/* $(this).removeClass('selected');
+  		}); */ 
+	</script>
+  	</body>
 </html>

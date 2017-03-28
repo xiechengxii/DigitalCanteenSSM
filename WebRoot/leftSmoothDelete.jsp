@@ -11,16 +11,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html>
   	<head>
+    	<base href="<%=basePath%>">
     	<meta charset="utf-8">
-    	
     	<title>食堂管理首页</title>
 
-    	<meta http-equiv="pragma" content="no-cache" >
-		<meta http-equiv="cache-control" content="no-cache" >
+    	<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="expires" content="0">   
  		<meta charset="utf-8">
  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" >
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="format-detection" content="telephone=no">
@@ -43,22 +43,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<link rel="stylesheet" type="text/css" href="css/leftDelete.css"  />
     	
     	<!-- 日期控件导入 -->
-
-        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script> 
-        <script>
-           $(document).ready(function(){
-                $("#view").click(function(){
-                  /*  alert("beidianji"); */
-                   window.location.href="findRecordDetailDish.action?recordID=${item.recordID}";
-                });
-            });  
-        </script>  	
+        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>
   	</head>
   
   	<body>
-  		
-		<script type="text/javascript">
-
+  	   <script type="text/javascript">
 		function exportExcelInCanteen(){
 			document.muserCanteenForm.action="canteenRecordExportToExcel.action";
 	    	document.muserCanteenForm.submit();	
@@ -76,72 +65,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}); */
 		}
 		</script>
-		
-		
- <div class="container">
-     <div class="mp-pusher" id="mp-pusher">
-      <%@ include file="publicjsp/canteennavindex.jsp" %> 
-      	<div class="scroller" style="background:#f3efe0">
-            <div class="scroller-inner">
-           		<header class="codrops-header" style="background:#7acfa6">
-        	         <div class="row">
-	        	         <div id="trigger" class="burger-container">
-							<span class="burger-bun-top"></span>
-							<span class="burger-filling"></span>
-							<span class="burger-bun-bot"></span>
-						 </div>					
-						<h1>食堂管理系统</h1>
-					 </div>
-				</header> 
-				
-				
-	                <div class="container-fluid" style="padding:0 0px;">
-	                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
-	                          <div class="row">
-	                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">						
-								         <div class="input-group" style="width: 240px; margin-left: 12px;">
-								              <input type="text" class="form-control date-picker" id="dateTimeRange"/>
-								                     <span class="input-group-addon">
-								        				   <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-								    				 </span>
-								              <input type="hidden" name="beginTime" id="beginTime" />
-								    		  <input type="hidden" name="endTime" id="endTime"  />								    
-										</div>													
-								  </div>
-							      <div  class="col-xs-4" style="position:relative;left:30px;top:2px;">
-								        <button onclick="exportExcelInCanteen()" class="btn btn-primary">导出</button>
-							      </div>														
-			                      <!-- 食堂管理员 -->
-			                      <input type="hidden" name = "campusID" value="${muserItems.campusID }" >
-			                      <input type="hidden" name = "cantID" value="${muserItems.cantID }" >
-			                      <input type="hidden" name = "muserID" value="${muserItems.cantID }" >
-		                    </div>
-		                
-		                    <div class="row" style="padding:0 0px;"> 
-		                         <div class="form-group">
-		                              <div class="item-wrap">
-			                              <c:forEach items="${pagehelper.list }" var="item" >
-										  	<div  id="view" class="item clearfix">										    									        									        
-											    <div class="txt-item">
-											      <table>
-											           <tr><td style="width:80%"><p class="name">${item.recordCampusName } ${item.recordCantName }</p></td><td style="width:80%"><p class="name">${item.recordMUserName }</p></td></tr>
-											           <tr><td><p class="txt"><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></p></td><td><p class="txt"> ${item.recordSubmitState }</p></td></tr>
-											      </table>										      
-											    </div>									    									        								  	
-										  	<a class="delect-btn">删除</a>
-										  	</div>
-										  	</c:forEach>										  	
-								    </div>
+		<div class="container">
+     <div class="row" style="padding:0 0px;"> 
+	<div class="form-group">
+  		<div class="item-wrap">
+	  	<div class="item clearfix">
+		    <div class="img-item">
+		      <img src="/upload/pic/user-default.jpg">
+		    </div>
+	    
+		    <div class="txt-item">
+		      <p class="name">小黄人</p>
+		      <p class="txt">小黄人小黄人小黄人小黄人</p>
+		    </div>
+	    
+	        <a class="delect-btn">删除</a>
+	  	</div>
+	  
+	  	<div class="item clearfix">
+		    <div class="img-item">
+		      <img src="/upload/pic/user-default.jpg">
+		    </div>
+		    <div class="txt-item">
+		      <p class="name"> 小黄人</p>
+		      <p class="txt">小黄人小黄人小黄人小黄人</p>
+		    </div>
+		    <a class="delect-btn">删除</a>
+	  	</div>
+    </div>
+    </div> 
 					         </div>  
-					    </div> 					  
-			        </form> 			             
-	             </div>	                 	
-		     </div>
-		 </div>
      </div>
-</div>
-  		
-    <script src="js/classie.js"></script>
+		
+    
+	<script src="js/classie.js"></script>
     <script src="js/mlpushmenu.js"></script>
     <script>
         new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
@@ -229,8 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		event.preventDefault();
     		/* Act on the event */
     		/* $(this).removeClass('selected');
-  		}); */
-  		
+  		}); */ 
 	</script>
   	</body>
 </html>

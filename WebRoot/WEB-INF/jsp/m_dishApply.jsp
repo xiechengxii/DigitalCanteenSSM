@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    <span class="burger-filling"></span>
 		                    <span class="burger-bun-bot"></span>
 		                    </div>         
-		                    <h1>菜品上架</h1>
+		                    <h1>申请新菜</h1>
 		                 </div>  
 		            </header>
 
@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     </div>
                                 </div>                        
                                 <br>                         
-                                <div>
+                                <div class="row">
                                     <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">食堂</label>
                                     <div class="col-xs-7">
 	                       	            <input type="text" class="form-control" name = "cantName" value="${muserItems.cantName }" readonly="readonly">
@@ -127,6 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     </select>
                                 </div>
                             </div>
+                            <br>
                             <div class="row form-group">
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品名称</label>
                                 <div class="col-xs-7">

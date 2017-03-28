@@ -75,46 +75,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		return false;
         	}
         }
-        /*判断浏览器类型*/
-      function userBrowser(){  
-        var browserName=navigator.userAgent.toLowerCase();  
-        if(/msie/i.test(browserName) && !/opera/.test(browserName)){  
-            alert("IE");  
-            return ;  
-        }else if(/firefox/i.test(browserName)){  
-            alert("Firefox");  
-            return ;  
-        }else if(/chrome/i.test(browserName) && /webkit/i.test(browserName) && /mozilla/i.test(browserName)){  
-            alert("Chrome");  
-            return ;  
-        }else if(/opera/i.test(browserName)){  
-            alert("Opera");  
-            return ;  
-        }else if(/webkit/i.test(browserName) &&!(/chrome/i.test(browserName) && /webkit/i.test(browserName) && /mozilla/i.test(browserName))){  
-            alert("Safari");  
-            return ;  
-        }else{  
-            alert("unKnow");  
-        }  
-    }  
-      /*判断手机电脑浏览器*/
-      function check() 
-      { 
-        var userAgentInfo=navigator.userAgent; 
-        var Agents =new Array("Android","iPhone","SymbianOS","Windows Phone","iPad","iPod"); 
-        var flag=true; 
-        for(var v=0;v<Agents.length;v++) 
-          { 
-            if(userAgentInfo.indexOf(Agents[v])>0)
-             { 
-                flag=false; 
-                break; 
-              }
-          } 
-        alert(flag); 
-      }
+              
   	</script>
-    <!--<script>/*调用check（）函数*/check()</script>  -->
     </head>   
     <body>
     <div class="container">
@@ -220,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <ul class="pagination">
                   <c:if test="${!pagehelper.isFirstPage}">                    
                     <li>
-                      <a href="findAllDishPreset.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
+                      <a href="findAllWindows.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
                     </li>
                   </c:if>
 
@@ -228,13 +190,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                     <c:if test="${navigatepageNum==pagehelper.pageNum}">
                       <li class="active">
-                        <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                        <a href="findAllWindows.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
                       </li>
                     </c:if>
 
                     <c:if test="${navigatepageNum!=pagehelper.pageNum}">
                       <li>
-                        <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                        <a href="findAllWindows.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
                       </li>
                     </c:if>
 
@@ -242,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                   <c:if test="${!pagehelper.isLastPage}">
                     <li>
-                      <a href="findAllDishPreset.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                      <a href="findAllWindows.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
                     </li>
                   </c:if>
                 </ul>

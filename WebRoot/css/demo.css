@@ -47,8 +47,9 @@ a:hover, a:focus {
 .codrops-header {
 	margin: 0 0 0 0;
 	padding: 2.5em;
-	background: rgba(26,237,239,0.01);
+	background:#7acfa6;
 	text-align: center;
+
 }
 
 .codrops-header h1 {
@@ -149,7 +150,7 @@ a:hover, a:focus {
 	padding: 1em 1em;
 	max-width: 1200px;
 	margin: 0 auto;
-}
+
 
 .block {
 	float: left;

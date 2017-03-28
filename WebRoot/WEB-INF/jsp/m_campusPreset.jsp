@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%@ include file="publicjsp/index.jsp" %>               
         <div class="scroller" style="background:#f3efe0">
         	<div class="scroller-inner">
-        	    <header class="codrops-header" style="background:#7acfa6">
+        	    <header class="codrops-header" style="width:100%">
         	    	<div class="row">
         	         <div id="trigger" class="burger-container">
 						<span class="burger-bun-top"></span>
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<form action="insertCampus.action" method="post">
 					<!-- 添加校区 -->							
 						<div class="form-group" >
-						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"> </div>
+						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"  style="border:0;border-bottom:1px solid #a0dbbe;"> </div>
 							<br>
 						    <div align="center"><input  type="submit" value="添加校区"  class="btn btn-primary btn-wide" data-role="none"></div>
 						</div>

@@ -45,6 +45,13 @@
 				</list>
 			</property>		
 		</bean>
+		
+		<!-- 全局异常处理器 -->
+		<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>		
+		<bean class="digitalCanteenSSM.exception.ExceptionResolverCustom">
+			<!-- 注入一个json转换器 -->
+			<property name="jsonMessageConverter" ref="jsonMessageConverter"/>
+		</bean>
 
 		<!-- 静态资源解析，包括js,css... -->
 		<mvc:resources location="/js/"  mapping="/js/**"></mvc:resources>

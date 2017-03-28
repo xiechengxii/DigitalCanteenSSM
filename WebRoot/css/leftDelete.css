@@ -24,7 +24,7 @@
  .item-wrap .item .txt-item{
   padding-top: 10px;
   margin-right:25px;
-
+  margin-left:30px;
   font-size: 14px;
   line-height: 24px;
   color: #000000;
@@ -51,9 +51,10 @@
   z-index:999;
   display: block;
   text-align: center;
-  padding-top: 8%;
-  padding-left:-5%;
-  font-size: 18px;
+  padding-top: 5%;
+  padding-right:5%;
+  font-size: 16px;
+  
 }
 .item-wrap .selected{
   -webkit-transform: translate(-16%);

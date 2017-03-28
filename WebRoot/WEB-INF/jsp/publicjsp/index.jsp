@@ -59,7 +59,7 @@
 							</li>
 						</ul>
 					</div>
-					<button style="position:absolute;left:20px;top:62%;border:none"><a href="${pageContext.request.contextPath }/logout.action"><span style="font-size:15px;color:#000000;">注销</span></a></button>
+					<button style="position:absolute;left:20px;bottom:10%;border:none"><a href="${pageContext.request.contextPath }/logout.action"><span style="font-size:15px;color:#000000;">注销</span></a></button>
 				</nav>
 
     

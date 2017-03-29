@@ -109,14 +109,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	                
                             <div class="form-group">
                                 <div class="row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">校区</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">校区</label>
                                 <div class="col-xs-7">
         	                        <input type="text" class="form-control" name="campusName" value="${muserItems.campusName }" readonly="readonly">
                                 </div>
                                 </div>
                                 <br>
                                 <div class="row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">食堂</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">食堂</label>
                                 <div class="col-xs-7">
 	       	                        <input type="text" class="form-control" name = "cantName" value="${muserItems.cantName }" readonly="readonly">
                                 </div>
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="row form-group">  
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">档口</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">档口</label>
                                 <div class="col-xs-7">
                                     <!-- 选择菜品所属档口 -->
                                     <select name="dishWndID" class="form-control" onchange="getDish(this.value)">
@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br> 
                             <div class="row form-group">                               
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品类型</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品类型</label>
                                 <div class="col-xs-7">
                                     <!-- 选择菜品所属类型-->                    
                                     <select name="dishTypeID" class="form-control">
@@ -150,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>    
                             <div class="row form-group">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品名称</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品名称</label>
                                 <div class="col-xs-7">
                                     <!-- 选择菜品  -->
                                     <select name="dishName" class="form-control" disabled="disabled">
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品图片上传</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品图片上传</label>
                                 <div class="col-xs-7">
                                     <a href="javascript:;" class="file" style="font-size:15px">选择文件
                                     <input type="file" name="dishPhotoFile"/>
@@ -169,21 +169,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>    
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品添加日期</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品添加日期</label>
                                 <div class="col-xs-7">
                                     <input type="text" name ="dishInDate" placeholder="请点击此处选择菜品录入日期" class="Wdate form-control"  onClick="WdatePicker()"> 
                                 </div>
                             </div>
                             <br> 
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品价格</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品价格</label>
                                 <div class="col-xs-7">   
                                     <input type="text" class="form-control" placeholder="请在此输入菜品价格" name="dishPrice">
                                 </div>
                             </div>
                             <br>    
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品推荐</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品推荐</label>
                                 <div class="col-xs-7">
                                     <select name="dishRecmd" class="form-control">
                                         <option value="否" selected="selected">否</option>
@@ -193,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品留样</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品留样</label>
                                 <div class="col-xs-7">
                                     <select name="dishKeep" class="form-control">
                                         <option value="否" selected="selected">否</option>
@@ -203,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品质量</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品质量</label>
                                 <div class="col-xs-7">
                                     <select name="dishQuality" class="form-control">
                                         <option value="优" selected="selected">优</option>
@@ -215,14 +215,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br> 
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品录入状态</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品录入状态</label>
                                 <div class="col-xs-7">   
                                     <input type="text" class="form-control" name="dishInState" value="审核通过" readonly="readonly">
                                 </div>
                             </div>
                             <br>    
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品销售状态</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品销售状态</label>
                                 <div class="col-xs-7">
                                     <select name="dishSale" class="form-control">
                                         <option value="在售" selected="selected">在售</option>
@@ -232,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="form-group row">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">菜品销售时间</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品销售时间</label>
                                 <div class="col-xs-7">
                                     <select name="dishDate" class="form-control">
                                         <option value="早上" selected="selected">早上</option>

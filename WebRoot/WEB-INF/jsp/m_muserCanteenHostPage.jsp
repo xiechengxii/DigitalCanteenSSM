@@ -45,14 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<!-- 日期控件导入 -->
 
         <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script> 
-        <script>
-           $(document).ready(function(){
-                $("#view").click(function(){
-                  /*  alert("beidianji"); */
-                   window.location.href="findRecordDetailDish.action?recordID=${item.recordID}";
-                });
-            });  
-        </script>  	
+        
   	</head>
   
   	<body>
@@ -78,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</script>
 		
 		
- <div class="container">
+ <div class="container" >
      <div class="mp-pusher" id="mp-pusher">
       <%@ include file="publicjsp/canteennavindex.jsp" %> 
       	<div class="scroller" style="background:#f3efe0">
@@ -98,7 +91,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <div class="container-fluid" style="padding:0 0px;">
 	                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
 	                          <div class="row">
-	                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">						
+	                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">
+	                    	       					
 								         <div class="input-group" style="width: 240px; margin-left: 12px;">
 								              <input type="text" class="form-control date-picker" id="dateTimeRange"/>
 								                     <span class="input-group-addon">
@@ -115,22 +109,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                      <input type="hidden" name = "campusID" value="${muserItems.campusID }" >
 			                      <input type="hidden" name = "cantID" value="${muserItems.cantID }" >
 			                      <input type="hidden" name = "muserID" value="${muserItems.cantID }" >
-		                    </div>
-		                
+		                    </div>		                
 		                    <div class="row" style="padding:0 0px;"> 
 		                         <div class="form-group">
 		                              <div class="item-wrap">
 			                              <c:forEach items="${pagehelper.list }" var="item" >
 										  	<div  id="view" class="item clearfix">										    									        									        
 											    <div class="txt-item">
-											      <table>
+											      <table onclick="location.href='modifyRecordDetailDish.action?recordID=${item.recordID}';">
 											           <tr><td style="width:80%"><p class="name">${item.recordCampusName } ${item.recordCantName }</p></td><td style="width:80%"><p class="name">${item.recordMUserName }</p></td></tr>
 											           <tr><td><p class="txt"><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></p></td><td><p class="txt"> ${item.recordSubmitState }</p></td></tr>
 											      </table>										      
-											    </div>									    									        								  	
-										  	<a class="delect-btn">删除</a>
-										  	</div>
-										  	</c:forEach>										  	
+											    </div>																			    									        								  	
+										  	<a href="deleteRecord.action?recordID=${item.recordID}" class="delect-btn" style="padding-top:28px;">删除</a>										   
+										  </div>
+										</c:forEach>										  	
 								    </div>
 					         </div>  
 					    </div> 					  
@@ -146,7 +139,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script>
         new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
     </script>
-    <script type="text/javascript">
     <!--日期控件-->
   	<script type="text/javascript">
 		$(function() {

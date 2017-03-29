@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">
 	                    	       					
 								         <div class="input-group" style="width: 240px; margin-left: 12px;">
-								              <input type="text" class="form-control date-picker" id="dateTimeRange"/>
+								              <input type="text" class="form-control date-picker" id="dateTimeRange" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;"/>
 								                     <span class="input-group-addon">
 								        				   <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
 								    				 </span>

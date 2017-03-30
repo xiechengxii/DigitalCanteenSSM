@@ -11,25 +11,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<base href="<%=basePath%>">  	
     	<title>预置菜品信息</title>
    		<meta http-equiv="pragma" content="no-cache" />
-		<meta http-equiv="cache-control" content="no-cache" />
-		<meta http-equiv="expires" content="0">   
- 		<meta charset="utf-8">
- 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		  <meta http-equiv="cache-control" content="no-cache" />
+		  <meta http-equiv="expires" content="0">   
+ 		  <meta charset="utf-8">
+ 		  <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<meta name="format-detection" content="telephone=no">
+		  <meta name="apple-mobile-web-app-capable" content="yes">
+		  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+		  <meta name="format-detection" content="telephone=no">
 		
-		<script src="js/modernizr.custom.js"></script>
-    <script src="js/jquery-2.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/m_bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="css/icons.css" />
-    <link rel="stylesheet" type="text/css" href="css/component.css" />
-    <!--分页控件--> 
-    <link rel="stylesheet" href="css/qunit-1.11.0.css">  
+		  <script src="js/modernizr.custom.js"></script>
+      <script src="js/jquery-2.1.1.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="css/m_bootstrap.min.css"/>
+      <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+      <link rel="stylesheet" type="text/css" href="css/demo.css" />
+      <link rel="stylesheet" type="text/css" href="css/icons.css" />
+      <link rel="stylesheet" type="text/css" href="css/component.css" />
+      <!--分页控件--> 
+      <link rel="stylesheet" href="css/qunit-1.11.0.css">  
     </head>   
     <body>
     <div class="container">
@@ -78,48 +78,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			           	</c:forEach>
 			           </table>
 
-            <div>
-              <div class="message">
-                <p class="text-center">
-                  共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
-                </p>
-              </div>
-              <div style="text-align:center;">
-                <ul class="pagination">
-                  <c:if test="${!pagehelper.isFirstPage}">                    
-                    <li>
-                      <a href="findAllDishPreset.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
-                    </li>
-                  </c:if>
+                  <div>
+                    <div class="message">
+                      <p class="text-center">
+                        共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
+                      </p>
+                    </div>
+                    <div style="text-align:center;">
+                      <ul class="pagination">
+                        <c:if test="${!pagehelper.isFirstPage}">                    
+                          <li>
+                            <a href="findAllDishPreset.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
+                          </li>
+                        </c:if>
 
-                  <c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">  
+                        <c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">  
+                          <c:if test="${navigatepageNum==pagehelper.pageNum}">
+                            <li class="active">
+                              <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                            </li>
+                          </c:if>
+      
+                          <c:if test="${navigatepageNum!=pagehelper.pageNum}">
+                            <li>
+                              <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                            </li>
+                          </c:if>
+                        </c:forEach>
 
-                    <c:if test="${navigatepageNum==pagehelper.pageNum}">
-                      <li class="active">
-                        <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
-                      </li>
-                    </c:if>
-
-                    <c:if test="${navigatepageNum!=pagehelper.pageNum}">
-                      <li>
-                        <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
-                      </li>
-                    </c:if>
-
-                  </c:forEach>
-
-                  <c:if test="${!pagehelper.isLastPage}">
-                    <li>
-                      <a href="findAllDishPreset.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
-                    </li>
-                  </c:if>
-                </ul>
-              </div>
-            </div>
+                        <c:if test="${!pagehelper.isLastPage}">
+                          <li>
+                            <a href="findAllDishPreset.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                          </li>
+                        </c:if>
+                      </ul>
+                    </div>
+                  </div>
 		            </form>
-		</div>
-		</div>
-		</div>
+		            </div>
+		        </div>
+		      </div>
 	  </div>
     </div>
     <script src="js/classie.js"></script>

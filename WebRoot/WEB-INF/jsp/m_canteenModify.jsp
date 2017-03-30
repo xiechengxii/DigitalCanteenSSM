@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
   <head>
     <base href="<%=basePath%>">    
@@ -26,7 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/icons.css" />
     <link rel="stylesheet" type="text/css" href="css/component.css" />	
-
   </head> 
   <body>
 
@@ -37,35 +36,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!-- 选择食堂所属校区 -->
 	<div align="center">
- 	<select name="cantCampusID" data-toggle="select" class="form-control select select-primary mrs mbm">
-		<!-- 显示之前食堂所属校区 -->	
-		<option value="${canteenItems.campusID }" selected="selected">${canteenItems.campusName }</option>
-		<c:forEach items="${campusList }" var="item" >		
-			<!-- 显示所有校区选项 -->					   						  
-		<option value="${item.campusID }">${item.campusName }</option>
-		</c:forEach>
-	</select>
+ 		<select name="cantCampusID" data-toggle="select" class="form-control select select-primary mrs mbm">
+			<!-- 显示之前食堂所属校区 -->	
+			<option value="${canteenItems.campusID }" selected="selected">${canteenItems.campusName }</option>
+			<c:forEach items="${campusList }" var="item" >		
+				<!-- 显示所有校区选项 -->					   						  
+			<option value="${item.campusID }">${item.campusName }</option>
+			</c:forEach>
+		</select>
 	</div>
 
 	<div align="center">
-	<select name="cantTypeID" data-toggle="select" class="form-control select select-primary mrs mbm">
-		<c:forEach items="${canteenTypeList }" var="item" >	
-			<c:choose>
-				<c:when test="${canteenItems.cantTypeID==item.cantTypeID}">
-					<option value="${canteenItems.cantTypeID }" selected="selected">${canteenItems.cantTypeName }</option>
-				</c:when>
-				<c:otherwise>
-					<option value="${item.cantTypeID }">${item.cantTypeName }</option>
-				</c:otherwise>
-			</c:choose>		
-		</c:forEach>
-	</select>
+		<select name="cantTypeID" data-toggle="select" class="form-control select select-primary mrs mbm">
+			<c:forEach items="${canteenTypeList }" var="item" >	
+				<c:choose>
+					<c:when test="${canteenItems.cantTypeID==item.cantTypeID}">
+						<option value="${canteenItems.cantTypeID }" selected="selected">${canteenItems.cantTypeName }</option>
+					</c:when>
+					<c:otherwise>
+						<option value="${item.cantTypeID }">${item.cantTypeName }</option>
+					</c:otherwise>
+				</c:choose>		
+			</c:forEach>
+		</select>
 	</div>
 
 	<div class="form-group" >
-	<input name="cantName" type="text" value="${canteenItems.cantName }" class="form-control ">
-	<br>
-	<div align="center"><input type="submit" value="保存" class="btn btn-primary btn-wide" data-role="none"></div>
+		<input name="cantName" type="text" value="${canteenItems.cantName }" class="form-control ">
+		<br>
+		<div align="center"><input type="submit" value="保存" class="btn btn-primary btn-wide" data-role="none"></div>
 	</div>
   </form>
 

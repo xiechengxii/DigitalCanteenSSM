@@ -1,6 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="digitalCanteenSSM.po.Dish" %>
+<%@ page import="java.util.*"%>
+<%@ taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,27 +12,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html >
     <head>
         <base href="<%=basePath%>">
+        <meta charset="utf-8">
         <title>修改录入表</title>
     	
-    	<meta name="viewport" content="width=device-width, 
-                                             initial-scale=0.3, 
-                                             maximum-scale=1.0, 
-                                             user-scalable=true">
-        <meta http-equiv="pragma" content="no-cache">
-        <meta http-equiv="cache-control" content="no-cache">
-        <meta http-equiv="expires" content="0">
-        
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!--自定义-->      
-        <link rel="stylesheet" href="css/my-custom.css">
-        <!--分页控件--> 
-        <link rel="stylesheet" href="css/qunit-1.11.0.css">
-    
-        <!--bootstrap-->    
-        <script src="js/jquery-1.10.1.min.js"></script>       
-    
-        <!--bootstrap-->    
-        <script src="js/bootstrap.min.js"></script>
+    	<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0">   
+ 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+        <script src="js/modernizr.custom.js"></script>
+    	<script src="js/jquery-2.1.1.min.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+    	<!--  <script src="js/jquery.mobile-1.4.3.min.js"></script>  -->
+    	<!--日历控件-->	
+		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs3.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-1.3.7.css" />
+	    <script src="js/moment.js"></script>
+	    <script src="js/daterangepicker-1.3.7.js"></script>
+	    
+    	<link rel="stylesheet" href="css/m_bootstrap.min.css"/>
+    	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+    	<link rel="stylesheet" type="text/css" href="css/icons.css" />
+    	<link rel="stylesheet" type="text/css" href="css/component.css" />
+    	<link rel="stylesheet" type="text/css" href="css/leftDelete.css"  />
+    	
+    	<!-- 日期控件导入 -->
+        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script> 
 
     	<script>	
     	
@@ -65,102 +76,128 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</script>
     </head>
   
-    <body >
-        <%@ include file="publicjsp/canteenMenu.jsp" %>
-        <div class="container-fluid">	
-    		<div class="panel panel-default">
-    			<div class="panel panel-heading">
-    				<div class="row">
- 						<div class="col-sm-1">
-					   		<label>所属校区：</label>${muserItems.campusName}
-					   	</div>
-					   	<div class="col-sm-1">
-					   		<label>所属食堂：</label>${muserItems.cantName}
-					   	</div>
-					   	<div class="col-sm-1">
-					   		<label>管理员：</label>${muserItems.muserName}
-					   	</div>
-					</div>
-    			</div>
-    			<div class="panel-body">
-    	            <!-- 所有菜品显示列表 -->
-                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
-                    	<input type="hidden" name = "recordID" value="${record.recordID}">
-                    	<table class="table table-striped table-bordered table-hover table-responsive text-center">
-                    		<thead>
-                    			<tr>
-                    				<th style='text-align: center;'>
-                                        <input type="checkbox" id="selectAll" name="selectAll" onclick="getAllDishSelect('dishIDList')">
-                                    </th>
-                    				<th style='text-align: center;'>校区名称</th>
-                    				<th style='text-align: center;'>食堂名称</th>
-                    				<th style='text-align: center;'>档口名称</th>
-                    				<th style='text-align: center;'>菜品类型</th>
-                    				<th style='text-align: center;'>菜品名称</th>
-                    				<th style='text-align: center;'>菜品图片</th>
-                    				<th style='text-align: center;'>菜品价格</th>
-                    				<th style='text-align: center;'>菜品销售时间</th>
-                    				<th style='text-align: center;'>菜品销售状态</th>			
-                    				<th style='text-align: center;'>菜品录入日期</th>
-                    				<th style='text-align: center;'>菜品录入状态</th>
-                    				<th style='text-align: center;'>菜品推荐</th>
-                    				<th style='text-align: center;'>菜品留样</th>
-                    				<th style='text-align: center;'>菜品合格</th> 			
-                    			</tr>
-                    		</thead>
-                    		<tbody>
-    	            		    <!-- dishDetailList -->
-    	            		    <c:forEach items="${dishItemsList }" var="item" varStatus="status">
-    	                	    	<c:choose>
-    	            		        	<c:when test="${item.dishInState == '待审核'}">
-    	            		        	</c:when>
-    	            		    		<c:otherwise>
-    	            		    			<tr>
-    	            		    				<td style='vertical-align: middle;text-align: center;'>
-    	            		    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
-    	            		    				</td>
-    	            		    				<c:choose >
-    	            		    					<c:when test="${empty dishDetailList}"></c:when>
-    	            		    					<c:otherwise>
-    	            		    						<c:forEach items="${dishDetailList }" var="itemInRecord">
-    	            		    							<c:choose>
-    	            		    								<c:when test="${itemInRecord.detailDishID == item.dishID }">
-    	            		    									<script> checkBoxSelect("${item.dishID}");</script>		
-    	            		    								</c:when>
-    	            		    							</c:choose>
-    	            		    						</c:forEach>
-    	            		    					</c:otherwise>
-    	            		    				</c:choose>
-    	            		    			 	<td style='vertical-align: middle;text-align: center;'>${item.campusName }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.cantName }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.wndName }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishTypeName }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishName }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>
-    	            		    				   	<c:if test="${item.dishPhoto != null }">
-    	            		       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="100" width="120"/>
-    	            		       					</c:if>
-    	            	   	    				</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishPrice }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishDate }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishSale }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishInState }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishRecmd }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishKeep }</td>
-    	            		    			   	<td style='vertical-align: middle;text-align: center;'>${item.dishQuality }</td>	
-    	            		    			</tr>
-    	            		    		</c:otherwise>
-    	            		    	</c:choose>
-    	            		    </c:forEach>
-    	            		</tbody>
-                    	</table>
-                    	<div class="form-group">
-                    		<input type="button" class="btn btn-primary" value="保存" onClick=modifyRecordDetailDishSave() > 
-                    	</div>
-                    </form>
-                </div>
-            </div>
+    <body >            
+        <div class="container">
+		    <div class="mp-pusher" id="mp-pusher">
+		    <%@ include file="publicjsp/canteennavindex.jsp" %> 
+		      	<div class="scroller" style="background:#EEEEEE">
+		            <div class="scroller-inner">
+		           		<header class="codrops-header" style="background:#29C192;padding-top:22px;">
+		        	        <div class="row">
+			        	        <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";font-size:;><a style="color:#fff"; class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/muserCanteenHostPage.action"></a></button>					
+								<h1>修改录入表</h1>
+							</div>
+						</header> 
+				    	<div class="container-fluid" style="color:#000; ">					    		
+	    					<div class="row" style="padding-top:16px">
+		 						<div class="col-xs-4">
+							   		<label>所属校区：</label>${muserItems.campusName}
+							   	</div>
+							   	<div class="col-xs-4">
+							   		<label>所属食堂：</label>${muserItems.cantName}
+							   	</div>
+							   	<div class="col-xs-4">
+							   		<label>管理员：</label>${muserItems.muserName}
+							   	</div>
+							</div>											 		
+		                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
+		                    	<input type="hidden" name = "recordID" value="${record.recordID}">
+		                    	<div class="row" style="padding:12px 0px;"> 
+			                        <div class="form-group">
+			                            <div class="item-wrap">
+				                            <c:forEach items="${dishItemsList }" var="item" varStatus="status">
+			                                    <div class="item clearfix">
+					                    	    	<c:choose>
+						                	        	<c:when test="${item.dishInState == '待审核'}"></c:when>
+						                	    		<c:otherwise>
+							                	    		<div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
+							                	    		    <table  width=100%>							               	    		   
+								                	    			<tr>
+								                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
+								                	    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
+								                	    				</td>
+						                	    				        <c:choose >
+								                	    					<c:when test="${dishDetailInDateList == null }">	
+								                	    					</c:when>
+								                	    					<c:otherwise>
+								                	    						<c:forEach items="${dishDetailInDateList }" var="itemInDate">
+								                	    							<c:choose>
+								                	    								<c:when test="${itemInDate.detailDishID == item.dishID }">
+								                	    									<script> checkBoxSelect("${item.dishID}");</script>		
+								                	    								</c:when>
+								                	    							</c:choose>
+								                	    						</c:forEach>
+								                	    					</c:otherwise>
+								                	    				</c:choose>	
+								                	    				<td style='vertical-align: left;text-align: center;' rowspan=3>
+								                	    				   	<c:if test="${item.dishPhoto != null }">
+								                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
+								                	       					</c:if>
+								                   	    				</td>						               	    			 	
+								                	    			   	<td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
+								                	    			   	<td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
+								                	    			</tr>
+								                	    			<tr>							               	    		   
+								                	    			   	<td style='vertical-align: middle;font-size:0.8em' colspan=2>[${item.wndName }]</td>
+								                	    			   	<td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
+								                	    			</tr>
+								                	    			<tr>						  
+								                	    			   	<td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
+								                	    			   	<td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
+								                	    			   	<td style='vertical-align: middle;'>${item.dishInState }</td> 
+								                	    			</tr>
+							                	    			</table>
+							                	    		</div>
+								                	    		<a class="delect-btn">删除</a>
+					                	    			</c:otherwise>
+						                	    	</c:choose>
+						                	    </div>
+					                	    </c:forEach>						                              							  	
+						        		</div>
+					            	</div>  
+					        	</div> 
+						        <div class="form-group" style="padding-top:5px">
+		    	                	<input type="button" class="btn btn-primary" value="保存" onClick=modifyRecordDetailDishSave()> 
+		    	            	</div>
+		    	            </form> 					  				    	                	 				                   	
+		                </div>
+		            </div>
+		        </div>
+		    </div>
         </div>
+        <script src="js/classie.js"></script>
+	    <script src="js/mlpushmenu.js"></script>
+	    <script>
+	        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+	    </script>
+	    <script>
+	  		$(".item").on('swipeleft', function(event) {
+	    		event.preventDefault();
+	    		
+	    		$(this).addClass('selected').siblings('.item').removeClass('selected');
+	    		$(this).find('.delect-btn').on('click', function(event) {
+	      			event.preventDefault();
+	      	    /* Act on the event */
+	      			$(this).parent(".item").animate({
+	        		height: 0,
+	        		width: 0},
+	        		300, function() {
+	        	/* stuff to do after animation is complete */
+	        			$(this).remove();
+	      			});
+	    		});
+	  		});
+	  		$(".item").on('swiperight', function(event) {
+	    		event.preventDefault();
+	    		
+	    		$(this).removeClass('selected');
+	  		});
+	  		/* $(".item").on('swiperight', function(event) {
+	    		event.preventDefault();
+	    		/* Act on the event */
+	    		/* $(this).removeClass('selected');
+	  		}); */
+	  		
+		</script>
 	</body>
 </html>

@@ -18,7 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="expires" content="0">   
- 		<meta charset="utf-8">
  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -81,19 +80,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			                    	    	    <c:choose>
     				                	        	    <c:when test="${item.dishInState == '待审核'}">        				                	    		
         				                	    		    <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
-        				                	    		        <table  width=100% >							               	    		   
+        				                	    		        <table  width=100% border=2>							               	    		   
         				                	    			        <tr>					 				                	    				
-        				                	    			            <td style='vertical-align: middle;text-align: center;' rowspan=3>
+        				                	    			            <td style='vertical-align: left;text-align: center;' rowspan=3>
                 				                	    				   	<c:if test="${item.dishPhoto != null }">
                 				                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
                 				                	       					</c:if>
         				                   	    				        </td>						               	    			 	
-        				                	    			   	        <td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
+        				                	    			   	        <td style='vertical-align: left;font-size:1.5em' colspan=2>${item.dishName }</td>
+        				                	    			   	        <td style='vertical-align: left;'>${item.dishTypeName }</td>						                	   	
         				                	    			        </tr>
         				                	    			        <tr>							               	    		   
-        				                	    			   	        <td style='vertical-align: middle;font-size:0.8em' colspan=2>[${item.wndName }]</td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
+        				                	    			   	        <td style='vertical-align: left;font-size:0.8em' colspan=2>[${item.wndName }]</td>
+        				                	    			   	        <td style='vertical-align: left;'>${item.dishDate } ${item.dishSale }</td> 
         				                	    			        </tr>
         				                	    			        <tr>						  
         				                	    			   	        <td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
@@ -139,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         				                	    		</c:otherwise> 
     				                	    	    </c:choose>
     				                	        </div>
-    				                	    </c:forEach>    				                	    				                              						 	
+    				                	    </c:forEach>    				                                         					 	
     							        </div>
     				                </div>  
     				            </div> 				  

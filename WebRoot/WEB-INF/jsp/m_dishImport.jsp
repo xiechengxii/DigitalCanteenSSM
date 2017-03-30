@@ -15,7 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="expires" content="0">   
- 		<meta charset="utf-8">
  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,15 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<link rel="stylesheet" type="text/css" href="css/leftDelete.css"  />
     	
     	<!-- 日期控件导入 -->
-        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script> 
-        <script>
-           $(document).ready(function(){
-                $("#view").click(function(){
-                  /*  alert("beidianji"); */
-                   window.location.href="findRecordDetailDish.action?recordID=${item.recordID}";
-                });
-            });  
-        </script>  	       
+        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>  	       
 	    <script>
 	    	function getRecordDish(){
 	    

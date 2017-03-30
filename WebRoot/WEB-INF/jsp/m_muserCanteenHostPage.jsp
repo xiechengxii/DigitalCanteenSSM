@@ -72,9 +72,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <div class="container" >
      <div class="mp-pusher" id="mp-pusher">
       <%@ include file="publicjsp/canteennavindex.jsp" %> 
-      	<div class="scroller" style="background:#f3efe0">
+      	<div class="scroller" style="background:#EEEEEE">
             <div class="scroller-inner">
-           		<header class="codrops-header" style="background:#7acfa6">
+           		<header class="codrops-header" style="background:#29C192">
         	         <div class="row">
 	        	         <div id="trigger" class="burger-container">
 							<span class="burger-bun-top"></span>
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">
 	                    	       					
 								         <div class="input-group" style="width: 240px; margin-left: 12px;">
-								              <input type="text" class="form-control date-picker" id="dateTimeRange"/>
+								              <input type="text" class="form-control date-picker" id="dateTimeRange" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;"/>
 								                     <span class="input-group-addon">
 								        				   <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
 								    				 </span>

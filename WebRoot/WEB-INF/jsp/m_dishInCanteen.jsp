@@ -47,9 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="container" >
             <div class="mp-pusher" id="mp-pusher">
             <%@ include file="publicjsp/canteennavindex.jsp" %> 
-      	        <div class="scroller" style="background:#f3efe0">
+      	        <div class="scroller" style="background:#EEEEEE">
                     <div class="scroller-inner">
-           		        <header class="codrops-header" style="background:#7acfa6">
+           		        <header class="codrops-header" style="background:#29C192">
         	                <div class="row">
 	        	                <div id="trigger" class="burger-container">
     							    <span class="burger-bun-top"></span>
@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         				                	    			   	        <td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
         				                	    			        </tr>
         				                	    			        <tr>						  
-        				                	    			   	        <td style='vertical-align: middle;color:#7ACFA6;font-size:1.5em'>￥${item.dishPrice }</td>
+        				                	    			   	        <td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
         				                	    			   	        <td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
         				                	    			   	        <td style='vertical-align: middle;'>${item.dishInState }</td> 
         				                	    			        </tr>
@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         				                	    			   	        <td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
         				                	    			        </tr>
         				                	    			        <tr>						  
-        				                	    			   	        <td style='vertical-align: middle;color:#7ACFA6;font-size:1.5em'>￥${item.dishPrice }</td>
+        				                	    			   	        <td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
         				                	    			   	        <td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
         				                	    			   	        <td style='vertical-align: middle;'>${item.dishInState }</td> 
         				                	    			        </tr>

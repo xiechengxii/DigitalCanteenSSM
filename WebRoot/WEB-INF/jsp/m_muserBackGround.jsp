@@ -42,9 +42,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<input type="hidden" name = "roleName" value="${muserItems.roleName }" >	    
         	</form>
         <!-- 后台管理用户的页面 -->
-        <div class="scroller" style="background:#f3efe0">
+        <div class="scroller" style="background:#EEEEEE">
         	<div class="scroller-inner">
-        	    <header class="codrops-header" style="background:#7acfa6">
+        	    <header class="codrops-header" style="background:#29C192">
         	         <div class="row">
         	         <div id="trigger" class="burger-container">
 						<span class="burger-bun-top"></span>
@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			<div class="panel-body">
 	    		        <table class="table table-striped table-bordered table-condensed table-hover table-responsive text-center">
 	    		        	<thead>
-	                            <tr style="background:#7acfa6;text-align:center;color:white;font-size:15px">
+	                            <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
 	                            	<th >校区</th>
 	                            	<th >食堂</th> 
 	                            	<th >操作人</th> 

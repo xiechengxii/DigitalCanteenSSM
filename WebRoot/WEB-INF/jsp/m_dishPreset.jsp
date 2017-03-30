@@ -35,9 +35,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="container">
     <div class="mp-pusher" id="mp-pusher">
     		<%@ include file="publicjsp/index.jsp" %>               
-        	<div class="scroller" style="background:#f3efe0">
+        	<div class="scroller" style="background:#EEEEEE">
             <div class="scroller-inner">
-                <header class="codrops-header" style="background:#7acfa6">
+                <header class="codrops-header" style="background:#29C192">
                   <div class="row">
                    <div id="trigger" class="burger-container">
                       <span class="burger-bun-top"></span>
@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<!-- 列举所有已录入的预置菜品 --> 
 			           <table  class="table table-striped table-bordered table-condensed">
 			           	<thead>
-			               <tr style="background:#7acfa6;text-align:center;color:white;font-size:15px">
+			               <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
 			              	 	<td>预置菜品名称</td>
 			                  <td colspan="2">编辑</td>
 			               </tr>

@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	                             <input type="text" class="form-control" name="campusName" value="${muserItems.campusName }" readonly="readonly">
                                     </div>
                                 </div>                        
-                                <br>                                <                         
+                                <br>                                                         
                                 <div class="row">
                                     <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">食堂</label>
                                     <div class="col-xs-7">

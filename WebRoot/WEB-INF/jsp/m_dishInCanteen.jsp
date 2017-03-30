@@ -81,24 +81,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			                    	    	    <c:choose>
     				                	        	    <c:when test="${item.dishInState == '待审核'}">        				                	    		
         				                	    		    <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
-        				                	    		        <table  width=100% >							               	    		   
+        				                	    		        <table  width=100% border=2>							               	    		   
         				                	    			        <tr>					 				                	    				
-        				                	    			            <td style='vertical-align: middle;text-align: center;' rowspan=3>
+        				                	    			            <td style='vertical-align: left;text-align: center;' rowspan=3>
                 				                	    				   	<c:if test="${item.dishPhoto != null }">
                 				                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
                 				                	       					</c:if>
         				                   	    				        </td>						               	    			 	
-        				                	    			   	        <td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
+        				                	    			   	        <td style='vertical-align: left;font-size:1.5em' colspan=2>${item.dishName }</td>
+        				                	    			   	        <td style='vertical-align: left;'>${item.dishTypeName }</td>						                	   	
         				                	    			        </tr>
         				                	    			        <tr>							               	    		   
-        				                	    			   	        <td style='vertical-align: middle;font-size:0.8em' colspan=2>[${item.wndName }]</td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
+        				                	    			   	        <td style='vertical-align: left;font-size:0.8em' colspan=2>[${item.wndName }]</td>
+        				                	    			   	        <td style='vertical-align: left;'>${item.dishDate } ${item.dishSale }</td> 
         				                	    			        </tr>
         				                	    			        <tr>						  
-        				                	    			   	        <td style='vertical-align: middle;color:#7ACFA6;font-size:1.5em'>￥${item.dishPrice }</td>
-        				                	    			   	        <td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishInState }</td> 
+        				                	    			   	        <td style='vertical-align: left;color:#7ACFA6;font-size:1.5em'>￥${item.dishPrice }</td>
+        				                	    			   	        <td style='vertical-align: left;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
+        				                	    			   	        <td style='vertical-align: left;'>${item.dishInState }</td> 
         				                	    			        </tr>
         				                	    			    </table>
         				                	    		    </div>

@@ -28,12 +28,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="css/component.css" />	
   </head> 
   <body>
-
+  	<header class="codrops-header" style="background:#29C192;padding-top:22px;">
+          <div class="row">
+              <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";>
+                  <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/canteenPreset.action"></a>
+              </button>    
+              <h1>修改食堂</h1>
+          </div>  
+    </header>
   <form name="updateCanteen" method="post" action="modifyCanteenSave.action">
   	<br> 	
-	<input name="cantID" type="hidden" value="${canteenItems.cantID }">
-	<h3>修改食堂</h3>
-	
+	<input name="cantID" type="hidden" value="${canteenItems.cantID }">	
 	<!-- 选择食堂所属校区 -->
 	<div align="center">
  		<select name="cantCampusID" data-toggle="select" class="form-control select select-primary mrs mbm">

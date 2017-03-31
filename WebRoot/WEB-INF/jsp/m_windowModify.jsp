@@ -77,11 +77,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	</script>
     </head>    
     <body>
-
-	<!-- 预置档口修改 -->
-    <div>  
-      <h3>修改预置档口</h3>  
-    </div>
+      <header class="codrops-header" style="background:#29C192;padding-top:22px;">
+          <div class="row">
+              <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";>
+                  <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/windowPreset.action"></a>
+              </button>    
+              <h1>修改预置档口</h1>
+          </div>  
+      </header>
 
     <form name = "windowUpdateForm" action="modifyWindowSave.action" method="post">
     	<input name="wndID" type="hidden" value="${windowItems.wndID }">

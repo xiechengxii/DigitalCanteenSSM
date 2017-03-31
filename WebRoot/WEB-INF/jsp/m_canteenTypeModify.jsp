@@ -27,16 +27,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="css/component.css" />  
   </head> 
   <body>
-
-  <form name="updateCanteenType" method="post" action="modifyCanteenTypeSave.action">
-  	<!-- 修改食堂类型信息 -->
-  	<br>
-	    <input name="cantTypeID" type="hidden" value="${canteenType.cantTypeID }">
-	    <h3>修改食堂类型</h3>
-	    <input name="cantTypeName" type="text" value="${canteenType.cantTypeName }" class="form-control ">
-	  <br>
-	    <div align="center"><input type="submit" value="保存" class="btn btn-primary btn-wide" data-role="none"> </div>
-  </form>
+      <header class="codrops-header" style="background:#29C192;padding-top:22px;">
+          <div class="row">
+              <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";>
+                  <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/canteenTypePreset.action"></a>
+              </button>    
+              <h1>修改食堂类型</h1>
+          </div>  
+      </header>
+      <form name="updateCanteenType" method="post" action="modifyCanteenTypeSave.action">
+      	<!-- 修改食堂类型信息 -->
+      	<br>
+	        <input name="cantTypeID" type="hidden" value="${canteenType.cantTypeID }">
+	        <input name="cantTypeName" type="text" value="${canteenType.cantTypeName }" class="form-control ">
+	      <br>
+	       <div align="center"><input type="submit" value="保存" class="btn btn-primary btn-wide" data-role="none"> </div>
+      </form>
 
   </body>
 </html>

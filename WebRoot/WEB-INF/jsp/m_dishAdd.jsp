@@ -86,6 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
         </script>
 
+
         <div class="container">
             <div class="mp-pusher" id="mp-pusher">
             <%@ include file="publicjsp/canteennavindex.jsp" %>               
@@ -119,6 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	       	                           <input type="text" class="form-control" name = "cantName" value="${muserItems.cantName }" readonly="readonly">
                                         </div>
                                     </div>
+
                                 </div>
                                 <br>
                                 <div class="row form-group">  

@@ -101,10 +101,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	                       	            <input type="text" class="form-control" name = "cantName" value="${muserItems.cantName }" readonly="readonly">
                                         </div>
                                     </div>
+
+
                                 </div>
                                 <br>
        	                    	<div class="row form-group">
                                     <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">档口</label>
+
                                     <div class="col-xs-7">
                                         <select name="dishWndID" class="form-control" onchange="getDish(this.value)">
                                             <option value="">请选择菜品所属档口</option>

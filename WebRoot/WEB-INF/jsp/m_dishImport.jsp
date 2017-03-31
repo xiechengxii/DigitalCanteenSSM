@@ -15,7 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="expires" content="0">   
- 		<meta charset="utf-8">
  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,15 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<link rel="stylesheet" type="text/css" href="css/leftDelete.css"  />
     	
     	<!-- 日期控件导入 -->
-        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script> 
-        <script>
-           $(document).ready(function(){
-                $("#view").click(function(){
-                  /*  alert("beidianji"); */
-                   window.location.href="findRecordDetailDish.action?recordID=${item.recordID}";
-                });
-            });  
-        </script>  	       
+        <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>  	       
 	    <script>
 	    	function getRecordDish(){
 	    
@@ -116,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <script src="././My97DatePicker/WdatePicker.js"></script>
     </head>
   
-    <body >
+    <body>
         <div class="container">
 		     <div class="mp-pusher" id="mp-pusher">
 		      <%@ include file="publicjsp/canteennavindex.jsp" %> 
@@ -130,58 +121,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<span class="burger-bun-bot"></span>
 								 </div>					
 								<h1>食堂管理系统</h1>
-							 </div>
+							</div>
 						</header> 
-				    	<div class="container-fluid" style="color:#000; ">	
-				    		
-				    				<div class="row" style="padding-top:16px">
-				 						<div class="col-xs-4">
-									   		<label>所属校区：</label>${muserItems.campusName}
-									   	</div>
-									   	<div class="col-xs-4">
-									   		<label>所属食堂：</label>${muserItems.cantName}
-									   	</div>
-									   	<div class="col-xs-4">
-									   		<label>管理员：</label>${muserItems.muserName}
-									   	</div>
-									</div>
-				    			
-				    			
-					    		    <!-- 所有菜品显示列表 -->
-				                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
-				                      
-				    	                <input type="hidden" name = "muserSubmitDate" >
-				    	                <div class="row" style="padding-top:16px">
-				    	                <div class="form-group" style="position:relative;top:2px;">
-				    	                   <div class="col-xs-3" style="padding-top:12px;padding-right:0px;">
-				    	                     <b>导入记录：</b>
-				    	                   </div>
-				    	                   <div class="col-xs-6" style="padding-left:0px;padding-right:0px">
-				    	                     <input name ="recordDate" class="Wdate" type="text" onClick="WdatePicker()"> 
-				    	                   </div>
-				    	                	<div class="col-xs-3" >
+				    	<div class="container-fluid" style="color:#000; ">					    		
+	    					<div class="row" style="padding-top:16px">
+		 						<div class="col-xs-4">
+							   		<label>所属校区：</label>${muserItems.campusName}
+							   	</div>
+							   	<div class="col-xs-4">
+							   		<label>所属食堂：</label>${muserItems.cantName}
+							   	</div>
+							   	<div class="col-xs-4">
+							   		<label>管理员：</label>${muserItems.muserName}
+							   	</div>
+							</div>				    						    			
+			    		    <!-- 所有菜品显示列表 -->
+		                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >				                      
+	    	                <input type="hidden" name = "muserSubmitDate" >
+		    	                <div class="row" style="padding-top:16px">
+			    	                <div class="form-group" style="position:relative;top:2px;">
+			    	                    <div class="col-xs-3" style="padding-top:12px;padding-right:0px;">
+			    	                        <b>导入记录：</b>
+			    	                    </div>
+			    	                    <div class="col-xs-6" style="padding-left:0px;padding-right:0px">
+			    	                    	<input name ="recordDate" class="Wdate" type="text" onClick="WdatePicker()"> 
+			    	                    </div>
+			    	                	<div class="col-xs-3" >
 				    	                	<input type="button" class="btn btn-primary" value="导入" onClick="getDishInImportDate()"> 
-				    	                	</div>			    	                	
-				    	            	</div>
-				    	            	</div>
-				    	            	<div style="padding-top:10px">
-				    	            	    <p class="help-block">通过选择日期来导入某一天的菜品录入记录</p>
-				    	            	</div>
-				    	                <div class="row" style="padding:0 0px;"> 
-					                         <div class="form-group">
-					                              <div class="item-wrap">
-					                                  <c:forEach items="${dishItemsList }" var="item" varStatus="status">
-					                                     <div class="item clearfix">
-							                    	    	<c:choose>
-								                	        	<c:when test="${item.dishInState == '待审核'}"></c:when>
-								                	    		<c:otherwise>
-								                	    		  <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
-								                	    		   <table  width=100%>							               	    		   
+			    	                	</div>			    	                	
+			    	            	</div>
+		    	            	</div>
+		    	            	<div style="padding-top:10px">
+		    	            	    <p class="help-block">通过选择日期来导入某一天的菜品录入记录</p>
+		    	            	</div>
+		    	                <div class="row" style="padding:0 0px;"> 
+			                        <div class="form-group">
+			                            <div class="item-wrap">
+				                            <c:forEach items="${dishItemsList }" var="item" varStatus="status">
+			                                    <div class="item clearfix">
+					                    	    	<c:choose>
+						                	        	<c:when test="${item.dishInState == '待审核'}"></c:when>
+						                	    		<c:otherwise>
+							                	    		<div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
+							                	    		    <table  width=100%>							               	    		   
 								                	    			<tr>
 								                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
 								                	    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
 								                	    				</td>
-								                	    				<c:choose >
+						                	    				        <c:choose >
 								                	    					<c:when test="${dishDetailInDateList == null }">	
 								                	    					</c:when>
 								                	    					<c:otherwise>
@@ -194,7 +181,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								                	    						</c:forEach>
 								                	    					</c:otherwise>
 								                	    				</c:choose>	
-								                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
+								                	    				<td style='vertical-align: left;text-align: center;' rowspan=3>
 								                	    				   	<c:if test="${item.dishPhoto != null }">
 								                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
 								                	       					</c:if>
@@ -211,21 +198,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								                	    			   	<td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
 								                	    			   	<td style='vertical-align: middle;'>${item.dishInState }</td> 
 								                	    			</tr>
-								                	    			</table>
-								                	    		  </div>
-								                	    		  <a class="delect-btn">删除</a>
-								                	    		</c:otherwise>
-								                	    	</c:choose>
-								                	      </div>
-								                	    </c:forEach>						                              							  	
-											       </div>
-								              </div>  
-								        </div> 
-								        <div class="form-group" style="padding-top:5px">
-				    	                	<input type="button" class="btn btn-primary" value="提交" onClick=getNowFormatDate()> 
-				    	            	</div> 					  				    	                	 				   	            	
-				                    </form>				            					        	
-				    	</div>
+							                	    			</table>
+							                	    		</div>
+								                	    		<a class="delect-btn">删除</a>
+					                	    			</c:otherwise>
+						                	    	</c:choose>
+						                	    </div>
+					                	    </c:forEach>						                              							  	
+						        		</div>
+					            	</div>  
+					        	</div> 
+						        <div class="form-group" style="padding-top:5px">
+		    	                	<input type="button" class="btn btn-primary" value="提交" onClick=getNowFormatDate()> 
+		    	            	</div> 					  				    	                	 				   	            	
+	                    	</form>				            					        	
+			    		</div>
+		    		</div>
+		    	</div>
+		    </div>
+		</div>
 		<script src="js/classie.js"></script>
 	    <script src="js/mlpushmenu.js"></script>
 	    <script>

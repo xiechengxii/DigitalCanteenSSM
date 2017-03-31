@@ -28,12 +28,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" type="text/css" href="css/component.css" />
   </head>
   <body>
-
+      <header class="codrops-header" style="background:#29C192;padding-top:22px;">
+          <div class="row">
+              <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";>
+                  <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/campusPreset.action"></a>
+              </button>    
+              <h1>修改校区</h1>
+          </div>  
+      </header>
   <form name="updateCampus" method="post" action="modifyCampusSave.action">
   	<!-- 修改校区信息 -->  	
   	<br>
 	  <input name="campusID" type="hidden" value="${campus.campusID }">
-	  <h3>修改校区</h3>
 	  <input name="campusName" class="form-control " type="text" value="${campus.campusName }">
 	  <br>
 	  <div align="center"><input type="submit" value="保存" class="btn btn-primary btn-wide" data-role="none"> </div>

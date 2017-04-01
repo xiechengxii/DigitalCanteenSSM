@@ -6,8 +6,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import digitalCanteenSSM.exception.ExceptionResultInfo;
+import digitalCanteenSSM.exception.ResultInfo;
+import digitalCanteenSSM.exception.SubmitResultInfo;
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.service.CampusPresetService;
 
@@ -112,5 +117,27 @@ public class CampusPresetController {
 		}	
 		
 		return "forward:campusPreset.action";	
+	}
+	
+	//插入新校区时的重复检测
+	@RequestMapping (value="/insertCampusValidation", method={ RequestMethod.POST, RequestMethod.GET })
+	public @ResponseBody SubmitResultInfo insertCampusValidation(Campus campus) throws Exception{
+		
+		ResultInfo resultInfo = new ResultInfo();
+		
+		
+		if(findCampusByName(campus.getCampusName()) == null){	
+			campusPresetService.insertCampus(campus);
+			
+			resultInfo.setMessage("添加成功");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
+			
+		}else{
+			resultInfo.setMessage("校区名称重复!请重新输入");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_FAIL);
+		}
+		
+		SubmitResultInfo submitResultInfo = new SubmitResultInfo(resultInfo);
+		return submitResultInfo;
 	}
 }

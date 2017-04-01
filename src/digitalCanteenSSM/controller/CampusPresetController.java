@@ -80,14 +80,47 @@ public class CampusPresetController {
 	}
 	
 	//修改校区：修改之后保存并跳转到校区预置页面
-	@RequestMapping ("/modifyCampusSave")	
-	public String modifyCampusSave(Campus campus) throws Exception{
+//	@RequestMapping ("/modifyCampusSave")	
+//	public String modifyCampusSave(Campus campus) throws Exception{
+//		
+//		if(findCampusByName(campus.getCampusName()) == null){
+//			campusPresetService.updateCampus(campus);
+//		}	
+//		
+//		return "forward:campusPreset.action";
+//	}
+	
+	//带重复检测的校区修改
+	@RequestMapping ("/modifyCampusSaveWithValidation")
+	public @ResponseBody SubmitResultInfo modifyCampusSaveWithValidation(Campus campus) throws Exception{
+		
+		ResultInfo resultInfo = new ResultInfo();
 		
 		if(findCampusByName(campus.getCampusName()) == null){
 			campusPresetService.updateCampus(campus);
-		}	
+			
+			resultInfo.setMessage("修改成功");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
+			
+		}else{
+			/**
+			 * 根据校区名查询到记录时有两种情况,一种是用户没有改变校区名,查询到了旧记录,这时无需处理;
+			 * 一种是用户填写的校区名与另外一个校区重名了,这样需要报出提醒信息.
+			 * 所以此处根据ID反查校区名,得到数据库中此ID的校区名称，与参数传递过来的校区名比较，
+			 * 如果二者相等说明用户没有改变校区名。
+			 */
+			String name = campusPresetService.findCampusById(campus.getCampusID()).getCampusName();
+			if(campusPresetService.findCampusById(campus.getCampusID()).getCampusName().equals(campus.getCampusName())){
+				resultInfo.setMessage("未作修改");
+				resultInfo.setType(ResultInfo.TYPE_RESULT_INFO);
+			}else{
+				resultInfo.setMessage("已有此校区");
+				resultInfo.setType(ResultInfo.TYPE_RESULT_FAIL);
+			}
+		}
 		
-		return "forward:campusPreset.action";
+		SubmitResultInfo submitResultInfo = new SubmitResultInfo(resultInfo);
+		return submitResultInfo;
 	}
 	
 	//更新校区信息
@@ -109,22 +142,21 @@ public class CampusPresetController {
 	}
 	
 	//插入新校区信息
-	@RequestMapping ("/insertCampus")
-	public String insertCampus(Campus campus) throws Exception{
-		
-		if(findCampusByName(campus.getCampusName()) == null){
-			campusPresetService.insertCampus(campus);
-		}	
-		
-		return "forward:campusPreset.action";	
-	}
+//	@RequestMapping ("/insertCampus")
+//	public String insertCampus(Campus campus) throws Exception{
+//		
+//		if(findCampusByName(campus.getCampusName()) == null){
+//			campusPresetService.insertCampus(campus);
+//		}	
+//		
+//		return "forward:campusPreset.action";	
+//	}
 	
-	//插入新校区时的重复检测
-	@RequestMapping (value="/insertCampusValidation", method={ RequestMethod.POST, RequestMethod.GET })
-	public @ResponseBody SubmitResultInfo insertCampusValidation(Campus campus) throws Exception{
+	//带重复检测的插入新校区功能
+	@RequestMapping (value="/insertCampusWithValidation", method={ RequestMethod.POST, RequestMethod.GET })
+	public @ResponseBody SubmitResultInfo insertCampusWithValidation(Campus campus) throws Exception{
 		
 		ResultInfo resultInfo = new ResultInfo();
-		
 		
 		if(findCampusByName(campus.getCampusName()) == null){	
 			campusPresetService.insertCampus(campus);

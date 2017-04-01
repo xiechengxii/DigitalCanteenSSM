@@ -5,7 +5,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
 <html>
 <head>
     <base href="<%=basePath%>">  
@@ -32,51 +31,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>  
 <body>
 <div class="container">
-<div class="mp-pusher" id="mp-pusher">
-<%@ include file="publicjsp/index.jsp" %>               
-<div class="scroller" style="background:#EEEEEE">
-    <div class="scroller-inner">
-        <header class="codrops-header" style="background:#29C192">
-        	<div class="row">
-        	         <div id="trigger" class="burger-container">
-						<span class="burger-bun-top"></span>
-						<span class="burger-filling"></span>
-						<span class="burger-bun-bot"></span>
-					 </div>					
-					<h1>预置菜品类型</h1>
-			</div>  
-		</header>
+	<div class="mp-pusher" id="mp-pusher">
+	<%@ include file="publicjsp/index.jsp" %>               
+		<div class="scroller" style="background:#EEEEEE">
+    		<div class="scroller-inner">
+        		<header class="codrops-header" style="background:#29C192">
+        			<div class="row">
+        			         <div id="trigger" class="burger-container">
+								<span class="burger-bun-top"></span>
+								<span class="burger-filling"></span>
+								<span class="burger-bun-bot"></span>
+							 </div>					
+							<h1>预置菜品类型</h1>
+					</div>  
+				</header>
 
-		<div class="content clearfix">
-			<form action="insertDishType.action" method="post">
-	<!-- 添加校区 -->
-				<div class="form-group" >
-    				<div> <input name="dishTypeName" class="form-control " type="text" placeholder="请输入预置菜品类型"> </div>
-    				<br>
-    				<div align="center"><input  type="submit" value="添加菜品类型"  class="btn btn-primary btn-wide" data-role="none"></div>
-  				</div>
-
-	<!-- 列举所有已录入菜品类型 -->
-				<table class="table table-striped table-bordered table-condensed">
-					<thead>
-				    <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
-				   	 	<td>菜品类型名称</td>
-				        <td colspan="2">编辑</td>
-				    </tr>
-				    </thead>
-					<c:forEach items="${dishTypeList }" var="item" >
-				    <tr align="center" style="color:black;font-size:15px">
-				        <td>${item.dishTypeName }</td>
-				        <td><a href="modifyDishType.action?dishTypeID=${item.dishTypeID}">修改</a></td>
-				        <td><a href="deleteDishTypeById.action?dishTypeID=${item.dishTypeID}">删除</a></td>
-				    </tr>
-					</c:forEach>
-				</table>	
-			</form>
+				<div class="content clearfix">
+					<form action="insertDishType.action" method="post">
+						<!-- 添加校区 -->
+						<div class="form-group" >
+    						<div> <input name="dishTypeName" class="form-control " type="text" placeholder="请输入预置菜品类型"> </div>
+    						<br>
+    						<div align="center"><input  type="submit" value="添加菜品类型"  class="btn btn-primary btn-wide" data-role="none"></div>
+  						</div>
+		
+						<!-- 列举所有已录入菜品类型 -->
+						<table class="table table-striped table-bordered table-condensed">
+							<thead>
+						    <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
+						   	 	<td>菜品类型名称</td>
+						        <td colspan="2">编辑</td>
+						    </tr>
+						    </thead>
+							<c:forEach items="${dishTypeList }" var="item" >
+						    <tr align="center" style="color:black;font-size:15px">
+						        <td>${item.dishTypeName }</td>
+						        <td><a href="modifyDishType.action?dishTypeID=${item.dishTypeID}">修改</a></td>
+						        <td><a href="deleteDishTypeById.action?dishTypeID=${item.dishTypeID}">删除</a></td>
+						    </tr>
+							</c:forEach>
+						</table>	
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-</div>
 </div>
 <script src="js/classie.js"></script>
 <script src="js/mlpushmenu.js"></script>

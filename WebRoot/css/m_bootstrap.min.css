@@ -1617,7 +1617,8 @@ h2 {
 .h3,
 h3 {
 	font-size: 20px;
-	text-align: center
+	text-align: center;
+	color:#414744;
 }
 
 .h4,
@@ -4050,9 +4051,9 @@ fieldset[disabled] .btn-primary:hover {
 }
 
 .btn-success {
-	color: #fff;
-	background-color: #5cb85c;
-	border-color: #4cae4c
+	color: black;
+	background-color: #ede9da;
+	border-color: #ede9da
 }
 
 .btn-success.focus,
@@ -7066,7 +7067,7 @@ button.list-group-item-danger.active:hover {
 
 .panel-default>.panel-heading {
 	color: #333;
-	background-color: #abd3f2;
+	background-color: #ede9da;
 	border-color: #ddd
 }
 

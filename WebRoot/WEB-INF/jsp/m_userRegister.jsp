@@ -8,13 +8,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html>
     <head>
-    	<base href="<%=basePath%>">
-    	
+    	<base href="<%=basePath%>">    	
     	<title>用户注册</title>
-    	
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="0">   
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="css/m_bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/component.css" />
     </head>
   
     <body>
@@ -66,34 +72,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		}
 	    	}
     	</script>
-
-    	<form name="registerForm" method="post" enctype="multipart/form-data" action="userRegister.action">
-    		<label>用户名：</label>
-    		<input type="text" name="userName" >
+       
+    <div class="content clearfix" style="margin-top:20%">
+    	<form name="registerForm" method="post" enctype="multipart/form-data" action="userRegister.action" role="form">
+            <div class="form-group row">
+                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">用户名：</label>
+                <div class="col-xs-6">
+    		      <input type="text" class="form-control" name="userName" placeholder="请输入用户名">
+                </div>
+            </div>
     		<br>
-    		<label>用户密码：</label>
-    		<input type="password" name="userPwd">
+            <div class="form-group row">
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">用户密码：</label>
+                <div class="col-xs-6">
+    		      <input type="password" class="form-control" name="userPwd" placeholder="请输入密码">
+                </div>
+            </div>
     		<br>
-    		<label>密码确认：</label>
-    		<input type="password" name="userPwdVerify">
+            <div class="form-group row">
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">密码确认：</label>
+                <div class="col-xs-6">
+    		      <input type="password" class="form-control" name="userPwdVerify" placeholder="请确认密码">
+                </div>
+            </div>
     		<br>
-    		<label>头像：</label>
-    		<input type="file" name="userPhotoFile">
+            <div class="form-group row">
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">头像：</label>
+                <div class="col-xs-6">
+                  <a href="javascript:;" class="file" style="font-size:15px;">选择头像
+    		          <input type="file" name="userPhotoFile">
+                  </a>
+                </div>
+            </div>
     		<br>
-    		<label>校区：</label>
-    		<select name="userCampusID" onchange="getCanteen(this.value)">
-    			<option value="">请选择你所在的校区</option>
-    			<c:forEach items="${campusList }" var="item">
-    				<option value="${item.campusID }">${item.campusName }</option>
-    			</c:forEach>
-    		</select>
+            <div class="form-group row">
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">校区：</label>
+                <div class="col-xs-6">
+    		      <select name="userCampusID" class="form-control select select-primary mrs mbm" data-toggle="select" onchange="getCanteen(this.value)">
+    		      	<option value="">请选择所在校区</option>
+    		      	<c:forEach items="${campusList }" var="item">
+    		      		<option value="${item.campusID }">${item.campusName }</option>
+    		      	</c:forEach>
+    		      </select>
+                </div>
+            </div>
     		<br>
-    		<label>食堂：</label>
-    		<select name="userCantID" disabled="disabled">
-    			<option value="">请设定首选食堂</option>
-    		</select>
+            <div class="form-group row">
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">食堂：</label>
+                <div class="col-xs-6">
+    		      <select name="userCantID" disabled="disabled" class="form-control select select-primary mrs mbm" data-toggle="select">
+    		      	<option value="">请设定首选食堂</option>
+    		      </select>
+                </div>
+            </div>
     		<br>
-    		<input type="submit" value="注册" onclick="return checkForm(registerForm)">
+            <br>
+            <div align="center">
+    		  <input type="submit" value="注册" onclick="return checkForm(registerForm)" class="btn btn-block" style="width:80%;background:#72dbc8;color:#fff;font-size:18px">
+            </div>
     	</form>
+    </div>
+        
     </body>
 </html>

@@ -29,6 +29,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         <!--bootstrap-->    
         <script src="js/bootstrap.min.js"></script>
+
+        <script src="js/jquery.form.js"></script>
+	    <script src="js/custom.jquery.form.js"></script>
+	    <script src="js/jquery.validate.js"></script>
+
+	    <script>
+	    	function upadteCampus(){
+	    		if(document.updateCampusForm.campusName.value == ""){
+	    			alert("请输入校区名称");
+        			return;
+	    		}
+
+	    		document.updateCampusForm.action = "modifyCampusSaveWithValidation.action";
+	    		jquerySubByFId('updateCampusForm', updateCampus_callback, null, "json");
+	    	}
+	    	function updateCampus_callback(data){
+        		//有同名校区
+        		if(data.resultInfo.type == '0'){
+        			alert(data.resultInfo.message);
+        		}
+        		window.location.href="findAllCampuses.action";
+	    	}
+	    </script>
 	</head>
 	  
 	<body>
@@ -42,17 +65,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 
 					<div class="panel-body">
-	    				<form name="updateCampus" class="form-horizontal" role="form" method="post" action="modifyCampusSave.action">
+	    				<form name="updateCampusForm" id= "updateCampusForm" class="form-horizontal" role="form" method="post">
 	    					<div class="form-group">    							    							
 	  					    	<input name="campusID" type="hidden" value="${campus.campusID }">
 	  					    	<label class="col-sm-2 control-label">校区名称：</label>
 	  					    	<div class="col-sm-9">	
-	  					    		<input name="campusName" class="form-control" type="text" value="${campus.campusName }">
+	  					    		<input name="campusName" class="form-control" type="text" value="${campus.campusName }" onKeydown="if(event.keyCode==13){return false;}">
 	  					    	</div>	  					    	
 	  					    </div>	
 	  						<div class="form-group">
 	  							<div class="col-sm-2 col-sm-offset-5">
-	  					    		<input type="submit" class="btn btn-primary" value="保存">
+	  					    		<input type="button" class="btn btn-primary" value="保存" onclick="upadteCampus()">
 	  					    	</div>
 	  					    </div>
 	    				</form>

@@ -30,6 +30,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         <!--bootstrap-->    
         <script src="js/bootstrap.min.js"></script>	
+
+        <script src="js/jquery.form.js"></script>
+	    <script src="js/custom.jquery.form.js"></script>
+	    <script src="js/jquery.validate.js"></script>
+
+        <script>
+        	//添加校区的重复检验
+        	function insertCampus(){
+        		if(document.campusPresetForm.campusName.value == ""){
+        			alert("请输入校区名称");
+        			return;
+        		}
+
+        		document.campusPresetForm.action="insertCampusWithValidation.action";
+        		jquerySubByFId('campusPresetForm', insertCampus_callback, null, "json");
+        	}
+        	function insertCampus_callback(data){
+        		//成功
+        		if(data.resultInfo.type == '1'){
+        			window.location.href="findAllCampuses.action";
+        		}
+        		//失败
+        		else if(data.resultInfo.type == '0'){
+        			alert(data.resultInfo.message);
+        			window.location.href="findAllCampuses.action";
+        		}
+        	}
+        </script>
 	</head>
 	  
 	<body>
@@ -43,20 +71,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 
 					<div class="panel-body">						
-						<form class="form-horizontal" role="form" action="insertCampus.action" method="post">	
-							<div class="form-group">
-								
-									
-									<label class="col-sm-2 control-label">校区名称：</label>
-									<div class="col-sm-9">	
-										<input type="text" class="form-control" placeholder="预置校区名称" name="campusName"> 
-									</div>
-								
+						<form id="campusPresetForm" name="campusPresetForm" class="form-horizontal" role="form" method="post">	
+							<div class="form-group">																
+								<label class="col-sm-2 control-label">校区名称：</label>
+								<div class="col-sm-9">	
+									<input type="text" class="form-control" placeholder="预置校区名称" name="campusName" onKeydown="if(event.keyCode==13){return false;}"> 
+								</div>								
 							</div>
 						
 							<div class="form-group">
 								<div class="col-sm-2 col-sm-offset-5">
-									<input type="submit" class="btn btn-primary" value="添加校区">
+									<!-- 此处按钮类型是button 提交动作放入了js函数中-->
+									<input type="button" class="btn btn-primary" value="添加校区" onclick="insertCampus()">
 								</div>
 							</div>
 						</form>							

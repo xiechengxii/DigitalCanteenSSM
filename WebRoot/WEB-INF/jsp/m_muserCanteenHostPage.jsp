@@ -66,6 +66,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			}); */
 		}
+		
+		function deleteRecordFunction(recordID){
+			document.muserCanteenForm.action="deleteRecord.action";
+			alert("${ recordID}");
+	    	document.muserCanteenForm.submit();	
+		}
 		</script>
 		
 		
@@ -87,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				
 	                <div class="container-fluid" style="padding:0 0px;">
-	                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
+	                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post" >
 	                          <div class="row">
 	                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">
 	                    	       					
@@ -118,8 +124,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											           <tr><td style="width:80%"><p class="name">${item.recordCampusName } ${item.recordCantName }</p></td><td style="width:80%"><p class="name">${item.recordMUserName }</p></td></tr>
 											           <tr><td><p class="txt"><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></p></td><td><p class="txt"> ${item.recordSubmitState }</p></td></tr>
 											      </table>										      
-											    </div>																			    									        								  	
-										  	<a href="deleteRecord.action?recordID=${item.recordID}" class="delect-btn" style="padding-top:28px;">删除</a>										   
+											    </div>	
+											    <!-- deleteRecord.action?recordID=${item.recordID} -->	
+											    																    									        								  	
+										  	<a href="" onclick="deleteRecordFunction('item.recordID')" data-role="button" data-ajax="false" class="delect-btn" target="_top" style="padding-top:28px;">删除</a>										   
 										  </div>
 										</c:forEach>										  	
 								    </div>
@@ -202,14 +210,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		$(this).addClass('selected').siblings('.item').removeClass('selected');
     		$(this).find('.delect-btn').on('click', function(event) {
       			event.preventDefault();
-      	    /* Act on the event */
-      			$(this).parent(".item").animate({
+      	    	/* Act on the event */
+      			/* $(this).parent(".item").animate({
         		height: 0,
         		width: 0},
         		300, function() {
-        	/* stuff to do after animation is complete */
-        			$(this).remove();
-      			});
+        			$(this).remove(); 
+        			 
+      			}); */
+      			/* $.ajax({
+        				
+					type: 'post',
+					url: '${pageContext.request.contextPath}/deleteRecord.action',
+					contentType: 'application/x-www-form-urlencoded',
+					//发送的是key/value，接收的是json
+					data: {recordID: 'item.recordID'},		
+				});   */
     		});
   		});
   		$(".item").on('swiperight', function(event) {

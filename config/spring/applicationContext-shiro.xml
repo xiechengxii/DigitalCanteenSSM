@@ -138,7 +138,7 @@
                 /dishManagement.action                = roles[canteen]
                 /findDishInCanteen.action             = roles[canteen]
                 /findDishInCampus.action              = roles[canteen]
-                /checkDish.action                     = roles[canteen]
+                /checkDish.action                     = roles[super]
                 /checkDishPass.action                 = roles[canteen]
                 /importDish.action                    = roles[canteen]
                 /importReplenishDish.action           = roles[canteen]

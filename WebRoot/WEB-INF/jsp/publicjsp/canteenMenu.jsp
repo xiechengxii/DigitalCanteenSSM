@@ -28,8 +28,6 @@
   				<ul class="dropdown-menu">
   					<li><a href="${pageContext.request.contextPath }/addDish.action">菜品上架</a></li>
   					<li class="divider"></li>
-  					<li><a href="${pageContext.request.contextPath }/applyDish.action">申请新菜</a></li>
-                    <li class="divider"></li>
                     <li><a href="${pageContext.request.contextPath }/findDishInCanteen.action">查看已有菜品</a></li>
   				</ul>
   			</li>

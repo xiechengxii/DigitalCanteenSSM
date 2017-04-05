@@ -59,67 +59,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  </c:forEach>
 		}
 	}
-
-<<<<<<< HEAD
-    function check(form){
-    	if(form.cantCampusID.value == ""){
-    		alert("请先选择档口所在校区！");
-    		return false;
-    	}
-    	if(form.wndCantID.value == ""){
-    		alert("请先选择档口所在食堂！");
-    		return false;
-    	}
-    	if(form.wndName.value == ""){
-    		alert("请填写档口名称！");
-    		form.wndName.focus();
-    		return false;
-    	}
-    }
-    /*判断浏览器类型*/
-  function userBrowser(){  
-    var browserName=navigator.userAgent.toLowerCase();  
-    if(/msie/i.test(browserName) && !/opera/.test(browserName)){  
-        alert("IE");  
-        return ;  
-    }else if(/firefox/i.test(browserName)){  
-        alert("Firefox");  
-        return ;  
-    }else if(/chrome/i.test(browserName) && /webkit/i.test(browserName) && /mozilla/i.test(browserName)){  
-        alert("Chrome");  
-        return ;  
-    }else if(/opera/i.test(browserName)){  
-        alert("Opera");  
-        return ;  
-    }else if(/webkit/i.test(browserName) &&!(/chrome/i.test(browserName) && /webkit/i.test(browserName) && /mozilla/i.test(browserName))){  
-        alert("Safari");  
-        return ;  
-    }else{  
-        alert("unKnow");  
-    }  
-    }  
-  /*判断手机电脑浏览器*/
-  function check() 
-  { 
-    var userAgentInfo=navigator.userAgent; 
-    var Agents =new Array("Android","iPhone","SymbianOS","Windows Phone","iPad","iPod"); 
-    var flag=true; 
-    for(var v=0;v<Agents.length;v++) 
-      { 
-        if(userAgentInfo.indexOf(Agents[v])>0)
-         { 
-            flag=false; 
-            break; 
-          }
-      } 
-    alert(flag); 
-  }
-	</script>
-<!--<script>/*调用check（）函数*/check()</script>  -->
-</head>   
-<body>
-<div class="container">
-=======
         function check(form){
         	if(form.cantCampusID.value == ""){
         		alert("请先选择档口所在校区！");
@@ -134,13 +73,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		form.wndName.focus();
         		return false;
         	}
-        }
-              
+        }             
   	</script>
     </head>   
     <body>
     <div class="container">
->>>>>>> mobileUI
     <div class="mp-pusher" id="mp-pusher">
         <%@ include file="publicjsp/index.jsp" %>               
         <div class="scroller" style="background:#EEEEEE">

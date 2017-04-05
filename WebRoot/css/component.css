@@ -304,8 +304,8 @@ html, body, .container, .scroller {
     position: relative;
     height: 24px;
 	width: 30px;
-	top:8px;
-	left:10px;}
+	left:10px;    
+}
 
 .burger-bun-top, .burger-bun-bot, .burger-filling {
     position: absolute;

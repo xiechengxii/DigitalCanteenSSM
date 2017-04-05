@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</header>
 
-					<div class="content clearfix">
+					<div class="content clearfix" style="margin-top:77px">
 	    				<div class="container-fluid">	    	
 	    					<div class="panel-group" id="accordion">
 	    						<c:forEach items="${campusList }" var="item_campus">

@@ -50,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="content clearfix">			
 				<form action="insertCanteenType.action" method="post">
 	<!-- 添加食堂类型 -->
+				<div class=" newcustom" style="margin-top:77px" >
 					<div class="form-group" >
     					<div> 
     						<input name="cantTypeName" class="form-control " type="text" placeholder="请输入预置食堂类型"> 
@@ -59,8 +60,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     						<input  type="submit" value="添加食堂类型"  class="btn btn-primary btn-wide" data-role="none">
     					</div>
   					</div>
-	
+				</div>
 	<!-- 列举所有已录入食堂类型 -->
+				<div class="newcustom" style="padding: 1em 0.6em">
 					<table  class="table table-striped table-bordered table-condensed">
 						<thead>
 					    	<tr style="background:#29C192;text-align:center;color:white;font-size:15px">
@@ -75,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    	    <td><a href="deleteCanteenTypeById.action?cantTypeID=${item.cantTypeID}">删除</a></td>
 					    	</tr>
 						</c:forEach>
-					</table>	
+					</table>
+				</div>	
 				</form>
 				</div>
 			</div>

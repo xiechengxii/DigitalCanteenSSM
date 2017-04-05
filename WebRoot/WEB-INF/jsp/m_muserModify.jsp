@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>  
                     </header>
 
-                    <div class="content clearfix">
+                    <div class="content clearfix" style="margin-top:77px">
                         <form  name = "muserUpdateForm" class="form-horizontal" role="form" action="modifyMUserSave.action" method="post" enctype="multipart/form-data">
                             <input name="muserID" type="hidden" value="${muserItems.muserID }">
                             <div class="row form-group">

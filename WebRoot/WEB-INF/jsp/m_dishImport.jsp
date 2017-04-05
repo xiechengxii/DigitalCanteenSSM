@@ -123,30 +123,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<h1>食堂管理系统</h1>
 							</div>
 						</header> 
-				    	<div class="container-fluid" style="color:#000; ">					    		
-	    					<div class="row" style="padding-top:16px">
-		 						<div class="col-xs-4">
-							   		<label>所属校区：</label>${muserItems.campusName}
-							   	</div>
-							   	<div class="col-xs-4">
-							   		<label>所属食堂：</label>${muserItems.cantName}
-							   	</div>
-							   	<div class="col-xs-4">
-							   		<label>管理员：</label>${muserItems.muserName}
-							   	</div>
-							</div>				    						    			
-			    		    <!-- 所有菜品显示列表 -->
-		                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >				                      
-	    	                <input type="hidden" name = "muserSubmitDate" >
-		    	                <div class="row" style="padding-top:16px">
-			    	                <div class="form-group" style="position:relative;top:2px;">
-			    	                    <div class="col-xs-3" style="padding-top:12px;padding-right:0px;">
-			    	                        <b>导入记录：</b>
-			    	                    </div>
-			    	                    <div class="col-xs-6" style="padding-left:0px;padding-right:0px">
-			    	                    	<input name ="recordDate" class="Wdate" type="text" onClick="WdatePicker()"> 
-			    	                    </div>
-			    	                	<div class="col-xs-3" >
+				    	<div class="container-fluid" style="color:#000; ">	
+				    		
+				    				<div class="row" style="padding-top:16px">
+				 						<div class="col-xs-4">
+									   		<label>所属校区：</label>${muserItems.campusName}
+									   	</div>
+									   	<div class="col-xs-4">
+									   		<label>所属食堂：</label>${muserItems.cantName}
+									   	</div>
+									   	<div class="col-xs-4">
+									   		<label>管理员：</label>${muserItems.muserName}
+									   	</div>
+									</div>
+				    			
+				    			
+					    		    <!-- 所有菜品显示列表 -->
+				                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
+				                      
+				    	                <input type="hidden" name = "muserSubmitDate" >
+				    	                <div class="row" style="padding-top:16px">
+				    	                <div class="form-group" style="position:relative;top:2px;">
+				    	                   <div class="col-xs-3" style="padding-top:12px;padding-right:0px;">
+				    	                     <b>导入记录：</b>
+				    	                   </div>
+				    	                   <div class="col-xs-6" style="padding-left:0px;padding-right:0px">
+				    	                     <input name ="recordDate" class="Wdate" type="text" onClick="WdatePicker()" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;"> 
+				    	                   </div>
+				    	                	<div class="col-xs-3" >
 				    	                	<input type="button" class="btn btn-primary" value="导入" onClick="getDishInImportDate()"> 
 			    	                	</div>			    	                	
 			    	            	</div>

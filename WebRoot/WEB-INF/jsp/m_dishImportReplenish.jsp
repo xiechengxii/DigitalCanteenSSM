@@ -131,53 +131,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							   	<div class="col-xs-4">
 							   		<label>管理员：</label>${muserItems.muserName}
 							   	</div>
-							</div>
-				    			
-				    			
-			    		    <!-- 所有菜品显示列表 -->
-		                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
-		                        <div class="row" style="padding-top:16px">			                      
-			    	                <div class="form-group">					    	          
-			                    	<fmt:formatDate value="${recordDate}" pattern="yyyy-MM-dd" var="theFormattedDate1"/>
-			                    	    <div class="col-xs-3" style="padding-top:12px">
-			                    	        <b>导入记录：</b>
-			                    	    </div>
-			                    	    <div class="col-xs-6">
-			                    	        <input type="text" name ="recordDate" value="${theFormattedDate1}" class="Wdate"  onClick="WdatePicker()">
-			                    	    </div>
-			                    	    <div class="col-xs-3">
-			                    	        <input type="button" class="btn btn-primary" value="导入" onClick=getDishInImportReplenishDate()>
-			                    	    </div>				                    	     					                    	    
-			                    	</div>
-			                    </div>
-			                    <div class="row" style="padding-top:8px">
-			                        <p class="help-block">通过选择日期来导入某一天的菜品录入记录</p>
-			                    </div>
-			                    <div class="row">
-			                    	<div class="form-group">					                    
-			                    	<fmt:formatDate value="${muserItems.muserSubmitDate}" pattern="yyyy-MM-dd" var="theFormattedDate"/>
-			                    		<div class="col-xs-3" style="padding-top:3%">
-				                    	    <b>补录日期：</b>
-				                    	</div>
-				                    	<div class="col-xs-6">
-				                    	    <input type="text" name ="muserSubmitDate" value="${theFormattedDate}" class="Wdate"  onClick="WdatePicker()">
-				                    	</div> 					                             			                                
-			                    	</div>
-			                    </div>
-			                    <div class="row" style="padding-top:8px">
-			                        <p class="help-block">选择要补录记录的日期</p>
-			                    </div>
-		    	                <div class="row" style="padding:0 0px;"> 
-			                        <div class="form-group">
-			                            <div class="item-wrap">
-			                                <c:forEach items="${dishItemsList }" var="item" varStatus="status">
-			                                    <div class="item clearfix">
-					                    	        <c:choose>
-						                	        	<c:when test="${item.dishInState == '待审核'}"></c:when>
-						                	    		<c:otherwise>
-						                	    		    <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
-						                	    		        <table  width=100%>							               	    		   
-						                	    			        <tr>
+							</div>				 
+					    		    <!-- 所有菜品显示列表 -->
+				                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
+				                        <div class="row" style="padding-top:16px">			                      
+					    	               <div class="form-group">					    	          
+					                    	    <fmt:formatDate value="${recordDate}" pattern="yyyy-MM-dd" var="theFormattedDate1"/>
+					                    	  <div class="col-xs-3" style="padding-top:12px">
+					                    	    <b>导入记录：</b>
+					                    	  </div>
+					                    	  <div class="col-xs-6">
+					                    	    <input type="text" name ="recordDate" value="${theFormattedDate1}" class="Wdate"  onClick="WdatePicker()" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;">
+					                    	  </div>
+					                    	  <div class="col-xs-3">
+					                    	    <input type="button" class="btn btn-primary" value="导入" onClick=getDishInImportReplenishDate()>
+					                    	  </div>				                    	     					                    	    
+					                    	</div>
+					                    </div>
+					                    <div class="row" style="padding-top:8px">
+					                        <p class="help-block">通过选择日期来导入某一天的菜品录入记录</p>
+					                    </div>
+					                    <div class="row">
+					                    	<div class="form-group">					                    
+					                    		<fmt:formatDate value="${muserItems.muserSubmitDate}" pattern="yyyy-MM-dd" var="theFormattedDate"/>
+					                    		<div class="col-xs-3" style="padding-top:3%">
+						                    	    <b>补录日期：</b>
+						                    	</div>
+						                    	<div class="col-xs-6">
+						                    	    <input type="text" name ="muserSubmitDate" value="${theFormattedDate}" class="Wdate"  onClick="WdatePicker()" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;">
+						                    	</div> 					                             					                                
+					                    	</div>
+					                    </div>
+					                    <div class="row" style="padding-top:8px">
+					                        <p class="help-block">选择要补录记录的日期</p>
+					                    </div>
+				    	                <div class="row" style="padding:0 0px;"> 
+					                         <div class="form-group">
+					                              <div class="item-wrap">
+					                                  <c:forEach items="${dishItemsList }" var="item" varStatus="status">
+					                                     <div class="item clearfix">
+							                    	    	<c:choose>
+								                	        	<c:when test="${item.dishInState == '待审核'}"></c:when>
+								                	    		<c:otherwise>
+								                	    		  <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
+								                	    		   <table  width=100%>							               	    		   
+								                	    			<tr>
 								                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
 								                	    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
 								                	    				</td>

@@ -10,6 +10,15 @@
 		url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
 }
 
+.style1{
+	color:black;
+	font-size:15px;
+	height:34px; 
+	text-align:left;
+	padding-left:5%; 
+	line-height:34px;
+}
+
 body {
 	background: #EEEEEE;
 	color: #fff;
@@ -160,13 +169,9 @@ a:hover, a:focus {
 .content {
 	/*padding: 1em 1em;*/
 	max-width: 1200px;
-<<<<<<< HEAD
 	margin: 0 0 0 0;
 }
-=======
-	margin: 0 auto;
 
->>>>>>> mobileUI
 
 .newcustom {
 	background:#fff;

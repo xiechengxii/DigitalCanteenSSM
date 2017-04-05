@@ -157,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	                     <b>导入记录：</b>
 				    	                   </div>
 				    	                   <div class="col-xs-6" style="padding-left:0px;padding-right:0px">
-				    	                     <input name ="recordDate" class="Wdate" type="text" onClick="WdatePicker()"> 
+				    	                     <input name ="recordDate" class="Wdate" type="text" onClick="WdatePicker()" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;"> 
 				    	                   </div>
 				    	                	<div class="col-xs-3" >
 				    	                	<input type="button" class="btn btn-primary" value="导入" onClick="getDishInImportDate()"> 

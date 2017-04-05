@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                    	    <b>导入记录：</b>
 					                    	  </div>
 					                    	  <div class="col-xs-6">
-					                    	    <input type="text" name ="recordDate" value="${theFormattedDate1}" class="Wdate"  onClick="WdatePicker()">
+					                    	    <input type="text" name ="recordDate" value="${theFormattedDate1}" class="Wdate"  onClick="WdatePicker()" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;">
 					                    	  </div>
 					                    	  <div class="col-xs-3">
 					                    	    <input type="button" class="btn btn-primary" value="导入" onClick=getDishInImportReplenishDate()>
@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                    	    <b>补录日期：</b>
 						                    	</div>
 						                    	<div class="col-xs-6">
-						                    	    <input type="text" name ="muserSubmitDate" value="${theFormattedDate}" class="Wdate"  onClick="WdatePicker()">
+						                    	    <input type="text" name ="muserSubmitDate" value="${theFormattedDate}" class="Wdate"  onClick="WdatePicker()" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;">
 						                    	</div> 					                             					                                
 					                    	</div>
 					                    </div>

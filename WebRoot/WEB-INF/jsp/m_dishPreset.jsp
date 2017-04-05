@@ -51,6 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="content clearfix">
 		            <form action="insetDishPreset.action" method="post">
 			<!-- 添加预置菜品-->
+                <div class=" newcustom" style="margin-top:77px" >
 			           <div class="form-group" >
     			         <div> 
                       <input name="dishPresetName" class="form-control " type="text" placeholder="请输入预置菜品"> 
@@ -60,8 +61,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <input  type="submit" value="添加菜品"  class="btn btn-primary btn-wide" data-role="none">
                    </div>
   			         </div>
-
+                </div                                          >
 			<!-- 列举所有已录入的预置菜品 --> 
+                <div class="newcustom" style="padding: 1em 0.6em">
 			           <table  class="table table-striped table-bordered table-condensed">
 			           	<thead>
 			               <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
@@ -114,6 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       </ul>
                     </div>
                   </div>
+                </div>
 		            </form>
 		            </div>
 		        </div>

@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <form role="form" name="dishInsertForm" action="insertDish.action" method="post" enctype="multipart/form-data">
                             	<div class="form-group">
                                     <div class="row">
-                                        <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">校区</label>
+                                        <label class="col-xs-4 control-label style1">校区</label>
                                         <div class="col-xs-7">
             	                             <input type="text" class="form-control" name="campusName" value="${muserItems.campusName }" readonly="readonly">
                                         </div>
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                                 <br>
        	                    	<div class="row form-group">
-                                    <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">档口</label>
+                                    <label class="col-xs-4 control-label style1" >档口</label>
 
                                     <div class="col-xs-7">
                                         <select name="dishWndID" class="form-control" onchange="getDish(this.value)">
@@ -116,17 +116,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             </c:forEach>
                                         </select>
                                     </div>
-<<<<<<< HEAD
                                 </div>                        
                                 <br>                                                         
-                                <div class="row">
-                                    <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">食堂</label>
-=======
-                                </div>
-                                <br>
                                 <div class=" row form-group">
                                     <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">菜品类型</label>
->>>>>>> 482f63fa6bb4aacbeab63afa6c0fc8ef44dd9999
+
                                     <div class="col-xs-7">
                                         <select name="dishTypeID" class="form-control">
                                             <option value="">请选择菜品所属类型</option>

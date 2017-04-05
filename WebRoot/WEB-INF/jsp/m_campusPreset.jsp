@@ -18,7 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="format-detection" content="telephone=no">
- 
 	<script src="js/modernizr.custom.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -50,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<form action="insertCampus.action" method="post">
 					<!-- 添加校区 -->							
 						<div class="form-group" >
-						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"> </div>
+						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"  style="border:0;border-bottom:1px solid #a0dbbe;"> </div>
 							<br>
 						    <div align="center"><input  type="submit" value="添加校区"  class="btn btn-primary btn-wide" data-role="none"></div>
 						</div>
@@ -58,17 +57,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<!-- 列举所有已录入校区 -->
 						<table   class="table table-striped table-bordered table-condensed">
 							<thead>
-						    <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
-						   	 	<td >校区名称</td>
-						        <td colspan="2">编辑</td>
-						    </tr>
+						    	<tr style="background:#29C192;text-align:center;color:white;font-size:15px">
+						   		 	<td >校区名称</td>
+						    	    <td colspan="2">编辑</td>
+						    	</tr>
 							</thead>
 							<c:forEach items="${campusList }" var="item" >
-						    <tr align="center" style="color:black;font-size:15px">
-						        <td>${item.campusName }</td>
-						        <td><a href="modifyCampus.action?campusID=${item.campusID}">修改</a></td>
-						        <td><a href="deleteCampusById.action?campusID=${item.campusID}">删除</a></td>
-						    </tr>
+						    	<tr align="center" style="color:black;font-size:15px">
+						    	    <td>${item.campusName }</td>
+						    	    <td><a href="modifyCampus.action?campusID=${item.campusID}">修改</a></td>
+						    	    <td><a href="deleteCampusById.action?campusID=${item.campusID}">删除</a></td>
+						    	</tr>
 							</c:forEach>
 						</table>								
 					</form>

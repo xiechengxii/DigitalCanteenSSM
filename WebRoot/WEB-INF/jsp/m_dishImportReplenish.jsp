@@ -106,35 +106,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
     <body >
         <div class="container">
-		     <div class="mp-pusher" id="mp-pusher">
-		      <%@ include file="publicjsp/canteennavindex.jsp" %> 
+		    <div class="mp-pusher" id="mp-pusher">
+		    <%@ include file="publicjsp/canteennavindex.jsp" %> 
 		      	<div class="scroller" style="background:#EEEEEE">
 		            <div class="scroller-inner">
 		           		<header class="codrops-header" style="background:#29C192">
-		        	         <div class="row">
-			        	         <div id="trigger" class="burger-container">
+		        	        <div class="row">
+			        	        <div id="trigger" class="burger-container">
 									<span class="burger-bun-top"></span>
 									<span class="burger-filling"></span>
 									<span class="burger-bun-bot"></span>
-								 </div>					
+								</div>					
 								<h1>食堂管理系统</h1>
-							 </div>
+							</div>
 						</header> 
-				    	<div class="container-fluid" style="color:#000">	
-				    		
-				    				<div class="row" style="padding-top:16px">
-				 						<div class="col-xs-4">
-									   		<label>所属校区：</label>${muserItems.campusName}
-									   	</div>
-									   	<div class="col-xs-4">
-									   		<label>所属食堂：</label>${muserItems.cantName}
-									   	</div>
-									   	<div class="col-xs-4">
-									   		<label>管理员：</label>${muserItems.muserName}
-									   	</div>
-									</div>
-				    			
-				    			
+				    	<div class="container-fluid" style="color:#000">					    		
+		    				<div class="row" style="padding-top:16px">
+		 						<div class="col-xs-4">
+							   		<label>所属校区：</label>${muserItems.campusName}
+							   	</div>
+							   	<div class="col-xs-4">
+							   		<label>所属食堂：</label>${muserItems.cantName}
+							   	</div>
+							   	<div class="col-xs-4">
+							   		<label>管理员：</label>${muserItems.muserName}
+							   	</div>
+							</div>				 
 					    		    <!-- 所有菜品显示列表 -->
 				                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
 				                        <div class="row" style="padding-top:16px">			                      
@@ -182,84 +179,88 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
 								                	    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
 								                	    				</td>
-								                	    				<c:choose >
+						                	    						<c:choose >
 								                	    					<c:when test="${dishDetailInDateList == null }">	
 								                	    					</c:when>
-								                	    					<c:otherwise>
-								                	    						<c:forEach items="${dishDetailInDateList }" var="itemInDate">
-								                	    							<c:choose>
-								                	    								<c:when test="${itemInDate.detailDishID == item.dishID }">
-								                	    									<script> checkBoxSelect("${item.dishID}");</script>		
-								                	    								</c:when>
-								                	    							</c:choose>
-								                	    						</c:forEach>
-								                	    					</c:otherwise>
-								                	    				</c:choose>	
-								                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
+						                	    							<c:otherwise>
+						                	    								<c:forEach items="${dishDetailInDateList }" var="itemInDate">
+						                	    									<c:choose>
+						                	    										<c:when test="${itemInDate.detailDishID == item.dishID }">
+						                	    											<script> checkBoxSelect("${item.dishID}");</script>		
+						                	    										</c:when>
+						                	    									</c:choose>
+						                	    								</c:forEach>
+						                	    							</c:otherwise>
+						                	    						</c:choose>	
+						                	    						<td style='vertical-align: middle;text-align: center;' rowspan=3>
 								                	    				   	<c:if test="${item.dishPhoto != null }">
 								                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
 								                	       					</c:if>
-								                   	    				</td>						               	    			 	
-								                	    			   	<td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
-								                	    			   	<td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
-								                	    			</tr>
-								                	    			<tr>							               	    		   
+						                   	    						</td>						               	    			 	
+						                	    			   			<td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
+						                	    			   			<td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
+						                	    					</tr>
+						                	    					<tr>							               	    		   
 								                	    			   	<td style='vertical-align: middle;font-size:0.8em' colspan=2>[${item.wndName }]</td>
 								                	    			   	<td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
-								                	    			</tr>
+						                	    					</tr>
 								                	    			<tr>						  
 								                	    			   	<td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
 								                	    			   	<td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
 								                	    			   	<td style='vertical-align: middle;'>${item.dishInState }</td> 
 								                	    			</tr>
-								                	    			</table>
-								                	    		  </div>
-								                	    		  <a class="delect-btn">删除</a>
-								                	    		</c:otherwise>
-								                	    	</c:choose>
-								                	      </div>
-								                	    </c:forEach>						                              							  	
-											       </div>
-								              </div>  
-								        </div> 
-								        <div class="form-group" style="padding-top:5px">
-				                    		<input type="button" class="btn btn-primary" value="录入" onClick=getdishImportReplenish() > 
-				                    	</div>				  				    	                	 				   	            	
-				                    </form>				            					        	
-				    	</div>
-		    <script src="js/classie.js"></script>
-		    <script src="js/mlpushmenu.js"></script>
-		    <script>
-		        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
-		    </script>
-		    <script>
-		  		$(".item").on('swipeleft', function(event) {
-		    		event.preventDefault();
-		    		
-		    		$(this).addClass('selected').siblings('.item').removeClass('selected');
-		    		$(this).find('.delect-btn').on('click', function(event) {
-		      			event.preventDefault();
-		      	    /* Act on the event */
-		      			$(this).parent(".item").animate({
-		        		height: 0,
-		        		width: 0},
-		        		300, function() {
-		        	/* stuff to do after animation is complete */
-		        			$(this).remove();
-		      			});
-		    		});
-		  		});
-		  		$(".item").on('swiperight', function(event) {
-		    		event.preventDefault();
-		    		
-		    		$(this).removeClass('selected');
-		  		});
-		  		/* $(".item").on('swiperight', function(event) {
-		    		event.preventDefault();
-		    		/* Act on the event */
-		    		/* $(this).removeClass('selected');
-		  		}); */
-		  		
-			</script>        
+						                	    				</table>
+						                	    		  	</div>
+						                	    		    <a class="delect-btn">删除</a>
+						                	    		</c:otherwise>
+						                	    	</c:choose>
+						                	    </div>
+					                	    </c:forEach>						                              						  	
+								        </div>
+						            </div>  
+						        </div> 
+						        <div class="form-group" style="padding-top:5px">
+		                    		<input type="button" class="btn btn-primary" value="录入" onClick=getdishImportReplenish() > 
+		                    	</div>				  				    	                	 				   	            	
+		                    </form>				            					        	
+		    	        </div>
+		    	    </div>
+		    	</div>
+		    </div>
+		</div>
+	    <script src="js/classie.js"></script>
+	    <script src="js/mlpushmenu.js"></script>
+	    <script>
+	        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
+	    </script>
+	    <script>
+	  		$(".item").on('swipeleft', function(event) {
+	    		event.preventDefault();
+	    		
+	    		$(this).addClass('selected').siblings('.item').removeClass('selected');
+	    		$(this).find('.delect-btn').on('click', function(event) {
+	      			event.preventDefault();
+	      	    /* Act on the event */
+	      			$(this).parent(".item").animate({
+	        		height: 0,
+	        		width: 0},
+	        		300, function() {
+	        	/* stuff to do after animation is complete */
+	        			$(this).remove();
+	      			});
+	    		});
+	  		});
+	  		$(".item").on('swiperight', function(event) {
+	    		event.preventDefault();
+	    		
+	    		$(this).removeClass('selected');
+	  		});
+	  		/* $(".item").on('swiperight', function(event) {
+	    		event.preventDefault();
+	    		/* Act on the event */
+	    		/* $(this).removeClass('selected');
+	  		}); */
+	  		
+		</script>        
     </body>
 </html>

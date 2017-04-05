@@ -15,19 +15,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	
     	<title>食堂管理首页</title>
 
-    	<meta http-equiv="pragma" content="no-cache" />
-		<meta http-equiv="cache-control" content="no-cache" />
+    	<meta http-equiv="pragma" content="no-cache" >
+		<meta http-equiv="cache-control" content="no-cache" >
 		<meta http-equiv="expires" content="0">   
- 		<meta charset="utf-8">
  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+    	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" >
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="format-detection" content="telephone=no">
         
         <script src="js/modernizr.custom.js"></script>
-    	<script src="js/jquery-2.1.1.min.js"></script>
     	<script src="js/bootstrap.min.js"></script>
+    	<script src="js/jquery-2.1.1.min.js"></script>
     	<script src="js/jquery.mobile-1.4.3.min.js"></script>
     	<!--日历控件-->	
 		<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs3.css" />
@@ -43,6 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<link rel="stylesheet" type="text/css" href="css/leftDelete.css"  />
     	
     	<!-- 日期控件导入 -->
+
         <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script> 
         
   	</head>
@@ -50,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<body>
   		
 		<script type="text/javascript">
+
 		function exportExcelInCanteen(){
 			document.muserCanteenForm.action="canteenRecordExportToExcel.action";
 	    	document.muserCanteenForm.submit();	
@@ -66,10 +67,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			}); */
 		}
+		
 		</script>
 		
 		
- <div class="container" >
+ <div class="container" data-role="page">
      <div class="mp-pusher" id="mp-pusher">
       <%@ include file="publicjsp/canteennavindex.jsp" %> 
       	<div class="scroller" style="background:#EEEEEE">
@@ -87,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				
 	                <div class="container-fluid" style="padding:0 0px;">
-	                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
+	                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post" >
 	                          <div class="row">
 	                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">
 	                    	       					
@@ -118,8 +120,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											           <tr><td style="width:80%"><p class="name">${item.recordCampusName } ${item.recordCantName }</p></td><td style="width:80%"><p class="name">${item.recordMUserName }</p></td></tr>
 											           <tr><td><p class="txt"><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></p></td><td><p class="txt"> ${item.recordSubmitState }</p></td></tr>
 											      </table>										      
-											    </div>																			    									        								  	
-										  	<a href="deleteRecord.action?recordID=${item.recordID}" class="delect-btn" style="padding-top:28px;">删除</a>										   
+											    </div>	 																    									        								  	
+										  	<a href="deleteRecord.action?recordID=${item.recordID}" data-role="button" data-ajax="false" class="delect-btn" target="_top" style="padding-top:28px;">删除</a>										   
 										  </div>
 										</c:forEach>										  	
 								    </div>
@@ -132,8 +134,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      </div>
 </div>
   		
-    
-    
     <script src="js/classie.js"></script>
     <script src="js/mlpushmenu.js"></script>
     <script>
@@ -201,15 +201,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		
     		$(this).addClass('selected').siblings('.item').removeClass('selected');
     		$(this).find('.delect-btn').on('click', function(event) {
-      			event.preventDefault();
-      	    /* Act on the event */
-      			$(this).parent(".item").animate({
+      			/* event.preventDefault(); */
+      	    	/* Act on the event */
+      			/* $(this).parent(".item").animate({
         		height: 0,
         		width: 0},
         		300, function() {
-        	/* stuff to do after animation is complete */
-        			$(this).remove();
-      			});
+        			$(this).remove(); 
+        			 
+      			}); */
+      			/* $.ajax({
+        				
+					type: 'post',
+					url: '${pageContext.request.contextPath}/deleteRecord.action',
+					contentType: 'application/x-www-form-urlencoded', 
+					//发送的是key/value，接收的是json
+					data: {recordID: 'item.recordID'},		
+				});  */ 
     		});
   		});
   		$(".item").on('swiperight', function(event) {
@@ -217,11 +225,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		
     		$(this).removeClass('selected');
   		});
-  		/* $(".item").on('swiperight', function(event) {
-    		event.preventDefault();
-    		/* Act on the event */
-    		/* $(this).removeClass('selected');
-  		}); */
   		
 	</script>
   	</body>

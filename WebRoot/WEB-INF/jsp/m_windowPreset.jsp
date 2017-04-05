@@ -60,6 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	}
 
+<<<<<<< HEAD
     function check(form){
     	if(form.cantCampusID.value == ""){
     		alert("请先选择档口所在校区！");
@@ -118,6 +119,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>   
 <body>
 <div class="container">
+=======
+        function check(form){
+        	if(form.cantCampusID.value == ""){
+        		alert("请先选择档口所在校区！");
+        		return false;
+        	}
+        	if(form.wndCantID.value == ""){
+        		alert("请先选择档口所在食堂！");
+        		return false;
+        	}
+        	if(form.wndName.value == ""){
+        		alert("请填写档口名称！");
+        		form.wndName.focus();
+        		return false;
+        	}
+        }
+              
+  	</script>
+    </head>   
+    <body>
+    <div class="container">
+>>>>>>> mobileUI
     <div class="mp-pusher" id="mp-pusher">
         <%@ include file="publicjsp/index.jsp" %>               
         <div class="scroller" style="background:#EEEEEE">
@@ -202,7 +225,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             			       	    </tr>
             			        </c:forEach>
         		            </table>
-
                             <div>
                                 <div class="message">
                                     <p class="text-center" style="color:#888">
@@ -216,9 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                               <a href="findAllDishPreset.action?pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
                                             </li>
                                         </c:if>
-
                                         <c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">  
-
                                             <c:if test="${navigatepageNum==pagehelper.pageNum}">
                                               <li class="active">
                                                 <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
@@ -230,9 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 <a href="findAllDishPreset.action?pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
                                               </li>
                                             </c:if>
-
                                         </c:forEach>
-
                                         <c:if test="${!pagehelper.isLastPage}">
                                             <li>
                                               <a href="findAllDishPreset.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>

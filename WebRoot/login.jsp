@@ -34,10 +34,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <div class="container">
                 <h1>Welcome</h1>        
     	          <form action="${pageContext.request.contextPath}/login.action" method="post">
-                  <input type="text" placeholder="Username" name="userName">
-                  <input type="password" placeholder="Password" name="password">
-                  <button type="submit" id="login-button">Login</button>
+                  <input type="text" placeholder="用户名" name="userName">
+                  <input type="password" placeholder="密码" name="password">
+                  <button type="submit" id="login-button">登录</button>
     	          </form>
+                <a href="#">注册账户</a>
               </div>
               <ul class="bg-bubbles">
                 <li></li>

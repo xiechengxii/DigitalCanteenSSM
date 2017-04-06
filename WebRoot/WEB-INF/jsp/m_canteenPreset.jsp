@@ -50,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
           <div class="content clearfix">
           <form action="insertCanteen.action" method="post">
+            <div class=" newcustom" style="margin-top:77px" >
           	<!-- 选择食堂所属校区 -->
             <div align="center" >
          		  <select name="cantCampusID" data-toggle="select" class="form-control select select-primary mrs mbm" >
@@ -73,7 +74,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <br>
           	  <div align="center"><input type="submit" value="添加食堂" class="btn btn-primary btn-wide" data-role="none"></div>
             </div>
+          </div>
           <!-- 列举已录入的食堂 -->
+          <div class="newcustom" style="padding: 1em 0.6em">
       	    <table  class="table table-striped table-bordered table-condensed">
       		    <thead>
               <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
@@ -132,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       </ul>
                     </div>
                   </div>
+                </div>
       	  </form>
       	  </div>
             </div>

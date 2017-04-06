@@ -5,7 +5,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
 <html>
 <head>
 <base href="<%=basePath%>">      
@@ -136,18 +135,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         
       	    <!-- 档口添加按钮 -->
           	                <div align="center" style="margin-top:6px">
-                                <input  type="submit" value="添加档口" onClick="return check(windowInsertForm)" class="thick-green btn btn-success btn-wide" data-role="none">
+                                <input  type="submit" value="添加档口" onClick="return check(windowInsertForm)" class="btn btn-primary btn-wide" data-role="none">
                             </div>
                         </div>
                 <!-- 列举已录入的档口 -->
                         <div class="newcustom" style="padding: 1em 0.6em">
         	                <table  class="table table-striped table-bordered table-condensed">
                                 <thead>
-                		            <tr style="background:#6e9cc9;text-align:center;color:white;font-size:15px">
+                		            <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
                 		           	 	<td>校区名称</td>
-                	               	<td>食堂名称</td>
-                	               	<td>档口名称</td>
-                		              <td colspan="2">编辑</td>
+                	               	    <td>食堂名称</td>
+                	               	    <td>档口名称</td>
+                		                <td colspan="2">编辑</td>
                 		            </tr>
                                 </thead>
                         

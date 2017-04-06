@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>  
                     </header>
 
-                    <div class="content clearfix">
+                    <div class="content clearfix" style="margin-top:77px">
                         <form  role="form" name="muserInsertForm" method="post" enctype="multipart/form-data">
                             <div class="row form-group">
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:5%;line-height:34px;">管理员类型</label>

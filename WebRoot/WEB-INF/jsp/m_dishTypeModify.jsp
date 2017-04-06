@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <h1>修改菜品类型</h1>
           </div>  
       </header>
+      <div class=" newcustom" style="margin-top:77px" >
       <form name="updateDishType" method="post" action="modifyDishTypeSave.action">
       	<!-- 修改菜品类型信息 -->
         <br>
@@ -43,6 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      <br>
 	      <div align="center"><input type="submit" value="保存" class="btn btn-primary btn-wide" data-role="none"></div>
       </form>
-
+    </div>
   </body>
 </html>

@@ -89,45 +89,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				
 	                <div class="container-fluid" style="padding:0 0px;">
-	                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post" >
-	                          <div class="row">
-	                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">
-	                    	       					
-								         <div class="input-group" style="width: 240px; margin-left: 12px;">
-								              <input type="text" class="form-control date-picker" id="dateTimeRange" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;"/>
-								                     <span class="input-group-addon">
-								        				   <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-								    				 </span>
-								              <input type="hidden" name="beginTime" id="beginTime" />
-								    		  <input type="hidden" name="endTime" id="endTime"  />								    
-										</div>													
-								  </div>
-							      <div  class="col-xs-4" style="position:relative;left:30px;top:2px;">
-								        <button onclick="exportExcelInCanteen()" class="btn btn-primary">导出</button>
-							      </div>														
-			                      <!-- 食堂管理员 -->
-			                      <input type="hidden" name = "campusID" value="${muserItems.campusID }" >
-			                      <input type="hidden" name = "cantID" value="${muserItems.cantID }" >
-			                      <input type="hidden" name = "muserID" value="${muserItems.cantID }" >
-		                    </div>		                
-		                    <div class="row" style="padding:0 0px;"> 
-		                         <div class="form-group">
-		                              <div class="item-wrap">
-			                              <c:forEach items="${pagehelper.list }" var="item" >
-										  	<div  id="view" class="item clearfix">										    									        									        
-											    <div class="txt-item">
-											      <table onclick="location.href='modifyRecordDetailDish.action?recordID=${item.recordID}';">
-											           <tr><td style="width:80%"><p class="name">${item.recordCampusName } ${item.recordCantName }</p></td><td style="width:80%"><p class="name">${item.recordMUserName }</p></td></tr>
-											           <tr><td><p class="txt"><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></p></td><td><p class="txt"> ${item.recordSubmitState }</p></td></tr>
-											      </table>										      
-											    </div>	 																    									        								  	
-										  	<a href="deleteRecord.action?recordID=${item.recordID}" data-role="button" data-ajax="false" class="delect-btn" target="_top" style="padding-top:28px;">删除</a>										   
-										  </div>
-										</c:forEach>										  	
-								    </div>
-					         </div>  
-					    </div> 					  
-			        </form> 			             
+	                	<div class="newcustom" style="margin-top:69px">
+		                    <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post" >
+		                          <div class="row">
+		                    	       <div  class="form-group col-xs-7" style="position:relative;top:2px;">
+		                    	       					
+									         <div class="input-group" style="width: 240px; margin-left: 12px;">
+									              <input type="text" class="form-control date-picker" id="dateTimeRange" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;"/>
+									                     <span class="input-group-addon">
+									        				   <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+									    				 </span>
+									              <input type="hidden" name="beginTime" id="beginTime" />
+									    		  <input type="hidden" name="endTime" id="endTime"  />								    
+											</div>													
+									  </div>
+								      <div  class="col-xs-4" style="position:relative;left:30px;">
+									        <button onclick="exportExcelInCanteen()" class="btn btn-primary">导出</button>
+								      </div>														
+				                      <!-- 食堂管理员 -->
+				                      <input type="hidden" name = "campusID" value="${muserItems.campusID }" >
+				                      <input type="hidden" name = "cantID" value="${muserItems.cantID }" >
+				                      <input type="hidden" name = "muserID" value="${muserItems.cantID }" >
+			                    </div>		                
+			                    <div class="row" style="padding:0 0px;"> 
+			                         <div class="form-group">
+			                              <div class="item-wrap">
+				                              <c:forEach items="${pagehelper.list }" var="item" >
+											  	<div  id="view" class="item clearfix">										    									        									        
+												    <div class="txt-item">
+												      <table onclick="location.href='modifyRecordDetailDish.action?recordID=${item.recordID}';">
+												           <tr><td style="width:80%"><p class="name">${item.recordCampusName } ${item.recordCantName }</p></td><td style="width:80%"><p class="name">${item.recordMUserName }</p></td></tr>
+												           <tr><td><p class="txt"><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></p></td><td><p class="txt"> ${item.recordSubmitState }</p></td></tr>
+												      </table>										      
+												    </div>	 																    									        								  	
+											  	<a href="deleteRecord.action?recordID=${item.recordID}" data-role="button" data-ajax="false" class="delect-btn" target="_top" style="padding-top:28px;">删除</a>										   
+											  </div>
+											</c:forEach>										  	
+									    </div>
+						         </div>  
+						    </div> 					  
+				        </form>
+				    </div> 			             
 	             </div>	                 	
 		     </div>
 		 </div>

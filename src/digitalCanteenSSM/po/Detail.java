@@ -8,6 +8,7 @@ public class Detail {
 	private int detailDishID;
 	private int detailRecordID;
 	private int detailDishTypeID;
+	private int detailDishDateFlag;  //销售时间段, 早 中 晚 全天
 	private String detailDishName;
 	private String detailDishPrice;
 	private String detailDishPhoto;
@@ -41,6 +42,12 @@ public class Detail {
 		return detailDishTypeID;
 	}
 	
+	public int getDetailDishDateFlag() {
+		return detailDishDateFlag;
+	}
+	public void setDetailDishDateFlag(int detailDishDateFlag) {
+		this.detailDishDateFlag = detailDishDateFlag;
+	}
 	public int getDetailRecordID() {
 		return detailRecordID;
 	}
@@ -50,6 +57,7 @@ public class Detail {
 	public void setDetailDishTypeID(int detailDishTypeID) {
 		this.detailDishTypeID = detailDishTypeID;
 	}
+
 	public String getDetailDishName() {
 		return detailDishName;
 	}

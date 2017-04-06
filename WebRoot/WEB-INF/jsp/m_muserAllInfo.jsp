@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
   
     <body>
-    <div class="container">
+    <div class="container" data-role="page">
         <div class="mp-pusher" id="mp-pusher">
         <%@ include file="publicjsp/index.jsp" %>               
             <div class="scroller" style="background:#EEEEEE">
@@ -45,8 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <span class="burger-filling"></span>
                             <span class="burger-bun-bot"></span>
                          </div>                 
-                        <h1>账户管理</h1>
                         </div>
+                        <h1>账户管理</h1>
                     </header>
 
     	            <div class="container-fluid" style="padding:0 0px;margin-top:66px">
@@ -56,12 +56,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <div class="item-wrap">
                     		    <c:forEach items="${muserItemsList }" var="item" >
                                     <div  id="view" class="item clearfix">
-                                        <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
+                                        <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px;padding-bottom: 5px;">
                                             <table width=100% onclick="location.href='modifyMUser.action?muserID=${item.muserID}';">
 	                    	    	            <tr>
 	                	        	            	<td style='vertical-align: middle;text-align: center;' rowspan=2>
 	                		    	               		<c:if test="${item.muserPhoto != null }">
-	                		    	               			<img src="/upload/pic/${item.muserPhoto }" class="center-block" height="80" width="80"/>
+	                		    	               			<img src="/upload/pic/${item.muserPhoto }" class="center-block" height="60" width="60"/>
 	                		    	               		</c:if>
 	                		    	               	</td>
                                                     <td style='vertical-align: middle;font-size:1.5em'>${item.muserName }</td>
@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                 </tr>
                                             </table>
                                         </div>
-                                        <a class="delect-btn">删除</a>
+                                        <a href="deleteMUserById.action?muserID=${item.muserID}" data-role="button" data-ajax="false" class="delect-btn" target="_top">删除</a>
                                     </div>
 	                		    </c:forEach>
                                 </div>
@@ -97,15 +97,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             
             $(this).addClass('selected').siblings('.item').removeClass('selected');
             $(this).find('.delect-btn').on('click', function(event) {
-                event.preventDefault();
+            /* event.preventDefault();*/
             /* Act on the event */
-                $(this).parent(".item").animate({
+            /*   $(this).parent(".item").animate({
                 height: 0,
                 width: 0},
                 300, function() {
-            /* stuff to do after animation is complete */
                     $(this).remove();
-                });
+                });*/
             });
         });
         $(".item").on('swiperight', function(event) {

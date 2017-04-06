@@ -25,6 +25,6 @@
 				</li>
 			</ul>
 		</div>
-		<button style="position:absolute;left:20px;top:80%;border:none"><a data-ajax="false" href="${pageContext.request.contextPath }/logout.action"><span style="font-size:15px;color:#000000;">注销</span></a></button>
+		<button style="position:absolute;left:20px;top:90%;border:none"><a data-ajax="false" href="${pageContext.request.contextPath }/logout.action"><span style="font-size:15px;color:#000000;">注销</span></a></button>
 	</nav>
 

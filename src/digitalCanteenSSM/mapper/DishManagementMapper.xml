@@ -137,4 +137,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{dishNote},#{dishDelete})
 	</select>
 	
+	<!-- 根据食堂和时间档信息查询菜品-->
+	<select id="findDishInCanteenAndDate" parameterType="DishItems" resultType="DishItems">
+		SELECT ctdish.*, ctwnd.wndID,ctwnd.wndName,
+				ctcant.cantID,ctcant.CantName, ctcant.cantCampusID,
+				ctcampus.campusID,ctcampus.CampusName,
+				ctdishtype.DishTypeID,ctdishtype.DishTypeName
+		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
+        WHERE ctdish.DishWndID = ctwnd.WndID and  
+        		ctwnd.WndCantID = ctcant.cantID and 
+        		ctcant.CantCampusID=ctcampus.campusID and
+        		ctdish.DishTypeID=ctdishtype.DishTypeID and
+        		ctcant.CantID=#{cantID} and
+        		ctdish.DishDate=#{dishDate} and
+        		ctdish.DishSale="在售"
+		ORDER BY CampusID,CantID,WndID,DishID DESC
+	</select>
 </mapper>

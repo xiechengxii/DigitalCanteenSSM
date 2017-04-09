@@ -13,7 +13,7 @@ public class Record {
 	private String recordMUserName;
 	private Date recordDate;
 	private String recordSubmitState;
-	private int replenishFlag;		//补录标志位
+	private int replenishFlag;		//用于标记Record属于录入还是补录
 	private Date replenishDate;		//补录日期
 	private String replenishState;	//审核状态
 	

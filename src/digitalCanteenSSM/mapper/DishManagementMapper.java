@@ -27,4 +27,6 @@ public interface DishManagementMapper {
 	public void insertDish(Dish dish) throws Exception;
 	
 	public void deleteDishById(Dish dish) throws Exception;
+	
+	public List<DishItems> findDishInCanteenAndDate(DishItems dishItems) throws Exception;
 }

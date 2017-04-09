@@ -1,5 +1,7 @@
 package digitalCanteenSSM.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,6 +19,8 @@ import com.github.miemiedev.mybatis.paginator.domain.Order;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import digitalCanteenSSM.exception.ResultInfo;
+import digitalCanteenSSM.exception.SubmitResultInfo;
 import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.Dish;
 import digitalCanteenSSM.po.DishItems;
@@ -172,18 +177,71 @@ public class DishManagementController {
 		
 		return modelAndView;
 	}
+	
+	//录入菜品的重复检测
+	@RequestMapping("/importRepeatCheck")
+	public @ResponseBody SubmitResultInfo importRepeatCheck(HttpSession session) throws Exception{
+		
+		ResultInfo resultInfo = new ResultInfo();
+		
+		//取得当前时间并格式化,用来记入记录表中
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");  
+		String dateString=simpleDateFormat.format(new Date());
+		Date date=simpleDateFormat.parse(dateString);
+		
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		
+		//新建一个record，填入操作人相关的字段信息以及时间，由于是当日录入，补录标志设置为0
+		Record record = new Record(); 
+		record.setRecordCampusID(muserItems.getCampusID());
+		record.setRecordCantID(muserItems.getCantID());
+		record.setRecordMUserID(muserItems.getMuserID());
+		record.setRecordCampusName(muserItems.getCampusName());
+		record.setRecordCantName(muserItems.getCantName());
+		record.setRecordMUserName(muserItems.getMuserName());
+		record.setRecordDate(date);
+		record.setRecordSubmitState("已提交");
+		record.setReplenishFlag(0);
+		
+		//到数据库中用食堂和日期信息查询今日是否已经生成过记录表，
+		//如果没有生成，则生成一个新表；否则跳转到修改页面
+		Record rec = recordService.findRecordInCanteenAndDate(record);
+		if(rec == null){
+			//将数据表存入数据库并获取表的id
+			recordService.insertRecord(record);
+			int recordid= recordService.findRecordID(record);
+			
+			resultInfo.setRecordID(recordid);
+			resultInfo.setMessage("今日记录表创建成功");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);				
+		}else{
+			//读取record的id
+			int recordid= recordService.findRecordID(record);
+			
+			//将此消息的类型设定为info类型，方便前台页面判断要跳转的目标
+			resultInfo.setRecordID(recordid);			
+			resultInfo.setMessage("今日已生成过记录表");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_INFO);			
+		}
+		
+		SubmitResultInfo submitResultInfo = new SubmitResultInfo(resultInfo);		
+		return submitResultInfo;
+	}
 		
 	//录入菜品页面显示
 	@RequestMapping ("/importDish")
-	public ModelAndView importDish(HttpSession session, HttpServletRequest request) throws Exception{
+	public ModelAndView importDish(HttpSession session, HttpServletRequest request, Integer recordID) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");		
 		Date recordDate = (Date) request.getAttribute("recordDate");
+		
+		modelAndView.addObject("recordID",recordID);	//传递记录表编号, 后面用于和detail表关联
 		modelAndView.addObject("recordDate",recordDate);
 		modelAndView.addObject("muserItems",muserItems);
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
 		}else{
@@ -281,7 +339,64 @@ public class DishManagementController {
 		return modelAndView;
 	}
 	
-	
+	/**
+	 * 根据时间档查询菜品列表
+	 * */
+	@RequestMapping ("/chooseDishInDate")
+	public ModelAndView chooseDishInDate(HttpSession session, String dishDate, Integer recordID,
+			Integer replenishFlag, String replenishDate) throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		
+		int canteenID = muserItems.getCantID();
+		DishItems dishItems = new DishItems();
+		List<DishItems> dishItemsList = new ArrayList<DishItems>();
+		
+		//当选择范围是“全部”时，分别查询早餐和正餐的菜品列表，
+		//然后用List的addAll方法把两个列表拼接成最终的列表；
+		//当选择范围是早中晚餐时，只需要查询一次
+		if(dishDate.equals("全部")){
+			
+			List<DishItems> dishItemsListTmp = new ArrayList<DishItems>();
+			
+			dishItems.setCantID(canteenID);
+			dishItems.setDishDate("早餐");
+			
+			dishItemsListTmp = dishManagementService.findDishInCanteenAndDate(dishItems);
+			
+			dishItems.setDishDate("正餐");
+			dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
+			dishItemsList.addAll(dishItemsListTmp);
+		}else{
+			if(dishDate.equals("中餐")||dishDate.equals("晚餐")){
+				
+				dishItems.setDishDate("正餐");
+				
+			}else if(dishDate.equals("早餐")){
+				
+				dishItems.setDishDate("早餐");
+				
+			}
+			dishItems.setCantID(canteenID);
+			
+			dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
+		}
+		
+		//菜品查询时间档和记录表ID需要重新传回页面，页面加载时会根据这些信息来确定各下拉框的显示值
+		modelAndView.addObject("dishDate", dishDate);	//时间档
+		modelAndView.addObject("recordID", recordID);	//记录表编号
+		modelAndView.addObject("muserItems", muserItems);
+		modelAndView.addObject("dishItemsList", dishItemsList);
+		
+		//replenishFlag此处用于标记发出查询请求的页面是属于录入、补录还是修改页面
+		if(replenishFlag == 0){
+			modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
+		}
+		
+		return modelAndView;
+	}
 	
 	//添加已预置的菜品
 	@RequestMapping ("/addDish")

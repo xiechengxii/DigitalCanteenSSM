@@ -27,4 +27,6 @@ public interface DishManagementService {
 	
 	public void deleteDishById(Dish dish) throws Exception;
 	
+	public List<DishItems> findDishInCanteenAndDate(DishItems dishItems) throws Exception;
+	
 }

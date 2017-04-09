@@ -74,5 +74,12 @@ public class DishManagementServiceImpl implements DishManagementService {
 		dishManagementMapper.updateDish(dishItems);
 		
 	}
+	
+	@Override
+	public List<DishItems> findDishInCanteenAndDate(DishItems dishItems)
+			throws Exception {
+		
+		return dishManagementMapper.findDishInCanteenAndDate(dishItems);
+	}
 
 }

@@ -61,7 +61,7 @@ a:hover, a:focus {
 	height: 65px;
 	width: 100%;
 	position: fixed;
-	z-index:1;
+	z-index:999;
 	top:0px;
 }
 
@@ -170,6 +170,9 @@ a:hover, a:focus {
 	/*padding: 1em 1em;*/
 	max-width: 1200px;
 	margin: 0 0 0 0;
+	/*overflow:scroll;
+	overflow-x:hidden;
+	-webkit-overflow-scrolling:touch*/
 }
 
 

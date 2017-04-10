@@ -56,7 +56,7 @@ a:hover, a:focus {
 
 .codrops-header {
 	margin: 0 0 0 0;
-	padding: 25px;
+	/*padding: 25px;*/
 	background: #29C192;
 	text-align: center;
 	height: 65px;

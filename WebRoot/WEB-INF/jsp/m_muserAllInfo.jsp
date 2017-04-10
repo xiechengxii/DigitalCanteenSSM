@@ -38,16 +38,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <%@ include file="publicjsp/index.jsp" %>               
             <div class="scroller" style="background:#EEEEEE">
                 <div class="scroller-inner">
-                    <header class="codrops-header" style="background:#29C192">
-                        <div class="row">
+                    <div class="codrops-header" style="background:#29C192">
                          <div id="trigger" class="burger-container">
                             <span class="burger-bun-top"></span>
                             <span class="burger-filling"></span>
                             <span class="burger-bun-bot"></span>
                          </div>                 
-                        </div>
-                        <h1>账户管理</h1>
-                    </header>
+                        <p style="width:100%;height:100%;vertical-align:middle;font-size:27px">账户管理</p>
+                    </div>
 
     	            <div class="container-fluid" style="padding:0 0px;margin-top:66px">
                     <form role="form" name="muserForm" enctype="multipart/form-data">

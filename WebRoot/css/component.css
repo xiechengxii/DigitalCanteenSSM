@@ -18,13 +18,15 @@ html, body, .container, .scroller {
 .scroller,
 .scroller-inner {
 	position: relative;
-	overflow:auto;
+	overflow:scroll;
 	overflow-x:hidden;
+	-webkit-overflow-scrolling:touch
 }
 
 .container {
 	position: relative;
-	overflow: hidden;
+	/*overflow: hidden;*/
+	-webkit-overflow-scrolling:touch
 	background: #EEEEEE;
 }
 

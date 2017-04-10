@@ -43,21 +43,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
   
     <body>
-        <div class="container" >
+        <div class="container" data-role="page">
             <div class="mp-pusher" id="mp-pusher">
             <%@ include file="publicjsp/canteennavindex.jsp" %> 
       	        <div class="scroller" style="background:#EEEEEE">
                     <div class="scroller-inner">
-           		        <header class="codrops-header" style="background:#29C192">
-        	                <div class="row">
+           		        <div class="codrops-header" style="background:#29C192">
 	        	                <div id="trigger" class="burger-container">
     							    <span class="burger-bun-top"></span>
     							    <span class="burger-filling"></span>
     							    <span class="burger-bun-bot"></span>
 						        </div>					
-						        <h1>食堂菜品</h1>
-					        </div>
-				        </header> 								
+						        <p style="width:100%;height:100%;vertical-align:middle;font-size:27px">食堂菜品</p>
+				        </div> 								
             	        <div class="container-fluid" style="color:#000;padding:0 0;">
                             <div class="newcustom" style="margin-top:69px;">
                                 <div class="row" style="padding:16px 0px 16px 16px;">
@@ -102,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             				                	    			        </tr>
             				                	    			    </table>
             				                	    		    </div>
-            				                	    		    <a href="deleteDishById.action?dishID=${item.dishID}" class="delect-btn">删除</a>
+            				                	    		    <a href="deleteDishById.action?dishID=${item.dishID}" data-role="button" data-ajax="false" class="delect-btn" target="_top">删除</a>
             				                	    		</c:when>
         				                	    	    </c:choose>
         				                	        </div>
@@ -135,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             				                	    			        </tr>
             				                	    			    </table>
             				                	    		    </div>
-            				                	    		    <a href="deleteDishById.action?dishID=${item.dishID}" class="delect-btn">删除</a>
+            				                	    		    <a href="deleteDishById.action?dishID=${item.dishID}" data-role="button" data-ajax="false" class="delect-btn" target="_top">删除</a>
             				                	    		</c:otherwise> 
         				                	    	    </c:choose>
         				                	        </div>

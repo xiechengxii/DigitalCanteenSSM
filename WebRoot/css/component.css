@@ -303,10 +303,27 @@ html, body, .container, .scroller {
 
 
 .burger-container {
-    position: relative;
+    /*position: relative;
     height: 24px;
 	width: 30px;
-	left:10px;    
+	left:10px;*/
+	position: relative;
+    height: 24px;
+    width: 30px;
+    left: 14px;
+    top: 21px;   
+}
+
+.back-container {
+    /*position: relative;
+    height: 24px;
+	width: 30px;
+	left:10px;*/
+	position: relative;
+    height: 24px;
+    width: 30px;
+    left: 14px;
+    top: 10px;   
 }
 
 .burger-bun-top, .burger-bun-bot, .burger-filling {

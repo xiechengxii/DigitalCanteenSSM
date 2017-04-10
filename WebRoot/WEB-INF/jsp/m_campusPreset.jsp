@@ -65,8 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:forEach items="${campusList }" var="item" >
 						    	<tr align="center" style="color:black;font-size:15px">
 						    	    <td>${item.campusName }</td>
-						    	    <td><a href="modifyCampus.action?campusID=${item.campusID}">修改</a></td>
-						    	    <td><a href="deleteCampusById.action?campusID=${item.campusID}">删除</a></td>
+						    	    <td><a href="modifyCampus.action?campusID=${item.campusID}" style="color:#66AFE9">修改</a></td>
+						    	    <td><a href="deleteCampusById.action?campusID=${item.campusID}" style="color:#66AFE9">删除</a></td>
 						    	</tr>
 							</c:forEach>
 						</table>

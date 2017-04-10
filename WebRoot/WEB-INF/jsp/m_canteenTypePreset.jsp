@@ -71,8 +71,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:forEach items="${canteenTypeList }" var="item" >
 					    	<tr align="center" style="color:black;font-size:15px">
 					    	    <td>${item.cantTypeName }</td>
-					    	    <td><a href="modifyCanteenType.action?cantTypeID=${item.cantTypeID}">修改</a></td>
-					    	    <td><a href="deleteCanteenTypeById.action?cantTypeID=${item.cantTypeID}">删除</a></td>
+					    	    <td><a href="modifyCanteenType.action?cantTypeID=${item.cantTypeID}" style="color:#66AFE9">修改</a></td>
+					    	    <td><a href="deleteCanteenTypeById.action?cantTypeID=${item.cantTypeID}" style="color:#66AFE9">删除</a></td>
 					    	</tr>
 						</c:forEach>
 					</table>

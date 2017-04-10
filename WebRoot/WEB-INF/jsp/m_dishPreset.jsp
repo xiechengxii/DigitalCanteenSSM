@@ -74,8 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			           	<c:forEach items="${pagehelper.list }" var="item" >
 			               <tr align="center" style="color:black;font-size:15px">
 			                   <td>${item.dishPresetName }</td>
-			                   <td><a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}">修改</a></td>
-			                   <td><a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}">删除</a></td>
+			                   <td><a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}" style="color:#66AFE9">修改</a></td>
+			                   <td><a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}" style="color:#66AFE9">删除</a></td>
 			               </tr>
 			           	</c:forEach>
 			           </table>

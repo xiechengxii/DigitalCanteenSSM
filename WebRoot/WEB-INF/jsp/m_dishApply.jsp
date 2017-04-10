@@ -87,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="content clearfix">
                             <!-- 菜品申请 -->
                             <form role="form" name="dishInsertForm" action="insertDish.action" method="post" enctype="multipart/form-data">
-                                <div class="newcustom" style="margin-top:69px">
+                                <div class="newcustom" style="margin-top:69px;padding-left:5%">
                                 	<div class="form-group">
                                         <div class="row">
                                             <label class="col-xs-4 control-label style1">校区</label>

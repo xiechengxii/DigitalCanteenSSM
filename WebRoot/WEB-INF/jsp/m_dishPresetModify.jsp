@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   <header class="codrops-header" style="background:#29C192;padding-top:22px;">
       <div class="row">
-          <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";>
+          <button class="btn btn-lg" style="position:relative;right:48%;padding:0 0;background-color:#29C192";>
               <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/dishPreset.action"></a>
           </button>    
           <h1>修改预置菜品</h1>

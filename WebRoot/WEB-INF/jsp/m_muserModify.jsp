@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="scroller-inner">
                     <header class="codrops-header" style="background:#29C192;padding-top:22px;">
                         <div class="row">
-                            <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";>
+                            <button class="btn btn-lg" style="position:relative;right:48%;padding:0 0;background-color:#29C192";>
                                 <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/findAllMUser.action"></a>
                             </button>    
                             <h1>修改账户</h1>
@@ -148,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <form  name = "muserUpdateForm" class="form-horizontal" role="form" action="modifyMUserSave.action" method="post" enctype="multipart/form-data">
                             <input name="muserID" type="hidden" value="${muserItems.muserID }">
                             <div class="row form-group">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">管理员类型</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:8%; line-height:34px;">管理员类型</label>
                                     <div class="col-xs-8">
                                         <select name="muserRoleID" class="form-control select select-primary mrs mbm" onchange="selectRole(this.value)">
                                         <c:forEach items="${roleList }" var="item" >
@@ -166,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="row form-group">
-                                <label id="campusLabel" class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">管理员校区</label>
+                                <label id="campusLabel" class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:8%; line-height:34px;">管理员校区</label>
                                     <div class="col-xs-8">
                                     <select name="muserCampusID" class="form-control select select-primary mrs mbm" onchange="getCanteen(this.value)" >
                                         <c:forEach items="${campusList }" var="item">
@@ -184,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="row form-group"> 
-                                <label class="col-xs-4 control-label" id="canteenLabel" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:5%;line-height:34px;">管理员食堂</label>
+                                <label class="col-xs-4 control-label" id="canteenLabel" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">管理员食堂</label>
                                     <div class="col-xs-8">
                                     <select name="muserCantID" class="form-control select select-primary mrs mbm">
                                         <c:forEach items="${canteenItemsList }" var="item" >
@@ -204,35 +204,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="row form-group"> 
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:5%;line-height:34px;">用户名</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">用户名</label>
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员名字" name="muserName" value="${muserItems.muserName }">
                                 </div>
                             </div>
                             <br>
                             <div class="row form-group"> 
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:5%;line-height:34px;">密码</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">密码</label>
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员密码" name="muserPwd" value="${muserItems.muserPwd }">
                                 </div>
                             </div>
                             <br>
                             <div class="row form-group">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">联系电话</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:8%; line-height:34px;">联系电话</label>
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员电话" name="muserTel" value="${muserItems.muserTel }">
                                 </div>
                             </div>
                             <br>
                             <div class="row form-group">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:5%;line-height:34px;">Email</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">Email</label>
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员Email" name="muserEmail" value="${muserItems.muserEmail }">
                                 </div>
                             </div>
                              <br>
                             <div class="row form-group">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:5%; line-height:34px;">照片</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:8%; line-height:34px;">照片</label>
                                 <div class="col-xs-8">
                                     <c:if test="${muserItems.muserPhoto != null }">
                                         <img name="muserImageId" src="/upload/pic/${muserItems.muserPhoto }" height="80" width="80"/>
@@ -245,7 +245,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>  
                             <br>
                             <div class="row form-group">
-                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:5%;line-height:34px;">注册日期</label>
+                                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">注册日期</label>
                                 <div class="col-xs-8">
                                     <fmt:formatDate value="${muserItems.muserRegDate}" pattern="yyyy-MM-dd" var="theFormattedDate"/> 
                                     <input type="text" class="form-control" name="muserRegDate" value="${theFormattedDate}" readonly=true> 

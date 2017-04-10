@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		              </header>
 		    
 		                    <div class="content clearfix">
-		                    	<div class="newcustom" style="margin-top:69px;">
+		                    	<div class="newcustom" style="margin-top:69px;padding-left:5%">
 		                        <!-- 菜品添加 -->
 			                        <form class="form-horizontal" role="form" name = "dishUpdateForm" action="modifyDishSave.action" method="post" enctype="multipart/form-data">		        	                
 			                            <input name="dishID" type="hidden" value="${dishItems.dishID }">

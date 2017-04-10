@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     		    <c:forEach items="${muserItemsList }" var="item" >
                                     <div  id="view" class="item clearfix">
                                         <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px;padding-bottom: 5px;">
-                                            <table width=100% onclick="location.href='modifyMUser.action?muserID=${item.muserID}';">
+                                            <table style="width:100%;table-layout:fixed;" onclick="location.href='modifyMUser.action?muserID=${item.muserID}';">
 	                    	    	            <tr>
 	                	        	            	<td style='vertical-align: middle;text-align: center;' rowspan=2>
 	                		    	               		<c:if test="${item.muserPhoto != null }">

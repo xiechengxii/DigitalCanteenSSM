@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</header> 
 				    	<div class="container-fluid" style="color:#000;padding:0 0;">
 				    		<div class="newcustom" style="margin-top:69px;padding-left:5%">					    		
-			    				<div class="row" style="padding-top:16px;font-size:1.5em">
+			    				<div class="row" style="padding-top:16px;">
 			 						<div class="col-xs-4">
 								   		<label>所属校区：</label>${muserItems.campusName}
 								   	</div>
@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                        <div class="row" style="padding-top:16px">			                      
 				    	                <div class="form-group">					    	          
 				                    	    <fmt:formatDate value="${recordDate}" pattern="yyyy-MM-dd" var="theFormattedDate1"/>
-				                    	    <div class="col-xs-3" style="padding-top:12px;font-size:1.8em">
+				                    	    <div class="col-xs-3" style="padding-top:12px;">
 				                    	    	<b>导入记录：</b>
 				                    	    </div>
 				                    	    <div class="col-xs-6">
@@ -157,7 +157,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                    <div class="row">
 				                    	<div class="form-group">					                    
 				                    		<fmt:formatDate value="${muserItems.muserSubmitDate}" pattern="yyyy-MM-dd" var="theFormattedDate"/>
-				                    		<div class="col-xs-3" style="padding-top:3%;font-size:1.8em">
+				                    		<div class="col-xs-3" style="padding-top:3%;">
 					                    	    <b>补录日期：</b>
 					                    	</div>
 					                    	<div class="col-xs-6">

@@ -74,16 +74,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <%@ include file="publicjsp/canteennavindex.jsp" %>
                 <div class="scroller" style="background:#EEEEEE">
                     <div class="scroller-inner">
-                        <header class="codrops-header" style="background:#29C192">
-    		                 <div class="row">
+                        <div class="codrops-header" style="background:#29C192">
     		                    <div id="trigger" class="burger-container">
     		                    <span class="burger-bun-top"></span>
     		                    <span class="burger-filling"></span>
     		                    <span class="burger-bun-bot"></span>
     		                    </div>         
-    		                    <h1>申请新菜</h1>
-    		                 </div>  
-    		            </header>
+    		                    <p style="width:100%;height:100%;vertical-align:middle;font-size:27px">申请新菜</p> 
+    		            </div>
                         <div class="content clearfix">
                             <!-- 菜品申请 -->
                             <form role="form" name="dishInsertForm" action="insertDish.action" method="post" enctype="multipart/form-data">

@@ -81,16 +81,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <%@ include file="publicjsp/index.jsp" %>               
         <div class="scroller" style="background:#EEEEEE">
             <div class="scroller-inner">
-                <header class="codrops-header" >
-                    <div class="row">
+                <div class="codrops-header" >
                         <div id="trigger" class="burger-container">
                             <span class="burger-bun-top"></span>
                             <span class="burger-filling"></span>
                             <span class="burger-bun-bot"></span>
                         </div>         
-                        <h1>预置档口</h1>
-                    </div> 
-                </header>
+                        <p style="width:100%;height:100%;vertical-align:middle;font-size:27px">预置档口</p>
+                </div>
                 
                 <div class="content clearfix">
                     <form name = "windowInsertForm" action="insertWindow.action" method="post" >

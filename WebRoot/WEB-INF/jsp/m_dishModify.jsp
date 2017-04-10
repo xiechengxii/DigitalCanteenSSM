@@ -63,12 +63,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <div class="mp-pusher" id="mp-pusher">		                  
 		        <div class="scroller" style="background:#EEEEEE">
 		          <div class="scroller-inner">
-		              <header class="codrops-header" style="background:#29C192;padding-top:22px;">
-		                  <div class="row">
-		                        <button class="btn btn-lg" style="position:relative;right:48%;padding:0 0;background-color:#29C192";font-size:;><a style="color:#fff"; class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/findDishInCanteen.action"></a></button>      
-		                        <h1>修改菜品</h1>
-		                  </div>  
-		              </header>
+		              <div class="codrops-header" style="background:#29C192;">
+		                  <div class="back-container">
+		                        <button class="btn btn-link btn-lg" ><a style="color:#fff"; class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/findDishInCanteen.action"></a></button>      
+		                  </div>
+		                  <p style="width:100%;height:100%;font-size:27px">修改菜品</p>  
+		              </div>
 		    
 		                    <div class="content clearfix">
 		                    	<div class="newcustom" style="margin-top:69px;padding-left:5%">

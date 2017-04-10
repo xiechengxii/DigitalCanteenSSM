@@ -149,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <input name="muserID" type="hidden" value="${muserItems.muserID }">
                             <div class="row form-group">
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:8%; line-height:34px;">管理员类型</label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-7">
                                         <select name="muserRoleID" class="form-control select select-primary mrs mbm" onchange="selectRole(this.value)">
                                         <c:forEach items="${roleList }" var="item" >
                                               <c:choose>
@@ -167,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <br>
                             <div class="row form-group">
                                 <label id="campusLabel" class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:8%; line-height:34px;">管理员校区</label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-7">
                                     <select name="muserCampusID" class="form-control select select-primary mrs mbm" onchange="getCanteen(this.value)" >
                                         <c:forEach items="${campusList }" var="item">
                                               <c:choose>
@@ -185,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <br>
                             <div class="row form-group"> 
                                 <label class="col-xs-4 control-label" id="canteenLabel" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">管理员食堂</label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-7">
                                     <select name="muserCantID" class="form-control select select-primary mrs mbm">
                                         <c:forEach items="${canteenItemsList }" var="item" >
                                               <c:if test="${muserItems.muserCampusID == item.cantCampusID }">
@@ -205,35 +205,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <br>
                             <div class="row form-group"> 
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">用户名</label>
-                                <div class="col-xs-8">
+                                <div class="col-xs-7">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员名字" name="muserName" value="${muserItems.muserName }">
                                 </div>
                             </div>
                             <br>
                             <div class="row form-group"> 
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">密码</label>
-                                <div class="col-xs-8">
+                                <div class="col-xs-7">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员密码" name="muserPwd" value="${muserItems.muserPwd }">
                                 </div>
                             </div>
                             <br>
                             <div class="row form-group">
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:8%; line-height:34px;">联系电话</label>
-                                <div class="col-xs-8">
+                                <div class="col-xs-7">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员电话" name="muserTel" value="${muserItems.muserTel }">
                                 </div>
                             </div>
                             <br>
                             <div class="row form-group">
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">Email</label>
-                                <div class="col-xs-8">
+                                <div class="col-xs-7">
                                     <input type="text" class="form-control" placeholder="请在此输入管理员Email" name="muserEmail" value="${muserItems.muserEmail }">
                                 </div>
                             </div>
                              <br>
                             <div class="row form-group">
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left;padding-left:8%; line-height:34px;">照片</label>
-                                <div class="col-xs-8">
+                                <div class="col-xs-7">
                                     <c:if test="${muserItems.muserPhoto != null }">
                                         <img name="muserImageId" src="/upload/pic/${muserItems.muserPhoto }" height="80" width="80"/>
                                         <br/>
@@ -246,7 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <br>
                             <div class="row form-group">
                                 <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:left; padding-left:8%;line-height:34px;">注册日期</label>
-                                <div class="col-xs-8">
+                                <div class="col-xs-7">
                                     <fmt:formatDate value="${muserItems.muserRegDate}" pattern="yyyy-MM-dd" var="theFormattedDate"/> 
                                     <input type="text" class="form-control" name="muserRegDate" value="${theFormattedDate}" readonly=true> 
                                 </div>

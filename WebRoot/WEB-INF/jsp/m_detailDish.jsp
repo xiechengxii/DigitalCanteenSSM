@@ -108,15 +108,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 
                 $(this).addClass('selected').siblings('.item').removeClass('selected');
                 $(this).find('.delect-btn').on('click', function(event) {
-                    event.preventDefault();
-                /* Act on the event */
+                   /*  event.preventDefault();
+                Act on the event
                     $(this).parent(".item").animate({
                     height: 0,
                     width: 0},
                     300, function() {
-                /* stuff to do after animation is complete */
+                stuff to do after animation is complete
                         $(this).remove();
-                    });
+                    }); */
                 });
             });
             $(".item").on('swiperight', function(event) {

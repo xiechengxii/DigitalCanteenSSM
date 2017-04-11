@@ -154,8 +154,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 			       	    <td>${item.cantName }</td>
                 			       	    <td>${item.wndName }</td>
                 			       	   	<!-- wndID=${item.wndID}& -->
-                			       	    <td><a href="modifyWindow.action?wndID=${item.wndID}&cantCampusID=${item.cantCampusID}">修改</a></td>
-                			       	    <td><a href="deleteWindowById.action?wndID=${item.wndID}">删除</a></td>
+                			       	    <td><a href="modifyWindow.action?wndID=${item.wndID}&cantCampusID=${item.cantCampusID}" style="color:#66AFE9">修改</a></td>
+                			       	    <td><a href="deleteWindowById.action?wndID=${item.wndID}" style="color:#66AFE9">删除</a></td>
             			       	    </tr>
             			        </c:forEach>
         		            </table>

@@ -89,8 +89,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       			  	 	<td>${item.campusName }</td>
       			  	 	<td>${item.cantTypeName }</td>
       			  	  <td>${item.cantName }</td>
-      			  	  <td><a href="modifyCanteen.action?cantID=${item.cantID}">修改</a></td>
-      			  	  <td><a href="deleteCanteenById.action?cantID=${item.cantID}">删除</a></td>
+      			  	  <td><a href="modifyCanteen.action?cantID=${item.cantID}" style="color:#66AFE9">修改</a></td>
+      			  	  <td><a href="deleteCanteenById.action?cantID=${item.cantID}" style="color:#66AFE9">删除</a></td>
       			  	</tr>
       			  </c:forEach>
       		  </table>

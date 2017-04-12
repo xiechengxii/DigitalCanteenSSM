@@ -18,4 +18,5 @@ public interface DetailService {
 	
 	public void insertDetailDish(DishItems dishItems) throws Exception;
 
+	public List<Detail> findDetailByDateAndID(Detail detail) throws Exception;
 }

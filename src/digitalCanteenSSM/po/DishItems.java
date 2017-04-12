@@ -20,6 +20,7 @@ public class DishItems extends Dish{
 	private String dishTypeName = "";
 	
 	private int dishRecordID = 0;
+	private int dishDateFlag;
 	
 	public int getCampusID() {
 		return campusID;
@@ -104,6 +105,12 @@ public class DishItems extends Dish{
 	}
 	public void setDishRecordID(int dishRecordID) {
 		this.dishRecordID = dishRecordID;
+	}
+	public int getDishDateFlag() {
+		return dishDateFlag;
+	}
+	public void setDishDateFlag(int dishDateFlag) {
+		this.dishDateFlag = dishDateFlag;
 	}
 	
 }

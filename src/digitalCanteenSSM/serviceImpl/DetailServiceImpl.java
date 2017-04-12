@@ -43,10 +43,11 @@ public class DetailServiceImpl implements DetailService{
 		detailMapper.insertDetailDish(dishItems);
 	}
 
-	
-
-	
-	
+	@Override
+	public List<Detail> findDetailByDateAndID(Detail detail) throws Exception {
+		
+		return detailMapper.findDetailByDateAndID(detail);
+	}	
 }
 
 

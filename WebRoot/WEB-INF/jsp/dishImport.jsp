@@ -99,12 +99,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         			checkflag=false;
     			}
     		}
+
+    		//早餐 中餐 晚餐 全天供应 选择
+			$(document).ready(function(){
+				//下拉框触发读取数据库
+	    		$("#dishDate").change(function() { 
+					document.importDishForm.action="chooseDishInDate.action";
+            		document.importDishForm.submit();
+				});
+									    			    
+				$("#searchin").click(function() {
+				 	  var txt=$("#search").val();
+				 	 //获取radio选中的值
+				 	 // var val=$('input:radio[name="dishDateFlag"]:checked').val();
+					  if($.trim(txt)!=""){	
+				        $("table tr:not('#theader')").hide().filter(":contains('"+txt+"')").show();
+				      }else{
+				        $("table tr:not('#theader')").css("background","#fff").show();
+				      }
+	    		});			
+			
+    		}); 
+
+    		//设置时间档下拉框默认显示
+    		function myinitiation() {		
+				var dishDate = document.getElementById("dishDate");
+				var dishDateVal=$("#dishdate").val();
+
+			    for(i = 0; i<=dishDate.length; i++){
+			         var v = dishDate.options[i].value;
+			        if(dishDate.options[i].value == dishDateVal){
+			            dishDate.options[i].selected = true;
+			        }
+			    }	
+			} 
 	    </script>
 
 	    <script src="././My97DatePicker/WdatePicker.js"></script>
     </head>
   
-    <body >
+    <body onload="myinitiation()">
     	<%@ include file="publicjsp/canteenMenu.jsp" %>
     	<div class="container-fluid">	
     		<div class="panel panel-default">
@@ -138,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	                	<div class="col-sm-2">
     	                		<input type="hidden" name="dishdate" id="dishdate" value="${dishDate}">
 	                        	<select name="dishDate" id="dishDate" class="form-control">
-	                        	    <option value="">请选择时间档</option>
+	                        	    <option value="全部">请选择时间档</option>
 	                        	    <option value="早餐">早餐</option>
 	                        	    <option value="中餐">中餐</option>
 	                        	    <option value="晚餐">晚餐</option>
@@ -179,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                	    		<td style='vertical-align: middle;text-align: center;'>
 		                	    			<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
 		                	    		</td>
-		                	    		<!-- 导入之前日期的菜品的处理 -->
+		                	    		<!-- 导入已录入菜品的处理 -->
 		                	    		<c:choose >
 		                	    			<c:when test="${dishDetailInDateList == null }">
 		                	    			</c:when>

@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div> 
 				    	<div class="container-fluid" style="color:#000;padding:0 0;">
 				    		<div class="newcustom" style="margin-top:69px;padding-left:5%">					    		
-			    				<div class="row" style="padding-top:16px;">
+			    				<div class="row" style="padding-top:16px;font-size: 1.3rem">
 			 						<div class="col-xs-4">
 								   		<label>所属校区：</label>${muserItems.campusName}
 								   	</div>
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                        <div class="row" style="padding-top:16px">			                      
 				    	                <div class="form-group">					    	          
 				                    	    <fmt:formatDate value="${recordDate}" pattern="yyyy-MM-dd" var="theFormattedDate1"/>
-				                    	    <div class="col-xs-3" style="padding-top:12px;">
+				                    	    <div class="col-xs-3" style="padding-top:12px;font-size: 1.4rem">
 				                    	    	<b>导入记录：</b>
 				                    	    </div>
 				                    	    <div class="col-xs-6">
@@ -149,13 +149,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                    	    </div>				                    	     					                    	    
 				                    	</div>
 				                    </div>
-				                    <div class="row" style="padding-top:8px;font-size:1.2em">
+				                    <div class="row" style="padding-top:8px;font-size: 1.3rem">
 				                        <p class="help-block">通过选择日期来导入某一天的菜品录入记录</p>
 				                    </div>
 				                    <div class="row">
 				                    	<div class="form-group">					                    
 				                    		<fmt:formatDate value="${muserItems.muserSubmitDate}" pattern="yyyy-MM-dd" var="theFormattedDate"/>
-				                    		<div class="col-xs-3" style="padding-top:3%;">
+				                    		<div class="col-xs-3" style="padding-top:3%;font-size: 1.4rem">
 					                    	    <b>补录日期：</b>
 					                    	</div>
 					                    	<div class="col-xs-6">
@@ -163,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                    	</div> 					                             					                                
 				                    	</div>
 				                    </div>
-				                    <div class="row" style="padding-top:8px;font-size:1.2em">
+				                    <div class="row" style="padding-top:8px;font-size:1.3rem">
 				                        <p class="help-block">选择要补录记录的日期</p>
 				                    </div>
 				                    <!-- <hr style="margin:0 0 1.4em; background:#ddd;color:#ddd;clear:both;width:100%;height: 5px; line-height: 3px;font-size: 0; border: none 0;"> -->
@@ -199,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							                	       								<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
 							                	       							</c:if>
 					                   	    								</td>						               	    			 	
-					                	    			   					<td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
+					                	    			   					<td style='vertical-align: middle;font-size:1.2em' colspan=2>${item.dishName }</td>
 					                	    			   					<td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
 					                	    							</tr>
 					                	    							<tr>							               	    		   

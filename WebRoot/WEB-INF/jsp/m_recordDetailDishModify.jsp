@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div> 
 				    	<div class="container-fluid" style="color:#000;padding:0 0; ">
 				    	    <div class="newcustom" style="margin-top:69px;padding-left:5%;">					    		
-		    					<div class="row" style="padding-top:16px">
+		    					<div class="row" style="padding-top:16px;font-size: 1.3rem">
 			 						<div class="col-xs-4">
 								   		<label>所属校区：</label>${muserItems.campusName}
 								   	</div>
@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
 									                	       					</c:if>
 									                   	    				</td>						               	    			 	
-									                	    			   	<td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
+									                	    			   	<td style='vertical-align: middle;font-size:1.2em' colspan=2>${item.dishName }</td>
 									                	    			   	<td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
 									                	    			</tr>
 									                	    			<tr>							               	    		   

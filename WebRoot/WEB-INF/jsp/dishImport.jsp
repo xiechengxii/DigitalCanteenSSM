@@ -70,11 +70,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	document.importDishForm.submit(); 
 	    	}
 	    	
-	    	//点击导入以前日期已录入的菜品
+	    	//导入以前日期已录入的菜品的验证
 	    	function getDishInImportDate(){
 	    		document.importDishForm.action="getDishInImportDate.action";
-            	document.importDishForm.submit(); 
+            	jquerySubByFId('importDishForm', getDishInImportDate_callback, null, "json");
 	    	}
+	    	function getDishInImportDate_callback(data){
+	    		//成功
+	    		if(data.resultInfo.type == '1'){
+	    			window.location.href = "importDish.action?recordID="+data.resultInfo.recordID;
+	    		}else if(data.resultInfo.type == '0'){
+	    			alert(data.resultInfo.message);
+	    		}
+	    	}
+
 	    	
 	    	function checkBoxSelect(dishID){
 	    		var checkbox = document.getElementById(dishID);	
@@ -104,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$(document).ready(function(){
 				//下拉框触发读取数据库
 	    		$("#dishDate").change(function() { 
-					document.importDishForm.action="chooseDishInDate.action";
+					document.importDishForm.action = "chooseDishInDate.action";
             		document.importDishForm.submit();
 				});
 									    			    
@@ -132,7 +141,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            dishDate.options[i].selected = true;
 			        }
 			    }	
-			} 
+			}
+
+			//保存已经勾选的记录
+			function dishDateSubmit(){
+				document.importDishForm.action = "importHandle.action";
+				jquerySubByFId('importDishForm', dishDateSubmit_callback, null, "json");
+			}
+			function dishDateSubmit_callback(data){
+
+			}
 	    </script>
 
 	    <script src="././My97DatePicker/WdatePicker.js"></script>
@@ -172,7 +190,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	                	<div class="col-sm-2">
     	                		<input type="hidden" name="dishdate" id="dishdate" value="${dishDate}">
 	                        	<select name="dishDate" id="dishDate" class="form-control">
-	                        	    <option value="全部">请选择时间档</option>
 	                        	    <option value="早餐">早餐</option>
 	                        	    <option value="中餐">中餐</option>
 	                        	    <option value="晚餐">晚餐</option>

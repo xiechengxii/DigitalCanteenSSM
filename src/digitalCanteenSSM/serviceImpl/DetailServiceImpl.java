@@ -34,13 +34,25 @@ public class DetailServiceImpl implements DetailService{
 	public void deleteDetailDishByRecordId(Integer recordID) throws Exception{
 		detailMapper.deleteDetailDishByRecordId(recordID);
 	}
+	
+	@Override
+	public void deleteDetailDishByDateAndRecordId(Detail detail) throws Exception{
+		detailMapper.deleteDetailDishByDateAndRecordId(detail);
+	}
+	
 	@Override
 	public void deleteDetailDish(Integer detailID) throws Exception{
 		detailMapper.deleteDetailDish(detailID);
 	}
+	
 	@Override
 	public void insertDetailDish(DishItems dishItems) throws Exception{
 		detailMapper.insertDetailDish(dishItems);
+	}
+	
+	@Override
+	public void insertDetail(Detail detail) throws Exception{
+		detailMapper.insertDetail(detail);
 	}
 
 	@Override

@@ -14,9 +14,13 @@ public interface DetailService {
 	
 	public void deleteDetailDishByRecordId(Integer recordID) throws Exception;
 	
+	public void deleteDetailDishByDateAndRecordId(Detail detail) throws Exception;
+	
 	public void deleteDetailDish(Integer detailID) throws Exception;
 	
 	public void insertDetailDish(DishItems dishItems) throws Exception;
+	
+	public void insertDetail(Detail detail) throws Exception;
 
 	public List<Detail> findDetailByDateAndID(Detail detail) throws Exception;
 }

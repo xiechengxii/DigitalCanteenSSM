@@ -237,10 +237,20 @@ public class DishManagementController {
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");		
 		Date recordDate = (Date) request.getAttribute("recordDate");
 		
-		modelAndView.addObject("recordID",recordID);	//传递记录表编号, 后面用于和detail表关联
+		//进入importDish.jsp页面默认显示早餐时间档，
+		//在后台需要将早餐的菜品列表传到页面
+		DishItems dishItems = new DishItems();		
+		dishItems.setDishDate("早餐");
+		dishItems.setCantID(muserItems.getCantID());
+		List<DishItems> dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);		
+		
+		modelAndView.addObject("recordID",recordID);			//传递记录表编号, 后面用于和detail表关联
 		modelAndView.addObject("recordDate",recordDate);
+		modelAndView.addObject("dishDate", "早餐");				//将默认时间档传递到页面
+		modelAndView.addObject("dishItemsList", dishItemsList);	//早餐时间档的菜品列表
 		modelAndView.addObject("muserItems",muserItems);
 		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		modelAndView.addObject("dishDetailInDateList", detailService.findDetailDish(recordID));
 		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
@@ -313,10 +323,11 @@ public class DishManagementController {
 	    List<Detail> d = detailService.findDetailByDateAndID(detail);
 	    
 	    DishItems dishItems = new DishItems();
-	    //d不为空说明已经录入过，需要清理已经录入过的记录再录入新记录
+	    //d不为空说明本时间档已经录入过，需要清理已经录入过的记录再录入新记录
 	    if(!d.isEmpty()){
-	    	detailService.deleteDetailDishByRecordId(recordID);
+	    	detailService.deleteDetailDishByDateAndRecordId(detail);
 	    }
+	    
 	    for(Integer i: dishIDList){
 			dishItems = dishManagementService.findDishById(i);
 			dishItems.setDishRecordID(recordID);
@@ -329,28 +340,42 @@ public class DishManagementController {
 	}
 	
 	@RequestMapping("/getDishInImportDate")
-	public ModelAndView getDishInImportDate(HttpSession session, HttpServletRequest request, Record record)throws Exception{
+	public @ResponseBody SubmitResultInfo getDishInImportDate(HttpSession session, HttpServletRequest request, Record record)throws Exception{
 		
-		ModelAndView modelAndView =new ModelAndView();
+		ResultInfo resultInfo = new ResultInfo();
 		
-		//页面回传的record类只带有recordDate和recordID信息。
-		//先设定record的recordCantName值，
-		//然后调用findRecordInCanteenAndDate查找食堂该日是否进行了录入，
-		//如果没有录入，则返回警告信息
+		//页面回传的record类只带有recordDate和recordID信息,
+		//需要注意：其中recordDate是要导入的记录的日期，recordID是当日生成的record的ID。
+		//
+		//查询记录是否存在要设定record的recordCantName值，利用食堂和日期来查
+		//调用findRecordInCanteenAndDate查找食堂该日是否进行了录入，
+		//如果没有录入，返回警告信息
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 		record.setRecordCantName(muserItems.getCantName());
 		
-		if(!(recordService.findRecordByDate(record).isEmpty())){			
-			record.setRecordCantID(muserItems.getCantID());
-			int recordid= recordService.findRecordID(record);
-			request.setAttribute("recordDate",record.getRecordDate());
-			List<Detail> dishDetailInDateList = detailService.findDetailDish(recordid);
-			modelAndView.addObject("dishDetailInDateList",dishDetailInDateList);
-			modelAndView.addObject("muserItems",muserItems);
-			modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		Record recordImport = recordService.findRecordInCanteenAndDate(record);
+		if(recordImport != null){
+			resultInfo.setMessage("查询到记录");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
+			resultInfo.setRecordID(recordImport.getRecordID());
+			
+			//用户从之前的记录导入时，在后台就将记录保存好。步骤如下：
+			//1.读取要导入日期的所有detail
+			//2.(如果存在)清除录入当日已录入的所有detail
+			//3.将读取的detail中的recordID改成当日的recordID，并添加到数据库中
+			List<Detail> detailList = detailService.findDetailDish(recordImport.getRecordID());
+			detailService.deleteDetailDishByRecordId(record.getRecordID());
+			for(Detail detail:detailList){
+				detail.setDetailRecordID(record.getRecordID());
+				detailService.insertDetail(detail);
+			}
+		}else{
+			resultInfo.setMessage("该日期没有记录，请重新选择导入日期！");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_FAIL);
 		}
-		modelAndView.setViewName("importDish.action");
-		return modelAndView;
+		
+		SubmitResultInfo submitResultInfo = new SubmitResultInfo(resultInfo);		
+		return submitResultInfo;
 	}
 
 	//补录
@@ -388,39 +413,16 @@ public class DishManagementController {
 		DishItems dishItems = new DishItems();
 		List<DishItems> dishItemsList = new ArrayList<DishItems>();
 		
-		//当选择范围是“全部”时，分别查询早餐、正餐和全天供应的菜品列表，
-		//然后用List的addAll方法把两个列表拼接成最终的列表；
-		//当选择范围是早中晚餐或全天供应时，只需要查询一次
-		if(dishDate.equals("全部")){
-			
-			List<DishItems> dishItemsListTmp = new ArrayList<DishItems>();
-			
-			dishItems.setCantID(canteenID);
-			dishItems.setDishDate("早餐");
-			
-			dishItemsListTmp = dishManagementService.findDishInCanteenAndDate(dishItems);
-			
-			dishItems.setDishDate("正餐");
-			dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
-			dishItemsList.addAll(dishItemsListTmp);
-			
-			dishItems.setDishDate("全天供应");
-			dishItemsListTmp = dishManagementService.findDishInCanteenAndDate(dishItems);
-			dishItemsList.addAll(dishItemsListTmp);
-		}else{
-			if(dishDate.equals("中餐")||dishDate.equals("晚餐")){
-				
-				dishItems.setDishDate("正餐");
-				
-			}else{
-				
-				dishItems.setDishDate(dishDate);
-				
-			}
-			dishItems.setCantID(canteenID);
-			
-			dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
+		//中餐和晚餐合并为正餐查询，
+		//早餐和全天供应各自查询
+		if(dishDate.equals("中餐")||dishDate.equals("晚餐")){			
+			dishItems.setDishDate("正餐");			
+		}else{			
+			dishItems.setDishDate(dishDate);			
 		}
+		dishItems.setCantID(canteenID);
+		
+		dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
 		
 		//菜品查询时间档和记录表ID需要重新传回页面，页面加载时会根据这些信息来确定各下拉框的显示值
 		//
@@ -434,7 +436,11 @@ public class DishManagementController {
 		
 		//replenishFlag此处用于标记发出查询请求的页面是属于录入、补录还是修改页面
 		if(replenishFlag == 0){
-			modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
+			if(session.getAttribute("ua").equals("pc")){
+				modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
+			}else{
+				modelAndView.setViewName("/WEB-INF/jsp/m_dishImport.jsp");
+			}
 		}
 		
 		return modelAndView;

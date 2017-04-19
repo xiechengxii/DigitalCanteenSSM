@@ -47,7 +47,10 @@ public class RecordDishController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
+		//删除记录要同时删除record和与之相关的detail
+		detailService.deleteDetailDishByRecordId(record.getRecordID());		
 		recordService.deleteRecord(record);
+		
 		modelAndView.setViewName("muserCanteenHostPage.action");
 		
 		return modelAndView;

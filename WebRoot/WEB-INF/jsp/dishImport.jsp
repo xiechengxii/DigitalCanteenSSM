@@ -149,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				jquerySubByFId('importDishForm', dishDateSubmit_callback, null, "json");
 			}
 			function dishDateSubmit_callback(data){
-
+				alert(data.resultInfo.message);
 			}
 	    </script>
 
@@ -265,6 +265,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	            	</table>
     	            	<div class="form-group">
     	                	<input type="button" class="btn btn-primary" value="保存" onClick=dishDateSubmit()>
+    	                	<a href="${pageContext.request.contextPath }/muserCanteenHostPage.action" class="btn btn-primary">返回首页</a>
     	            	</div> 
                     </form>
             	</div>

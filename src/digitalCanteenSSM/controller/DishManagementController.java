@@ -3,6 +3,7 @@ package digitalCanteenSSM.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -291,7 +292,6 @@ public class DishManagementController {
 		
 		//传递给页面的参数
 		ResultInfo resultInfo = new ResultInfo();
-		resultInfo.setMessage("提交成功");
 		resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
 		resultInfo.setRecordID(recordID);
 		
@@ -332,13 +332,40 @@ public class DishManagementController {
 	    	detailService.deleteDetailDishByDateAndRecordId(detail);
 	    }
 	    
-	    for(Integer i: dishIDList){
-			dishItems = dishManagementService.findDishById(i);
-			dishItems.setDishRecordID(recordID);
-			dishItems.setDishDateFlag(dishdateflag);
-			dishItems.setDishDate(dishDate);
-			detailService.insertDetailDish(dishItems);
-		}
+	    if(dishIDList != null){
+		    for(Integer i: dishIDList){
+				dishItems = dishManagementService.findDishById(i);
+				dishItems.setDishRecordID(recordID);
+				dishItems.setDishDateFlag(dishdateflag);
+				dishItems.setDishDate(dishDate);
+				detailService.insertDetailDish(dishItems);
+			}
+	    }
+	    
+	    //生成提示语，提示用户已经录入了哪些时间档：
+	    //首先读取当日所有已录入的detail，
+	    //然后将它们的detailDishDate字段不重复地保存到messageList中，
+	    //最后拼接成提示信息
+	    List<Detail> detailRecorded = detailService.findDetailDish(recordID);
+	    List<String> messageList = new ArrayList<String>();
+	    for(Detail detailTmp:detailRecorded){
+	    	if(!messageList.contains(detailTmp.getDetailDishDate())){
+	    		messageList.add(detailTmp.getDetailDishDate());
+	    	}
+	    }
+	    if(!messageList.isEmpty()){
+	    	String inputMessage = "已录入";
+	    	Iterator<String> string_itr = messageList.iterator();
+	    	while(string_itr.hasNext()){
+	    		inputMessage += " 【";
+	    		inputMessage += string_itr.next();
+	    		inputMessage += "】 ";
+	    	}
+	    	inputMessage += "时间档的菜品";
+	    	resultInfo.setMessage(inputMessage);
+	    }else{
+	    	resultInfo.setMessage("未录入任何菜品");
+	    }
 	    
 	    SubmitResultInfo submitResultInfo = new SubmitResultInfo(resultInfo);		
 		return submitResultInfo;
@@ -427,6 +454,22 @@ public class DishManagementController {
 		}
 		dishItems.setCantID(canteenID);
 		
+		//构建并初始化一个detail用于查询相应时间档已经录入的记录，
+		//用于页面切换时间档之后显示出已录入的记录
+		int dishdateflag = 0;
+		if(dishDate.equals("早餐")){
+			dishdateflag = 1;
+		}else if(dishDate.equals("中餐")){
+			dishdateflag = 2;
+		}else if(dishDate.equals("晚餐")){
+			dishdateflag = 3;
+		}else if(dishDate.equals("全天供应")){
+			dishdateflag = 4;
+		}
+		Detail detail = new Detail();
+		detail.setDetailDishDateFlag(dishdateflag);
+		detail.setDetailRecordID(recordID);
+		
 		dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
 		
 		//菜品查询时间档和记录表ID需要重新传回页面，页面加载时会根据这些信息来确定各下拉框的显示值
@@ -436,7 +479,7 @@ public class DishManagementController {
 		modelAndView.addObject("dishDate", dishDate);	//时间档
 		modelAndView.addObject("recordID", recordID);	//记录表编号
 		modelAndView.addObject("muserItems", muserItems);
-		modelAndView.addObject("dishDetailList",detailService.findDetailDish(recordID));
+		modelAndView.addObject("dishDetailInDateList", detailService.findDetailByDateAndID(detail));
 		modelAndView.addObject("dishItemsList", dishItemsList);		
 		
 		//replenishFlag此处用于标记发出查询请求的页面是属于录入、补录还是修改页面

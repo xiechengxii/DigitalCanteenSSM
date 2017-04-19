@@ -264,7 +264,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                	</tbody>
     	            	</table>
     	            	<div class="form-group">
-    	                	<input type="button" class="btn btn-primary" value="保存" onClick=getNowFormatDate()>
+    	                	<input type="button" class="btn btn-primary" value="保存" onClick=dishDateSubmit()>
     	            	</div> 
                     </form>
             	</div>

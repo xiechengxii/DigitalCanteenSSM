@@ -242,15 +242,19 @@ public class DishManagementController {
 		DishItems dishItems = new DishItems();		
 		dishItems.setDishDate("早餐");
 		dishItems.setCantID(muserItems.getCantID());
-		List<DishItems> dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);		
+		List<DishItems> dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
+		
+		//新建detail对象，填入recordID和时间档标志位1（早餐）
+		Detail detail = new Detail();
+		detail.setDetailRecordID(recordID);
+		detail.setDetailDishDateFlag(1);	//1代表早餐
 		
 		modelAndView.addObject("recordID",recordID);			//传递记录表编号, 后面用于和detail表关联
 		modelAndView.addObject("recordDate",recordDate);
 		modelAndView.addObject("dishDate", "早餐");				//将默认时间档传递到页面
 		modelAndView.addObject("dishItemsList", dishItemsList);	//早餐时间档的菜品列表
 		modelAndView.addObject("muserItems",muserItems);
-		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
-		modelAndView.addObject("dishDetailInDateList", detailService.findDetailDish(recordID));
+		modelAndView.addObject("dishDetailInDateList", detailService.findDetailByDateAndID(detail));	//已录入的早餐菜品
 		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
@@ -332,6 +336,7 @@ public class DishManagementController {
 			dishItems = dishManagementService.findDishById(i);
 			dishItems.setDishRecordID(recordID);
 			dishItems.setDishDateFlag(dishdateflag);
+			dishItems.setDishDate(dishDate);
 			detailService.insertDetailDish(dishItems);
 		}
 	    

@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 根据RecordID和时间档删除该记录信息 -->
 	<select id="deleteDetailDishByDateAndRecordId"  parameterType="Detail" >
 		DELETE	FROM ctdetail 
-		WHERE ctdetail.DetailRecordID=#{recordID}
+		WHERE ctdetail.DetailRecordID=#{detailRecordID}
 		and ctdetail.DetailDishDateFlag = #{detailDishDateFlag}
 	</select>
 	

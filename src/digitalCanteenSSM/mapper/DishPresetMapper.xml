@@ -30,21 +30,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 根据DishPresetID更新菜品预置信息 -->
 	<select id="updateDishPreset"  parameterType="DishPreset">
 		UPDATE ctdishpreset 
-		SET ctdishpreset.DishPresetName= #{ dishPresetName}
+		SET ctdishpreset.DishPresetName=#{ dishPresetName},
+			ctdishpreset.DishPresetPhoto=#{ dishPresetPhoto}
 		WHERE ctdishpreset.DishPresetID=#{ dishPresetID};		
 	</select>
 	
 	
 	<!-- 根据DishPresetID删除菜品预置信息 -->
 	<select id="deleteDishPresetById"  parameterType="Integer">
-		Delete from ctdishpreset 
+		Delete from ctdishpreset
 		where ctdishpreset.DishPresetID=#{ dishPresetID}
 	</select>
 	
 	<!-- 添加菜品预置信息 -->
 	<select id="insertDishPreset"  parameterType="DishPreset">
-		Insert into ctdishpreset (ctdishpreset.DishPresetName)
-		values (#{ dishPresetName})
+		Insert into ctdishpreset (ctdishpreset.DishPresetName, ctdishpreset.DishPresetPhoto)
+		values (#{ dishPresetName}, #{dishPresetPhoto})
 	</select>
 	
 </mapper>

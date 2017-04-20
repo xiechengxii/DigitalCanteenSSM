@@ -43,13 +43,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 
 					<div class="panel-body">
-						<form class="form-horizontal" role="form" name="updateDishPreset" method="post" action="modifyDishPresetSave.action">
+						<form class="form-horizontal" role="form" name="updateDishPreset" method="post" action="modifyDishPresetSave.action" enctype="multipart/form-data">
 							<div class="form-group">
 								<input name="dishPresetID" type="hidden" value="${dishPreset.dishPresetID }">							
 								<label class="col-sm-2 control-label">菜品名称：</label>
 								<div class="col-sm-9">	
 									<input name="dishPresetName" class="form-control" type="text" value="${dishPreset.dishPresetName }">
 								</div>								
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">菜品图片：</label>
+                                <div class="col-sm-9">
+                                    <c:if test="${dishPreset.dishPresetPhoto != null }">
+                                        <img src="/upload/pic/${dishPreset.dishPresetPhoto }" height="100" width="120"/>
+                                    </c:if>
+                                    <br><br>
+                                    <input type="file" name="dishPhotoFile"/>
+                                </div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-2 col-sm-offset-5">

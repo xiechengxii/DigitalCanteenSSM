@@ -45,14 +45,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					<div class="panel-body">
 						
-						<form class="form-horizontal" role="form" action="insetDishPreset.action" method="post">
+						<form class="form-horizontal" role="form" action="insetDishPreset.action" method="post" enctype="multipart/form-data">
 							<div class="form-group">																	
 								<label class="col-sm-2 control-label">菜品名称：</label>
 								<div class="col-sm-9">	
 									<!-- 添加预置菜品-->
 									<input type="text" class="form-control" placeholder="预置菜品名称" name="dishPresetName"> 
 								</div>								
-							</div>	
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">菜品图片上传</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="dishPhotoFile"/>
+                                </div>
+							</div>
 							<div class="form-group">
 								<div class="col-sm-2 col-sm-offset-5">
 									<input type="submit" class="btn btn-primary" value="添加预置菜品">

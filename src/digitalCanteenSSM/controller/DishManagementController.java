@@ -555,7 +555,7 @@ public class DishManagementController {
 	
 	//修改菜品：修改之后保存并跳转到菜品录入页面
 	@RequestMapping ("/modifyDishSave")	
-	public ModelAndView modifyDishSave(DishItems dishItems,MultipartFile dishPhotoFile,HttpSession session) throws Exception{
+	public ModelAndView modifyDishSave(DishItems dishItems, MultipartFile dishPhotoFile, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");

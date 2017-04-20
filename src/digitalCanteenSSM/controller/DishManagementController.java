@@ -389,7 +389,7 @@ public class DishManagementController {
 		if(recordImport != null){
 			resultInfo.setMessage("查询到记录");
 			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
-			resultInfo.setRecordID(recordImport.getRecordID());
+			resultInfo.setRecordID(record.getRecordID());
 			
 			//用户从之前的记录导入时，在后台就将记录保存好。步骤如下：
 			//1.读取要导入日期的所有detail

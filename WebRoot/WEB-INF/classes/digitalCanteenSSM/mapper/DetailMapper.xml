@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * 
 		FROM ctdetail
 		WHERE ctdetail.DetailRecordID = #{recordID }
-		ORDER BY DetailWndID
+		ORDER BY DetailWndID, DetailDishDateFlag ASC
 	</select>
 	
 	<select id="findRecordAndDetailDish" parameterType="Integer" resultType="RecordItems">

@@ -58,14 +58,14 @@ public class RecordDishController {
 		
 	//修改某个食堂某一天录入的详细菜品信息
 	@RequestMapping("/modifyRecordDetailDish")
-	public ModelAndView modifyDetailDish(Record record,HttpSession session)throws Exception{
+	public ModelAndView modifyRecordDetailDish(Integer recordID, HttpSession session)throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
-		modelAndView.addObject("muserItems",muserItems);
-		modelAndView.addObject("record",record);
-		modelAndView.addObject("dishDetailList",detailService.findDetailDish(record.getRecordID()));
-		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		modelAndView.addObject("muserItems", muserItems);
+		modelAndView.addObject("recordID", recordID);
+		modelAndView.addObject("dishDetailList", detailService.findDetailDish(recordID));
+		modelAndView.addObject("dishItemsList", dishManagementService.findDishInCanteen(muserItems.getCantID()));
 		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("WEB-INF/jsp/recordDetailDishModify.jsp");

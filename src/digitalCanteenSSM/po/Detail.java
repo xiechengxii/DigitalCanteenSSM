@@ -15,10 +15,8 @@ public class Detail {
 	private String detailDishDate;
 	private String detailDishRecmd;
 	private String detailDishKeep;
-	private String detailDishQuality;
 	private String detailDishSale;
 	private Date detailDishInDate;
-	private String detailDishInState;
 	private String detailDishNote;
 	private String detailDishDelete;
 	
@@ -95,12 +93,7 @@ public class Detail {
 	public void setDetailDishKeep(String detailDishKeep) {
 		this.detailDishKeep = detailDishKeep;
 	}
-	public String getDetailDishQuality() {
-		return detailDishQuality;
-	}
-	public void setDetailDishQuality(String detailDishQuality) {
-		this.detailDishQuality = detailDishQuality;
-	}
+
 	public String getDetailDishSale() {
 		return detailDishSale;
 	}
@@ -113,12 +106,7 @@ public class Detail {
 	public void setDetailDishInDate(Date detailDishInDate) {
 		this.detailDishInDate = detailDishInDate;
 	}
-	public String getDetailDishInState() {
-		return detailDishInState;
-	}
-	public void setDetailDishInState(String detailDishInState) {
-		this.detailDishInState = detailDishInState;
-	}
+	
 	public String getDetailDishNote() {
 		return detailDishNote;
 	}

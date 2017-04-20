@@ -15,8 +15,6 @@ public interface DishManagementService {
 	
 	public List<DishItems> findApplyDish(String dishInState) throws Exception;
 	
-	public void updateCheckDishPass(Dish dish) throws Exception;
-	
 	public DishItems findDishById(Integer dishID) throws Exception;
 	
 	public DishItems findDishByName(DishItems dishItems) throws Exception;

@@ -39,11 +39,6 @@ public class DishManagementServiceImpl implements DishManagementService {
 		return dishManagementMapper.findApplyDish(dishInState);
 	}
 	
-	public void updateCheckDishPass(Dish dish) throws Exception{
-		
-		dishManagementMapper.updateCheckDishPass(dish);
-	}
-	
 	@Override
 	public void insertDish(Dish dish) throws Exception {
 		

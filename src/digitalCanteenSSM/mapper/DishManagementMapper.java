@@ -18,8 +18,6 @@ public interface DishManagementMapper {
 	
 	public List<DishItems> findApplyDish(String dishInState) throws Exception;
 	
-	public void updateCheckDishPass(Dish dish) throws Exception;
-	
 	public DishItems findDishById(Integer dishID) throws Exception;
 	
 	public void updateDish(DishItems dishItems) throws Exception;

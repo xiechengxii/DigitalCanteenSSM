@@ -67,11 +67,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         	    	<th style='text-align: center;'>菜品价格</th>
                         	    	<th style='text-align: center;'>菜品销售时间</th>
                         	    	<th style='text-align: center;'>菜品销售状态</th>			
-                        	    	<th style='text-align: center;'>菜品录入日期</th>
-                        	    	<th style='text-align: center;'>菜品录入状态</th>
+                        	    	<th style='text-align: center;'>菜品录入日期</th>                        	    	
                         	    	<th style='text-align: center;'>菜品推荐</th>
-                        	    	<th style='text-align: center;'>菜品留样</th>
-                        	    	<th style='text-align: center;'>菜品合格</th> 	
+                        	    	<th style='text-align: center;'>菜品留样</th>                        	    		
                                     <th style='text-align: center;'>编辑</th>		
                         	    </tr>
 	                    	</thead>
@@ -88,11 +86,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishPrice }</td>
 	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishDate }</td>
 	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishSale }</td>
-	                    	       	    <td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.detailDishInDate}" pattern="yyyy-MM-dd" /></td> 
-	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishInState }</td>
+	                    	       	    <td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.detailDishInDate}" pattern="yyyy-MM-dd" /></td>
 	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishRecmd }</td>
-	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishKeep }</td>
-	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishQuality }</td>	
+	                    	       	    <td style='vertical-align: middle;text-align: center;'>${item.detailDishKeep }</td>	                    	       	    
                                         <td style='vertical-align: middle;text-align: center;'>
                                             <a href="deleteDetailDish.action?detailID=${item.detailID}&recordID=${record.recordID}" class="btn btn-danger">删除</a>
                                         </td>

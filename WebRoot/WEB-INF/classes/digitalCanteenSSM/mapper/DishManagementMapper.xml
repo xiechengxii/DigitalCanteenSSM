@@ -61,15 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         		ctwnd.WndCantID = ctcant.cantID and 
         		ctcant.CantCampusID=ctcampus.campusID and
         		ctdish.DishTypeID=ctdishtype.DishTypeID and
-        		ctdish.DishInState=#{dishInState}
 		ORDER BY CampusID ,CantID,WndID,DishID DESC
-	</select>
-	
-	<!-- 待审核菜品审核通过 -->
-	<select id="updateCheckDishPass" parameterType="Dish" >
-		UPDATE ctdish 
-		SET ctdish.DishInState= #{dishInState}
-		WHERE ctdish.DishID=#{dishID}		
 	</select>
 	
 	<!-- 根据DishID查询该菜品信息 -->
@@ -106,10 +98,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ctdish.DishDate= #{dishDate},  
 			ctdish.DishRecmd= #{dishRecmd},
 			ctdish.DishKeep= #{dishKeep},
-			ctdish.DishQuality= #{dishQuality},
 			ctdish.DishSale= #{dishSale}, 
 			ctdish.DishInDate= #{dishInDate},  
-			ctdish.DishInState= #{dishInState},
 			ctdish.DishNote= #{dishNote},
 			ctdish.DishDelete= #{dishDelete} 
 		WHERE ctdish.DishID=#{dishID}		
@@ -126,14 +116,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		Insert into ctdish (ctdish.DishWndID,ctdish.DishTypeID,ctdish.DishName,ctdish.DishPhoto,
 		ctdish.DishPrice,ctdish.DishDate,
 		ctdish.DishRecmd,ctdish.DishKeep, 		
-		ctdish.DishQuality,ctdish.DishSale,
-		ctdish.DishInDate,ctdish.DishInState,
+		ctdish.DishSale,
+		ctdish.DishInDate,
 		ctdish.DishNote,ctdish.DishDelete) 
 		values (#{dishWndID},#{dishTypeID},#{dishName},#{dishPhoto},
 		#{dishPrice},#{dishDate},	
 		#{dishRecmd},#{dishKeep},	
-		#{dishQuality},#{dishSale},
-		#{dishInDate},#{dishInState},
+		#{dishSale},
+		#{dishInDate},
 		#{dishNote},#{dishDelete})
 	</select>
 	

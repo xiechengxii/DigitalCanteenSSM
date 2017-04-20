@@ -166,19 +166,6 @@ public class DishManagementController {
 		return modelAndView;
 	}
 	
-	//审核通过
-	@RequestMapping("/checkDishPass")
-	public ModelAndView checkDishPass(Dish dish) throws Exception{
-		
-		ModelAndView modelAndView= new ModelAndView();
-		
-		dish.setDishInState("审核通过");
-		dishManagementService.updateCheckDishPass(dish);
-		modelAndView.setViewName("checkDish.action");
-		
-		return modelAndView;
-	}
-	
 	//录入菜品的重复检测
 	@RequestMapping("/importRepeatCheck")
 	public @ResponseBody SubmitResultInfo importRepeatCheck(HttpSession session) throws Exception{

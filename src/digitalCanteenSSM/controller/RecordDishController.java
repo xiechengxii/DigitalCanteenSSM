@@ -26,9 +26,13 @@ public class RecordDishController {
 	
 	//查看某个食堂某一天记录的详细菜品信息
 	@RequestMapping("/findRecordDetailDish")
-	public ModelAndView findDetailDish(Record record, HttpSession session) throws Exception{
+	public ModelAndView findRecordDetailDish(Record record, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
+		
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");	
+		
+		modelAndView.addObject("muserItems",muserItems);
 		modelAndView.addObject("record",record);
 		modelAndView.addObject("dishDetailList",detailService.findDetailDish(record.getRecordID()));
 		

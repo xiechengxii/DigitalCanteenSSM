@@ -127,7 +127,7 @@ public class DishManagementController {
 			modelAndView.setViewName("/WEB-INF/jsp/dishInCanteen.jsp");
 		}else{
 			modelAndView.setViewName("/WEB-INF/jsp/m_dishInCanteen.jsp");
-		}		
+		}
 		
 		return modelAndView;
 	}
@@ -599,21 +599,14 @@ public class DishManagementController {
 	
 	//插入新菜品信息
 	@RequestMapping ("/insertDish")
-	public ModelAndView insertDish(DishItems dishItems,MultipartFile dishPhotoFile,HttpSession session) throws Exception{
+	public ModelAndView insertDish(DishItems dishItems, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 
 		if(findDishByName(dishItems) == null){	
-			String dishphoto=uploadFileService.uploadFile(dishPhotoFile, picturePath);
-			//未输入图片则使用默认的
-			if( dishphoto== null){			
-				dishItems.setDishPhoto(defaultPicturePath);
-			}
-			else{
-				dishItems.setDishPhoto(dishphoto);
-			}
 			dishManagementService.insertDish(dishItems);
-		}		
+		}
+		
 		modelAndView.setViewName("findDishInCanteen.action");
 		
 		return modelAndView;

@@ -147,13 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <option value="">请选择菜品</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品图片上传</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="dishPhotoFile"/>
-                                </div>
-                            </div>    
+                            </div>   
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜品添加日期</label>
                                 <div class="col-sm-9">
@@ -183,30 +177,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <option value="是">是</option>            
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品质量</label>
-                                <div class="col-sm-9">
-                                    <select name="dishQuality" class="form-control">
-                                        <option value="优" selected="selected">优</option>
-                                        <option value="良">良</option>
-                                        <option value="中">中</option>
-                                        <option value="差">差</option>
-                                    </select>
-                                </div>
                             </div> 
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品录入状态</label>
-                                <div class="col-sm-9">    
-                                    <input type="text" class="form-control" name="dishInState" value="审核通过" readonly="readonly">
-                                </div>
-                            </div>    
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜品销售状态</label>
                                 <div class="col-sm-9"> 
                                     <select name="dishSale" class="form-control">
                                         <option value="在售" selected="selected">在售</option>
-                                        <option value="未售">未售</option>
+                                        <option value="下架">下架</option>
                                     </select>
                                 </div>
                             </div>
@@ -214,9 +191,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label class="col-sm-2 control-label">菜品销售时间</label>
                                 <div class="col-sm-9">
                                     <select name="dishDate" class="form-control">
-                                        <option value="早上" selected="selected">早上</option>
-                                        <option value="中午">中午</option>
-                                        <option value="晚上">晚上</option>
+                                        <option value="早餐" selected="selected">早餐</option>
+                                        <option value="正餐">正餐</option>
+                                        <option value="全天供应">全天供应</option>
                                     </select>
                                 </div>
                             </div>

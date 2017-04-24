@@ -54,6 +54,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</div>
 
     			<div class="panel-body">
+                    <a href="addDish.action" class="btn btn-primary">菜品上架</a>
+                    <br><br>
     				<!-- 显示在一个食堂中的所有菜品 -->
     				<form role="form" name="dishForm" enctype="multipart/form-data">
 						<input name="dishID" type="hidden" value="${dishItems.dishID }">
@@ -61,8 +63,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<table class="table table-striped table-bordered table-hover table-responsive text-center">
     						<thead>
     							<tr>
-    								<th style='text-align: center;'>校区名称</th>
-    								<th style='text-align: center;'>食堂名称</th>
     								<th style='text-align: center;'>档口名称</th>
     								<th style='text-align: center;'>菜品类型</th>
     								<th style='text-align: center;'>菜品名称</th>
@@ -79,9 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     						
     						<tbody>								
 								<c:forEach items="${pagehelper.list }" var="item" >
-    								<tr>
-    							 		<td style='vertical-align: middle;text-align: center;'>${item.campusName }</td>
-    							   		<td style='vertical-align: middle;text-align: center;'>${item.cantName }</td>
+    								<tr>    							 		
     							   		<td style='vertical-align: middle;text-align: center;'>${item.wndName }</td>
     							   		<td style='vertical-align: middle;text-align: center;'>${item.dishTypeName }</td>
     							   		<td style='vertical-align: middle;text-align: center;'>${item.dishName }</td>

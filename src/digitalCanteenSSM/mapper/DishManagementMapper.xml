@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         		ctwnd.WndCantID = ctcant.cantID and 
         		ctcant.CantCampusID=ctcampus.campusID and
         		ctdish.DishTypeID=ctdishtype.DishTypeID
-		ORDER BY CampusID ,CantID,WndID,DishID
+		ORDER BY WndID, DishID DESC
 	</select>
 	
 	<!-- 查询一个食堂下的所有菜品 -->

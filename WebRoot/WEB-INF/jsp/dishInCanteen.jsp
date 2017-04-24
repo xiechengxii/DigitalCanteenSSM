@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                                     <c:if test="${!pagehelper.isLastPage}">
                                         <li>
-                                            <a href="findDishInCanteen.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                                            <a href="findDishInCanteen.action?pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
                                         </li>
                                     </c:if>
                                 </ul>

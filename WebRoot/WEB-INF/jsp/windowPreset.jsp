@@ -242,7 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                                     <c:if test="${!pagehelper.isLastPage}">
                                         <li>
-                                            <a href="findAllWindows.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                                            <a href="findAllWindows.action?pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
                                         </li>
                                     </c:if>
                                 </ul>

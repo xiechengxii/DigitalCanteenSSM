@@ -400,7 +400,10 @@ public class DishManagementController {
 	//补录
 	@RequestMapping("/getDishInImportReplenishDate")
 	public ModelAndView getDishInImportReplenishDate(HttpSession session,HttpServletRequest request,Record record,Date muserSubmitDate)throws Exception{
+		
 		ModelAndView modelAndView =new ModelAndView();
+		
+		//TODO: 这里要换一种查询方式
 		if(!(recordService.findRecordByDate(record).isEmpty())){
 			MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 			muserItems.setMuserSubmitDate(muserSubmitDate);
@@ -522,7 +525,7 @@ public class DishManagementController {
 		}
 		
 		return modelAndView;
-	}	
+	}
 	
 	//通过菜品ID查找菜品信息
 	@RequestMapping ("/findDishById")
@@ -590,10 +593,17 @@ public class DishManagementController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 
-		if(findDishByName(dishItems) == null){	
-			dishManagementService.insertDish(dishItems);
+		//确认dishItems不为空，
+		//然后查询同一窗口下是否已经有同名菜品了，
+		//如果没有菜名冲突，则关联图片并保存到数据库
+		if(dishItems != null){
+			if(findDishByName(dishItems) == null){
+				dishItems.setDishPhoto(dishPresetService.findDishPresetByName(dishItems.getDishName()).getDishPresetPhoto());
+				
+				dishManagementService.insertDish(dishItems);
+			}
 		}
-		
+				
 		modelAndView.setViewName("findDishInCanteen.action");
 		
 		return modelAndView;

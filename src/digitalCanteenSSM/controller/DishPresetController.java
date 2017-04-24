@@ -42,11 +42,11 @@ public class DishPresetController {
 	public ModelAndView findAllDishPreset(HttpServletRequest request, HttpSession session) throws Exception{
 		//本段代码运行时优先从request中读取的页码和单页内容数量，
 		//如果请求从其它controller发出，并无这两个对象，
-		//则使用的是默认的值
+		//则使用的是默认的值，预置菜品有图片，所以一页显示5项
 		String pageNum = request.getParameter("pageNum");
 		String pageSize = request.getParameter("pageSize");
 		int num = 1;
-		int size = 10;
+		int size = 5;
 		if (pageNum != null && !"".equals(pageNum)) {
 			num = Integer.parseInt(pageNum);
 		}

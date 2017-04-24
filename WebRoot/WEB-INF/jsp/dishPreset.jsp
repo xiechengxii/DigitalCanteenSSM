@@ -81,6 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<thead>
 						    	<tr>
 						   		 	<th style='text-align: center;'>菜品名称</th>
+						   		 	<th style='text-align: center;'>菜品图片</th>
 						    	    <th style='text-align: center;'>编辑</th>
 						    	</tr>
 							</thead>
@@ -88,6 +89,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<c:forEach items="${pagehelper.list }" var="item" >
 						    		<tr>
 						    		    <td style='vertical-align: middle;text-align: center;'>${item.dishPresetName }</td>
+						    		    <td style='vertical-align: middle;text-align: center;'>
+						    		    	<c:if test="${item.dishPresetPhoto != null }">
+	                		    				<img src="/upload/pic/${item.dishPresetPhoto }" class="center-block" height="100" width="120"/>
+	                		    			</c:if>
+						    		    </td>
 						    		    <td style='vertical-align: middle;text-align: center;'>						    		    	
 						    		    	<div class="form-group btn-group btn-group-sm">
 						    		    		<a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}" class="btn btn-info">修改</a>
@@ -130,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 									<c:if test="${!pagehelper.isLastPage}">
 										<li>
-											<a href="findAllDishPreset.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+											<a href="findAllDishPreset.action?pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
 										</li>
 									</c:if>
 								</ul>

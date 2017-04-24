@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.miemiedev.mybatis.paginator.domain.Order;
@@ -17,12 +18,15 @@ import com.github.pagehelper.PageInfo;
 
 import digitalCanteenSSM.po.DishPreset;
 import digitalCanteenSSM.service.DishPresetService;
+import digitalCanteenSSM.service.UploadFileService;
 
 @Controller
 public class DishPresetController {
 
 	@Autowired
 	private DishPresetService dishPresetService;
+	@Autowired
+	private UploadFileService uploadFileService;
 	
 	//菜品预置页面
 	//添加预置菜品按钮与已添加预置菜品显示
@@ -38,11 +42,11 @@ public class DishPresetController {
 	public ModelAndView findAllDishPreset(HttpServletRequest request, HttpSession session) throws Exception{
 		//本段代码运行时优先从request中读取的页码和单页内容数量，
 		//如果请求从其它controller发出，并无这两个对象，
-		//则使用的是默认的值
+		//则使用的是默认的值，预置菜品有图片，所以一页显示5项
 		String pageNum = request.getParameter("pageNum");
 		String pageSize = request.getParameter("pageSize");
 		int num = 1;
-		int size = 10;
+		int size = 5;
 		if (pageNum != null && !"".equals(pageNum)) {
 			num = Integer.parseInt(pageNum);
 		}
@@ -97,9 +101,20 @@ public class DishPresetController {
 	
 	//修改预置菜品：修改之后保存并跳转到预置菜品页面
 	@RequestMapping ("/modifyDishPresetSave")	
-	public String modifyDishPresetSave(DishPreset dishPreset) throws Exception{
+	public String modifyDishPresetSave(DishPreset dishPreset, MultipartFile dishPhotoFile) throws Exception{
 		
-		dishPresetService.updateDishPreset(dishPreset);
+		if(dishPresetService.findDishPresetByName(dishPreset.getDishPresetName()) == null || 
+		   dishPresetService.findDishPresetByName(dishPreset.getDishPresetName()).getDishPresetID() == dishPreset.getDishPresetID()){
+			String dishphoto=uploadFileService.uploadFile(dishPhotoFile, DishManagementController.getPicturepath());
+			//未改变图片则用原来的
+			if( dishphoto != null){
+				dishPreset.setDishPresetPhoto(dishphoto);
+			}else{
+				dishPreset.setDishPresetPhoto(dishPresetService.findDishPresetById(dishPreset.getDishPresetID()).getDishPresetPhoto());
+			}
+			
+			dishPresetService.updateDishPreset(dishPreset);
+		}		
 		
 		return "forward:dishPreset.action";
 	}
@@ -121,11 +136,19 @@ public class DishPresetController {
 	
 	//添加新的预置菜品
 	@RequestMapping("/insetDishPreset")
-	public String insetDishPreset(DishPreset dishPreset) throws Exception{
+	public String insetDishPreset(DishPreset dishPreset, MultipartFile dishPhotoFile) throws Exception{
 		
 		if(findDishPresetByName(dishPreset.getDishPresetName()) == null){
+			String dishphoto = uploadFileService.uploadFile(dishPhotoFile, DishManagementController.getPicturepath());
+			//未输入图片则使用默认的
+			if( dishphoto== null){			
+				dishPreset.setDishPresetPhoto(DishManagementController.getDefaultpicturepath());
+			}
+			else{
+				dishPreset.setDishPresetPhoto(dishphoto);
+			}
 			dishPresetService.insertDishPreset(dishPreset);
-		}	
+		}
 		
 		return "forward:dishPreset.action";
 	}

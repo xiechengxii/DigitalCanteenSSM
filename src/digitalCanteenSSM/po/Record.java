@@ -13,6 +13,9 @@ public class Record {
 	private String recordMUserName;
 	private Date recordDate;
 	private String recordSubmitState;
+	private int replenishFlag;		//用于标记Record属于录入还是补录
+	private Date replenishDate;		//补录日期
+	private String replenishState;	//审核状态
 	
 	public int getRecordID() {
 		return recordID;
@@ -62,6 +65,24 @@ public class Record {
 	}
 	public void setRecordSubmitState(String recordSubmitState) {
 		this.recordSubmitState = recordSubmitState;
+	}
+	public int getReplenishFlag() {
+		return replenishFlag;
+	}
+	public void setReplenishFlag(int replenishFlag) {
+		this.replenishFlag = replenishFlag;
+	}
+	public Date getReplenishDate() {
+		return replenishDate;
+	}
+	public void setReplenishDate(Date replenishDate) {
+		this.replenishDate = replenishDate;
+	}
+	public String getReplenishState() {
+		return replenishState;
+	}
+	public void setReplenishState(String replenishState) {
+		this.replenishState = replenishState;
 	}
 	public Date getRecordDate() {
 		return recordDate;

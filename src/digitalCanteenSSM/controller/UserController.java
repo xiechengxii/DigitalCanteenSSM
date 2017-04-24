@@ -78,7 +78,7 @@ public class UserController {
 					}
 				}
 			}
-			// TODO: 提示用户暂时暂时无法注册
+			// TODO: 提示用户暂时无法注册
 		}
 		return "login.jsp";
 	}

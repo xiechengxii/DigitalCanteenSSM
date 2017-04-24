@@ -15,8 +15,6 @@ public interface DishManagementService {
 	
 	public List<DishItems> findApplyDish(String dishInState) throws Exception;
 	
-	public void updateCheckDishPass(Dish dish) throws Exception;
-	
 	public DishItems findDishById(Integer dishID) throws Exception;
 	
 	public DishItems findDishByName(DishItems dishItems) throws Exception;
@@ -26,5 +24,7 @@ public interface DishManagementService {
 	public void insertDish(Dish dish) throws Exception;
 	
 	public void deleteDishById(Dish dish) throws Exception;
+	
+	public List<DishItems> findDishInCanteenAndDate(DishItems dishItems) throws Exception;
 	
 }

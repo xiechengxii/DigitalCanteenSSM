@@ -8,16 +8,15 @@ public class Detail {
 	private int detailDishID;
 	private int detailRecordID;
 	private int detailDishTypeID;
+	private int detailDishDateFlag;  //销售时间段, 早 中 晚 全天
 	private String detailDishName;
 	private String detailDishPrice;
 	private String detailDishPhoto;
 	private String detailDishDate;
 	private String detailDishRecmd;
 	private String detailDishKeep;
-	private String detailDishQuality;
 	private String detailDishSale;
 	private Date detailDishInDate;
-	private String detailDishInState;
 	private String detailDishNote;
 	private String detailDishDelete;
 	
@@ -41,6 +40,12 @@ public class Detail {
 		return detailDishTypeID;
 	}
 	
+	public int getDetailDishDateFlag() {
+		return detailDishDateFlag;
+	}
+	public void setDetailDishDateFlag(int detailDishDateFlag) {
+		this.detailDishDateFlag = detailDishDateFlag;
+	}
 	public int getDetailRecordID() {
 		return detailRecordID;
 	}
@@ -50,6 +55,7 @@ public class Detail {
 	public void setDetailDishTypeID(int detailDishTypeID) {
 		this.detailDishTypeID = detailDishTypeID;
 	}
+
 	public String getDetailDishName() {
 		return detailDishName;
 	}
@@ -87,12 +93,7 @@ public class Detail {
 	public void setDetailDishKeep(String detailDishKeep) {
 		this.detailDishKeep = detailDishKeep;
 	}
-	public String getDetailDishQuality() {
-		return detailDishQuality;
-	}
-	public void setDetailDishQuality(String detailDishQuality) {
-		this.detailDishQuality = detailDishQuality;
-	}
+
 	public String getDetailDishSale() {
 		return detailDishSale;
 	}
@@ -105,12 +106,7 @@ public class Detail {
 	public void setDetailDishInDate(Date detailDishInDate) {
 		this.detailDishInDate = detailDishInDate;
 	}
-	public String getDetailDishInState() {
-		return detailDishInState;
-	}
-	public void setDetailDishInState(String detailDishInState) {
-		this.detailDishInState = detailDishInState;
-	}
+	
 	public String getDetailDishNote() {
 		return detailDishNote;
 	}

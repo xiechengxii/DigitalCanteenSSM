@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    <h3 class="panel-title">${muserItems.cantName }  菜品录入记录</h3>
+                    <h3 class="panel-title"><b>${muserItems.cantName }</b>  菜品录入记录</h3>
                 </div> 	
                 <div class="panel-body">
                     <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
                                         <c:if test="${!pagehelper.isLastPage}">
                                             <li>
-                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
                                             </li>
                                         </c:if>
                                     </ul>

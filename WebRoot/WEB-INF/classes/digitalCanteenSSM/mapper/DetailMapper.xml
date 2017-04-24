@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * 
 		FROM ctdetail
 		WHERE ctdetail.DetailRecordID = #{recordID }
-		ORDER BY DetailWndID
+		ORDER BY DetailWndID, DetailDishDateFlag ASC
 	</select>
 	
 	<select id="findRecordAndDetailDish" parameterType="Integer" resultType="RecordItems">
@@ -19,6 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM ctdetail,ctrecord
 		WHERE ctdetail.DetailRecordID = ctrecord.RecordID and ctrecord.RecordID = #{recordID } 
 		ORDER BY DetailWndID
+	</select>
+	
+	<!-- 通过RecordID和时间档读取记录 -->
+	<select id="findDetailByDateAndID" parameterType="Detail" resultType="Detail">
+		SELECT * 
+		FROM ctdetail
+		WHERE ctdetail.DetailRecordID = #{detailRecordID} 
+		and ctdetail.DetailDishDateFlag = #{detailDishDateFlag } 	
 	</select>
 	
 	<!-- 根据DetailID删除该记录信息 -->
@@ -33,26 +41,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ctdetail.DetailRecordID=#{recordID}		
 	</select>
 	
-	<!-- 插入Detail记录信息 -->
+	<!-- 根据RecordID和时间档删除该记录信息 -->
+	<select id="deleteDetailDishByDateAndRecordId"  parameterType="Detail" >
+		DELETE	FROM ctdetail 
+		WHERE ctdetail.DetailRecordID=#{detailRecordID}
+		and ctdetail.DetailDishDateFlag = #{detailDishDateFlag}
+	</select>
+	
+	<!-- 通过DishItems插入Detail记录信息 -->
 	<select id="insertDetailDish"  parameterType="DishItems">
 		Insert into ctdetail (ctdetail.DetailDishTypeID,
 		ctdetail.DetailDishPrice,
 		ctdetail.DetailDishPhoto,ctdetail.DetailDishDate,
 		ctdetail.DetailDishRecmd,ctdetail.DetailDishKeep,
-		ctdetail.DetailDishQuality,ctdetail.DetailDishSale,
-		ctdetail.DetailDishInDate,ctdetail.DetailDishInState,
+		ctdetail.DetailDishSale,
+		ctdetail.DetailDishInDate,
 		ctdetail.DetailDishNote,ctdetail.DetailDishDelete,
 		ctdetail.DetailDishID,ctdetail.DetailDishName,
 		ctdetail.DetailRecordID,ctdetail.DetailWndID,
-		ctdetail.DetailWndName) 
+		ctdetail.DetailWndName, ctdetail.DetailDishDateFlag) 
 		values (#{dishTypeID},#{dishPrice},
 		#{dishPhoto},#{dishDate},
 		#{dishRecmd},#{dishKeep},
-		#{dishQuality},#{dishSale},
-		#{dishInDate},#{dishInState},
+		#{dishSale},
+		#{dishInDate},
 		#{dishNote},#{dishDelete},
 		#{dishID},#{dishName},
 		#{dishRecordID},#{wndID},
-		#{wndName})	
+		#{wndName},#{dishDateFlag})	
+	</select>
+	
+	<!-- 插入Detail记录信息 -->
+	<select id="insertDetail" parameterType="Detail">
+		Insert into ctdetail 
+		(ctdetail.DetailDishID, ctdetail.DetailRecordID,
+			ctdetail.DetailDishTypeID, ctdetail.DetailDishDateFlag,
+			ctdetail.DetailDishName, ctdetail.DetailDishPrice,
+			ctdetail.DetailDishPhoto, ctdetail.DetailDishDate,
+			ctdetail.DetailDishRecmd, ctdetail.DetailDishKeep,
+			ctdetail.DetailDishSale,
+			ctdetail.DetailDishInDate,
+			ctdetail.DetailDishNote,ctdetail.DetailDishDelete, 
+			ctdetail.DetailWndID,ctdetail.DetailWndName)
+		values (#{detailDishID},#{detailRecordID},
+			#{detailDishTypeID},#{detailDishDateFlag},
+			#{detailDishName},#{detailDishPrice},
+			#{detailDishPhoto},#{detailDishDate},
+			#{detailDishRecmd},#{detailDishKeep},
+			#{detailDishSale},
+			#{detailDishInDate},
+			#{detailDishNote},#{detailDishDelete},
+			#{detailWndID},#{detailWndName})
 	</select>
 </mapper>

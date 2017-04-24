@@ -48,6 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 查询是否有这一天的记录 -->
+	<!-- ！！！警告！！！ -->
+	<!-- 本条语句将会查询到所有食堂在对应日期的记录，不要用来查询某个食堂的记录 -->
 	<select id="findRecordByDate" parameterType="Record" resultType="Record">
 		SELECT *
 		FROM ctrecord
@@ -60,6 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM ctrecord
 		WHERE ctrecord.RecordCantName=#{recordCantName} and ctrecord.RecordDate = #{recordDate}
 	</select>
+	
 	
 	<!-- 根据RecordID删除该记录信息 -->
 	<select id="deleteRecord"  parameterType="Record" >

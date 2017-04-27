@@ -47,9 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <p style="width:100%;height:100%;vertical-align:middle;font-size:27px">账户管理</p>
                     </div>
 
-    	            <div class="container-fluid" style="padding:0 0px;margin-top:66px">
+    	            <div class="container-fluid" style="padding:0 0px;">
                     <form role="form" name="muserForm" enctype="multipart/form-data">
-                    	<div class="row" style="padding:0 0px;">
+                    	<div class="row" style="padding:0 0px;margin-top:66px">
                             <div class="form-group">
                                 <div class="item-wrap">
                     		    <c:forEach items="${muserItemsList }" var="item" >

@@ -29,9 +29,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   <body>
       <div class="codrops-header" style="background:#29C192;">
-              <!-- <button class="btn btn-lg" style="position:absolute;top:20%;float:left;display:block;background:#29C192">
-                  <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/campusPreset.action"></a>
-              </button> -->
             <div class="back-container">
               <button class="btn btn-link btn-lg" ><a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/campusPreset.action"></a></button>
             </div>  

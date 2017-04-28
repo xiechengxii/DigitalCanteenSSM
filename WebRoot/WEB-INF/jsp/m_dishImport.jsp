@@ -143,11 +143,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                     
 				    	                <input type="hidden" name = "muserSubmitDate" >
 				    	                <div class="row" style="padding-top:16px">
-					    	                <div class="form-group" style="position:relative;top:2px;">
-					    	                    <div class="col-xs-3" style="padding-top:12px;padding-right:0px;font-size: 1.4rem">
+					    	                <div class="form-group" >
+					    	                    <div class="col-xs-3" style="padding-top:12px;font-size: 1.4rem">
 					    	                     <b>导入记录：</b>
 					    	                    </div>
-					    	                    <div class="col-xs-5" style="padding-left:0px;padding-right:0px">
+					    	                    <div class="col-xs-6" >
 					    	                        <input name ="recordDate" class="Wdate" type="text" onClick="WdatePicker()" style="border:1px solid #ccc;border-radius:5px;-webkit-appearance: none;"> 
 					    	                    </div>
 					    	                	<div class="col-xs-3" >

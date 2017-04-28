@@ -131,10 +131,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	    <script src="././My97DatePicker/WdatePicker.js"></script>
     </head>
     <body onLoad="checkRoleID()">
-    <div class="container">
-        <div class="mp-pusher" id="mp-pusher">             
-            <div class="scroller" style="background:#EEEEEE">
-                <div class="scroller-inner">
+    <!-- <div class="container"> -->
+        <!-- <div class="mp-pusher" id="mp-pusher"> -->             
+            <!-- <div class="scroller" style="background:#EEEEEE"> -->
+                <!-- <div class="scroller-inner"> -->
                     <div class="codrops-header" style="background:#29C192;">
                         <div class="back-container">
                             <button class="btn btn-link btn-lg" >
@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <p style="width:100%;height:100%;font-size:27px">修改账户</p>  
                     </div>
 
-                    <div class="content clearfix" style="margin-top:77px">
+                    <div class=" newcustom" style="margin-top:77px" >
                         <form  name = "muserUpdateForm" class="form-horizontal" role="form" action="modifyMUserSave.action" method="post" enctype="multipart/form-data">
                             <input name="muserID" type="hidden" value="${muserItems.muserID }">
                             <div class="row form-group">
@@ -257,10 +257,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <!-- </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
     <script src="js/classie.js"></script>
     <script src="js/mlpushmenu.js"></script>
     <script>

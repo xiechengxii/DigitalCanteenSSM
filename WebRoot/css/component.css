@@ -18,8 +18,8 @@ html, body, .container, .scroller {
 .scroller,
 .scroller-inner {
 	position: relative;
-	overflow:scroll;
-	overflow-x:hidden;
+	/*overflow:scroll;*/
+	/*overflow-x:hidden;*/
 	-webkit-overflow-scrolling:touch
 }
 

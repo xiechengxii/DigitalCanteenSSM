@@ -41,6 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<!-- 日期控件导入 -->
         <script language="javascript" type="text/javascript" src="././My97DatePicker/WdatePicker.js"></script>  	       
 	    <script>
+	        
 	    	function getRecordDish(){
 	    
 	    		obj = document.getElementsByName("dishIDList");
@@ -123,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div> 
 				    	<div class="container-fluid" style="color:#000;padding:0 0; ">	
 				    		<div class="newcustom" style="margin-top:69px;padding-left:5%">
-			    				<div class="row" style="padding-top:16px;">
+			    				<div class="row" style="padding-top:16px;font-size: 1.3rem">
 			 						<div class="col-xs-4">
 								   		<label>所属校区：</label>${muserItems.campusName}
 								   	</div>
@@ -143,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	                <input type="hidden" name = "muserSubmitDate" >
 				    	                <div class="row" style="padding-top:16px">
 					    	                <div class="form-group" >
-					    	                    <div class="col-xs-3" style="padding-top:12px;">
+					    	                    <div class="col-xs-3" style="padding-top:12px;font-size: 1.4rem">
 					    	                     <b>导入记录：</b>
 					    	                    </div>
 					    	                    <div class="col-xs-6" >
@@ -154,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	                	    </div>			    	                	
 				    	            	    </div>
 			    	            	    </div>
-				    	            	<div style="padding-top:10px;font-size:1.2em">
+				    	            	<div style="padding-top:10px;font-size:1.3rem">
 				    	            	    <p class="help-block">通过选择日期来导入某一天的菜品录入记录</p>
 				    	            	</div>
 			    	                	<div class="row" style="padding:0 0px;"> 
@@ -166,10 +167,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							                	        		<c:when test="${item.dishInState == '待审核'}"></c:when>
 							                	    			<c:otherwise>
 							                	    				<div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
-									                	    		    <table  width=100%>							               	       
+									                	    		    <table  width=100% >							               	       
 										                	    			<tr>
 										                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
-										                	    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
+										                	    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />									                	   					
 										                	    				</td>
 								                	    				        <c:choose >
 										                	    					<c:when test="${dishDetailInDateList == null }">	
@@ -189,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
 										                	       					</c:if>
 										                   	    				</td>						               	    		 	
-										                	    			   	<td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
+										                	    			   	<td style='vertical-align: middle;font-size:1.2em' colspan=2>${item.dishName }</td>
 										                	    			   	<td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
 										                	    			</tr>
 										                	    			<tr>							               	    		   
@@ -227,7 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <script>
 	        new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
 	    </script>
-	    <script>
+	    <script>	
 	  		$(".item").on('swipeleft', function(event) {
 	    		event.preventDefault();
 	    		

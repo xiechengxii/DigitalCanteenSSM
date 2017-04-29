@@ -58,6 +58,8 @@ public class MUserBackGroundController {
 	
 	@RequestMapping("/backgroundHomepage")
 	public String backgroundHomepage(HttpSession session) throws Exception{
+		//本函数返回第一个校区的第一间食堂的ID，
+		//如果存在没有食堂的校区，则跳转到食堂预置页面
 		List<Campus> campusList = campusPresetService.findAllCampuses();
 		if(!campusList.isEmpty()){
 			Iterator<Campus> iterator_campus = campusList.iterator();

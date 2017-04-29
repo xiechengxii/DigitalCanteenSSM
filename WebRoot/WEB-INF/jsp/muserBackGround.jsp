@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			<c:forEach items="${campusList }" var="item_campus">
 	    				<div class="panel panel-default">
 	    					<div class="panel-heading">
-	    						<h4 class="panel-title">	    							
+	    						<h4 class="panel-title">
 	    							${item_campus.campusName }	    							
 	    						</h4>
 	    					</div>

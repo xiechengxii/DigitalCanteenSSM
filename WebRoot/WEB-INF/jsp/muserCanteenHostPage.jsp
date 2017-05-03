@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div> 	
                 <div class="panel-body">
                     <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
-                    	<div  class="form-group col-sm-3">						
+                    	<div  class="form-group col-sm-2">						
 							<div class="input-group" style="width: 240px; margin-left: 0px;">
 							    <input type="text" class="form-control date-picker" id="dateTimeRange"/>
 							    <span class="input-group-addon">

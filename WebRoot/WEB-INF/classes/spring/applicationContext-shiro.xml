@@ -114,9 +114,9 @@
                 /insertDishType.action                = roles[super]
 
                 /backgroundHomepage.action            = roles[super]
-                /muserBackGround.action               = roles[super]
+                /muserBackground.action               = roles[super]
                 /recordDish.action                    = roles[super]
-                /muserBackGroundUserManagement.action = roles[super]
+                /muserBackgroundUserManagement.action = roles[super]
                 /findAllMUser.action                  = roles[super]
                 /addMUser.action                      = roles[super]
                 /insertmuser.action                   = roles[super]

@@ -10,10 +10,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html>
     <head>
-    	<base href="<%=basePath%>">
-    
-    	<title>后台首页</title>
-    
+	    <base href="<%=basePath%>">
+	    
+	    <title>饮食公司首页</title>
+	    
 		<meta name="viewport" content="width=device-width, 
                                              initial-scale=0.3, 
                                              maximum-scale=1.0, 
@@ -32,19 +32,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <script src="js/jquery-1.10.1.min.js"></script>       
     
         <!--bootstrap-->    
-        <script src="js/bootstrap.min.js"></script>      
+        <script src="js/bootstrap.min.js"></script>
     </head>
   
-    <body> 
-    	<%@ include file="publicjsp/backgroundMenu.jsp" %> 
-        <!-- 后台管理用户的页面 -->
-        <form>
+    <body>
+    	<%@ include file="publicjsp/companyMenu.jsp" %>
+    	<form>
 	        <input type="hidden" name = "muserID" value="${muserItems.cantID }" >
 	        <input type="hidden" name = "roleID" value="${muserItems.roleID }" >
 	        <input type="hidden" name = "roleName" value="${muserItems.roleName }" >	    
         </form>
 
-	    <div class="container-fluid">
+        <div class="container-fluid">
 	    	<div class="row">
 		    	<div class="column col-sm-2">
 		    		<div class="panel-group" id="accordion">
@@ -66,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    											<c:set var="status" value="setted" scope="page"/>
 		    										</c:if>	    										
 		    									</c:forEach>
-		    									<a href="muserBackground.action?recordCantID=${item_canteen.cantID }">
+		    									<a href="companyBackground.action?recordCantID=${item_canteen.cantID }">
 		    										<c:if test="${status == 'setted' }">
 		    											${item_canteen.cantName}
 		    										</c:if>
@@ -114,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                               	    <td style='vertical-align: middle;text-align: center;'>${item.recordCampusName }</td>
 		                               	    <td style='vertical-align: middle;text-align: center;'>${item.recordCantName }</td>
 		                               	    <td style='vertical-align: middle;text-align: center;'>${item.recordMUserName }</td>
-		                               	    <td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></td>
+		                               	    <td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.recordDate }" pattern="yyyy-MM-dd" /></td>
 		                               	    <td style='vertical-align: middle;text-align: center;'>${item.recordSubmitState }</td>
 		                               	    <td style='vertical-align: middle;text-align: center;'>
 	                                            <div class="form-group btn-group btn-group-sm">
@@ -135,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <ul class="pagination">
                                         <c:if test="${!pagehelper.isFirstPage}">                                        
                                             <li>
-                                                <a href="muserBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
+                                                <a href="companyBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
                                             </li>
                                         </c:if>
     
@@ -143,13 +142,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
                                             <c:if test="${navigatepageNum==pagehelper.pageNum}">
                                                 <li class="active">
-                                                    <a href="muserBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                                                    <a href="companyBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
                                                 </li>
                                             </c:if>
     
                                             <c:if test="${navigatepageNum!=pagehelper.pageNum}">
                                                 <li>
-                                                    <a href="muserBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                                                    <a href="companyBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
                                                 </li>
                                             </c:if>
     
@@ -157,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
                                         <c:if test="${!pagehelper.isLastPage}">
                                             <li>
-                                                <a href="muserBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                                                <a href="companyBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
                                             </li>
                                         </c:if>
                                     </ul>

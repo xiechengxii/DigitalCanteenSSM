@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <body>
     	<%@ include file="publicjsp/companyMenu.jsp" %>
     	
-    	<div class="container-fluid">   
+    	<div class="container-fluid">
             <div class="panel panel-default">
 
                 <div class="panel panel-heading">

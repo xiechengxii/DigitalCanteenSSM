@@ -5,12 +5,17 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
@@ -53,9 +58,29 @@ public class MUserCompanyController {
 	}
 	
 	@RequestMapping("/companyBackground")
-	public ModelAndView companyBackground(HttpSession session, Integer recordCantID) throws Exception{
+	public ModelAndView companyBackground(HttpSession session, Integer recordCantID, HttpServletRequest request) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
+		
+		String pageNum = request.getParameter("pageNum");
+		String pageSize = request.getParameter("pageSize");
+		
+		int num = 1;
+		int size = 10;
+		if (pageNum != null && !"".equals(pageNum)) {
+			num = Integer.parseInt(pageNum);
+		}
+		if (pageSize != null && !"".equals(pageSize)) {
+			size = Integer.parseInt(pageSize);
+		}
+		
+		//配置pagehelper的排序及分页
+		String sortString = "id.desc";
+		Order.formString(sortString);
+		PageHelper.startPage(num, size);
+		
+		List<Record> recordList = recordService.findRecordInCanteen(recordCantID);
+		PageInfo<Record> pagehelper = new PageInfo<Record>(recordList);
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString = simpleDateFormat.format(new Date());
@@ -70,7 +95,7 @@ public class MUserCompanyController {
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItemsList", canteenPresetService.findAllCanteens());
 		modelAndView.addObject("RecordItemsList", recordService.findRecordByDate(rc));			 	//当天已经录入的记录
-		modelAndView.addObject("dishRecordList", recordService.findRecordInCanteen(recordCantID));	//本食堂录入的记录
+		modelAndView.addObject("pagehelper", pagehelper);	//本食堂录入的记录
 		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("/WEB-INF/jsp/companyBackground.jsp");

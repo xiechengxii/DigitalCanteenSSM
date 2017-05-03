@@ -48,6 +48,11 @@ public class RecordServiceImpl implements RecordService{
 	}
 	
 	@Override
+	public Record findRecordByRecordID(Integer recordID) throws Exception{
+		return recordMapper.findRecordByRecordID(recordID);
+	}
+	
+	@Override
 	public void deleteRecord(Record record) throws Exception{
 		
 		recordMapper.deleteRecord(record);

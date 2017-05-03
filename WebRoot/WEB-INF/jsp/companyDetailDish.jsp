@@ -9,11 +9,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html>
     <head>
-        <base href="<%=basePath%>">
-        
-        <title>菜品录入详情</title>
-        
-	    <meta name="viewport" content="width=device-width, 
+	    <base href="<%=basePath%>">
+	    
+	    <title>菜品录入详情</title>
+	    
+		<meta name="viewport" content="width=device-width, 
                                                  initial-scale=0.3, 
                                                  maximum-scale=1.0, 
                                                  user-scalable=true">
@@ -36,27 +36,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
   
     <body>
-        <%@ include file="publicjsp/canteenMenu.jsp" %>
-   	    <!-- 所有菜品详细内容显示列表 -->
-        
-        <div class="container-fluid">   
+    	<%@ include file="publicjsp/companyMenu.jsp" %>
+    	
+    	<div class="container-fluid">   
             <div class="panel panel-default">
+
                 <div class="panel panel-heading">
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <label>所属校区：</label>${muserItems.campusName}
-                        </div>
-                        <div class="col-sm-1">
-                            <label>所属食堂：</label>${muserItems.cantName}
-                        </div>
-                        <div class="col-sm-1">
-                            <label>管理员：</label>${muserItems.muserName}
-                        </div>
-                    </div>
+                    <h3 class="panel-title">菜品录入详情</h3>
                 </div>
+                
                 <div class="panel-body">
                     <form enctype="multipart/form-data">
-                        <input type="hidden" name = "recordID" value="${record.recordID} }">
+                        <input type="hidden" name = "recordID" value="${record.recordID }">
+
+                        <a href="companyBackground.action?recordCantID=${record.recordCantID}" class="btn btn-primary">返回</a>
+                        <br><br>
                         <table class="table table-striped table-bordered table-hover table-responsive text-center">
                             <thead>
                         	    <tr>

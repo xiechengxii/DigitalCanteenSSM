@@ -70,12 +70,12 @@ public class MUserCompanyController {
 		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		modelAndView.addObject("canteenItemsList", canteenPresetService.findAllCanteens());
 		modelAndView.addObject("RecordItemsList", recordService.findRecordByDate(rc));			 	//当天已经录入的记录
-		modelAndView.addObject("dishRcordList", recordService.findRecordInCanteen(recordCantID));	//本食堂录入的记录
+		modelAndView.addObject("dishRecordList", recordService.findRecordInCanteen(recordCantID));	//本食堂录入的记录
 		
 		if(session.getAttribute("ua").equals("pc")){
-			modelAndView.setViewName("/WEB-INF/jsp/companyBackGround.jsp");
+			modelAndView.setViewName("/WEB-INF/jsp/companyBackground.jsp");
 		}else{
-			modelAndView.setViewName("/WEB-INF/jsp/m_companyBackGround.jsp");
+			modelAndView.setViewName("/WEB-INF/jsp/m_companyBackground.jsp");
 		}
 		
 		return modelAndView;

@@ -32,14 +32,42 @@ public class RecordDishController {
 		
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");	
 		
-		modelAndView.addObject("muserItems",muserItems);
-		modelAndView.addObject("record",record);
-		modelAndView.addObject("dishDetailList",detailService.findDetailDish(record.getRecordID()));
+		//页面传递过来的record中只包含recordID字段，
+		//此处查询record的完整内容用于传到录入详情页面
+		record = recordService.findRecordByRecordID(record.getRecordID());
+		
+		modelAndView.addObject("muserItems", muserItems);
+		modelAndView.addObject("record", record);
+		modelAndView.addObject("dishDetailList", detailService.findDetailDish(record.getRecordID()));
 		
 		if(session.getAttribute("ua").equals("pc")){
-			modelAndView.setViewName("WEB-INF/jsp/detailDish.jsp");
+			if(muserItems.getMuserRoleID() == 1){
+				
+				modelAndView.setViewName("WEB-INF/jsp/superDetailDish.jsp");
+				
+			}else if(muserItems.getMuserRoleID() == 2){
+				
+				modelAndView.setViewName("WEB-INF/jsp/companyDetailDish.jsp");
+				
+			}else if(muserItems.getMuserRoleID() == 3){
+				
+				modelAndView.setViewName("WEB-INF/jsp/detailDish.jsp");
+				
+			}			
 		}else{
-			modelAndView.setViewName("WEB-INF/jsp/m_detailDish.jsp");
+			if(muserItems.getMuserRoleID() == 1){
+				
+				modelAndView.setViewName("WEB-INF/jsp/m_superDetailDish.jsp");
+				
+			}else if(muserItems.getMuserRoleID() == 2){
+				
+				modelAndView.setViewName("WEB-INF/jsp/m_companyDetailDish.jsp");
+				
+			}else if(muserItems.getMuserRoleID() == 3){
+				
+				modelAndView.setViewName("WEB-INF/jsp/m_detailDish.jsp");
+				
+			}
 		}
 		
 		return modelAndView;

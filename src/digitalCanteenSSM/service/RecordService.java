@@ -21,6 +21,8 @@ public interface RecordService {
 	
 	public Record findRecordInCanteenAndDate(Record record) throws Exception;
 	
+	public Record findRecordByRecordID(Integer recordID) throws Exception;
+	
 	public void deleteRecord(Record record) throws Exception;
 
 	public void insertRecord(Record record) throws Exception;

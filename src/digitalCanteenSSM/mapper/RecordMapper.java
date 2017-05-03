@@ -21,6 +21,8 @@ public interface RecordMapper {
 	
 	public Record findRecordInCanteenAndDate(Record reocrd) throws Exception;
 	
+	public Record findRecordByRecordID(Integer recordID) throws Exception;
+	
 	public void deleteRecord(Record record) throws Exception;
 
 	public void insertRecord(Record record) throws Exception;

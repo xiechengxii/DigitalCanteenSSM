@@ -37,7 +37,7 @@ import digitalCanteenSSM.service.RoleService;
 import digitalCanteenSSM.service.UploadFileService;
 
 @Controller
-public class MUserBackGroundController {
+public class MUserBackgroundController {
 	@Autowired
 	private CampusPresetService campusPresetService;
 	@Autowired
@@ -70,7 +70,7 @@ public class MUserBackGroundController {
 				Iterator<CanteenItems> iterator_canteenItems = canteenItemsList.iterator();
 				CanteenItems canteenItems = iterator_canteenItems.next();
 				
-				return "forward:muserBackGround.action?recordCantID="+canteenItems.getCantID();
+				return "forward:muserBackground.action?recordCantID="+canteenItems.getCantID();
 			}else{
 				return "forward:canteenPreset.action";
 			}
@@ -80,8 +80,8 @@ public class MUserBackGroundController {
 	}
 	
 	//后台管理员记录菜品页面显示
-	@RequestMapping("/muserBackGround")
-	public ModelAndView muserBackGround(HttpSession session, Integer recordCantID)throws Exception{
+	@RequestMapping("/muserBackground")
+	public ModelAndView muserBackground(HttpSession session, Integer recordCantID)throws Exception{
 	
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -109,9 +109,9 @@ public class MUserBackGroundController {
 		modelAndView.addObject("dishRecordList", recordService.findRecordInCanteen(recordCantID));
 		
 		if(session.getAttribute("ua").equals("pc")){
-			modelAndView.setViewName("/WEB-INF/jsp/muserBackGround.jsp");
+			modelAndView.setViewName("/WEB-INF/jsp/muserBackground.jsp");
 		}else{
-			modelAndView.setViewName("/WEB-INF/jsp/m_muserBackGround.jsp");
+			modelAndView.setViewName("/WEB-INF/jsp/m_muserBackground.jsp");
 		}
 		
 		return modelAndView;
@@ -136,15 +136,15 @@ public class MUserBackGroundController {
 	}
 	
 	//后台管理员用户管理页面
-	@RequestMapping("/muserBackGroundUserManagement")
-	public ModelAndView muserBackGroundUserManagement(HttpSession session) throws Exception{
+	@RequestMapping("/muserBackgroundUserManagement")
+	public ModelAndView muserBackgroundUserManagement(HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if(session.getAttribute("ua").equals("pc")){
-			modelAndView.setViewName("/WEB-INF/jsp/muserBackGroundUserManagement.jsp");
+			modelAndView.setViewName("/WEB-INF/jsp/muserBackgroundUserManagement.jsp");
 		}else{
-			modelAndView.setViewName("/WEB-INF/jsp/m_muserBackGroundUserManagement.jsp");
+			modelAndView.setViewName("/WEB-INF/jsp/m_muserBackgroundUserManagement.jsp");
 		}
 		
 		return modelAndView;
@@ -259,10 +259,7 @@ public class MUserBackGroundController {
 		}else if(roleService.findRoleById(muser.getMuserRoleID()).getRoleName().equals("canteen")){
 			return "forward:muserCanteenHostPage.action";
 		}else{
-			//!!!!!!!!!!
-			//TODO： 记得修改成饮食公司主页
-			//!!!!!!!!!!
-			return "forward:backGroundHomepage.action";
+			return "forward:companyHomepage.action";
 		}
 		
 	}

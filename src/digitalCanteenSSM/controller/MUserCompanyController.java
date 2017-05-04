@@ -1,6 +1,7 @@
 package digitalCanteenSSM.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -19,9 +20,11 @@ import com.github.pagehelper.PageInfo;
 
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
+import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.service.CampusPresetService;
 import digitalCanteenSSM.service.CanteenPresetService;
+import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.RecordService;
 
 @Controller
@@ -32,6 +35,8 @@ public class MUserCompanyController {
 	private CanteenPresetService canteenPresetService;
 	@Autowired 
 	private RecordService recordService;
+	@Autowired
+	private DishManagementService dishManagementService;
 	
 	@RequestMapping("/companyHomepage")
 	public String companyHomepage(HttpSession session) throws Exception{
@@ -115,6 +120,80 @@ public class MUserCompanyController {
 			modelAndView.setViewName("/WEB-INF/jsp/companyNoCanteenError.jsp");
 		}else{
 			modelAndView.setViewName("/WEB-INF/jsp/m_companyNoCanteenError.jsp");
+		}
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping("/takeOffShelfPage")
+	public ModelAndView takeOffShelfPage(HttpSession session, Integer cantID, HttpServletRequest request) throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		//内容分页相关参数设置
+		String pageNum = request.getParameter("pageNum");
+		String pageSize = request.getParameter("pageSize");
+		int num = 1;
+		int size = 10;
+		if (pageNum != null && !"".equals(pageNum)) {
+			num = Integer.parseInt(pageNum);
+		}
+		if (pageSize != null && !"".equals(pageSize)) {
+			size = Integer.parseInt(pageSize);
+		}
+		//配置内容分页
+		String sortString = "id.desc";
+		Order.formString(sortString);
+		PageHelper.startPage(num, size);
+		
+		//查询所有校区和食堂传递到菜品下架页面，用户从中选择要下架菜品的食堂
+		List<Campus> campusList = campusPresetService.findAllCampuses();
+		List<CanteenItems> canteenItemsList = canteenPresetService.findAllCanteens();
+		
+		List<DishItems> dishItemsList = new ArrayList<DishItems>();
+		
+		//从饮食公司菜单栏进入本函数时无法提供cantID，
+		//选取所有校区中查找到的第一个食堂，查询这个食堂所有已经上架的菜品传递到页面;
+		//当通过菜品下架页面选择食堂后进入本函数，则查询cantID代表的食堂的已上架菜品
+		if(cantID == null){
+			if(!campusList.isEmpty()){
+				for(Campus campus:campusList){
+					
+					List<CanteenItems> canteenItemsInCampus = canteenPresetService.findCanteenByCampus(campus.getCampusID());
+					
+					if(!canteenItemsInCampus.isEmpty()){
+						Iterator<CanteenItems> iterator_canteen = canteenItemsInCampus.iterator();
+						CanteenItems firstCanteenItems = iterator_canteen.next();
+						
+						//查询菜品列表
+						dishItemsList = dishManagementService.findDishInCanteen(firstCanteenItems.getCantID());
+						cantID = firstCanteenItems.getCantID();
+						break;
+					}
+				}				
+			}else{
+				//没有录入校区则设置菜品列表为空
+				dishItemsList = null;				
+			}
+		}else{
+			//查询菜品列表
+			dishItemsList = dishManagementService.findDishInCanteen(cantID);
+			
+		}
+		
+		PageInfo<DishItems> pagehelper = new PageInfo<DishItems>(dishItemsList);
+		
+		CanteenItems canteenItems = canteenPresetService.findCanteenById(cantID);
+		
+		modelAndView.addObject("campusList", campusList);
+		modelAndView.addObject("canteenItemsList", canteenItemsList);
+		modelAndView.addObject("canteenItems", canteenItems);
+		modelAndView.addObject("pagehelper", pagehelper);
+		
+		if(session.getAttribute("ua").equals("pc")){
+			modelAndView.setViewName("/WEB-INF/jsp/takeOffShelf.jsp");
+		}else{
+			modelAndView.setViewName("/WEB-INF/jsp/m_takeOffShelf.jsp");
 		}
 		
 		return modelAndView;

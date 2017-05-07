@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ctcampus.campusID,ctcampus.CampusName,
 				ctdishtype.DishTypeID,ctdishtype.DishTypeName
 		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
-        WHERE ctdish.DishWndID = ctwnd.WndID and  
+        WHERE   ctdish.DishWndID = ctwnd.WndID and  
         		ctwnd.WndCantID = ctcant.cantID and 
         		ctcant.CantCampusID=ctcampus.campusID and
         		ctdish.DishTypeID=ctdishtype.DishTypeID and
@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ctcampus.campusID,ctcampus.CampusName,
 				ctdishtype.DishTypeID,ctdishtype.DishTypeName
 		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
-		WHERE ctdish.DishWndID = ctwnd.WndID and  
+		WHERE   ctdish.DishWndID = ctwnd.WndID and  
         		ctwnd.WndCantID = ctcant.cantID and 
         		ctcant.CantCampusID=ctcampus.campusID and
         		ctdish.DishTypeID=ctdishtype.DishTypeID and
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 根据DishID查询该菜品信息 -->
-	<select id="findDishById"  parameterType="Dish" resultType="DishItems">
+	<select id="findDishById"  parameterType="Integer" resultType="DishItems">
 		SELECT * 
 		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype
 		WHERE ctdish.DishID=#{dishID} and ctdish.DishWndID = ctwnd.WndID and 
@@ -81,10 +81,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 查询一个档口下的所有菜品 -->
-	<select id="findDishesInWindow" parameterType="Window" resultType="Dish">
-		SELECT * 
-		FROM ctdish 
-		WHERE ctdish.DishWndID=window.wndID
+	<select id="findDishesInWindow" parameterType="Integer" resultType="DishItems">
+		SELECT ctdish.*, ctwnd.wndID,ctwnd.wndName,
+				ctcant.cantID,ctcant.CantName, ctcant.cantCampusID,
+				ctcampus.campusID,ctcampus.CampusName,
+				ctdishtype.DishTypeID,ctdishtype.DishTypeName
+		FROM ctdish,ctwnd,ctcant,ctcampus,ctdishtype 
+		WHERE   ctdish.DishWndID = ctwnd.WndID and  
+        		ctwnd.WndCantID = ctcant.cantID and 
+        		ctcant.CantCampusID=ctcampus.campusID and
+        		ctdish.DishTypeID=ctdishtype.DishTypeID and
+				ctdish.DishWndID=#{wndID}
+		ORDER BY DishID DESC
 	</select>
 	
 	<!-- 根据DishID更新菜品信息 -->

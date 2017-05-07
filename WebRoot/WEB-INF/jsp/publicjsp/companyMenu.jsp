@@ -14,7 +14,7 @@
             </li>
 
             <li>
-                <a href="javascript:void(0)"><FONT style="FONT-FAMILY:黑体">菜品下架</FONT></a>
+                <a href="${pageContext.request.contextPath }/takeOffShelfPage.action"><FONT style="FONT-FAMILY:黑体">菜品下架</FONT></a>
             </li>
 
         </ul>

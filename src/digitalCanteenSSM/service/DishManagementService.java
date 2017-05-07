@@ -19,6 +19,8 @@ public interface DishManagementService {
 	
 	public DishItems findDishByName(DishItems dishItems) throws Exception;
 	
+	public List<DishItems> findDishesInWindow(Integer wndID) throws Exception;
+	
 	public void updateDish(DishItems dishItems) throws Exception;
 	
 	public void insertDish(Dish dish) throws Exception;

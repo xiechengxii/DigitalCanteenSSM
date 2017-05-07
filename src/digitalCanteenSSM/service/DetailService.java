@@ -12,6 +12,8 @@ public interface DetailService {
 	
 	public List<RecordItems> findRecordAndDetailDish(Integer recordID) throws Exception;
 	
+	public List<Detail> findDetailByDishID(Integer dishID) throws Exception;
+	
 	public void deleteDetailDishByRecordId(Integer recordID) throws Exception;
 	
 	public void deleteDetailDishByDateAndRecordId(Detail detail) throws Exception;
@@ -21,6 +23,8 @@ public interface DetailService {
 	public void insertDetailDish(DishItems dishItems) throws Exception;
 	
 	public void insertDetail(Detail detail) throws Exception;
+	
+	public void updateDetail(Detail detail) throws Exception;
 
 	public List<Detail> findDetailByDateAndID(Detail detail) throws Exception;
 }

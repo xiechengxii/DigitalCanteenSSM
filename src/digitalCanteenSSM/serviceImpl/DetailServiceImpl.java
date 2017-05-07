@@ -24,6 +24,11 @@ public class DetailServiceImpl implements DetailService{
 	}
 	
 	@Override
+	public List<Detail> findDetailByDishID(Integer dishID) throws Exception{
+		return detailMapper.findDetailByDishID(dishID);
+	}
+	
+	@Override
 	public List<RecordItems> findRecordAndDetailDish(Integer recordID)
 			throws Exception {
 		
@@ -53,6 +58,11 @@ public class DetailServiceImpl implements DetailService{
 	@Override
 	public void insertDetail(Detail detail) throws Exception{
 		detailMapper.insertDetail(detail);
+	}
+	
+	@Override
+	public void updateDetail(Detail detail) throws Exception{
+		detailMapper.updateDetail(detail);
 	}
 
 	@Override

@@ -29,6 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and ctdetail.DetailDishDateFlag = #{detailDishDateFlag } 	
 	</select>
 	
+	<!-- 通过dishID查找和此菜品关联的detail -->
+	<select id="findDetailByDishID" parameterType="Integer" resultType="Detail">
+		SELECT *
+		FROM ctdetail
+		WHERE ctdetail.DetailDishID = #{dishID}
+	</select>
+	
 	<!-- 根据DetailID删除该记录信息 -->
 	<select id="deleteDetailDish"  parameterType="Integer" >
 		DELETE	FROM ctdetail 
@@ -92,5 +99,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{detailDishInDate},
 			#{detailDishNote},#{detailDishDelete},
 			#{detailWndID},#{detailWndName})
+	</select>
+	
+	<!-- 更新detail记录信息 -->
+	<select id="updateDetail" parameterType="Detail">
+		UPDATE ctdetail
+		SET ctdetail.DetailDishID = #{detailDishID}, 
+			ctdetail.DetailRecordID = #{detailRecordID},
+			ctdetail.DetailDishTypeID = #{detailDishTypeID}, 
+			ctdetail.DetailDishDateFlag = #{detailDishDateFlag},
+			ctdetail.DetailDishName = #{detailDishName}, 
+			ctdetail.DetailDishPrice = #{detailDishPrice},
+			ctdetail.DetailDishPhoto = #{detailDishPhoto}, 
+			ctdetail.DetailDishDate = #{detailDishDate},
+			ctdetail.DetailDishRecmd = #{detailDishRecmd}, 
+			ctdetail.DetailDishKeep = #{detailDishKeep},
+			ctdetail.DetailDishSale = #{detailDishSale},
+			ctdetail.DetailDishInDate = #{detailDishInDate},
+			ctdetail.DetailDishNote = #{detailDishNote},
+			ctdetail.DetailDishDelete = #{detailDishDelete}, 
+			ctdetail.DetailWndID = #{detailWndID},
+			ctdetail.DetailWndName = #{detailWndName}
+		WHERE ctdetail.DetailID = #{detailID}
 	</select>
 </mapper>

@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="container col-sm-6 col-sm-offset-3">
 				<div class="panel panel-default">
 
-					<div class="panel-heading">
+					<div class="panel panel-heading">
 						<h3 class="panel-title">修改校区</h3>
 					</div>
 

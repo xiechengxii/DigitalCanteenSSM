@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="container-fluid">
             <div class="panel panel-default">
 
-                <div class="panel panel-heading">
+                <div class="panel-heading">
                     <h3 class="panel-title">菜品录入详情</h3>
                 </div>
                 

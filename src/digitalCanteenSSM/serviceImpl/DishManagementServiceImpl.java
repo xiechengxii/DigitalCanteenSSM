@@ -62,6 +62,11 @@ public class DishManagementServiceImpl implements DishManagementService {
 		
 		return dishManagementMapper.findDishById(dishID);
 	}
+	
+	@Override
+	public List<DishItems> findDishesInWindow(Integer wndID) throws Exception{
+		return dishManagementMapper.findDishesInWindow(wndID);
+	}
 
 	@Override
 	public void updateDish(DishItems dishItems) throws Exception {

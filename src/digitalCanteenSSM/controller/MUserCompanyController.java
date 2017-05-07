@@ -20,11 +20,13 @@ import com.github.pagehelper.PageInfo;
 
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
+import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.po.WindowItems;
 import digitalCanteenSSM.service.CampusPresetService;
 import digitalCanteenSSM.service.CanteenPresetService;
+import digitalCanteenSSM.service.DetailService;
 import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.RecordService;
 import digitalCanteenSSM.service.WindowPresetService;
@@ -41,6 +43,8 @@ public class MUserCompanyController {
 	private DishManagementService dishManagementService;
 	@Autowired
 	private WindowPresetService windowPresetService;
+	@Autowired
+	private DetailService detailService;
 	
 	@RequestMapping("/companyHomepage")
 	public String companyHomepage(HttpSession session) throws Exception{
@@ -197,6 +201,14 @@ public class MUserCompanyController {
 		
 		if(dishItems.getDishSale().equals("在售")){
 			dishItems.setDishSale("已下架");
+			
+			List<Detail> detailList = detailService.findDetailByDishID(dishItems.getDishID());
+			for(Detail detail:detailList){
+				if(detail.getDetailDishSale().equals("在售")){
+					detail.setDetailDishSale("已下架");
+				}
+				detailService.updateDetail(detail);
+			}
 		}
 		
 		dishManagementService.updateDish(dishItems);
@@ -211,6 +223,14 @@ public class MUserCompanyController {
 		
 		if(dishItems.getDishSale().equals("已下架")){
 			dishItems.setDishSale("在售");
+			
+			List<Detail> detailList = detailService.findDetailByDishID(dishItems.getDishID());
+			for(Detail detail:detailList){
+				if(detail.getDetailDishSale().equals("已下架")){
+					detail.setDetailDishSale("在售");
+				}
+				detailService.updateDetail(detail);
+			}
 		}
 		
 		dishManagementService.updateDish(dishItems);

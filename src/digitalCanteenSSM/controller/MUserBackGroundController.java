@@ -389,6 +389,7 @@ public class MUserBackgroundController {
 		List<Record> recordList = recordService.findRecordInCampusByDate(campusID,beginTime,endTime);
 		List<CanteenItems> canteenList = canteenPresetService.findCanteenByCampus(campusID);
 		for(Record record:recordList){
+			//TODO: 此处detailService存疑
 			recordItemsList.addAll(detailService.findRecordAndDetailDish(record.getRecordID()));
 		}
 		dishExportToExcelService.writeExcel(recordItemsList,canteenList,response);

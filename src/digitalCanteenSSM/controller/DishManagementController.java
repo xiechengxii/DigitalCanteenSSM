@@ -25,12 +25,16 @@ import digitalCanteenSSM.exception.SubmitResultInfo;
 import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.Dish;
 import digitalCanteenSSM.po.DishItems;
+import digitalCanteenSSM.po.Log;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
+import digitalCanteenSSM.service.CampusPresetService;
+import digitalCanteenSSM.service.CanteenPresetService;
 import digitalCanteenSSM.service.DetailService;
 import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.DishPresetService;
 import digitalCanteenSSM.service.DishTypePresetService;
+import digitalCanteenSSM.service.LogService;
 import digitalCanteenSSM.service.RecordService;
 import digitalCanteenSSM.service.UploadFileService;
 import digitalCanteenSSM.service.WindowPresetService;
@@ -58,6 +62,12 @@ public class DishManagementController {
 	private RecordService recordService;
 	@Autowired
 	private DetailService detailService;
+	@Autowired
+	private LogService logService;
+	@Autowired
+	private CampusPresetService campusPresetService;
+	@Autowired
+	private CanteenPresetService canteenPresetService;
 	
 	
 	public static String getPicturepath() {
@@ -308,25 +318,60 @@ public class DishManagementController {
 			dishdateflag = 4;
 		}
 		
+		//查询当日记录当某个时间档已录入的菜品d，
+		//如果d不为空，把它清理掉，然后录入这个时间档新录入的菜品，
+		//下面有代码处理d中和新录入的菜品中重复的元素
 		Detail detail = new Detail();
 		detail.setDetailDishDateFlag(dishdateflag);
 		detail.setDetailRecordID(recordID);
 	    List<Detail> d = detailService.findDetailByDateAndID(detail);
 	    
-	    DishItems dishItems = new DishItems();
-	    //d不为空说明本时间档已经录入过，需要清理已经录入过的记录再录入新记录
-	    if(!d.isEmpty()){
-	    	detailService.deleteDetailDishByDateAndRecordId(detail);
-	    }
+	    DishItems dishItems = new DishItems();	    
+	    MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+	    Log log = new Log();
+	    
+	    //初始化log的用户信息部分
+	    log.setMuserID(muserItems.getMuserID());
+		log.setMuserName(muserItems.getMuserName());
+		log.setMuserCampus(campusPresetService.findCampusById(muserItems.getMuserCampusID()).getCampusName());
+		log.setMuserCant(canteenPresetService.findCanteenById(muserItems.getMuserCantID()).getCantName());
 	    
 	    if(dishIDList != null){
 		    for(Integer i: dishIDList){
 				dishItems = dishManagementService.findDishById(i);
+				
+				//检查d中和新传来的dishItems中有没有重合的元素，
+				//如果有重合，把它们从各自的集合中去掉，
+				//这样删除d中元素和添加dishItems中元素时的log就不会对某个菜品重复记录了
+				//（比如一个菜品先在d中被删了，又在dishItems中被添加，如果这样不处理会多出两条log）
+				if(d.contains(dishItems)){
+					d.remove(dishItems);
+					continue;
+				}
+				
+				//录入记录
 				dishItems.setDishRecordID(recordID);
 				dishItems.setDishDateFlag(dishdateflag);
 				dishItems.setDishDate(dishDate);
 				detailService.insertDetailDish(dishItems);
+				
+				//添加Log
+				log.setLogOperation("添加记录");
+				log.setLogContent(dishItems.getDishName());
+				logService.insertLog(log);
 			}
+	    }
+	    
+	    //删除d中和dishIDList中不重合的部分，并且添加log
+	    if(!d.isEmpty()){
+	    	for(Detail oldDetail:d){
+	    		detailService.deleteDetailDish(oldDetail.getDetailID());
+	    		
+	    		//添加Log
+				log.setLogOperation("删除记录");
+				log.setLogContent(oldDetail.getDetailDishName());
+				logService.insertLog(log);
+	    	}	    	
 	    }
 	    
 	    //生成提示语，提示用户已经录入了哪些时间档：

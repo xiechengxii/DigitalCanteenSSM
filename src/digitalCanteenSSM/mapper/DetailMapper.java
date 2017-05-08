@@ -26,5 +26,9 @@ public interface DetailMapper {
 	
 	public void updateDetail(Detail detail) throws Exception;
 	
+	public void takeDetailsOffShelfByDishID(Integer dishID) throws Exception;
+	
+	public void takeDetailsOnShelfByDishID(Integer dishID) throws Exception;
+	
 	public List<Detail> findDetailByDateAndID(Detail detail) throws Exception;
 }

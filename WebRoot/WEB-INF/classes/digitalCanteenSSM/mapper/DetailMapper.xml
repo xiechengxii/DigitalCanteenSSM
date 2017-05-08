@@ -122,4 +122,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ctdetail.DetailWndName = #{detailWndName}
 		WHERE ctdetail.DetailID = #{detailID}
 	</select>
+	
+	<!-- 下架detail中符合dishID的项的菜品 -->
+	<select id="takeDetailsOffShelfByDishID" parameterType="Integer">
+		UPDATE ctdetail
+		SET    ctdetail.DetailDishSale = '已下架'
+		WHERE  ctdetail.DetailDishID = #{dishID}
+	</select>
+	
+	<!-- 上架detail中符合dishID的项的菜品 -->
+	<select id="takeDetailsOnShelfByDishID" parameterType="Integer">
+		UPDATE ctdetail
+		SET    ctdetail.DetailDishSale = '在售'
+		WHERE  ctdetail.DetailDishID = #{dishID}
+	</select>
+	
 </mapper>

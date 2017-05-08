@@ -202,13 +202,7 @@ public class MUserCompanyController {
 		if(dishItems.getDishSale().equals("在售")){
 			dishItems.setDishSale("已下架");
 			
-			List<Detail> detailList = detailService.findDetailByDishID(dishItems.getDishID());
-			for(Detail detail:detailList){
-				if(detail.getDetailDishSale().equals("在售")){
-					detail.setDetailDishSale("已下架");
-				}
-				detailService.updateDetail(detail);
-			}
+			detailService.takeDetailsOffShelfByDishID(dishID);
 		}
 		
 		dishManagementService.updateDish(dishItems);
@@ -224,13 +218,7 @@ public class MUserCompanyController {
 		if(dishItems.getDishSale().equals("已下架")){
 			dishItems.setDishSale("在售");
 			
-			List<Detail> detailList = detailService.findDetailByDishID(dishItems.getDishID());
-			for(Detail detail:detailList){
-				if(detail.getDetailDishSale().equals("已下架")){
-					detail.setDetailDishSale("在售");
-				}
-				detailService.updateDetail(detail);
-			}
+			detailService.takeDetailsOnShelfByDishID(dishID);
 		}
 		
 		dishManagementService.updateDish(dishItems);

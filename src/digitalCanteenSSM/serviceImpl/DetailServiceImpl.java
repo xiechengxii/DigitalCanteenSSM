@@ -64,6 +64,16 @@ public class DetailServiceImpl implements DetailService{
 	public void updateDetail(Detail detail) throws Exception{
 		detailMapper.updateDetail(detail);
 	}
+	
+	@Override
+	public void takeDetailsOffShelfByDishID(Integer dishID) throws Exception{
+		detailMapper.takeDetailsOffShelfByDishID(dishID);
+	}
+	
+	@Override
+	public void takeDetailsOnShelfByDishID(Integer dishID) throws Exception{
+		detailMapper.takeDetailsOnShelfByDishID(dishID);
+	}
 
 	@Override
 	public List<Detail> findDetailByDateAndID(Detail detail) throws Exception {

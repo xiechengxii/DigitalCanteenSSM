@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
-<mapper namespace="digitalCanteenSSM.mapper.LogRecordMapper">
+<mapper namespace="digitalCanteenSSM.mapper.LogMapper">
 	<!-- 添加日志 -->
 	<select id="insertLog" parameterType="Log">
 		INSERT INTO ctlog(LogCreateDate, MUserID, MUserName, MUserCampus, MUserCant, LogOperation, LogContent)

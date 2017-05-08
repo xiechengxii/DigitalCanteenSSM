@@ -557,28 +557,17 @@ public class DishManagementController {
 	}
 	
 	//修改菜品：修改之后保存并跳转到菜品录入页面
-	@RequestMapping ("/modifyDishSave")	
-	public ModelAndView modifyDishSave(DishItems dishItems, MultipartFile dishPhotoFile, HttpSession session) throws Exception{
+	@RequestMapping ("/modifyDishSave")
+	public String modifyDishSave(DishItems dishItems, HttpSession session) throws Exception{
 		
-		ModelAndView modelAndView = new ModelAndView();
-		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
-		
-		if(findDishByName(dishItems) == null || findDishByName(dishItems).getDishID() == dishItems.getDishID()){		
-			String dishphoto=uploadFileService.uploadFile(dishPhotoFile, picturePath);
-			//未改变图片则用原来的
-			if( dishphoto== null){			
-				DishItems dishitem = findDishById(dishItems.getDishID());
-				dishItems.setDishPhoto(dishitem.getDishPhoto());
+		if(dishItems != null){
+			if(findDishByName(dishItems) == null || 
+					findDishByName(dishItems).getDishID() == dishItems.getDishID()){
+				dishManagementService.updateDish(dishItems);
 			}
-			else{
-				dishItems.setDishPhoto(dishphoto);
-			}
-			dishManagementService.updateDish(dishItems);
-		}	
-		modelAndView.addObject("muserItems",muserItems);	
-		modelAndView.setViewName("findDishInCanteen.action");
+		}
 		
-		return modelAndView;
+		return "forward:findDishInCanteen.action";
 	}
 	
 	//通过菜品Name查找菜品信息供插入菜品信息时检查

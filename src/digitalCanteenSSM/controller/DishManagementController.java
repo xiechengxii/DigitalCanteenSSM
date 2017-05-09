@@ -211,7 +211,17 @@ public class DishManagementController {
 			
 			resultInfo.setRecordID(recordid);
 			resultInfo.setMessage("今日记录表创建成功");
-			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);				
+			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
+			
+			//记录添加记录表的log
+			Log log = new Log();
+			log.setMuserID(muserItems.getMuserID());
+			log.setMuserName(muserItems.getMuserName());
+			log.setMuserCampus(campusPresetService.findCampusById(muserItems.getMuserCampusID()).getCampusName());
+			log.setMuserCant(canteenPresetService.findCanteenById(muserItems.getMuserCantID()).getCantName());
+			log.setLogOperation("添加记录表");
+			log.setLogContent(record.getRecordDate()+"的记录表");
+			logService.insertLog(log);
 		}else{
 			//读取record的id
 			int recordid= recordService.findRecordID(record);
@@ -357,7 +367,7 @@ public class DishManagementController {
 				
 				//添加Log
 				log.setLogOperation("添加记录");
-				log.setLogContent(dishItems.getDishName());
+				log.setLogContent("【"+dishItems.getDishDate()+"】"+dishItems.getDishName());
 				logService.insertLog(log);
 			}
 	    }
@@ -369,7 +379,7 @@ public class DishManagementController {
 	    		
 	    		//添加Log
 				log.setLogOperation("删除记录");
-				log.setLogContent(oldDetail.getDetailDishName());
+				log.setLogContent("【"+oldDetail.getDetailDishDate()+"】"+oldDetail.getDetailDishName());
 				logService.insertLog(log);
 	    	}	    	
 	    }

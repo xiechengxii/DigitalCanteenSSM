@@ -36,6 +36,11 @@ public class DetailServiceImpl implements DetailService{
 	}
 	
 	@Override
+	public List<Detail> findDetailByRecordID(Integer recordID) throws Exception{
+		return detailMapper.findDetailByRecordID(recordID);
+	}
+	
+	@Override
 	public void deleteDetailDishByRecordId(Integer recordID) throws Exception{
 		detailMapper.deleteDetailDishByRecordId(recordID);
 	}

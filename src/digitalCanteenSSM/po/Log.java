@@ -11,6 +11,13 @@ public class Log {
     private String logContent;
     private String logOperation;
     
+    public void setMuser(MUserItems muserItems) throws Exception{
+    	muserID     = muserItems.getMuserID();
+    	muserName   = muserItems.getMuserName();
+    	muserCampus = muserItems.getCampusName();
+    	muserCant   = muserItems.getCantName();
+    }
+    
 	public Date getLogCreateDate() {
 		return logCreateDate;
 	}

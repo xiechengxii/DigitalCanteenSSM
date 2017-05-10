@@ -20,7 +20,6 @@ import com.github.pagehelper.PageInfo;
 
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
-import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.po.WindowItems;

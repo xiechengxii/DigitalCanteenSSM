@@ -1,5 +1,6 @@
 package digitalCanteenSSM.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,8 +15,6 @@ import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.Log;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
-import digitalCanteenSSM.service.CampusPresetService;
-import digitalCanteenSSM.service.CanteenPresetService;
 import digitalCanteenSSM.service.DetailService;
 import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.LogService;
@@ -30,10 +29,6 @@ public class RecordDishController {
 	private RecordService recordService;
 	@Autowired
 	private DishManagementService dishManagementService;
-	@Autowired
-	private CampusPresetService campusPresetService;
-	@Autowired
-	private CanteenPresetService canteenPresetService;
 	@Autowired
 	private LogService logService;
 	
@@ -96,12 +91,10 @@ public class RecordDishController {
 		record = recordService.findRecordByRecordID(record.getRecordID());
 		
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Log log = new Log();
 		
-		log.setMuserID(muserItems.getMuserID());
-		log.setMuserName(muserItems.getMuserName());
-		log.setMuserCampus(campusPresetService.findCampusById(muserItems.getMuserCampusID()).getCampusName());
-		log.setMuserCant(canteenPresetService.findCanteenById(muserItems.getMuserCantID()).getCantName());
+		log.setMuser(muserItems);
 		log.setLogOperation("删除记录");
 		
 		//删除记录要同时删除record和与之相关的detail,
@@ -116,7 +109,7 @@ public class RecordDishController {
 			
 		recordService.deleteRecord(record);
 		log.setLogOperation("删除记录表");
-		log.setLogContent(record.getRecordDate()+"的记录表");
+		log.setLogContent(simpleDateFormat.format(record.getRecordDate())+"的记录表");
 		logService.insertLog(log);
 		
 		modelAndView.setViewName("muserCanteenHostPage.action");

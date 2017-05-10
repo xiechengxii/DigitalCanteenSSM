@@ -21,6 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY DetailWndID
 	</select>
 	
+	<!-- 通过recordID查找相应的detail -->
+	<select id="findDetailByRecordID" parameterType="Integer" resultType="Detail">
+		SELECT * FROM ctdetail WHERE ctdetail.DetailRecordID=#{recordID}
+	</select>
+	
 	<!-- 通过RecordID和时间档读取记录 -->
 	<select id="findDetailByDateAndID" parameterType="Detail" resultType="Detail">
 		SELECT * 

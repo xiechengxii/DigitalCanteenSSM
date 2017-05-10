@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ctdish.DishTypeID=ctdishtype.DishTypeID	
 	</select>
 	
-	<!-- 根据DishName查询该菜品信息 -->
+	<!-- 根据DishName和窗口ID查询该菜品信息 -->
 	<select id="findDishByName"  parameterType="Dish" resultType="DishItems">
 		SELECT * 
 		FROM ctdish 

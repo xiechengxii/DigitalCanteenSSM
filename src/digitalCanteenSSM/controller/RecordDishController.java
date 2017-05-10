@@ -1,5 +1,8 @@
 package digitalCanteenSSM.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.DishItems;
+import digitalCanteenSSM.po.Log;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
 import digitalCanteenSSM.service.DetailService;
 import digitalCanteenSSM.service.DishManagementService;
+import digitalCanteenSSM.service.LogService;
 import digitalCanteenSSM.service.RecordService;
 
 @Controller 
@@ -23,6 +29,8 @@ public class RecordDishController {
 	private RecordService recordService;
 	@Autowired
 	private DishManagementService dishManagementService;
+	@Autowired
+	private LogService logService;
 	
 	//查看某个食堂某一天记录的详细菜品信息
 	@RequestMapping("/findRecordDetailDish")
@@ -75,13 +83,34 @@ public class RecordDishController {
 	
 	//删除记录
 	@RequestMapping("/deleteRecord")
-	public ModelAndView deleteRecord(Record record)throws Exception{
+	public ModelAndView deleteRecord(Record record, HttpSession session)throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		//删除记录要同时删除record和与之相关的detail
-		detailService.deleteDetailDishByRecordId(record.getRecordID());		
+		//从数据库中读出record的完整信息
+		record = recordService.findRecordByRecordID(record.getRecordID());
+		
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Log log = new Log();
+		
+		log.setMuser(muserItems);
+		log.setLogOperation("删除记录");
+		
+		//删除记录要同时删除record和与之相关的detail,
+		//并且添加log
+		List<Detail> detailList = detailService.findDetailByRecordID(record.getRecordID());
+		for(Detail detail:detailList){
+			log.setLogContent("【"+detail.getDetailDishDate()+"】"+detail.getDetailDishName());
+			logService.insertLog(log);
+			
+			detailService.deleteDetailDish(detail.getDetailID());
+		}
+			
 		recordService.deleteRecord(record);
+		log.setLogOperation("删除记录表");
+		log.setLogContent(simpleDateFormat.format(record.getRecordDate())+"的记录表");
+		logService.insertLog(log);
 		
 		modelAndView.setViewName("muserCanteenHostPage.action");
 		

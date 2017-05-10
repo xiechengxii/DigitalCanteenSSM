@@ -146,12 +146,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品添加日期</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name ="dishInDate" placeholder="请点击此处选择菜品录入日期" class="Wdate form-control"  onClick="WdatePicker()"> 
-                                </div>
-                            </div> 
-                            <div class="form-group">
                                 <label class="col-sm-2 control-label">菜品价格</label>
                                 <div class="col-sm-9">    
                                     <input type="text" class="form-control" placeholder="请在此输入菜品价格" name="dishPrice">
@@ -180,7 +174,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <div class="col-sm-9"> 
                                     <select name="dishSale" class="form-control">
                                         <option value="在售" selected="selected">在售</option>
-                                        <option value="下架">下架</option>
                                     </select>
                                 </div>
                             </div>

@@ -14,6 +14,8 @@ public interface DetailMapper {
 	
 	public List<Detail> findDetailByDishID(Integer dishID) throws Exception;
 	
+	public List<Detail> findDetailByRecordID(Integer recordID) throws Exception;
+	
 	public void deleteDetailDishByRecordId(Integer recordID) throws Exception;
 	
 	public void deleteDetailDishByDateAndRecordId(Detail detail) throws Exception;

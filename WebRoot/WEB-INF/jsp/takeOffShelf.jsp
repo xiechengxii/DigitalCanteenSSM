@@ -209,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     							   		<td style='vertical-align: middle;text-align: center;'>${item.dishSale }</td>
     							   		<td style='vertical-align: middle;text-align: center;'>
     							   			<c:if test="${item.dishSale == '在售'}">
-    							   				<a href="takeOffShelf.action?dishID=${item.dishID}" class="btn btn-primary">下架</a>
+    							   				<a href="takeOffShelf.action?dishID=${item.dishID}" class="btn btn-primary">停售</a>
     							   			</c:if>
     							   			<c:if test="${item.dishSale == '已下架'}">
     							   				<a href="takeOnShelf.action?dishID=${item.dishID}" class="btn btn-danger">上架</a>

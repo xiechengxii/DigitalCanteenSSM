@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import digitalCanteenSSM.exception.ExceptionResultInfo;
 import digitalCanteenSSM.exception.ResultInfo;
 import digitalCanteenSSM.exception.SubmitResultInfo;
 import digitalCanteenSSM.po.Campus;
@@ -109,7 +108,6 @@ public class CampusPresetController {
 			 * 所以此处根据ID反查校区名,得到数据库中此ID的校区名称，与参数传递过来的校区名比较，
 			 * 如果二者相等说明用户没有改变校区名。
 			 */
-			String name = campusPresetService.findCampusById(campus.getCampusID()).getCampusName();
 			if(campusPresetService.findCampusById(campus.getCampusID()).getCampusName().equals(campus.getCampusName())){
 				resultInfo.setMessage("未作修改");
 				resultInfo.setType(ResultInfo.TYPE_RESULT_INFO);

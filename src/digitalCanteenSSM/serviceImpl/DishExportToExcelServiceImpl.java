@@ -28,7 +28,7 @@ import digitalCanteenSSM.service.DishExportToExcelService;
 public class DishExportToExcelServiceImpl implements DishExportToExcelService{
 
 	@Override
-	public void writeExcel(List<RecordItems> recordItemsList,List<CanteenItems> canteenList,HttpServletResponse res) throws IOException, ParseException {
+	public void writeExcel(List<RecordItems> recordItemsList,List<CanteenItems> canteenList,HttpServletResponse res, String timeInFileName) throws IOException, ParseException {
 		// TODO Auto-generated method stub
 		// 1.创建一个workbook，对应一个Excel文件
         HSSFWorkbook workBook = new HSSFWorkbook();
@@ -40,9 +40,9 @@ public class DishExportToExcelServiceImpl implements DishExportToExcelService{
         	//设置每写入新的食堂表的表头行
         	int j = 0;
         	if(canteenList.size() > 1){
-        		fileName = canteenItems.getCampusName()+"校区菜品记录表";
+        		fileName = canteenItems.getCampusName()+"校区"+timeInFileName+"菜品记录";
         	}else{
-        		fileName = canteenItems.getCantName()+"食堂菜品记录表";
+        		fileName = canteenItems.getCantName()+"食堂"+timeInFileName+"菜品记录";
         	}
         	
         	// 2.在workbook中添加一个sheet，对应Excel中的一个sheet
@@ -127,6 +127,4 @@ public class DishExportToExcelServiceImpl implements DishExportToExcelService{
                 bos.close();
         }
 	}
-
-
 }

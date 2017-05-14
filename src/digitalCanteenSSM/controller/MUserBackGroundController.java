@@ -375,14 +375,35 @@ public class MUserBackgroundController {
 	//导出excel根据查询条件
 	@RequestMapping(value="/campusRecordExportToExcel",method=RequestMethod.POST)
 	public @ResponseBody ModelAndView campusRecordExportToExcel(HttpSession session, HttpServletResponse response,Integer campusID,Date beginTime,Date endTime) throws Exception{
+		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		if(beginTime==null && endTime==null){
-			SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");  
-			String dateString=simpleDateFormat.format(new Date());
-			Date date=simpleDateFormat.parse(dateString);	
-			beginTime=date;
-			endTime=date;
+		String timeInFileName = "";
+		
+		//如果用户没有设定日期，则自动选定本日；
+		//如果用户输入的起始日期相同，则设定时间段字符串为当日日期；
+		//如果用户输入的起始日期跨度在31天内，则设定时间段字符串为日期范围；
+		//如果用户输入的起始日期跨度超过31天，则自动从截止日期往前推31天设定新的范围；
+		//最终时间段字符串将传递到导出函数用来生成文件名
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+		
+		if(beginTime==null && endTime==null){			
+			String dateString = simpleDateFormat.format(new Date());
+			Date date = simpleDateFormat.parse(dateString);	
+			beginTime = date;
+			endTime = date;
+		}else{
+			long timeDiff = endTime.getTime()-beginTime.getTime();
+			
+			if(timeDiff == 0){
+				timeInFileName = simpleDateFormat.format(endTime);
+			}else{
+				if(timeDiff >= (long)30*24*60*60*1000){
+					beginTime.setTime(endTime.getTime() - (long)30*24*60*60*1000);
+				}
+				
+				timeInFileName = simpleDateFormat.format(beginTime) + "至" + simpleDateFormat.format(endTime);
+			}
 		}
 		
 		List<RecordItems> recordItemsList = new ArrayList<RecordItems>();
@@ -392,7 +413,7 @@ public class MUserBackgroundController {
 			//TODO: 此处detailService存疑
 			recordItemsList.addAll(detailService.findRecordAndDetailDish(record.getRecordID()));
 		}
-		dishExportToExcelService.writeExcel(recordItemsList,canteenList,response);
+		dishExportToExcelService.writeExcel(recordItemsList, canteenList, response, timeInFileName);
 		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");

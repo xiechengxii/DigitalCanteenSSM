@@ -82,84 +82,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <%@ include file="publicjsp/canteennavindex.jsp" %> 
 		      	<div class="scroller" style="background:#EEEEEE">
 		            <div class="scroller-inner">
-		           		<header class="codrops-header" style="background:#29C192;padding-top:22px;">
-		        	        <div class="row">
-			        	        <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";font-size:;><a style="color:#fff"; class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/muserCanteenHostPage.action"></a></button>					
-								<h1>修改录入表</h1>
+		           		<div class="codrops-header" style="background:#29C192;">
+		        	        <div class="back-container">
+			        	        <button class="btn btn-link btn-lg" ><a style="color:#fff"; class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/muserCanteenHostPage.action"></a></button>					
 							</div>
-						</header> 
-				    	<div class="container-fluid" style="color:#000; ">					    		
-	    					<div class="row" style="padding-top:16px">
-		 						<div class="col-xs-4">
-							   		<label>所属校区：</label>${muserItems.campusName}
-							   	</div>
-							   	<div class="col-xs-4">
-							   		<label>所属食堂：</label>${muserItems.cantName}
-							   	</div>
-							   	<div class="col-xs-4">
-							   		<label>管理员：</label>${muserItems.muserName}
-							   	</div>
-							</div>											 		
-		                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
-		                    	<input type="hidden" name = "recordID" value="${record.recordID}">
-		                    	<div class="row" style="padding:12px 0px;"> 
-			                        <div class="form-group">
-			                            <div class="item-wrap">
-				                            <c:forEach items="${dishItemsList }" var="item" varStatus="status">
-			                                    <div class="item clearfix">
-					                    	    	<c:choose>
-						                	        	<c:when test="${item.dishInState == '待审核'}"></c:when>
-						                	    		<c:otherwise>
-							                	    		<div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
-							                	    		    <table  width=100%>							               	    		   
-								                	    			<tr>
-								                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
-								                	    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
-								                	    				</td>
-						                	    				        <c:choose >
-								                	    					<c:when test="${dishDetailInDateList == null }">	
-								                	    					</c:when>
-								                	    					<c:otherwise>
-								                	    						<c:forEach items="${dishDetailInDateList }" var="itemInDate">
-								                	    							<c:choose>
-								                	    								<c:when test="${itemInDate.detailDishID == item.dishID }">
-								                	    									<script> checkBoxSelect("${item.dishID}");</script>		
-								                	    								</c:when>
-								                	    							</c:choose>
-								                	    						</c:forEach>
-								                	    					</c:otherwise>
-								                	    				</c:choose>	
-								                	    				<td style='vertical-align: left;text-align: center;' rowspan=3>
-								                	    				   	<c:if test="${item.dishPhoto != null }">
-								                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
-								                	       					</c:if>
-								                   	    				</td>						               	    			 	
-								                	    			   	<td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
-								                	    			   	<td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
-								                	    			</tr>
-								                	    			<tr>							               	    		   
-								                	    			   	<td style='vertical-align: middle;font-size:0.8em' colspan=2>[${item.wndName }]</td>
-								                	    			   	<td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
-								                	    			</tr>
-								                	    			<tr>						  
-								                	    			   	<td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
-								                	    			   	<td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
-								                	    			   	<td style='vertical-align: middle;'>${item.dishInState }</td> 
-								                	    			</tr>
-							                	    			</table>
-							                	    		</div>
-								                	    		<a class="delect-btn">删除</a>
-					                	    			</c:otherwise>
-						                	    	</c:choose>
-						                	    </div>
-					                	    </c:forEach>						                              							  	
-						        		</div>
-					            	</div>  
-					        	</div> 
-						        <div class="form-group" style="padding-top:5px">
-		    	                	<input type="button" class="btn btn-primary" value="保存" onClick=modifyRecordDetailDishSave()> 
-		    	            	</div>
-		    	            </form> 					  				    	                	 				                   	
+							<p style="width:100%;height:100%;font-size:27px">修改录入表</p>
+						</div> 
+				    	<div class="container-fluid" style="color:#000;padding:0 0; ">
+				    	    <div class="newcustom" style="margin-top:69px;padding-left:5%;">					    		
+		    					<div class="row" style="padding-top:16px;font-size: 1.3rem">
+			 						<div class="col-xs-4">
+								   		<label>所属校区：</label>${muserItems.campusName}
+								   	</div>
+								   	<div class="col-xs-4">
+								   		<label>所属食堂：</label>${muserItems.cantName}
+								   	</div>
+								   	<div class="col-xs-4">
+								   		<label>管理员：</label>${muserItems.muserName}
+								   	</div>
+								</div>											 		
+			                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
+			                    	<input type="hidden" name = "recordID" value="${record.recordID}">
+			                    	<div class="row" style="padding:12px 0px;"> 
+				                        <div class="form-group">
+				                            <div class="item-wrap">
+					                            <c:forEach items="${dishItemsList }" var="item" varStatus="status">
+				                                    <div class="item clearfix">
+						                    	    	<c:choose>
+							                	        	<c:when test="${item.dishInState == '待审核'}"></c:when>
+							                	    		<c:otherwise>
+								                	    		<div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
+								                	    		    <table  width=100%>							               	    		   
+									                	    			<tr>
+									                	    				<td style='vertical-align: middle;text-align: center;' rowspan=3>
+									                	    					<input type="checkbox" name="dishIDList" id="${item.dishID }" value="${item.dishID }" />
+									                	    				</td>
+							                	    				        <c:choose >
+									                	    					<c:when test="${dishDetailInDateList == null }">	
+									                	    					</c:when>
+									                	    					<c:otherwise>
+									                	    						<c:forEach items="${dishDetailInDateList }" var="itemInDate">
+									                	    							<c:choose>
+									                	    								<c:when test="${itemInDate.detailDishID == item.dishID }">
+									                	    									<script> checkBoxSelect("${item.dishID}");</script>		
+									                	    								</c:when>
+									                	    							</c:choose>
+									                	    						</c:forEach>
+									                	    					</c:otherwise>
+									                	    				</c:choose>	
+									                	    				<td style='vertical-align: left;text-align: center;' rowspan=3>
+									                	    				   	<c:if test="${item.dishPhoto != null }">
+									                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
+									                	       					</c:if>
+									                   	    				</td>						               	    			 	
+									                	    			   	<td style='vertical-align: middle;font-size:1.2em' colspan=2>${item.dishName }</td>
+									                	    			   	<td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
+									                	    			</tr>
+									                	    			<tr>							               	    		   
+									                	    			   	<td style='vertical-align: middle;font-size:0.8em' colspan=2>[${item.wndName }]</td>
+									                	    			   	<td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
+									                	    			</tr>
+									                	    			<tr>						  
+									                	    			   	<td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
+									                	    			   	<td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
+									                	    			   	<td style='vertical-align: middle;'>${item.dishInState }</td> 
+									                	    			</tr>
+								                	    			</table>
+								                	    		</div>
+									                	    		<a class="delect-btn">删除</a>
+						                	    			</c:otherwise>
+							                	    	</c:choose>
+							                	    </div>
+						                	    </c:forEach>						                              							  	
+							        		</div>
+						            	</div>  
+						        	</div> 
+							        <div class="form-group" style="padding-top:5px" align="center">
+			    	                	<input type="button" class="btn btn-primary" value="保存" onClick=modifyRecordDetailDishSave()> 
+			    	            	</div>
+			    	            </form>
+			    	        </div> 					  				    	                	 				                   	
 		                </div>
 		            </div>
 		        </div>

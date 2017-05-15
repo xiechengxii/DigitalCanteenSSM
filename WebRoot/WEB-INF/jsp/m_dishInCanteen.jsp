@@ -43,106 +43,106 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </head>
   
     <body>
-        <div class="container" >
+        <div class="container" data-role="page">
             <div class="mp-pusher" id="mp-pusher">
             <%@ include file="publicjsp/canteennavindex.jsp" %> 
       	        <div class="scroller" style="background:#EEEEEE">
                     <div class="scroller-inner">
-           		        <header class="codrops-header" style="background:#29C192">
-        	                <div class="row">
+           		        <div class="codrops-header" style="background:#29C192">
 	        	                <div id="trigger" class="burger-container">
     							    <span class="burger-bun-top"></span>
     							    <span class="burger-filling"></span>
     							    <span class="burger-bun-bot"></span>
 						        </div>					
-						        <h1>食堂菜品</h1>
-					        </div>
-				        </header> 								
-            	        <div class="container-fluid" style="color:#000;padding:0 0px;">
-                            <div class="row" style="padding:16px 0px 16px 16px">
-            					<div class="col-xs-4">
-            				   		<label>所属校区：</label>${muserItems.campusName}
-            				   	</div>
-            				   	<div class="col-xs-4">
-            				   		<label>所属食堂：</label>${muserItems.cantName}
-            				   	</div>
-            				   	<div class="col-xs-4">
-            				   		<label>管理员：</label>${muserItems.muserName}
-            				   	</div>
-            				</div>
-                            <form role="form" name="dishForm" enctype="multipart/form-data">
-        					   <input name="dishID" type="hidden" value="${dishItems.dishID }">		                
-        	                    <div class="row" style="padding:0 0px;"> 
-    	                            <div class="form-group">
-    	                                <div class="item-wrap">
-    	                                    <c:forEach items="${pagehelper.list }" var="item">
-    	                                        <div class="item clearfix">
-    			                    	    	    <c:choose>
-    				                	        	    <c:when test="${item.dishInState == '待审核'}">        				                	    		
-        				                	    		    <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
-        				                	    		        <table  width=100% border=2>							               	    		   
-        				                	    			        <tr>					 				                	    				
-        				                	    			            <td style='vertical-align: left;text-align: center;' rowspan=3>
-                				                	    				   	<c:if test="${item.dishPhoto != null }">
-                				                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
-                				                	       					</c:if>
-        				                   	    				        </td>						               	    			 	
-        				                	    			   	        <td style='vertical-align: left;font-size:1.5em' colspan=2>${item.dishName }</td>
-        				                	    			   	        <td style='vertical-align: left;'>${item.dishTypeName }</td>						                	   	
-        				                	    			        </tr>
-        				                	    			        <tr>							               	    		   
-        				                	    			   	        <td style='vertical-align: left;font-size:0.8em' colspan=2>[${item.wndName }]</td>
-        				                	    			   	        <td style='vertical-align: left;'>${item.dishDate } ${item.dishSale }</td> 
-        				                	    			        </tr>
-        				                	    			        <tr>						  
-        				                	    			   	        <td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
-        				                	    			   	        <td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishInState }</td> 
-        				                	    			        </tr>
-        				                	    			    </table>
-        				                	    		    </div>
-        				                	    		    <a href="deleteDishById.action?dishID=${item.dishID}" class="delect-btn">删除</a>
-        				                	    		</c:when>
-    				                	    	    </c:choose>
-    				                	        </div>
-    				                	    </c:forEach>
-    				                	    <c:forEach items="${pagehelper.list }" var="item">
-    	                                        <div class="item clearfix">
-    			                    	    	    <c:choose>
-    				                	        	    <c:when test="${item.dishInState == '待审核'}">
-    				                	        	    </c:when>
-    				                	        	    <c:otherwise>  				           				                	    		
-        				                	    		    <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
-        				                	    		        <table  width=100% onclick="location.href='modifyDish.action?dishID=${item.dishID}&dishWndID=${item.wndID}&wndCantID=${item.cantID}';">							               	    		   
-        				                	    			        <tr>					 				                	    				
-        				                	    			            <td style='vertical-align: middle;text-align: center;' rowspan=3>
-                				                	    				   	<c:if test="${item.dishPhoto != null }">
-                				                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
-                				                	       					</c:if>
-        				                   	    				        </td>						               	    			 	
-        				                	    			   	        <td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
-        				                	    			        </tr>
-        				                	    			        <tr>							               	    		   
-        				                	    			   	        <td style='vertical-align: middle;font-size:0.8em' colspan=2>[${item.wndName }]</td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
-        				                	    			        </tr>
-        				                	    			        <tr>						  
-        				                	    			   	        <td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
-        				                	    			   	        <td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
-        				                	    			   	        <td style='vertical-align: middle;'>${item.dishInState }</td> 
-        				                	    			        </tr>
-        				                	    			    </table>
-        				                	    		    </div>
-        				                	    		    <a href="deleteDishById.action?dishID=${item.dishID}" class="delect-btn">删除</a>
-        				                	    		</c:otherwise> 
-    				                	    	    </c:choose>
-    				                	        </div>
-    				                	    </c:forEach>    				                                         					 	
-    							        </div>
-    				                </div>  
-    				            </div> 				  
-    		                </form> 			             
+						        <p style="width:100%;height:100%;vertical-align:middle;font-size:27px">食堂菜品</p>
+				        </div> 								
+            	        <div class="container-fluid" style="color:#000;padding:0 0;">
+                            <div class="newcustom" style="margin-top:69px;">
+                                <div class="row" style="padding:16px 0px 16px 16px;font-size: 1.3rem">
+                					<div class="col-xs-4">
+                				   		<label>所属校区：</label>${muserItems.campusName}
+                				   	</div>
+                				   	<div class="col-xs-4">
+                				   		<label>所属食堂：</label>${muserItems.cantName}
+                				   	</div>
+                				   	<div class="col-xs-4">
+                				   		<label>管理员：</label>${muserItems.muserName}
+                				   	</div>
+                				</div>
+                                <form role="form" name="dishForm" enctype="multipart/form-data">
+            					   <input name="dishID" type="hidden" value="${dishItems.dishID }">		                
+            	                    <div class="row" style="padding:0 0px;"> 
+        	                            <div class="form-group">
+        	                                <div class="item-wrap">
+        	                                    <c:forEach items="${pagehelper.list }" var="item">
+        	                                        <div class="item clearfix">
+        			                    	    	    <c:choose>
+        				                	        	    <c:when test="${item.dishInState == '待审核'}">        				                	    		
+            				                	    		    <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
+            				                	    		        <table  width=100% border=2>							               	    		   
+            				                	    			        <tr>					 				                	    				
+            				                	    			            <td style='vertical-align: left;text-align: center;' rowspan=3>
+                    				                	    				   	<c:if test="${item.dishPhoto != null }">
+                    				                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
+                    				                	       					</c:if>
+            				                   	    				        </td>						               	    			 	
+            				                	    			   	        <td style='vertical-align: left;font-size:1.2em' colspan=2>${item.dishName }</td>
+            				                	    			   	        <td style='vertical-align: left;'>${item.dishTypeName }</td>						                	   	
+            				                	    			        </tr>
+            				                	    			        <tr>							               	    		   
+            				                	    			   	        <td style='vertical-align: left;font-size:0.8em' colspan=2>[${item.wndName }]</td>
+            				                	    			   	        <td style='vertical-align: left;'>${item.dishDate } ${item.dishSale }</td> 
+            				                	    			        </tr>
+            				                	    			        <tr>						  
+            				                	    			   	        <td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
+            				                	    			   	        <td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
+            				                	    			   	        <td style='vertical-align: middle;'>${item.dishInState }</td> 
+            				                	    			        </tr>
+            				                	    			    </table>
+            				                	    		    </div>
+            				                	    		    <a href="deleteDishById.action?dishID=${item.dishID}" data-role="button" data-ajax="false" class="delect-btn" target="_top">删除</a>
+            				                	    		</c:when>
+        				                	    	    </c:choose>
+        				                	        </div>
+        				                	    </c:forEach>
+        				                	    <c:forEach items="${pagehelper.list }" var="item">
+        	                                        <div class="item clearfix">
+        			                    	    	    <c:choose>
+        				                	        	    <c:when test="${item.dishInState == '待审核'}">
+        				                	        	    </c:when>
+        				                	        	    <c:otherwise>  				           				                	    		
+            				                	    		    <div class="txt-item" style=" margin-right:0px; margin-left:5px;padding-top:5px">
+            				                	    		        <table  width=100% onclick="location.href='modifyDish.action?dishID=${item.dishID}&dishWndID=${item.wndID}&wndCantID=${item.cantID}';">							               	    		   
+            				                	    			        <tr>					 				                	    				
+            				                	    			            <td style='vertical-align: middle;text-align: center;' rowspan=3>
+                    				                	    				   	<c:if test="${item.dishPhoto != null }">
+                    				                	       						<img src="/upload/pic/${item.dishPhoto }" class="center-block" height="80" width="100"/>
+                    				                	       					</c:if>
+            				                   	    				        </td>						               	    			 	
+            				                	    			   	        <td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.dishName }</td>
+            				                	    			   	        <td style='vertical-align: middle;'>${item.dishTypeName }</td>						                	   	
+            				                	    			        </tr>
+            				                	    			        <tr>							               	    		   
+            				                	    			   	        <td style='vertical-align: middle;font-size:0.8em' colspan=2>[${item.wndName }]</td>
+            				                	    			   	        <td style='vertical-align: middle;'>${item.dishDate } ${item.dishSale }</td> 
+            				                	    			        </tr>
+            				                	    			        <tr>						  
+            				                	    			   	        <td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.dishPrice }</td>
+            				                	    			   	        <td style='vertical-align: middle;'><fmt:formatDate value="${item.dishInDate}" pattern="yyyy-MM-dd" /></td>
+            				                	    			   	        <td style='vertical-align: middle;'>${item.dishInState }</td> 
+            				                	    			        </tr>
+            				                	    			    </table>
+            				                	    		    </div>
+            				                	    		    <a href="deleteDishById.action?dishID=${item.dishID}" data-role="button" data-ajax="false" class="delect-btn" target="_top">删除</a>
+            				                	    		</c:otherwise> 
+        				                	    	    </c:choose>
+        				                	        </div>
+        				                	    </c:forEach>    				                                         					 	
+        							        </div>
+        				                </div>  
+        				            </div> 				  
+        		                </form>
+                            </div> 			             
             	        </div>	                 	
 		            </div>
 		        </div>
@@ -159,15 +159,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		
         		$(this).addClass('selected').siblings('.item').removeClass('selected');
         		$(this).find('.delect-btn').on('click', function(event) {
-          			event.preventDefault();
-          	    /* Act on the event */
-          			$(this).parent(".item").animate({
+          			/* event.preventDefault(); 
+          	    Act on the event 
+          		 	$(this).parent(".item").animate({
             		height: 0,
             		width: 0},
             		300, function() {
-            	/* stuff to do after animation is complete */
-            			$(this).remove();
-          			});
+            	stuff to do after animation is complete
+            		$(this).remove();
+          			});  */
         		});
         		});
         		$(".item").on('swiperight', function(event) {

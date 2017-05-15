@@ -5,7 +5,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
 <html>
 <head>
 <base href="<%=basePath%>">      
@@ -82,18 +81,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <%@ include file="publicjsp/index.jsp" %>               
         <div class="scroller" style="background:#EEEEEE">
             <div class="scroller-inner">
-                <header class="codrops-header">
-                    <div class="row">
+                <div class="codrops-header" >
                         <div id="trigger" class="burger-container">
                             <span class="burger-bun-top"></span>
                             <span class="burger-filling"></span>
                             <span class="burger-bun-bot"></span>
                         </div>         
-                        <h1>预置档口</h1>
-                    </div> 
-                </header>
-
-                <div class="content clearfix" >
+                        <p style="width:100%;height:100%;vertical-align:middle;font-size:27px">预置档口</p>
+                </div>
+                
+                <div class="content clearfix">
                     <form name = "windowInsertForm" action="insertWindow.action" method="post" >
     	        <!-- 选择食堂所属校区 -->
                         <div class=" newcustom" style="margin-top:77px" > 
@@ -136,18 +133,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         
       	    <!-- 档口添加按钮 -->
           	                <div align="center" style="margin-top:6px">
-                                <input  type="submit" value="添加档口" onClick="return check(windowInsertForm)" class="thick-green btn btn-success btn-wide" data-role="none">
+                                <input  type="submit" value="添加档口" onClick="return check(windowInsertForm)" class="btn btn-primary btn-wide" data-role="none">
                             </div>
                         </div>
                 <!-- 列举已录入的档口 -->
                         <div class="newcustom" style="padding: 1em 0.6em">
         	                <table  class="table table-striped table-bordered table-condensed">
                                 <thead>
-                		            <tr style="background:#6e9cc9;text-align:center;color:white;font-size:15px">
+                		            <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
                 		           	 	<td>校区名称</td>
-                	               	<td>食堂名称</td>
-                	               	<td>档口名称</td>
-                		              <td colspan="2">编辑</td>
+                	               	    <td>食堂名称</td>
+                	               	    <td>档口名称</td>
+                		                <td colspan="2">编辑</td>
                 		            </tr>
                                 </thead>
                         
@@ -157,8 +154,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 			       	    <td>${item.cantName }</td>
                 			       	    <td>${item.wndName }</td>
                 			       	   	<!-- wndID=${item.wndID}& -->
-                			       	    <td><a href="modifyWindow.action?wndID=${item.wndID}&cantCampusID=${item.cantCampusID}">修改</a></td>
-                			       	    <td><a href="deleteWindowById.action?wndID=${item.wndID}">删除</a></td>
+                			       	    <td><a href="modifyWindow.action?wndID=${item.wndID}&cantCampusID=${item.cantCampusID}" style="color:#66AFE9">修改</a></td>
+                			       	    <td><a href="deleteWindowById.action?wndID=${item.wndID}" style="color:#66AFE9">删除</a></td>
             			       	    </tr>
             			        </c:forEach>
         		            </table>

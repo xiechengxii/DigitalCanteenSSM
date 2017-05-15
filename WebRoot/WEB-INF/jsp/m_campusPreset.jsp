@@ -34,27 +34,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%@ include file="publicjsp/index.jsp" %>               
         <div class="scroller" style="background:#EEEEEE">
         	<div class="scroller-inner">
-        	    <header class="codrops-header" style="background:#29C192">
-        	    	<div class="row">
+        	    <div class="codrops-header" style="background:#29C192">
         	         <div id="trigger" class="burger-container">
 						<span class="burger-bun-top"></span>
 						<span class="burger-filling"></span>
 						<span class="burger-bun-bot"></span>
 					 </div>					
-					<h1>预置校区</h1>
-					</div>
-				</header>
+					<p style="width:100%;height:100%;vertical-align:middle;font-size:27px">预置校区</p>
+				</div>
 				
                 <div class="content clearfix">                                       							
 					<form action="insertCampus.action" method="post">
-					<!-- 添加校区 -->							
+					<!-- 添加校区 -->
+					<div class=" newcustom" style="margin-top:77px" >							
 						<div class="form-group" >
-						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"  style="border:0;border-bottom:1px solid #a0dbbe;"> </div>
+						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"> </div>
 							<br>
 						    <div align="center"><input  type="submit" value="添加校区"  class="btn btn-primary btn-wide" data-role="none"></div>
 						</div>
-																
+					</div>										
 					<!-- 列举所有已录入校区 -->
+					<div class="newcustom" style="padding: 1em 0.6em">
 						<table   class="table table-striped table-bordered table-condensed">
 							<thead>
 						    	<tr style="background:#29C192;text-align:center;color:white;font-size:15px">
@@ -65,11 +65,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:forEach items="${campusList }" var="item" >
 						    	<tr align="center" style="color:black;font-size:15px">
 						    	    <td>${item.campusName }</td>
-						    	    <td><a href="modifyCampus.action?campusID=${item.campusID}">修改</a></td>
-						    	    <td><a href="deleteCampusById.action?campusID=${item.campusID}">删除</a></td>
+						    	    <td><a href="modifyCampus.action?campusID=${item.campusID}" style="color:#66AFE9">修改</a></td>
+						    	    <td><a href="deleteCampusById.action?campusID=${item.campusID}" style="color:#66AFE9">删除</a></td>
 						    	</tr>
 							</c:forEach>
-						</table>								
+						</table>
+					</div>								
 					</form>
 			    </div>
 			</div>

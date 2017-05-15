@@ -92,10 +92,13 @@ public class LoginController {
 				session.setAttribute("muserItems", mUserItems);				
 				return "forward:backgroundHomepage.action";
 				
-			}else{
+			}else if("company".equals(mUserItems.getRoleName())){
 				session.setAttribute("muserItems", mUserItems);
-				return "forward:findAllCampuses.action";
+				return "forward:companyHomepage.action";
 				
+			}else{
+				//TODO: 用户页面跳转
+				return "forward:user.action";
 			}
 
 		}else{

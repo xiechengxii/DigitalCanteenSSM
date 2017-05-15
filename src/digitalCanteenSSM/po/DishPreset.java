@@ -4,6 +4,7 @@ package digitalCanteenSSM.po;
 public class DishPreset {
 	private int    dishPresetID   = 0;
 	private String dishPresetName = "";
+	private String dishPresetPhoto = "";
 	
 	public int getDishPresetID() {
 		return dishPresetID;
@@ -16,6 +17,12 @@ public class DishPreset {
 	}
 	public void setDishPresetName(String dishPresetName) {
 		this.dishPresetName = dishPresetName;
+	}
+	public String getDishPresetPhoto() {
+		return dishPresetPhoto;
+	}
+	public void setDishPresetPhoto(String dishPresetPhoto) {
+		this.dishPresetPhoto = dishPresetPhoto;
 	}
 	
 	

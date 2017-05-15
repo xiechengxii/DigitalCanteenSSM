@@ -12,10 +12,8 @@ public class Dish {
 	private String  dishDate    = "";
 	private String dishRecmd   = "";     
 	private String dishKeep    = "";     
-	private String  dishQuality = "";
 	private String  dishSale    = "";        
 	private Date  dishInDate  = null;
-	private String  dishInState = "";
 	private String  dishNote    = "";
 	private String dishDelete  = "";
 	private String dishSubmitState = "";
@@ -87,12 +85,7 @@ public class Dish {
 	public void setDishSubmitState(String dishSubmitState) {
 		this.dishSubmitState = dishSubmitState;
 	}
-	public String getDishQuality() {
-		return dishQuality;
-	}
-	public void setDishQuality(String dishQuality) {
-		this.dishQuality = dishQuality;
-	}
+	
 	public String getDishSale() {
 		return dishSale;
 	}
@@ -105,12 +98,7 @@ public class Dish {
 	public void setDishInDate(Date dishInDate) {
 		this.dishInDate = dishInDate;
 	}
-	public String getDishInState() {
-		return dishInState;
-	}
-	public void setDishInState(String dishInState) {
-		this.dishInState = dishInState;
-	}
+	
 	public String getDishNote() {
 		return dishNote;
 	}

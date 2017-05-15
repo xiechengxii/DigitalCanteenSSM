@@ -28,22 +28,23 @@ import digitalCanteenSSM.service.DishExportToExcelService;
 public class DishExportToExcelServiceImpl implements DishExportToExcelService{
 
 	@Override
-	public void writeExcel(List<RecordItems> recordItemsList,List<CanteenItems> canteenList,HttpServletResponse res) throws IOException, ParseException {
+	public void writeExcel(List<RecordItems> recordItemsList,List<CanteenItems> canteenList,HttpServletResponse res, String timeInFileName) throws IOException, ParseException {
 		// TODO Auto-generated method stub
 		// 1.创建一个workbook，对应一个Excel文件
         HSSFWorkbook workBook = new HSSFWorkbook();
         //设置日期格式
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String fileName = new String();
+        if(canteenList.size() > 1){
+    		fileName = canteenList.get(0).getCampusName()+"校区"+timeInFileName+"菜品记录";
+    	}else{
+    		fileName = canteenList.get(0).getCantName()+"食堂"+timeInFileName+"菜品记录";
+    	}
+        
         //按食堂分sheet导出记录
         for(CanteenItems canteenItems:canteenList){
         	//设置每写入新的食堂表的表头行
-        	int j = 0;
-        	if(canteenList.size() > 1){
-        		fileName = canteenItems.getCampusName()+"校区菜品记录表";
-        	}else{
-        		fileName = canteenItems.getCantName()+"食堂菜品记录表";
-        	}
+        	int j = 0;     	
         	
         	// 2.在workbook中添加一个sheet，对应Excel中的一个sheet
             HSSFSheet sheet = workBook.createSheet(canteenItems.getCantName()+"记录表");
@@ -80,7 +81,7 @@ public class DishExportToExcelServiceImpl implements DishExportToExcelService{
             
     		// 循环将数据写入Excel
             for (int i = 0; i < recordItemsList.size(); i++) {
-            	RecordItems recordItems= (RecordItems)recordItemsList.get(i);
+            	RecordItems recordItems = (RecordItems)recordItemsList.get(i);
             	if(recordItems.getRecordCantID() == canteenItems.getCantID()){
             		// 创建单元格，设置值
             		row = sheet.createRow((int) j + 1);  
@@ -127,6 +128,4 @@ public class DishExportToExcelServiceImpl implements DishExportToExcelService{
                 bos.close();
         }
 	}
-
-
 }

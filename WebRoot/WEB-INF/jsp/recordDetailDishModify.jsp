@@ -32,6 +32,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--bootstrap-->    
         <script src="js/bootstrap.min.js"></script>
 
+        <!-- jQuery支撑 -->
+        <script src="js/jquery.form.js"></script>
+        <script src="js/custom.jquery.form.js"></script>
+        <script src="js/jquery.validate.js"></script>
+
     	<script>	
     	
     		function modifyRecordDetailDishSave() {
@@ -61,15 +66,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     }  
                     checkflag=false;
                 }
-            }    	
+            }
+
+            //设置时间档下拉框默认显示
+            function myinitiation() {       
+                var dishDate = document.getElementById("dishDate");
+                var dishDateVal=$("#dishdate").val();
+
+                for(i = 0; i<=dishDate.length; i++){
+                     var v = dishDate.options[i].value;
+                    if(dishDate.options[i].value == dishDateVal){
+                        dishDate.options[i].selected = true;
+                    }
+                }   
+            }
     	</script>
     </head>
   
-    <body >
+    <body onload="myinitiation()">
         <%@ include file="publicjsp/canteenMenu.jsp" %>
         <div class="container-fluid">	
     		<div class="panel panel-default">
-    			<div class="panel panel-heading">
+    			<div class="panel-heading">
     				<div class="row">
  						<div class="col-sm-1">
 					   		<label>所属校区：</label>${muserItems.campusName}
@@ -84,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</div>
     			<div class="panel-body">
     	            <!-- 所有菜品显示列表 -->
-                    <form role="form" name="importDishForm" method="post" enctype="multipart/form-data" >
+                    <form role="form" name="importDishForm" id="importDishForm" method="post" enctype="multipart/form-data" >
                     	<input type="hidden" name = "recordID" value="${record.recordID}">
                     	<table class="table table-striped table-bordered table-hover table-responsive text-center">
                     		<thead>

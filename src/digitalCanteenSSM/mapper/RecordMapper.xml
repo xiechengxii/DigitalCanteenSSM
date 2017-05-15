@@ -6,6 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
 <mapper namespace="digitalCanteenSSM.mapper.RecordMapper">
 
+	<!-- 根据recordID查询完整record信息 -->
+	<select id="findRecordByRecordID" parameterType="Integer" resultType="Record">
+		SELECT *
+		FROM ctrecord
+		WHERE ctrecord.RecordID = #{recordID}
+	</select>
+	
 	<!-- 查询某个食堂的历史录入信息,以降序排列(后录入的排在前面) -->
 	<select id="findRecordInCanteen" parameterType="Integer" resultType="Record">
 		SELECT * 
@@ -48,6 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 查询是否有这一天的记录 -->
+	<!-- ！！！警告！！！ -->
+	<!-- 本条语句将会查询到所有食堂在对应日期的记录，不要用来查询某个食堂的记录 -->
 	<select id="findRecordByDate" parameterType="Record" resultType="Record">
 		SELECT *
 		FROM ctrecord
@@ -60,6 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM ctrecord
 		WHERE ctrecord.RecordCantName=#{recordCantName} and ctrecord.RecordDate = #{recordDate}
 	</select>
+	
 	
 	<!-- 根据RecordID删除该记录信息 -->
 	<select id="deleteRecord"  parameterType="Record" >

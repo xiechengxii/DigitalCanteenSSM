@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 	    <meta charset="utf-8">
-	    <title>outputExcel</title>
+	    <title>导出记录</title>
 	    <meta name="viewport" content="width=device-width, 
 	                                     initial-scale=0.3, 
 	                                     maximum-scale=1.0, 
@@ -40,20 +40,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>		
 		<script>	
 			function exportExcel(){
-				/* document.listFrom.action="campusRecordExportToExcel.action";
-	    		document.listFrom.submit();	 */
-	    		$.ajax({
+				 document.listFrom.action="campusRecordExportToExcel.action";
+	    		document.listFrom.submit();	 
+	    		/*$.ajax({
 					type:'post',
 					url:'${pageContext.request.contextPath}/campusRecordExportToExcel.action',
 					contentType:'application/x-www-form-urlencoded',
 					//发送的是key/value，接收的是json
-					data:{beginTime:$('#beginTime'),endTime:$('#endTime')},
-					//回调函数:返回json结果
-					success:function(data){
-							alert("导出成功！");
-					}
-				
-				});
+					data:{beginTime:$('#beginTime'),endTime:$('#endTime')},				
+				});*/
 			}
 		
 			function findCampusRecord(){
@@ -72,27 +67,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div> 
 						<div class="panel-body"> 
 							<div class="row"> 	
-								<form id="listFrom" name="listFrom" action="${pageContext.request.contextPath}/campusRecordExportToExcel.action" method="post">																		
-									<div class="col-sm-3">    
-	                                    <!-- 选择食堂所属校区 -->
-	                                    <select class="form-control" name="campusID">
-	                                        <option value="">请选择食堂所属校区</option>
-	                                        <c:forEach items="${campusList }" var="item" >
-	                                            <c:choose>
-		                   		                    <c:when test="${item.campusID == campusID }">
-		                   		                        <option value="${item.campusID }" selected="selected">${item.campusName }</option>
-		                   		                    </c:when>
-		                   		                    <c:otherwise>
-		                   		                         <option value="${item.campusID }">${item.campusName }</option>
-		                   		                    </c:otherwise>
-		                   		                </c:choose>
-	                                        </c:forEach>
-	                                    </select>
-	                                </div>                                
-									<div  class="col-sm-2">
-										<button type="button" class="btn btn-primary" onclick="findCampusRecord()">搜索</button> 
-									</div> 
-									<div  class="form-group col-sm-3">						
+								<form id="listFrom" name="listFrom" class="form-horizontal" action="campusRecordExportToExcel.action" method="post">																		
+									<div class="form-group">
+										<div class="col-sm-2">    
+	                                	    <!-- 选择食堂所属校区 -->
+	                                	    <select class="form-control" name="campusID">
+	                                	        <option value="">请选择食堂所属校区</option>
+	                                	        <c:forEach items="${campusList }" var="item" >
+	                                	            <c:choose>
+		                   		    	                <c:when test="${item.campusID == campusID }">
+		                   		    	                    <option value="${item.campusID }" selected="selected">${item.campusName }</option>
+		                   		    	                </c:when>
+		                   		    	                <c:otherwise>
+		                   		    	                     <option value="${item.campusID }">${item.campusName }</option>
+		                   		    	                </c:otherwise>
+		                   		    	            </c:choose>
+	                                	        </c:forEach>
+	                                	    </select>
+	                                	</div>
+	                                	<div class="col-sm-1">
+											<button type="button" class="btn btn-success" onclick="findCampusRecord()">搜索</button> 
+										</div> 
+	                                </div> 
+	                                <div class="form-group">
+	                                	<div class="col-sm-2">
 											<div class="input-group" style="width: 240px; margin-left: 0px;">
 											    <input type="text" class="form-control date-picker" id="dateTimeRange"/>
 											    <span class="input-group-addon">
@@ -100,11 +98,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											    </span>
 											    <input type="hidden" name="beginTime" id="beginTime" />
 											    <input type="hidden" name="endTime" id="endTime"  />								    
-											</div>													
-									</div>
-									<div  class="col-sm-3">
-										<button onclick="exportExcel()" class="btn btn-primary">导出</button>
-									</div>                                                               
+											</div>
+										</div>											
+										<div class="col-sm-1">
+											<button onclick="exportExcel()" class="btn btn-primary">导出</button>
+										</div>  
+									</div>                                                             
 								</form>							
 					        </div>
 					        
@@ -115,29 +114,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								    	<th style='text-align: center;'>食堂</th> 
 								    	<th style='text-align: center;'>操作人</th> 
 								    	<th style='text-align: center;'>日期</th> 
-								    	<th style='text-align: center;'>提交状态</th> 	
-								    	<th style='text-align: center;'>编辑</th> 		
+								    	<th style='text-align: center;'>提交状态</th> 									    			
 								    </tr>
 							    </thead>
 							    <tbody>
-								    <c:forEach items="${recordList }" var="item">
+								    <c:forEach items="${pagehelper.list }" var="item">
 								        <tr>
 								        	<td style='vertical-align: middle;text-align: center;'>${item.recordCampusName }</td>
 								        	<td style='vertical-align: middle;text-align: center;'>${item.recordCantName }</td>
 								        	<td style='vertical-align: middle;text-align: center;'>${item.recordMUserName }</td>
 								        	<td style='vertical-align: middle;text-align: center;'><fmt:formatDate value="${item.recordDate}" pattern="yyyy-MM-dd" /></td>
 								        	<td style='vertical-align: middle;text-align: center;'>${item.recordSubmitState }</td>  	
-								        	<td style='vertical-align: middle;text-align: center;'>
-							                    <div class="form-group btn-group btn-group-sm">
-							                        <a href="modifyRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-info">修改</a>
-								        		    <a href="findRecordDetailDish.action?recordID=${item.recordID}" class="btn btn-success">查看</a>
-								        	        <a href="deleteRecord.action?recordID=${item.recordID}" class="btn btn-danger">删除</a>
-							                    </div>
-								        	</td>
 								        </tr>
 							        </c:forEach>
 							    </tbody>
-							</table>													
+							</table>
+							<div>
+                                <div class="message">
+                                    <p class="text-center">
+                                        共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
+                                    </p>
+                                </div>
+                                <div style="text-align:center;">
+                                    <ul class="pagination">
+                                        <c:if test="${!pagehelper.isFirstPage}">                                        
+                                            <li>
+                                                <a href="findRecordInCampus.action?campusID=${campusID}&pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
+                                            </li>
+                                        </c:if>
+    
+                                        <c:forEach items="${pagehelper.navigatepageNums}" var="navigatepageNum">    
+    
+                                            <c:if test="${navigatepageNum==pagehelper.pageNum}">
+                                                <li class="active">
+                                                    <a href="findRecordInCampus.action?campusID=${campusID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                                                </li>
+                                            </c:if>
+    
+                                            <c:if test="${navigatepageNum!=pagehelper.pageNum}">
+                                                <li>
+                                                    <a href="findRecordInCampus.action?campusID=${campusID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                                                </li>
+                                            </c:if>
+    
+                                        </c:forEach>
+    
+                                        <c:if test="${!pagehelper.isLastPage}">
+                                            <li>
+                                                <a href="findRecordInCampus.action?campusID=${campusID}&pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                                            </li>
+                                        </c:if>
+                                    </ul>
+                                </div>
+                            </div>												
 						</div>					
 					</div> 
 				</div>      
@@ -165,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            '最近7日': [moment().subtract('days', 6), moment()],
 			            '最近30日': [moment().subtract('days', 29), moment()], */
 			            '本月': [moment().startOf("month"),moment()],
-			            /* '上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")] */
+			             '上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")]
 			        },
 			        opens : 'right',    // 日期选择框的弹出位置
 			        separator : ' 至 ',

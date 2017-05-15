@@ -114,10 +114,6 @@ public class MUserCanteenController {
 			}
 		}
 		
-		System.out.println("==============");
-		System.out.println(timeInFileName);
-		System.out.println("++++++++++++++");
-		
 		List<RecordItems> recordItemsList = new ArrayList<RecordItems>();
 		List<Record> recordList  = recordService.findRecordInCanteenByDate(cantID, beginTime, endTime);
 		List<CanteenItems> canteenList = new ArrayList<CanteenItems>();

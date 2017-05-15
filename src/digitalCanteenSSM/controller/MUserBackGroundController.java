@@ -27,6 +27,7 @@ import com.github.pagehelper.PageInfo;
 
 import digitalCanteenSSM.po.Campus;
 import digitalCanteenSSM.po.CanteenItems;
+import digitalCanteenSSM.po.DishItems;
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
@@ -338,11 +339,11 @@ public class MUserBackgroundController {
 	
 	//导出菜品
 	@RequestMapping("/recordExportToExcel")
-	public ModelAndView recordExportToExcel(HttpSession session) throws Exception {
-
+	public ModelAndView recordExportToExcel(HttpSession session) throws Exception {	
+		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
+		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
 		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
@@ -355,13 +356,32 @@ public class MUserBackgroundController {
 	
 	//查询某个校区的 所有菜品记录
 	@RequestMapping("/findRecordInCampus")
-	public ModelAndView findRecordInCampus(Integer campusID, HttpSession session) throws Exception{	
+	public ModelAndView findRecordInCampus(Integer campusID, HttpSession session, HttpServletRequest request) throws Exception{	
+		
+		String pageNum = request.getParameter("pageNum");
+		String pageSize = request.getParameter("pageSize");
+		int num = 1;
+		int size = 20;
+		if (pageNum != null && !"".equals(pageNum)) {
+			num = Integer.parseInt(pageNum);
+		}
+		if (pageSize != null && !"".equals(pageSize)) {
+			size = Integer.parseInt(pageSize);
+		}
+
+		//配置pagehelper的排序及分页
+		String sortString = "id.desc";
+		Order.formString(sortString);
+		PageHelper.startPage(num, size);
+		
 		ModelAndView modelAndView = new ModelAndView();
 		
 		List<Record> recordList = recordService.findRecordInCampus(campusID);
-		modelAndView.addObject("campusID",campusID);
-		modelAndView.addObject("campusList",campusPresetService.findAllCampuses());
-		modelAndView.addObject("recordList",recordList);
+		PageInfo<Record> pagehelper = new PageInfo<Record>(recordList);
+		
+		modelAndView.addObject("campusID", campusID);
+		modelAndView.addObject("campusList", campusPresetService.findAllCampuses());
+		modelAndView.addObject("pagehelper", pagehelper);
 		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
@@ -373,10 +393,10 @@ public class MUserBackgroundController {
 	}
 	
 	//导出excel根据查询条件
-	@RequestMapping(value="/campusRecordExportToExcel",method=RequestMethod.POST)
-	public @ResponseBody ModelAndView campusRecordExportToExcel(HttpSession session, HttpServletResponse response,Integer campusID,Date beginTime,Date endTime) throws Exception{
+	@RequestMapping(value="/campusRecordExportToExcel", method=RequestMethod.POST)
+	public void campusRecordExportToExcel(HttpSession session, HttpServletResponse response,Integer campusID,Date beginTime,Date endTime) throws Exception{
 		
-		ModelAndView modelAndView = new ModelAndView();
+		//ModelAndView modelAndView = new ModelAndView();
 		
 		String timeInFileName = "";
 		
@@ -407,20 +427,11 @@ public class MUserBackgroundController {
 		}
 		
 		List<RecordItems> recordItemsList = new ArrayList<RecordItems>();
-		List<Record> recordList = recordService.findRecordInCampusByDate(campusID,beginTime,endTime);
+		List<Record> recordList = recordService.findRecordInCampusByDate(campusID, beginTime, endTime);
 		List<CanteenItems> canteenList = canteenPresetService.findCanteenByCampus(campusID);
 		for(Record record:recordList){
-			//TODO: 此处detailService存疑
 			recordItemsList.addAll(detailService.findRecordAndDetailDish(record.getRecordID()));
 		}
 		dishExportToExcelService.writeExcel(recordItemsList, canteenList, response, timeInFileName);
-		
-		if(session.getAttribute("ua").equals("pc")){
-			modelAndView.setViewName("WEB-INF/jsp/recordExportToExcel.jsp");
-		}else{
-			modelAndView.setViewName("WEB-INF/jsp/m_recordExportToExcel.jsp");
-		}
-
-		return modelAndView;
 	}
 }

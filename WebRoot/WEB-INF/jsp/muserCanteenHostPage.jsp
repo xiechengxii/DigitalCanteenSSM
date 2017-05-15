@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            '最近7日': [moment().subtract('days', 6), moment()],
 		            '最近30日': [moment().subtract('days', 29), moment()], */
 		            '本月': [moment().startOf("month"),moment()],
-		            /* '上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")] */
+		            '上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")]
 		        },
 		        opens : 'right',    // 日期选择框的弹出位置
 		        separator : ' 至 ',

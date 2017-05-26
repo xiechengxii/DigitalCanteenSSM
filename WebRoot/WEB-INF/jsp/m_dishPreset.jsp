@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    </div>
 
                 <div class="content clearfix">
-		            <form action="insetDishPreset.action" method="post">
+		            <form action="insetDishPreset.action" method="post" enctype="multipart/form-data">
 			<!-- 添加预置菜品-->
                 <div class=" newcustom" style="margin-top:77px" >
 			           <div class="form-group" >
@@ -57,6 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <input name="dishPresetName" class="form-control " type="text" placeholder="请输入预置菜品"> 
                     </div>
     			         <br>
+                   <div>
+                      <input type="file" name="dishPhotoFile"/>
+                   </div>
+                  <br>
+                  <br>
     			         <div align="center">
                       <input  type="submit" value="添加菜品"  class="btn btn-primary btn-wide" data-role="none">
                    </div>
@@ -67,17 +72,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			           <table  class="table table-striped table-bordered table-condensed">
 			           	<thead>
 			               <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
-			              	 	<td>预置菜品名称</td>
+			              	 	<td>菜品名称</td>
+                        <td>菜品图片</td>
 			                  <td colspan="2">编辑</td>
 			               </tr>
 			            </thead>
+                  <tbody>
 			           	<c:forEach items="${pagehelper.list }" var="item" >
-			               <tr align="center" style="color:black;font-size:15px">
-			                   <td>${item.dishPresetName }</td>
-			                   <td><a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}" style="color:#66AFE9">修改</a></td>
-			                   <td><a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}" style="color:#66AFE9">删除</a></td>
+			               <tr style="color:black;font-size:15px">
+			                   <td style='vertical-align: middle;text-align: center;'>${item.dishPresetName }</td>
+                         <td>
+                          <c:if test="${item.dishPresetPhoto != null }">
+                            <img src="/upload/pic/${item.dishPresetPhoto }" class="center-block" height="80" width="80"/>
+                          </c:if>
+                         </td>
+			                   <td style='vertical-align: middle;text-align: center;'><a href="modifyDishPreset.action?dishPresetID=${item.dishPresetID}" style="color:#66AFE9">修改</a></td>
+			                   <td style='vertical-align: middle;text-align: center;'><a href="deleteDishPresetById.action?dishPresetID=${item.dishPresetID}" style="color:#66AFE9">删除</a></td>
 			               </tr>
 			           	</c:forEach>
+                  </tbody>
 			           </table>
 
                   <div>

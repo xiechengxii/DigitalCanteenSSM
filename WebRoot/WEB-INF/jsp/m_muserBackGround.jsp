@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    														<c:set var="status" value="setted" scope="page"/>
 	    													</c:if>	    										
 	    												</c:forEach>
-	    												<a style="font-size:15px;" href="muserBackGround.action?recordCantID=${item_canteen.cantID }">
+	    												<a style="font-size:15px;" href="muserBackground.action?recordCantID=${item_canteen.cantID }">
 	    													<c:if test="${status == 'setted' }">
 	    														${item_canteen.cantName}
 	    													</c:if>
@@ -106,6 +106,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								   	</div>
 	    						</div>
 	    						<div class="panel-body">
+	    							<a href="findRecordInCampus.action?campusID=${canteenItems.campusID}" class="btn btn-primary">导出本校区记录</a>
+                    				<br><br>
 	    					        <table class="table table-striped table-bordered table-condensed table-hover table-responsive text-center">
 	    					        	<thead>
 	            			                <tr style="background:#29C192;text-align:center;color:white;font-size:15px">

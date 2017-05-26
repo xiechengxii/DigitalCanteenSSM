@@ -167,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
                             <div class="row form-group">
-                                <label class="col-xs-4 control-label style1">管理员校区</label>
+                                <label class="col-xs-4 control-label style1" id="campusLabel">管理员校区</label>
                                     <div class="col-xs-7">
    	    	                        <select name="muserCampusID" class="form-control" onchange="selectCanteen(this.value)" data-toggle="select">
    	    	                        	<option value="">请选择食堂管理员的所属校区</option>
@@ -176,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <br>
    	    	                <div class="row form-group"> 
-                                <label class="col-xs-4 control-label style1">管理员食堂</label>
+                                <label class="col-xs-4 control-label style1" id="canteenLabel">管理员食堂</label>
                                     <div class="col-xs-7">
    	    	                        <select name="muserCantID" class="form-control" data-toggle="select">
    	    	                        	<option value="">请选择食堂管理员的所属食堂</option>

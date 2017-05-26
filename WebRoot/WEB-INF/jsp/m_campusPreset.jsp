@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -21,11 +22,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="js/modernizr.custom.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+	<script src="js/custom.jquery.form.js"></script>
+	<script src="js/jquery.validate.js"></script>
+	<script>
+        	//添加校区的重复检验
+        	function insertCampus(){
+        		if(document.campusPresetForm.campusName.value == ""){
+        			alert("请输入校区名称");
+        			return;
+        		}
+
+        		document.campusPresetForm.action="insertCampusWithValidation.action";
+        		jquerySubByFId('campusPresetForm', insertCampus_callback, null, "json");
+        	}
+        	function insertCampus_callback(data){
+        		//成功
+        		if(data.resultInfo.type == '1'){
+        			window.location.href="findAllCampuses.action";
+        		}
+        		//失败
+        		else if(data.resultInfo.type == '0'){
+        			alert(data.resultInfo.message);
+        			window.location.href="findAllCampuses.action";
+        		}
+        	}
+    </script> 
     <link rel="stylesheet" href="css/m_bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/icons.css" />
-    <link rel="stylesheet" type="text/css" href="css/component.css" />    
+    <link rel="stylesheet" type="text/css" href="css/component.css" />   
 </head>  
 <body>
 
@@ -44,15 +71,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				
                 <div class="content clearfix">                                       							
-					<form action="insertCampus.action" method="post">
+					<form id="campusPresetForm" name="campusPresetForm" role="form" method="post">
 					<!-- 添加校区 -->
 					<div class=" newcustom" style="margin-top:77px" >							
 						<div class="form-group" >
-						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区"> </div>
+						    <div> <input name="campusName" class="form-control " type="text" placeholder="请输入预置校区" onKeydown="if(event.keyCode==13){return false;}"> </div>
 							<br>
-						    <div align="center"><input  type="submit" value="添加校区"  class="btn btn-primary btn-wide" data-role="none"></div>
+						    <div align="center"><input  type="button" value="添加校区"  class="btn btn-primary btn-wide" onclick="insertCampus()"></div>
 						</div>
-					</div>										
+					</div>
+					</form>										
 					<!-- 列举所有已录入校区 -->
 					<div class="newcustom" style="padding: 1em 0.6em">
 						<table   class="table table-striped table-bordered table-condensed">
@@ -62,6 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    	    <td colspan="2">编辑</td>
 						    	</tr>
 							</thead>
+							<tbody>
 							<c:forEach items="${campusList }" var="item" >
 						    	<tr align="center" style="color:black;font-size:15px">
 						    	    <td>${item.campusName }</td>
@@ -69,9 +98,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    	    <td><a href="deleteCampusById.action?campusID=${item.campusID}" style="color:#66AFE9">删除</a></td>
 						    	</tr>
 							</c:forEach>
+							</tbody>
 						</table>
 					</div>								
-					</form>
+					
 			    </div>
 			</div>
         </div>
@@ -82,6 +112,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
    new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
 </script>
-<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
 </body>
 </html>

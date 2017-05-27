@@ -8,7 +8,8 @@ public class Window {
 	private String wndPriceRange  = "";		
 	private String wndSaleHours   = "";		
 	private String wndPayment     = "";		
-	private String wndDescription = ""; 	
+	private String wndDescription = ""; 
+	private float wndScore        = 0;
 	private String wndNote 		  = "";
 	
 	public int getWndID() {
@@ -64,6 +65,12 @@ public class Window {
 	}
 	public void setWndNote(String wndNote) {
 		this.wndNote = wndNote;
+	}
+	public float getWndScore() {
+		return wndScore;
+	}
+	public void setWndScore(float wndScore) {
+		this.wndScore = wndScore;
 	}		
-
+	
 }

@@ -20,4 +20,7 @@ public interface WindowPresetMapper {
 	public void deleteWindowById(Window window) throws Exception;
 	
 	public void insertWindow(Window window) throws Exception;
+	
+	public void updateWindowScore(Window window) throws Exception;
+	
 }

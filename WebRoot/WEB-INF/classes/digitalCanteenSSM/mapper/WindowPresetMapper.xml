@@ -69,4 +69,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{wndNote})
 	</select>
 	
+	<!-- 添加档口信息 -->
+	<select id="updateWindowScore"  parameterType="Window">
+		update ctwnd 
+		set ctwnd.WndScore = #{wndScore}
+		where ctwnd.WndID = #{wndID}
+	</select>
+	
 </mapper>

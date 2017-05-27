@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <label class="col-sm-2 control-label">价格范围</label>
                                     <div class="col-sm-9">    
                                         <input type="text" class="form-control" name="wndPriceRange">
-                                    </div>
+                                    </div>z
                                 </div>    
                                 <div class="form-group">                                          
                                     <label class="col-sm-2 control-label">营业时间段</label>

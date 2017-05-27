@@ -58,5 +58,11 @@ public class WindowPresetServiceImpl implements WindowPresetService{
 		windowPresetMapper.insertWindow(window);
 	}
 
+	@Override
+	public void updateWindowScore(Window window) throws Exception {
+
+		windowPresetMapper.updateWindowScore(window);	
+	}
+
 
 }

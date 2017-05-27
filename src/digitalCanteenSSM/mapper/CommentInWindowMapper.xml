@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="digitalCanteenSSM.mapper.CommentInWindowMapper">
+	
+	<!-- 查找某个档口下的所有评论 -->
+	<select id="findAllCommentsInWindow" parameterType="Integer" resultType="CommentItems">
+		SELECT * 
+		FROM ctcmt,ctuser
+		WHERE ctcmt.CmtWndID = #{wndID} and ctcmt.CmtUserID = ctuser.UserID
+		ORDER BY CmtDate DESC
+	</select>
+	
+	<!-- 查找某个用户的所有评论 -->
+	<select id="findCommentsByUser" parameterType="Integer" resultType="CommentItems">
+		SELECT * 
+		FROM ctcmt,ctuser
+		WHERE ctcmt.CmtUserID = #{userID} and ctcmt.CmtUserID = ctuser.UserID
+	</select>
+	
+	<!-- 查找某条评论的所有信息 -->
+	<select id="findCommentByID" parameterType="Integer" resultType="CommentItems">
+		SELECT * 
+		FROM ctcmt,ctuser
+		WHERE ctcmt.CmtID = #{cmtID} and ctcmt.CmtUserID = ctuser.UserID
+	</select>
+	
+	<!-- 在某个档口中写评论 -->
+	<select id="InsertCommentInWindow" parameterType="Comment">
+		Insert into ctcmt (ctcmt.CmtWndID,ctcmt.cmtContent,ctcmt.cmtDate,ctcmt.cmtGoodNum,ctcmt.cmtUserID,ctcmt.cmtScore)
+		values (#{cmtWndID},#{cmtContent},#{cmtDate},#{cmtGoodNum},#{cmtUserID},#{cmtScore})
+	</select>
+	
+	<!-- 更新评论中的点赞数 -->
+	<select id="updateCommentGoodNum" parameterType="Comment">
+		update ctcmt
+		set ctcmt.CmtGoodNum = #{cmtGoodNum}
+		where ctcmt.CmtID = #{cmtID}
+	</select>
+	
+	<!-- 删除评论 -->
+	<select id="deleteCommentById"  parameterType="Integer">
+		Delete from ctcmt 
+		where ctcmt.CmtID=#{cmtID}
+	</select>
+	
+</mapper>

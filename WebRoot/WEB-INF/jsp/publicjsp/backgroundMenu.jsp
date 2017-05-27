@@ -63,6 +63,15 @@
                     <li><a href="#">日志查看</a></li>
                 </ul>
             </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <FONT style="FONT-FAMILY:黑体">评论管理</FONT>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="${pageContext.request.contextPath }/commentSelectWindow.action">评论查看</a></li>
+                </ul>
+            </li>
   		</ul>
   			
   		<div class="collapse navbar-collapse" id="example-navbar-collapse">

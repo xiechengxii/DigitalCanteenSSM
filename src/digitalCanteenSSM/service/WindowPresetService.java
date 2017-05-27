@@ -21,5 +21,5 @@ public interface WindowPresetService {
 	
 	public void insertWindow(Window window) throws Exception;
 	
-
+	public void updateWindowScore(Window window) throws Exception;
 }

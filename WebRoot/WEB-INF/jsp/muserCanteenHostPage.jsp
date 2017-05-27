@@ -57,6 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			}); */
 		}
+		function findAllCommentInWindow(){
+			document.muserCanteenForm.action="findAllCommentInWindow.action";
+	    	document.muserCanteenForm.submit();	
+		}
+		
 		</script>
 	
     	<%@ include file="publicjsp/canteenMenu.jsp" %>
@@ -80,6 +85,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div  class="col-sm-3">
 							<button onclick="exportExcelInCanteen()" class="btn btn-primary">导出</button>
+						</div>
+						
+						<div  class="col-sm-3">
+							<button onclick="findAllCommentInWindow()" class="btn btn-primary">评论</button>
 						</div>
 						
 	                    <!-- 食堂管理员 -->

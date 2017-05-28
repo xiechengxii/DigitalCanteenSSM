@@ -18,13 +18,15 @@ html, body, .container, .scroller {
 .scroller,
 .scroller-inner {
 	position: relative;
-	overflow:auto;
-	overflow-x:hidden;
+	/*overflow:scroll;*/
+	/*overflow-x:hidden;*/
+	-webkit-overflow-scrolling:touch
 }
 
 .container {
 	position: relative;
-	overflow: hidden;
+	/*overflow: hidden;*/
+	-webkit-overflow-scrolling:touch
 	background: #EEEEEE;
 }
 
@@ -301,11 +303,28 @@ html, body, .container, .scroller {
 
 
 .burger-container {
-    position: relative;
+    /*position: relative;
     height: 24px;
 	width: 30px;
-	top:8px;
-	left:10px;}
+	left:10px;*/
+	position: relative;
+    height: 24px;
+    width: 30px;
+    left: 14px;
+    top: 21px;   
+}
+
+.back-container {
+    /*position: relative;
+    height: 24px;
+	width: 30px;
+	left:10px;*/
+	position: relative;
+    height: 24px;
+    width: 30px;
+    left: 14px;
+    top: 10px;   
+}
 
 .burger-bun-top, .burger-bun-bot, .burger-filling {
     position: absolute;

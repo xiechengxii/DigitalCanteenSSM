@@ -44,19 +44,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!-- 后台管理用户的页面 -->
         	<div class="scroller" style="background:#EEEEEE">
         		<div class="scroller-inner">
-        		    <header class="codrops-header" style="background:#29C192">
-        		         <div class="row">
+        		    <div class="codrops-header" style="background:#29C192">
+        		         <!-- <div class="row"> -->
         		         <div id="trigger" class="burger-container">
 							<span class="burger-bun-top"></span>
 							<span class="burger-filling"></span>
 							<span class="burger-bun-bot"></span>
 						 </div>					
-						<h1>后台管理系统</h1>
-						</div>
-					</header>
+						<p style="width:100%;height:100%;vertical-align:middle;font-size:27px">后台管理系统</p>
+						<!-- </div> -->
+					</div>
 
-					<div class="content clearfix">
-	    				<div class="container-fluid">	    	
+					<div class="content clearfix" >
+	    				<div class="container-fluid" style="margin-top:77px">	    	
 	    					<div class="panel-group" id="accordion">
 	    						<c:forEach items="${campusList }" var="item_campus">
 	    							<div class="panel panel-default">
@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    														<c:set var="status" value="setted" scope="page"/>
 	    													</c:if>	    										
 	    												</c:forEach>
-	    												<a style="font-size:15px;" href="muserBackGround.action?recordCantID=${item_canteen.cantID }">
+	    												<a style="font-size:15px;" href="muserBackground.action?recordCantID=${item_canteen.cantID }">
 	    													<c:if test="${status == 'setted' }">
 	    														${item_canteen.cantName}
 	    													</c:if>
@@ -106,6 +106,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								   	</div>
 	    						</div>
 	    						<div class="panel-body">
+	    							<a href="findRecordInCampus.action?campusID=${canteenItems.campusID}" class="btn btn-primary">导出本校区记录</a>
+                    				<br><br>
 	    					        <table class="table table-striped table-bordered table-condensed table-hover table-responsive text-center">
 	    					        	<thead>
 	            			                <tr style="background:#29C192;text-align:center;color:white;font-size:15px">

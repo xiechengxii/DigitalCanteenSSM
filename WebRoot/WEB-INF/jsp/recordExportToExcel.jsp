@@ -11,6 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <html>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <head>
     <meta charset="utf-8">
     <title>outputExcel</title>
@@ -52,6 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			success:function(data){
 					alert("导出成功！");
 =======
+=======
+>>>>>>> 0e821405ff2befbc75cac361fa0b71c90c885ef6
 	<head>
 	    <meta charset="utf-8">
 	    <title>导出记录</title>
@@ -91,7 +94,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					//发送的是key/value，接收的是json
 					data:{beginTime:$('#beginTime'),endTime:$('#endTime')},				
 				});*/
+<<<<<<< HEAD
 >>>>>>> origin
+=======
+>>>>>>> 0e821405ff2befbc75cac361fa0b71c90c885ef6
 			}
 		
 			function findCampusRecord(){

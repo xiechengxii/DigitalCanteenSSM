@@ -37,19 +37,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <%@ include file="publicjsp/index.jsp" %>               
           <div class="scroller" style="background:#EEEEEE">
             <div class="scroller-inner">
-              <header class="codrops-header" style="background:#29C192">
-                <div class="row">
+              <div class="codrops-header" style="background:#29C192">
                   <div id="trigger" class="burger-container">
                   <span class="burger-bun-top"></span>
                   <span class="burger-filling"></span>
                   <span class="burger-bun-bot"></span>
                   </div>         
-                  <h1>预置食堂</h1>
-                </div>  
-              </header>
+                  <p style="width:100%;height:100%;vertical-align:middle;font-size:27px">预置食堂</p> 
+              </div>
       
           <div class="content clearfix">
           <form action="insertCanteen.action" method="post">
+            <div class=" newcustom" style="margin-top:77px" >
           	<!-- 选择食堂所属校区 -->
             <div align="center" >
          		  <select name="cantCampusID" data-toggle="select" class="form-control select select-primary mrs mbm" >
@@ -73,7 +72,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <br>
           	  <div align="center"><input type="submit" value="添加食堂" class="btn btn-primary btn-wide" data-role="none"></div>
             </div>
+          </div>
           <!-- 列举已录入的食堂 -->
+          <div class="newcustom" style="padding: 1em 0.6em">
       	    <table  class="table table-striped table-bordered table-condensed">
       		    <thead>
               <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
@@ -88,8 +89,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       			  	 	<td>${item.campusName }</td>
       			  	 	<td>${item.cantTypeName }</td>
       			  	  <td>${item.cantName }</td>
-      			  	  <td><a href="modifyCanteen.action?cantID=${item.cantID}">修改</a></td>
-      			  	  <td><a href="deleteCanteenById.action?cantID=${item.cantID}">删除</a></td>
+      			  	  <td><a href="modifyCanteen.action?cantID=${item.cantID}" style="color:#66AFE9">修改</a></td>
+      			  	  <td><a href="deleteCanteenById.action?cantID=${item.cantID}" style="color:#66AFE9">删除</a></td>
       			  	</tr>
       			  </c:forEach>
       		  </table>
@@ -132,6 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       </ul>
                     </div>
                   </div>
+                </div>
       	  </form>
       	  </div>
             </div>

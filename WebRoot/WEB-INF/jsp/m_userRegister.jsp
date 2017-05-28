@@ -76,28 +76,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="content clearfix" style="margin-top:20%">
     	<form name="registerForm" method="post" enctype="multipart/form-data" action="userRegister.action" role="form">
             <div class="form-group row">
-                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">用户名：</label>
+                <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px;text-align:left;margin-left:12%;margin-right:-10%;line-height:34px;">用户名：</label>
                 <div class="col-xs-6">
     		      <input type="text" class="form-control" name="userName" placeholder="请输入用户名">
                 </div>
             </div>
     		<br>
             <div class="form-group row">
-    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">用户密码：</label>
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px;text-align:left;margin-left:12%;margin-right:-10%;line-height:34px;">用户密码：</label>
                 <div class="col-xs-6">
     		      <input type="password" class="form-control" name="userPwd" placeholder="请输入密码">
                 </div>
             </div>
     		<br>
             <div class="form-group row">
-    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">密码确认：</label>
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px;text-align:left;margin-left:12%;margin-right:-10%;line-height:34px;">密码确认：</label>
                 <div class="col-xs-6">
     		      <input type="password" class="form-control" name="userPwdVerify" placeholder="请确认密码">
                 </div>
             </div>
     		<br>
             <div class="form-group row">
-    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">头像：</label>
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px;text-align:left;margin-left:12%;margin-right:-10%;line-height:34px;">头像：</label>
                 <div class="col-xs-6">
                   <a href="javascript:;" class="file" style="font-size:15px;">选择头像
     		          <input type="file" name="userPhotoFile">
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
     		<br>
             <div class="form-group row">
-    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">校区：</label>
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px;text-align:left;margin-left:12%;margin-right:-10%;line-height:34px;">校区：</label>
                 <div class="col-xs-6">
     		      <select name="userCampusID" class="form-control select select-primary mrs mbm" data-toggle="select" onchange="getCanteen(this.value)">
     		      	<option value="">请选择所在校区</option>
@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
     		<br>
             <div class="form-group row">
-    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px; text-align:center; line-height:34px;">食堂：</label>
+    		  <label class="col-xs-4 control-label" style="color:black;font-size:15px;height:34px;text-align:left;margin-left:12%;margin-right:-10%;line-height:34px;">食堂：</label>
                 <div class="col-xs-6">
     		      <select name="userCantID" disabled="disabled" class="form-control select select-primary mrs mbm" data-toggle="select">
     		      	<option value="">请设定首选食堂</option>

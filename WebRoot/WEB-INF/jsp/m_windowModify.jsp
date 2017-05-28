@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
 
     <head>
@@ -77,15 +77,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	</script>
     </head>    
     <body>
-      <header class="codrops-header" style="background:#29C192;padding-top:22px;">
-          <div class="row">
-              <button class="btn btn-lg" style="position:relative;right:48%;top:15px;padding:0 0;background-color:#29C192";>
+      <div class="codrops-header" style="background:#29C192;">
+          <div class="back-container">
+              <button class="btn btn-link btn-lg" >
                   <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/windowPreset.action"></a>
               </button>    
-              <h1>修改预置档口</h1>
-          </div>  
-      </header>
-
+          </div>
+          <p style="width:100%;height:100%;font-size:27px">修改预置档口</p>  
+      </div>
+    <div class=" newcustom" style="margin-top:77px" >
     <form name = "windowUpdateForm" action="modifyWindowSave.action" method="post">
     	<input name="wndID" type="hidden" value="${windowItems.wndID }">
     	<!-- 选择食堂所属校区 -->
@@ -125,36 +125,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     	<input type="text"  name="wndName" value="${windowItems.wndName }" class="form-control input-sm">
 
-      <div class="row">
-          <div class="col-xs-6">
-            <input type="text"  placeholder="请在此输入档口位置" name="wndAddr" value="${windowItems.wndAddr}" class="form-control input-sm">
-          </div>
-          <div class="col-xs-6">
-            <input type="text" placeholder="请在此输入档口价格范围"   name="wndPriceRange" value="${windowItems.wndPriceRange}" class="form-control input-sm">
-          </div>
+      <div >
+        <input type="text"  placeholder="请在此输入档口位置" name="wndAddr" value="${windowItems.wndAddr}" class="form-control input-sm">
       </div>
-
-      <div class="row">
-          <div class="col-xs-6">
-            <input type="text" placeholder="请在此输入档口营业时间段" name="wndSaleHours" value="${windowItems.wndSaleHours}" class="form-control input-sm">
-          </div>
-          <div class="col-xs-6">
-            <input type="text" placeholder="请在此输入档口支付方式"   name="wndPayment" value="${windowItems.wndPayment}" class="form-control input-sm">
-          </div>
+      <br>
+      <div>
+        <input type="text" placeholder="请在此输入档口价格范围"   name="wndPriceRange" value="${windowItems.wndPriceRange}" class="form-control input-sm">
+      </div>
+      <br>
+      <div>
+        <input type="text" placeholder="请在此输入档口营业时间段" name="wndSaleHours" value="${windowItems.wndSaleHours}" class="form-control input-sm">
+      </div>
+      <br>
+      <div >
+        <input type="text" placeholder="请在此输入档口支付方式"   name="wndPayment" value="${windowItems.wndPayment}" class="form-control input-sm">
       </div> 
-
-      <div class="row">
-          <div class="col-xs-6">
-            <input type="text" placeholder="请在此输入档口描述"       name="wndDescription" value="${windowItems.wndDescription}" class="form-control input-sm">
-          </div>
-          <div class="col-xs-6">
-            <input type="text" placeholder="请在此输入档口备注"       name="wndNote" value="${windowItems.wndNote}" class="form-control input-sm">
-          </div>
+      <br>
+      <div>
+        <input type="text" placeholder="请在此输入档口描述"       name="wndDescription" value="${windowItems.wndDescription}" class="form-control input-sm">
+      </div>
+      <br>
+      <div>
+        <input type="text" placeholder="请在此输入档口备注"       name="wndNote" value="${windowItems.wndNote}" class="form-control input-sm">
       </div> 
       <br>
     	<!-- 档口添加按钮 -->
     	<div align="center"><input type="submit" value="保存" onClick="return check(windowUpdateForm)" class="btn btn-primary btn-wide" data-role="none"></div>
       </div>
     </form>
+  </div>
     </body>
 </html>

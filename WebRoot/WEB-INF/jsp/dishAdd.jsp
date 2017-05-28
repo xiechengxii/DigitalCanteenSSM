@@ -60,16 +60,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     optionObj.value = "0";
                     objForm.dishName.add(optionObj);
                     
-        			<c:forEach items="${dishPresetList }" var="item" >  	
- 	     				var optionObj = document.createElement("option"); 							
+        			<c:forEach items="${dishPresetList }" var="item" >
+ 	     				var optionObj = document.createElement("option");
                         optionObj.text = "${item.dishPresetName }";
                         optionObj.value = "${item.dishPresetName }";
-                        objForm.dishName.add(optionObj);                
+                        objForm.dishName.add(optionObj);
 	    			</c:forEach>
         		}
         	}
-    
-	    	
 	    	
         	function check(form){
             	if(form.cantCampusID.value == ""){
@@ -101,8 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
                     <div class="panel-body">
                         <!-- 菜品添加 -->
-                        <form class="form-horizontal" role="form" name="dishInsertForm" action="insertDish.action" method="post" enctype="multipart/form-data">
-        	                
+                        <form class="form-horizontal" role="form" name="dishInsertForm" action="insertDish.action" method="post">        	                
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">校区</label>
                                 <div class="col-sm-9">
@@ -127,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     </select>
                                 </div>    
                             </div> 
-                            <div class="form-group">                               
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">菜品类型</label>
                                 <div class="col-sm-9">
                                     <!-- 选择菜品所属类型-->                    
@@ -136,9 +133,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <c:forEach items="${dishTypeList }" var="item" >
                                             <option value="${item.dishTypeID }">${item.dishTypeName }</option>
                                         </c:forEach>
-                                    </select>   
-                                </div>                            
-                            </div>    
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜品名称</label>
                                 <div class="col-sm-9">
@@ -148,18 +145,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品图片上传</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="dishPhotoFile"/>
-                                </div>
-                            </div>    
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品添加日期</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name ="dishInDate" placeholder="请点击此处选择菜品录入日期" class="Wdate form-control"  onClick="WdatePicker()"> 
-                                </div>
-                            </div> 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜品价格</label>
                                 <div class="col-sm-9">    
@@ -183,30 +168,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <option value="是">是</option>            
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品质量</label>
-                                <div class="col-sm-9">
-                                    <select name="dishQuality" class="form-control">
-                                        <option value="优" selected="selected">优</option>
-                                        <option value="良">良</option>
-                                        <option value="中">中</option>
-                                        <option value="差">差</option>
-                                    </select>
-                                </div>
                             </div> 
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品录入状态</label>
-                                <div class="col-sm-9">    
-                                    <input type="text" class="form-control" name="dishInState" value="审核通过" readonly="readonly">
-                                </div>
-                            </div>    
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜品销售状态</label>
                                 <div class="col-sm-9"> 
                                     <select name="dishSale" class="form-control">
                                         <option value="在售" selected="selected">在售</option>
-                                        <option value="未售">未售</option>
                                     </select>
                                 </div>
                             </div>
@@ -214,9 +181,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label class="col-sm-2 control-label">菜品销售时间</label>
                                 <div class="col-sm-9">
                                     <select name="dishDate" class="form-control">
-                                        <option value="早上" selected="selected">早上</option>
-                                        <option value="中午">中午</option>
-                                        <option value="晚上">晚上</option>
+                                        <option value="早餐" selected="selected">早餐</option>
+                                        <option value="正餐">正餐</option>
+                                        <option value="全天供应">全天供应</option>
                                     </select>
                                 </div>
                             </div>

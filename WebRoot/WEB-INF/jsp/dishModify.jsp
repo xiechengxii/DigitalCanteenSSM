@@ -70,8 +70,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                     <div class="panel-body">
   	                    <!-- 菜品修改页面 -->
-                        <form class="form-horizontal" role="form" name = "dishUpdateForm" action="modifyDishSave.action" method="post" enctype="multipart/form-data">
+                        <form class="form-horizontal" role="form" name = "dishUpdateForm" action="modifyDishSave.action" method="post">
                         	<input name="dishID" type="hidden" value="${dishItems.dishID }">
+                            <input name="dishPhoto" type="hidden" value="${dishItems.dishPhoto}">
    	                    	<!-- 选择菜品所属档口 -->
    	                    	<!-- 遍历所有窗口，找相同的食堂ID，结果为真，则比较传进来的档口ID与菜品所属档口，相同则默认选中，否则添加至下拉框选项 -->
 	                    	<div class="form-group">  
@@ -110,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                             </div>
                             <div class="form-group"> 
-                                <label class="col-sm-2 control-label">菜品：</label>
+                                <label class="col-sm-2 control-label">菜品名称：</label>
 	                    	    <!-- 选择菜品  -->
    	                    	    <div class="col-sm-9">    
    	                    	        <select name="dishName" class="form-control">
@@ -126,17 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	        	</c:forEach>
    	                    	        </select>
                                 </div>
-                            </div>
-   	                    	<div class="form-group">
-                                <label class="col-sm-2 control-label">菜品图片：</label>
-                                <div class="col-sm-9">
-                                    <c:if test="${dishItems.dishPhoto != null }">
-                                        <img src="/upload/pic/${dishItems.dishPhoto }" height="100" width="120"/>
-                                    </c:if>
-                                    <br><br>
-                                    <input type="file" name="dishPhotoFile"/>
-                                </div>
-                            </div>
+                            </div> 
    	                    	<div class="form-group">
                                 <label class="col-sm-2 control-label">菜品价格：</label>
                                 <div class="col-sm-9">
@@ -184,61 +175,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         </c:choose>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">  
-                                <label class="col-sm-2 control-label">菜品质量：</label>
-                                <div class="col-sm-9">
-                                    <select name="dishQuality" class="form-control">
-                                        <c:choose>
-                                            <c:when test="${dishItems.dishQuality == '优' }">
-                                                <option value="优" selected="selected">优</option>
-                                                <option value="良">良</option>
-                                                <option value="中">中</option>
-                                                <option value="差">差</option>
-                                            </c:when>
-                                            <c:when test="${dishItems.dishQuality == '良' }">
-                                                <option value="优">优</option>
-                                                <option value="良" selected="selected">良</option>
-                                                <option value="中">中</option>
-                                                <option value="差">差</option>
-                                            </c:when>
-                                            <c:when test="${dishItems.dishQuality == '中' }">
-                                                <option value="优">优</option>
-                                                <option value="良">良</option>
-                                                <option value="中" selected="selected">中</option>
-                                                <option value="差">差</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="优">优</option>
-                                                <option value="良">良</option>
-                                                <option value="中">中</option>
-                                                <option value="差" selected="selected">差</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </select>
-                                </div>    
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜品录入状态：</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="dishInState" value="${dishItems.dishInState }" readonly="readonly">
-                                </div>
-                            </div>        
+                            </div>                                   
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜品销售状态：</label>
                                 <div class="col-sm-9">
-                                    <select name="dishSale" class="form-control">
-                                        <c:choose>
-                                            <c:when test="${dishItems.dishSale ==  '在售' }">
-                                                <option value="在售" selected="selected">在售</option>
-                                                <option value="未售">未售</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="在售">在售</option>
-                                                <option value="未售" selected="selected">未售</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </select>
+                                    <input type="text" name="dishSale" class="form-control" value="${dishItems.dishSale}" readonly="readonly">
+                                    
                                 </div>
                             </div>
                             <div class="form-group">       

@@ -34,20 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <body>
   	    <script type="text/javascript">
   	    	/* 得到系统格式化的日期 */
-	    	function getNowFormatDate(form) {
-	    	    var date = new Date();
-	    	    var seperator1 = "-";
-	    	    var seperator2 = ":";
-	    	    var month = date.getMonth() + 1;
-	    	    var strDate = date.getDate();
-	    	    if (month >= 1 && month <= 9) {
-	    	        month = "0" + month;
-	    	    }
-	    	    if (strDate >= 0 && strDate <= 9) {
-	    	        strDate = "0" + strDate;
-	    	    }
-	    	    var currentDate= date.getFullYear() + seperator1 + month + seperator1 + strDate;
-	    	    document.commentInsertForm.cmtDate.value=currentDate;
+	    	function insertCommentInWindow(form) {
 	    	    document.commentInsertForm.action="insertCommentInWindow.action";
             	document.commentInsertForm.submit(); 
 	    	}
@@ -56,8 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="container-fluid">
             <div class="container col-sm-6 col-sm-offset-3">
                 <div class="panel panel-default">
-					
-					
+									
                     <div class="panel-heading">
                         <h3 class="panel-title">${windowItems.wndName }</h3>
                     </div>
@@ -82,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>                         
                                 <div class="form-group">    
                                     <div class="col-sm-2 col-sm-offset-5">                            	       
-                            	        <input type="submit" class="btn btn-primary" value="发布" onclick=getNowFormatDate()>
+                            	        <input type="submit" class="btn btn-primary" value="发布" onclick=insertCommentInWindow()>
                                     </div>
                                 </div>
                             </form>                        	                        

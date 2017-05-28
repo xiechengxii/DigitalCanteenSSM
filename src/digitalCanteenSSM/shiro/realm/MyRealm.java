@@ -16,19 +16,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.MUserItems;
+import digitalCanteenSSM.po.UserItems;
 import digitalCanteenSSM.service.MUserService;
+import digitalCanteenSSM.service.UserService;
 
 public class MyRealm extends AuthorizingRealm {
 
 	@Autowired
 	private MUserService mUserService;
+	@Autowired
+	private UserService userService;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
 		String currentUserName = (String)super.getAvailablePrincipal(principals);
 
-		MUserItems mUserItems= new MUserItems();
+		MUserItems mUserItems= new MUserItems();		
 		try {
 			mUserItems= mUserService.findMUserInfoByName(currentUserName);
 		} catch (Exception e) {
@@ -74,18 +78,28 @@ public class MyRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken)authcToken;
 
 		MUserItems muser = new MUserItems();
+		UserItems user = new UserItems();
 		try{
 			muser = mUserService.findMUserInfoByName(token.getUsername());
+			if(muser != null){
+				AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(muser.getMuserName(), muser.getMuserPwd(), this.getName());
+				this.setAuthenticationSession(muser.getMuserName());
+
+				return authcInfo;
+			}else{
+				user = userService.findUserByName(token.getUsername());
+				if(user != null){
+					AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getUserPwd(), this.getName());
+					this.setAuthenticationSession(user.getUserName());
+
+					return authcInfo;
+				}
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 
-		if(muser != null){
-			AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(muser.getMuserName(), muser.getMuserPwd(), this.getName());
-			this.setAuthenticationSession(muser.getMuserName());
-
-			return authcInfo;
-		}
+		
 
 		return null;
 	}

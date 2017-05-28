@@ -18,8 +18,6 @@
                 <ul class="dropdown-menu">                    
                     <li><a href="${pageContext.request.contextPath }/recordExportToExcel.action">菜品导出</a></li>
                     <li class="divider"></li>
-                    <li><a href="${pageContext.request.contextPath }/checkDish.action">新菜审核</a></li>
-                    <li class="divider"></li>
                     <li><a href="#">广告推送管理</a></li>                    
                 </ul>
             </li>

@@ -1,5 +1,7 @@
 package digitalCanteenSSM.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ public class CommentInWindowController {
 	public ModelAndView findAllCommentInWindow(Integer wndID) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
+		//wndID
 		wndID = 3;
 		List<CommentItems> commentItemsList = commentService.findAllCommentsInWindow(wndID);
 		modelAndView.addObject("commentItemsList",commentItemsList);
@@ -70,12 +73,14 @@ public class CommentInWindowController {
 		modelAndView.setViewName("/WEB-INF/jsp/commentMUserInquire.jsp");
 		return modelAndView;
 	}
-	//添加评论
+	
+	//转向添加评论页
 	@RequestMapping("/addCommentInWindow")
 	public ModelAndView addCommentInWindow(Integer wndID) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
-		int userID = 1;
+		//userID
+		int userID = 2;
 		
 		modelAndView.addObject("windowItems",windowPresetService.findWindowById(wndID));
 		modelAndView.addObject("userItems",userID);
@@ -84,12 +89,14 @@ public class CommentInWindowController {
 		return modelAndView;
 	}
 		
-	//添加评论
+	//插入评论
 	@RequestMapping("/insertCommentInWindow")
 	public ModelAndView insertCommentInWindow(Comment comment) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
+		Date date = new Date();
+		comment.setCmtDate(date);		
 		Window window = windowPresetService.findWindowById(comment.getCmtWndID());
 		float score = window.getWndScore();
 		List<CommentItems> commentItemsList = commentService.findAllCommentsInWindow(comment.getCmtWndID());

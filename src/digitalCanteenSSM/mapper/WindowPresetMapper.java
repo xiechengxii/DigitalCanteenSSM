@@ -13,7 +13,7 @@ public interface WindowPresetMapper {
 	
 	public WindowItems findWindowByName(WindowItems windowItems) throws Exception;
 	
-	public List<Window> findWindowsInCanteen(Integer cantID) throws Exception;
+	public List<WindowItems> findWindowsInCanteen(Integer cantID) throws Exception;
 	
 	public void updateWindow(WindowItems windowItems) throws Exception;
 	

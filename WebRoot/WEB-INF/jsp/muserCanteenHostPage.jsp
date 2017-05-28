@@ -57,10 +57,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			}); */
 		}
-		function findAllCommentInWindow(){
-			document.muserCanteenForm.action="findAllCommentInWindow.action";
-	    	document.muserCanteenForm.submit();	
-		}
 		
 		</script>
 	
@@ -69,11 +65,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    <h3 class="panel-title">${muserItems.cantName }  菜品录入记录</h3>
+                    <h3 class="panel-title"><b>${muserItems.cantName }</b>  菜品录入记录</h3>
                 </div> 	
                 <div class="panel-body">
                     <form role="form" name="muserCanteenForm" action="canteenRecordExportToExcel.action" method="post">
-                    	<div  class="form-group col-sm-3">						
+                    	<div  class="form-group col-sm-2">						
 							<div class="input-group" style="width: 240px; margin-left: 0px;">
 							    <input type="text" class="form-control date-picker" id="dateTimeRange"/>
 							    <span class="input-group-addon">
@@ -85,10 +81,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div  class="col-sm-3">
 							<button onclick="exportExcelInCanteen()" class="btn btn-primary">导出</button>
-						</div>
-						
-						<div  class="col-sm-3">
-							<button onclick="findAllCommentInWindow()" class="btn btn-primary">评论</button>
 						</div>
 						
 	                    <!-- 食堂管理员 -->
@@ -129,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
                                         <c:if test="${!pagehelper.isLastPage}">
                                             <li>
-                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.lastPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                                                <a href="muserCanteenHostPage.action?pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
                                             </li>
                                         </c:if>
                                     </ul>
@@ -162,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            '最近7日': [moment().subtract('days', 6), moment()],
 		            '最近30日': [moment().subtract('days', 29), moment()], */
 		            '本月': [moment().startOf("month"),moment()],
-		            /* '上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")] */
+		            '上个月': [moment().subtract(1,"month").startOf("month"),moment().subtract(1,"month").endOf("month")]
 		        },
 		        opens : 'right',    // 日期选择框的弹出位置
 		        separator : ' 至 ',

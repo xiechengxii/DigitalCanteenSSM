@@ -1,14 +1,14 @@
 package digitalCanteenSSM.po;
 
 public class UserItems extends User{
-	private int role;
+	private int roleID;
 	private String roleName;
 	
-	public int getRole() {
-		return role;
+	public int getRoleID() {
+		return roleID;
 	}
-	public void setRole(int role) {
-		this.role = role;
+	public void setRoleID(int roleID) {
+		this.roleID = roleID;
 	}
 	public String getRoleName() {
 		return roleName;
@@ -16,6 +16,5 @@ public class UserItems extends User{
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	
 	
 }

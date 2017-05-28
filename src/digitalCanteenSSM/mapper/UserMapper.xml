@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 根据Name查询该用户的信息 -->
-	<select id="findUserByName" parameterType="User" resultType="UserItems">
+	<select id="findUserByName" parameterType="String" resultType="UserItems">
 		SELECT * 
 		FROM ctuser,ctrole
 		WHERE ctuser.UserName=#{userName} and 

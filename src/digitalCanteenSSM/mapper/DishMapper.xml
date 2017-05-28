@@ -43,10 +43,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ctdish.DishDate= #{dishDate}  
 			ctdish.DishRecmd= #{dishRecmd}
 			ctdish.DishKeep= #{dishKeep} 
-			ctdish.DishQuality= #{dishQuality} 
 			ctdish.DishSale= #{dishSale} 
 			ctdish.DishInDate= #{dishInDate}  
-			ctdish.DishInState= #{dishInState}
 			ctdish.DishNote= #{dishNote} 
 			ctdish.DishDelete= #{dishDelete} 
 		WHERE ctdish.DishID=#{dishID};		
@@ -64,16 +62,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ctdish.DishTypeID,ctdish.DishName,
 		ctdish.DishPrice,ctdish.DishDate,
 		ctdish.DishRecmd,ctdish.DishKeep,
-		ctdish.DishQuality,ctdish.DishSale,
-		ctdish.DishInDate,ctdish.DishInState,
+		ctdish.DishSale,ctdish.DishInDate,
 		ctdish.DishNote,ctdish.DishDelete) 
 		values (#{dishWndID},
-		#{dishName},
-		#{dishPrice},#{dishDate},
-		#{dishRecmd},#{dishKeep},
-		#{dishQuality},#{dishSale},
-		#{dishInDate},#{dishInState},
-		#{dishNote},#{dishDelete})
+		#{dishName},#{dishPrice},
+		#{dishDate},#{dishRecmd},
+		#{dishKeep},#{dishSale},
+		#{dishInState},#{dishNote},
+		#{dishDelete})
 	</select>
 	
 </mapper>

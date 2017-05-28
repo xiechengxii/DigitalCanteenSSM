@@ -47,7 +47,7 @@ public class WindowPresetServiceImpl implements WindowPresetService{
 	}
 
 	@Override
-	public List<Window> findWindowsInCanteen(Integer cantID) throws Exception{
+	public List<WindowItems> findWindowsInCanteen(Integer cantID) throws Exception{
 		
 		return windowPresetMapper.findWindowsInCanteen(cantID);
 	}

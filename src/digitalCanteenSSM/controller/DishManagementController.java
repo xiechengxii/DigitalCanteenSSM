@@ -1,6 +1,9 @@
 package digitalCanteenSSM.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,22 +12,28 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.miemiedev.mybatis.paginator.domain.Order;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import digitalCanteenSSM.exception.ResultInfo;
+import digitalCanteenSSM.exception.SubmitResultInfo;
 import digitalCanteenSSM.po.Detail;
 import digitalCanteenSSM.po.Dish;
 import digitalCanteenSSM.po.DishItems;
+import digitalCanteenSSM.po.Log;
 import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Record;
+import digitalCanteenSSM.service.CampusPresetService;
+import digitalCanteenSSM.service.CanteenPresetService;
 import digitalCanteenSSM.service.DetailService;
 import digitalCanteenSSM.service.DishManagementService;
 import digitalCanteenSSM.service.DishPresetService;
 import digitalCanteenSSM.service.DishTypePresetService;
+import digitalCanteenSSM.service.LogService;
 import digitalCanteenSSM.service.RecordService;
 import digitalCanteenSSM.service.UploadFileService;
 import digitalCanteenSSM.service.WindowPresetService;
@@ -47,11 +56,15 @@ public class DishManagementController {
 	@Autowired
 	private DishManagementService dishManagementService;
 	@Autowired
-	private UploadFileService uploadFileService;
-	@Autowired
 	private RecordService recordService;
 	@Autowired
 	private DetailService detailService;
+	@Autowired
+	private LogService logService;
+	@Autowired
+	private CampusPresetService campusPresetService;
+	@Autowired
+	private CanteenPresetService canteenPresetService;
 	
 	
 	public static String getPicturepath() {
@@ -121,7 +134,7 @@ public class DishManagementController {
 			modelAndView.setViewName("/WEB-INF/jsp/dishInCanteen.jsp");
 		}else{
 			modelAndView.setViewName("/WEB-INF/jsp/m_dishInCanteen.jsp");
-		}		
+		}
 		
 		return modelAndView;
 	}
@@ -160,30 +173,91 @@ public class DishManagementController {
 		return modelAndView;
 	}
 	
-	//审核通过
-	@RequestMapping("/checkDishPass")
-	public ModelAndView checkDishPass(Dish dish) throws Exception{
+	//录入菜品的重复检测
+	@RequestMapping("/importRepeatCheck")
+	public @ResponseBody SubmitResultInfo importRepeatCheck(HttpSession session) throws Exception{
 		
-		ModelAndView modelAndView= new ModelAndView();
+		ResultInfo resultInfo = new ResultInfo();
 		
-		dish.setDishInState("审核通过");
-		dishManagementService.updateCheckDishPass(dish);
-		modelAndView.setViewName("checkDish.action");
+		//取得当前时间并格式化,用来记入记录表中
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");  
+		String dateString=simpleDateFormat.format(new Date());
+		Date date=simpleDateFormat.parse(dateString);
 		
-		return modelAndView;
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		
+		//新建一个record，填入操作人相关的字段信息以及时间，由于是当日录入，补录标志设置为0
+		Record record = new Record(); 
+		record.setRecordCampusID(muserItems.getCampusID());
+		record.setRecordCantID(muserItems.getCantID());
+		record.setRecordMUserID(muserItems.getMuserID());
+		record.setRecordCampusName(muserItems.getCampusName());
+		record.setRecordCantName(muserItems.getCantName());
+		record.setRecordMUserName(muserItems.getMuserName());
+		record.setRecordDate(date);
+		record.setRecordSubmitState("已提交");
+		record.setReplenishFlag(0);
+		
+		//到数据库中用食堂和日期信息查询今日是否已经生成过记录表，
+		//如果没有生成，则生成一个新表；否则跳转到修改页面
+		Record rec = recordService.findRecordInCanteenAndDate(record);
+		if(rec == null){
+			//将数据表存入数据库并获取表的id
+			recordService.insertRecord(record);
+			int recordid= recordService.findRecordID(record);
+			
+			resultInfo.setRecordID(recordid);
+			resultInfo.setMessage("今日记录表创建成功");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
+			
+			//记录添加记录表的log
+			Log log = new Log();
+			log.setMuser(muserItems);			
+			log.setLogOperation("添加记录表");
+			log.setLogContent(simpleDateFormat.format(record.getRecordDate())+"的记录表");
+			logService.insertLog(log);
+		}else{
+			//读取record的id
+			int recordid= recordService.findRecordID(record);
+			
+			//将此消息的类型设定为info类型，方便前台页面判断要跳转的目标
+			resultInfo.setRecordID(recordid);			
+			resultInfo.setMessage("今日已生成过记录表");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_INFO);			
+		}
+		
+		SubmitResultInfo submitResultInfo = new SubmitResultInfo(resultInfo);		
+		return submitResultInfo;
 	}
 		
 	//录入菜品页面显示
 	@RequestMapping ("/importDish")
-	public ModelAndView importDish(HttpSession session, HttpServletRequest request) throws Exception{
+	public ModelAndView importDish(HttpSession session, HttpServletRequest request, Integer recordID) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");		
 		Date recordDate = (Date) request.getAttribute("recordDate");
+		
+		//进入importDish.jsp页面默认显示早餐时间档，
+		//在后台需要将早餐的菜品列表传到页面
+		DishItems dishItems = new DishItems();		
+		dishItems.setDishDate("早餐");
+		dishItems.setCantID(muserItems.getCantID());
+		List<DishItems> dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
+		
+		//新建detail对象，填入recordID和时间档标志位1（早餐）
+		Detail detail = new Detail();
+		detail.setDetailRecordID(recordID);
+		detail.setDetailDishDateFlag(1);	//1代表早餐
+		
+		modelAndView.addObject("recordID",recordID);			//传递记录表编号, 后面用于和detail表关联
 		modelAndView.addObject("recordDate",recordDate);
+		modelAndView.addObject("dishDate", "早餐");				//将默认时间档传递到页面
+		modelAndView.addObject("dishItemsList", dishItemsList);	//早餐时间档的菜品列表
 		modelAndView.addObject("muserItems",muserItems);
-		modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		modelAndView.addObject("dishDetailInDateList", detailService.findDetailByDateAndID(detail));	//已录入的早餐菜品
+		
 		if(session.getAttribute("ua").equals("pc")){
 			modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
 		}else{
@@ -214,58 +288,168 @@ public class DishManagementController {
 	
 	//食堂管理员菜品录入处理
 	@RequestMapping("/importHandle")
-	public String importHandle(Integer[] dishIDList,HttpSession session,Date muserSubmitDate)throws Exception{
+	public @ResponseBody SubmitResultInfo importHandle(Integer[] dishIDList, HttpSession session, String replenishDate,
+			Integer replenishFlag, Integer recordID, String dishDate)throws Exception{
 		
-		Record record = new Record(); 
-		DishItems dishItems = new DishItems();
+		//传递给页面的参数
+		ResultInfo resultInfo = new ResultInfo();
+		resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
+		resultInfo.setRecordID(recordID);
 		
-		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
-		record.setRecordCampusID(muserItems.getCampusID());
-		record.setRecordCantID(muserItems.getCantID());
-		record.setRecordMUserID(muserItems.getMuserID());
-		record.setRecordCampusName(muserItems.getCampusName());
-		record.setRecordCantName(muserItems.getCantName());
-		record.setRecordMUserName(muserItems.getMuserName());
-		record.setRecordDate(muserSubmitDate);
-		record.setRecordSubmitState("已提交");
 		
-		if(recordService.findRecordInCanteenAndDate(record) == null){
-			
-			recordService.insertRecord(record);
-			int recordid= recordService.findRecordID(record);
-			for(Integer i: dishIDList){
-				dishItems = dishManagementService.findDishById(i);
-				dishItems.setDishRecordID(recordid);
-				detailService.insertDetailDish(dishItems);
-			}
+		if(replenishFlag==1){
+			// TODO: 补录功能还没写
+			resultInfo.setReplenishFlag(replenishFlag);
+			resultInfo.setReplenishDate(replenishDate);
 		}
-		//不满足，即已录入当天的信息则返回提示信息
-			
-		return "forward:muserCanteenHostPage.action";
+		
+		//将Date转换成yyyy-MM-dd格式
+		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+		String dateString=simpleDateFormat.format(new Date());
+		Date date=simpleDateFormat.parse(dateString);
+		
+		//首先读取本次录入的时间档，然后在数据库中查询是否已经录入过本时间档的菜品
+		//如果没有录入过，依次将菜品detail和record关联起来
+		//如果已经录入过，则先清除已经录入过的detail，这相当于录入修改功能
+		int dishdateflag = 0;
+		if(dishDate.equals("早餐")){
+			dishdateflag = 1;
+		}else if(dishDate.equals("中餐")){
+			dishdateflag = 2;
+		}else if(dishDate.equals("晚餐")){
+			dishdateflag = 3;
+		}else if(dishDate.equals("全天供应")){
+			dishdateflag = 4;
+		}
+		
+		//查询当日记录当某个时间档已录入的菜品d，
+		//如果d不为空，把它清理掉，然后录入这个时间档新录入的菜品，
+		//下面有代码处理d中和新录入的菜品中重复的元素
+		Detail detail = new Detail();
+		detail.setDetailDishDateFlag(dishdateflag);
+		detail.setDetailRecordID(recordID);
+	    List<Detail> d = detailService.findDetailByDateAndID(detail);
+	    
+	    DishItems dishItems = new DishItems();	    
+	    MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+	    Log log = new Log();
+	    
+	    //初始化log的用户信息部分
+	    log.setMuser(muserItems);
+	    
+	    if(dishIDList != null){
+		    for(Integer i: dishIDList){
+				dishItems = dishManagementService.findDishById(i);
+				
+				//检查d中和新传来的dishItems中有没有重合的元素，
+				//如果有重合，把它们从各自的集合中去掉，
+				//这样删除d中元素和添加dishItems中元素时的log就不会对某个菜品重复记录了
+				//（比如一个菜品先在d中被删了，又在dishItems中被添加，如果这样不处理会多出两条log）
+				if(d.contains(dishItems)){
+					d.remove(dishItems);
+					continue;
+				}
+				
+				//录入记录
+				dishItems.setDishRecordID(recordID);
+				dishItems.setDishDateFlag(dishdateflag);
+				dishItems.setDishDate(dishDate);
+				detailService.insertDetailDish(dishItems);
+				
+				//添加Log
+				log.setLogOperation("添加记录");
+				log.setLogContent("【"+dishItems.getDishDate()+"】"+dishItems.getDishName());
+				logService.insertLog(log);
+			}
+	    }
+	    
+	    //删除d中和dishIDList中不重合的部分，并且添加log
+	    if(!d.isEmpty()){
+	    	for(Detail oldDetail:d){
+	    		detailService.deleteDetailDish(oldDetail.getDetailID());
+	    		
+	    		//添加Log
+				log.setLogOperation("删除记录");
+				log.setLogContent("【"+oldDetail.getDetailDishDate()+"】"+oldDetail.getDetailDishName());
+				logService.insertLog(log);
+	    	}	    	
+	    }
+	    
+	    //生成提示语，提示用户已经录入了哪些时间档：
+	    //首先读取当日所有已录入的detail，
+	    //然后将它们的detailDishDate字段不重复地保存到messageList中，
+	    //最后拼接成提示信息
+	    List<Detail> detailRecorded = detailService.findDetailDish(recordID);
+	    List<String> messageList = new ArrayList<String>();
+	    for(Detail detailTmp:detailRecorded){
+	    	if(!messageList.contains(detailTmp.getDetailDishDate())){
+	    		messageList.add(detailTmp.getDetailDishDate());
+	    	}
+	    }
+	    if(!messageList.isEmpty()){
+	    	String inputMessage = "已录入";
+	    	Iterator<String> string_itr = messageList.iterator();
+	    	while(string_itr.hasNext()){
+	    		inputMessage += " 【";
+	    		inputMessage += string_itr.next();
+	    		inputMessage += "】 ";
+	    	}
+	    	inputMessage += "时间档的菜品";
+	    	resultInfo.setMessage(inputMessage);
+	    }else{
+	    	resultInfo.setMessage("未录入任何菜品");
+	    }
+	    
+	    SubmitResultInfo submitResultInfo = new SubmitResultInfo(resultInfo);		
+		return submitResultInfo;
 	}
 	
 	@RequestMapping("/getDishInImportDate")
-	public ModelAndView getDishInImportDate(HttpSession session, HttpServletRequest request, Record record)throws Exception{
-		ModelAndView modelAndView =new ModelAndView();
+	public @ResponseBody SubmitResultInfo getDishInImportDate(HttpSession session, HttpServletRequest request, Record record)throws Exception{
 		
-		if(!(recordService.findRecordByDate(record).isEmpty())){
-			MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
-			record.setRecordCantID(muserItems.getCantID());
-			int recordid= recordService.findRecordID(record);
-			request.setAttribute("recordDate",record.getRecordDate());
-			List<Detail> dishDetailInDateList = detailService.findDetailDish(recordid);
-			modelAndView.addObject("dishDetailInDateList",dishDetailInDateList);
-			modelAndView.addObject("muserItems",muserItems);
-			modelAndView.addObject("dishItemsList",dishManagementService.findDishInCanteen(muserItems.getCantID()));
+		ResultInfo resultInfo = new ResultInfo();
+		
+		//页面回传的record类只带有recordDate和recordID信息,
+		//需要注意：其中recordDate是要导入的记录的日期，recordID是当日生成的record的ID。
+		//
+		//查询记录是否存在要设定record的recordCantName值，利用食堂和日期来查
+		//调用findRecordInCanteenAndDate查找食堂该日是否进行了录入，
+		//如果没有录入，返回警告信息
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		record.setRecordCantName(muserItems.getCantName());
+		
+		Record recordImport = recordService.findRecordInCanteenAndDate(record);
+		if(recordImport != null){
+			resultInfo.setMessage("查询到记录");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_SUCCESS);
+			resultInfo.setRecordID(record.getRecordID());
+			
+			//用户从之前的记录导入时，在后台就将记录保存好。步骤如下：
+			//1.读取要导入日期的所有detail
+			//2.(如果存在)清除录入当日已录入的所有detail
+			//3.将读取的detail中的recordID改成当日的recordID，并添加到数据库中
+			List<Detail> detailList = detailService.findDetailDish(recordImport.getRecordID());
+			detailService.deleteDetailDishByRecordId(record.getRecordID());
+			for(Detail detail:detailList){
+				detail.setDetailRecordID(record.getRecordID());
+				detailService.insertDetail(detail);
+			}
+		}else{
+			resultInfo.setMessage("该日期没有记录，请重新选择导入日期！");
+			resultInfo.setType(ResultInfo.TYPE_RESULT_FAIL);
 		}
-		modelAndView.setViewName("importDish.action");
-		return modelAndView;
+		
+		SubmitResultInfo submitResultInfo = new SubmitResultInfo(resultInfo);		
+		return submitResultInfo;
 	}
 
 	//补录
 	@RequestMapping("/getDishInImportReplenishDate")
 	public ModelAndView getDishInImportReplenishDate(HttpSession session,HttpServletRequest request,Record record,Date muserSubmitDate)throws Exception{
+		
 		ModelAndView modelAndView =new ModelAndView();
+		
+		//TODO: 这里要换一种查询方式
 		if(!(recordService.findRecordByDate(record).isEmpty())){
 			MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
 			muserItems.setMuserSubmitDate(muserSubmitDate);
@@ -281,7 +465,70 @@ public class DishManagementController {
 		return modelAndView;
 	}
 	
-	
+	/**
+	 * 根据时间档查询菜品列表
+	 * 用于响应切换菜品时间档下拉框的操作
+	 * */
+	@RequestMapping ("/chooseDishInDate")
+	public ModelAndView chooseDishInDate(HttpSession session, String dishDate, Integer recordID,
+			Integer replenishFlag, String replenishDate) throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		
+		int canteenID = muserItems.getCantID();
+		DishItems dishItems = new DishItems();
+		List<DishItems> dishItemsList = new ArrayList<DishItems>();
+		
+		//中餐和晚餐合并为正餐查询，
+		//早餐和全天供应各自查询
+		if(dishDate.equals("中餐")||dishDate.equals("晚餐")){			
+			dishItems.setDishDate("正餐");			
+		}else{			
+			dishItems.setDishDate(dishDate);			
+		}
+		dishItems.setCantID(canteenID);
+		
+		//构建并初始化一个detail用于查询相应时间档已经录入的记录，
+		//用于页面切换时间档之后显示出已录入的记录
+		int dishdateflag = 0;
+		if(dishDate.equals("早餐")){
+			dishdateflag = 1;
+		}else if(dishDate.equals("中餐")){
+			dishdateflag = 2;
+		}else if(dishDate.equals("晚餐")){
+			dishdateflag = 3;
+		}else if(dishDate.equals("全天供应")){
+			dishdateflag = 4;
+		}
+		Detail detail = new Detail();
+		detail.setDetailDishDateFlag(dishdateflag);
+		detail.setDetailRecordID(recordID);
+		
+		dishItemsList = dishManagementService.findDishInCanteenAndDate(dishItems);
+		
+		//菜品查询时间档和记录表ID需要重新传回页面，页面加载时会根据这些信息来确定各下拉框的显示值
+		//
+		//录入页面切换时间档时需要显示已经录入过的菜品，要将录入过的detail传回页面
+		//回传的detail列表包含所有时间档下的已录入菜品，所以数量可能比所选时间档下的菜品数量多
+		modelAndView.addObject("dishDate", dishDate);	//时间档
+		modelAndView.addObject("recordID", recordID);	//记录表编号
+		modelAndView.addObject("muserItems", muserItems);
+		modelAndView.addObject("dishDetailInDateList", detailService.findDetailByDateAndID(detail));
+		modelAndView.addObject("dishItemsList", dishItemsList);		
+		
+		//replenishFlag此处用于标记发出查询请求的页面是属于录入、补录还是修改页面
+		if(replenishFlag == 0){
+			if(session.getAttribute("ua").equals("pc")){
+				modelAndView.setViewName("/WEB-INF/jsp/dishImport.jsp");
+			}else{
+				modelAndView.setViewName("/WEB-INF/jsp/m_dishImport.jsp");
+			}
+		}
+		
+		return modelAndView;
+	}
 	
 	//添加已预置的菜品
 	@RequestMapping ("/addDish")
@@ -324,7 +571,7 @@ public class DishManagementController {
 		}
 		
 		return modelAndView;
-	}	
+	}
 	
 	//通过菜品ID查找菜品信息
 	@RequestMapping ("/findDishById")
@@ -356,53 +603,93 @@ public class DishManagementController {
 	}
 	
 	//修改菜品：修改之后保存并跳转到菜品录入页面
-	@RequestMapping ("/modifyDishSave")	
-	public ModelAndView modifyDishSave(DishItems dishItems,MultipartFile dishPhotoFile,HttpSession session) throws Exception{
+	@RequestMapping ("/modifyDishSave")
+	public String modifyDishSave(DishItems dishItems, HttpSession session) throws Exception{
 		
-		ModelAndView modelAndView = new ModelAndView();
 		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		//从数据库中查找页面传来的dishItems对应的记录，暂存在dishItemsTmp中，
+		//用来在log中记录修改操作改掉了哪个菜品
+		DishItems dishItemsTmp = dishManagementService.findDishById(dishItems.getDishID());
 		
-		if(findDishByName(dishItems) == null || findDishByName(dishItems).getDishID() == dishItems.getDishID()){		
-			String dishphoto=uploadFileService.uploadFile(dishPhotoFile, picturePath);
-			//未改变图片则用原来的
-			if( dishphoto== null){			
-				DishItems dishitem = findDishById(dishItems.getDishID());
-				dishItems.setDishPhoto(dishitem.getDishPhoto());
+		if(dishItems != null){
+			if(findDishByName(dishItems) == null || 
+					findDishByName(dishItems).getDishID() == dishItems.getDishID()){
+				dishManagementService.updateDish(dishItems);
 			}
-			else{
-				dishItems.setDishPhoto(dishphoto);
+			
+			//判断要记录的log类型
+			if(findDishByName(dishItemsTmp) == null){
+				//出现新菜名，记录为下架了旧的，上架了新的
+				Log log = new Log();				
+				log.setMuser(muserItems);
+				
+				log.setLogOperation("下架");
+				log.setLogContent("【"+dishItemsTmp.getDishDate()+"】"+dishItemsTmp.getDishName());
+				logService.insertLog(log);
+				
+				log.setLogOperation("上架");
+				log.setLogContent("【"+dishItems.getDishDate()+"】"+dishItems.getDishName());
+				logService.insertLog(log);
+			}else if(findDishByName(dishItems).getDishID() == dishItems.getDishID()){
+				//检查确实做出了改动才记录log
+				if(!(dishItemsTmp.getDishWndID() == dishItems.getDishWndID() &&
+						dishItemsTmp.getDishTypeID() == dishItems.getDishTypeID() &&
+						dishItemsTmp.getDishName().equals(dishItems.getDishName()) &&
+						dishItemsTmp.getDishPrice().equals(dishItems.getDishPrice()) &&
+						dishItemsTmp.getDishRecmd().equals(dishItems.getDishRecmd()) &&
+						dishItemsTmp.getDishKeep().equals(dishItems.getDishKeep()) &&
+						dishItemsTmp.getDishDate().equals(dishItems.getDishDate()))){
+					Log log = new Log();				
+					log.setMuser(muserItems);
+					
+					log.setLogOperation("修改");
+					log.setLogContent("【"+dishItems.getDishDate()+"】"+dishItems.getDishName());
+					logService.insertLog(log);
+				}
 			}
-			dishManagementService.updateDish(dishItems);
-		}	
-		modelAndView.addObject("muserItems",muserItems);	
-		modelAndView.setViewName("findDishInCanteen.action");
+		}
 		
-		return modelAndView;
+		return "forward:findDishInCanteen.action";
 	}
 	
 	//通过菜品Name查找菜品信息供插入菜品信息时检查
 	private DishItems findDishByName(DishItems dishItems) throws Exception {
-		
+		//实际上是用Name和WndID结合查询的
 		return dishManagementService.findDishByName(dishItems);
 	}
 	
 	//插入新菜品信息
 	@RequestMapping ("/insertDish")
-	public ModelAndView insertDish(DishItems dishItems,MultipartFile dishPhotoFile,HttpSession session) throws Exception{
+	public ModelAndView insertDish(DishItems dishItems, HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 
-		if(findDishByName(dishItems) == null){	
-			String dishphoto=uploadFileService.uploadFile(dishPhotoFile, picturePath);
-			//未输入图片则使用默认的
-			if( dishphoto== null){			
-				dishItems.setDishPhoto(defaultPicturePath);
+		//确认dishItems不为空，
+		//然后查询同一窗口下是否已经有同名菜品了，
+		//如果没有菜名冲突，则关联图片并保存到数据库
+		if(dishItems != null){
+			if(findDishByName(dishItems) == null){
+				
+				//在后台设定菜品上架的时间，不让用户自己选
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String dateString=simpleDateFormat.format(new Date());
+				Date date=simpleDateFormat.parse(dateString);
+				
+				dishItems.setDishPhoto(dishPresetService.findDishPresetByName(dishItems.getDishName()).getDishPresetPhoto());
+				dishItems.setDishInDate(date);
+				
+				dishManagementService.insertDish(dishItems);
+				
+				MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+				Log log = new Log();
+				
+				log.setMuser(muserItems);
+				log.setLogOperation("上架");
+				log.setLogContent("【"+dishItems.getDishDate()+"】"+dishItems.getDishName());
+				logService.insertLog(log);
 			}
-			else{
-				dishItems.setDishPhoto(dishphoto);
-			}
-			dishManagementService.insertDish(dishItems);
-		}		
+		}
+				
 		modelAndView.setViewName("findDishInCanteen.action");
 		
 		return modelAndView;
@@ -414,9 +701,21 @@ public class DishManagementController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		
-		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");	
-		dishManagementService.deleteDishById(dish);
-		modelAndView.addObject("muserItems",muserItems);		
+		MUserItems muserItems = (MUserItems)session.getAttribute("muserItems");
+		DishItems dishItems = dishManagementService.findDishById(dish.getDishID());
+		
+		if(dishItems != null){
+			dishManagementService.deleteDishById(dish);
+			
+			Log log = new Log();
+			log.setMuser(muserItems);
+			log.setLogOperation("下架");
+			log.setLogContent("【"+dishItems.getDishDate()+"】"+dishItems.getDishName());
+			logService.insertLog(log);
+		}		
+		
+		modelAndView.addObject("muserItems",muserItems);
+		
 		modelAndView.setViewName("findDishInCanteen.action");
 		
 		return modelAndView;

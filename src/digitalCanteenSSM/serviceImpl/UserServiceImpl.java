@@ -19,9 +19,9 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;
 
 	@Override
-	public UserItems findUserByName(User user) throws Exception {
+	public UserItems findUserByName(String userName) throws Exception {
 		
-		return userMapper.findUserByName(user);
+		return userMapper.findUserByName(userName);
 	}
 
 	@Override

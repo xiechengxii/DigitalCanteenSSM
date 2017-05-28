@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import digitalCanteenSSM.po.MUserItems;
 import digitalCanteenSSM.po.Role;
 import digitalCanteenSSM.po.User;
+import digitalCanteenSSM.po.UserItems;
 import digitalCanteenSSM.service.CampusPresetService;
 import digitalCanteenSSM.service.CanteenPresetService;
 import digitalCanteenSSM.service.RoleService;
@@ -53,7 +55,7 @@ public class UserController {
 	@RequestMapping(value="/userRegister")
 	public String userRegister(User user, MultipartFile userPhotoFile) throws Exception{
 		
-		if(userService.findUserByName(user) == null){
+		if(userService.findUserByName(user.getUserName()) == null){
 			String userphoto = uploadFileService.uploadFile(userPhotoFile, DishManagementController.getPicturepath());
 			//未输入图片则使用默认的
 			if( userphoto == null){			
@@ -78,8 +80,19 @@ public class UserController {
 					}
 				}
 			}
-			// TODO: 提示用户暂时暂时无法注册
+			// TODO: 提示用户暂时无法注册
 		}
 		return "login.jsp";
+	}
+	
+	@RequestMapping(value="/userHomepage")
+	public ModelAndView userHomePage(HttpSession session, HttpServletRequest request){
+		
+		ModelAndView modelAndView = new ModelAndView();
+		
+		UserItems userItems = (UserItems)session.getAttribute("userItems");
+		
+		modelAndView.setViewName("/WEB-INF/jsp/userHomePage.jsp");
+		return modelAndView;
 	}
 }

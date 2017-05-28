@@ -11,6 +11,6 @@ import digitalCanteenSSM.po.RecordItems;
 
 public interface DishExportToExcelService {
 
-	public void writeExcel(List<RecordItems> recordItemsList,List<CanteenItems> canteenList,HttpServletResponse res)
+	public void writeExcel(List<RecordItems> recordItemsList,List<CanteenItems> canteenList,HttpServletResponse res, String timeInFileName)
 			throws IOException, ParseException;
 }

@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import digitalCanteenSSM.po.MUser;
 import digitalCanteenSSM.po.MUserItems;
+import digitalCanteenSSM.po.User;
+import digitalCanteenSSM.po.UserItems;
 import digitalCanteenSSM.service.MUserService;
+import digitalCanteenSSM.service.UserService;
 import digitalCanteenSSM.util.CheckMobile;
 
 
@@ -27,6 +30,8 @@ import digitalCanteenSSM.util.CheckMobile;
 public class LoginController {
 	@Autowired
 	private MUserService mUserService;
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(String userName, String password, HttpServletRequest request, HttpSession session) throws Exception{
@@ -68,36 +73,44 @@ public class LoginController {
 		if(currentUser.isAuthenticated()){
 			
 			MUserItems	mUserItems = mUserService.findMUserInfoByName(userName);
+			UserItems userItems = userService.findUserByName(userName);
 			
-			if("canteen".equals(mUserItems.getRoleName())){
+			if(mUserItems == null && "user".equals(userItems.getRoleName())){
+				
+				session.setAttribute("userItems", userItems);
+				//TODO: 用户页面跳转
+				return "forward:userHomepage.action";					
+			}else if("canteen".equals(mUserItems.getRoleName())){
 
-				/*
-				*MUserService的mapper中findMUserByName查询限定了
-				*用户所属校区和食堂的ID，用于查询食堂和饮食公司
-				*这一级别的用户
-				*findMUserInfoByName查询没有限定校区和食堂的ID，
-				*用于查询后台管理员用户
-				*所以这里对于食堂管理员额外使用了一次findMUserByName
-				*查询，不然获取不到校区和食堂信息
-				*/
-				MUser mUser = new MUser();
-				mUser.setMuserName(mUserItems.getMuserName());
-				mUserItems = mUserService.findMUserByName(mUser);
-
-				session.setAttribute("muserItems", mUserItems);
-				return "forward:muserCanteenHostPage.action";
+					/*
+					*MUserService的mapper中findMUserByName查询限定了
+					*用户所属校区和食堂的ID，用于查询食堂和饮食公司
+					*这一级别的用户
+					*findMUserInfoByName查询没有限定校区和食堂的ID，
+					*用于查询后台管理员用户
+					*所以这里对于食堂管理员额外使用了一次findMUserByName
+					*查询，不然获取不到校区和食堂信息
+					*/
+					MUser mUser = new MUser();
+					mUser.setMuserName(mUserItems.getMuserName());
+					mUserItems = mUserService.findMUserByName(mUser);
+					session.setAttribute("muserItems", mUserItems);
+					return "forward:muserCanteenHostPage.action";
 				
 			}else if("super".equals(mUserItems.getRoleName())){	
 				
 				session.setAttribute("muserItems", mUserItems);				
 				return "forward:backgroundHomepage.action";
 				
-			}else{
+			}else if("company".equals(mUserItems.getRoleName())){
 				session.setAttribute("muserItems", mUserItems);
-				return "forward:findAllCampuses.action";
+				return "forward:companyHomepage.action";
 				
+			}else{
+				//TODO: 用户页面跳转
+				return "forward:guestHomePage.action";
 			}
-
+			
 		}else{
 			token.clear();
 			return "login.jsp";

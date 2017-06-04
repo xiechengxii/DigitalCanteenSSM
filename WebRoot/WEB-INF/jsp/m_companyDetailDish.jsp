@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="codrops-header" style="background:#29C192;">
                             <div class="back-container">
                                 <button class="btn btn-link btn-lg" >
-                                    <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="${pageContext.request.contextPath }/backgroundHomepage.action"></a>
+                                    <a style="color:#fff" class="icon icon-arrow-left" data-ajax="false" href="companyBackground.action?recordCantID=${record.recordCantID}"></a>
                                 </button>    
                             </div>
                             <p style="width:100%;height:100%;font-size:27px">菜品录入详情</p>  
@@ -49,18 +49,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         
                         <div class="container-fluid" style="color:#000;padding:0 0px;margin-top:66px ">   
-                            <div class="row" style="padding-top:16px;padding-bottom:16px;padding-left:10px;">
-                                <div class="col-xs-4">
-                                    <label style="font-size:15px">所属校区：</label>${record.recordCampusName}
-                                </div>
-                                <div class="col-xs-4">
-                                    <label style="font-size:15px">所属食堂：</label>${record.recordCantName}
-                                </div>
-                                <div class="col-xs-4">
-                                    <label style="font-size:15px">管理员：</label>${record.recordMUserName}
-                                </div>
-                            </div>
-                
                             <form enctype="multipart/form-data">
                                 <input type="hidden" name = "recordID" value="${record.recordID} }">
                                 <div class="row" style="padding:0 0px;"> 
@@ -73,24 +61,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                             <tr>
                                                                 <td style='vertical-align: left;text-align: center;' rowspan=3>
                                                                     <c:if test="${item.detailDishPhoto != null }">
-                                                                        <img src="/upload/pic/${item.detailDishPhoto }" class="center-block" height="100" width="120"/>
+                                                                        <img src="/upload/pic/${item.detailDishPhoto }" class="center-block" height="80" width="80" style="margin-left:20px;margin-right:-50px">
                                                                     </c:if>
                                                                 </td>                                                           
-                                                                <td style='vertical-align: middle;font-size:1.5em' colspan=2>${item.detailDishName }</td>
-                                                                <td style='vertical-align: middle;'>${item.detailDishQuality }</td>                                             
+                                                                <td style='vertical-align: middle;font-size:1.5em;width:120px' >${item.detailDishName }</td>
+                                                                <td style='vertical-align: middle;'>${item.detailDishSale }</td>                                             
                                                             </tr>
                                                             <tr>                                                           
-                                                                <td style='vertical-align: middle;font-size:1em' colspan=2>[${item.detailWndName }]</td>
-                                                                <td style='vertical-align: middle;'>${item.detailDishDate } ${item.detailDishSale }</td> 
+                                                                <td style='vertical-align: middle;font-size:1em'>[${item.detailWndName }]</td>
+                                                                <td style='vertical-align: middle;'>${item.detailDishDate } </td> 
                                                             </tr>
                                                             <tr>                          
                                                                 <td style='vertical-align: middle;color:#29C192;font-size:1.5em'>￥${item.detailDishPrice }</td>
                                                                 <td style='vertical-align: middle;'><fmt:formatDate value="${item.detailDishInDate}" pattern="yyyy-MM-dd" /></td>
-                                                                <td style='vertical-align: middle;'>${item.detailDishInState }</td> 
                                                             </tr>
                                                         </table>
                                                     </div>
-                                                    <a href="deleteDetailDish.action?detailID=${item.detailID}&recordID=${record.recordID}" data-role="button" data-ajax="false" class="delect-btn" target="_top" style="padding-top:48px;padding-right:6%;">删除</a>
                                                 </div>
                                             </c:forEach>                                                                                    
                                         </div>
@@ -102,34 +88,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
         </div>
-        <script>
-            $(".item").on('swipeleft', function(event) {
-                event.preventDefault();
-                
-                $(this).addClass('selected').siblings('.item').removeClass('selected');
-                $(this).find('.delect-btn').on('click', function(event) {
-                   /*  event.preventDefault();
-                Act on the event
-                    $(this).parent(".item").animate({
-                    height: 0,
-                    width: 0},
-                    300, function() {
-                stuff to do after animation is complete
-                        $(this).remove();
-                    }); */
-                });
-            });
-            $(".item").on('swiperight', function(event) {
-                event.preventDefault();
-                
-                $(this).removeClass('selected');
-            });
-            /* $(".item").on('swiperight', function(event) {
-                event.preventDefault();
-                /* Act on the event */
-                /* $(this).removeClass('selected');
-            }); */
-            
-        </script>
     </body>
 </html>

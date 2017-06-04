@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
     <head>
     	<base href="<%=basePath%>">   
-    	<title>后台首页</title>   
+    	<title>饮食公司首页</title>   
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="expires" content="0">   
@@ -35,13 +35,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <body>
     <div class="container">
     	<div class="mp-pusher" id="mp-pusher">
-    	<%@ include file="publicjsp/index.jsp" %>
+    	<%@ include file="publicjsp/m_companyMenu.jsp" %>
     	    <form>
 	        	<input type="hidden" name = "muserID" value="${muserItems.cantID }" >
 	        	<input type="hidden" name = "roleID" value="${muserItems.roleID }" >
 	        	<input type="hidden" name = "roleName" value="${muserItems.roleName }" >	    
         	</form>
-        <!-- 后台管理用户的页面 -->
+        <!-- 饮食公司管理用户的页面 -->
         	<div class="scroller" style="background:#EEEEEE">
         		<div class="scroller-inner">
         		    <div class="codrops-header" style="background:#29C192">
@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span class="burger-filling"></span>
 							<span class="burger-bun-bot"></span>
 						 </div>					
-						<p style="width:100%;height:100%;vertical-align:middle;font-size:27px">后台管理系统</p>
+						<p style="width:100%;height:100%;vertical-align:middle;font-size:27px">饮食公司管理系统</p>
 						<!-- </div> -->
 					</div>
 
@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    														<c:set var="status" value="setted" scope="page"/>
 	    													</c:if>	    										
 	    												</c:forEach>
-	    												<a style="font-size:15px;" href="muserBackground.action?recordCantID=${item_canteen.cantID }">
+	    												<a style="font-size:15px;" href="companyBackground.action?recordCantID=${item_canteen.cantID }">
 	    													<c:if test="${status == 'setted' }">
 	    														${item_canteen.cantName}
 	    													</c:if>
@@ -106,8 +106,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								   	</div>
 	    						</div>
 	    						<div class="panel-body">
-	    							<a href="findRecordInCampus.action?campusID=${canteenItems.campusID}" class="btn btn-primary">导出本校区记录</a>
-                    				<br><br>
 	    					        <table class="table table-striped table-bordered table-condensed table-hover table-responsive text-center">
 	    					        	<thead>
 	            			                <tr style="background:#29C192;text-align:center;color:white;font-size:15px">
@@ -142,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <ul class="pagination">
                                         <c:if test="${!pagehelper.isFirstPage}">                                        
                                             <li>
-                                                <a href="muserBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
+                                                <a href="companyBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${pagehelper.prePage}&pageSize=${pagehelper.pageSize}">上一页</a>
                                             </li>
                                         </c:if>
     
@@ -150,13 +148,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
                                             <c:if test="${navigatepageNum==pagehelper.pageNum}">
                                                 <li class="active">
-                                                    <a href="muserBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                                                    <a href="companyBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
                                                 </li>
                                             </c:if>
     
                                             <c:if test="${navigatepageNum!=pagehelper.pageNum}">
                                                 <li>
-                                                    <a href="muserBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
+                                                    <a href="companyBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${navigatepageNum}&pageSize=${pagehelper.pageSize}">${navigatepageNum}</a>
                                                 </li>
                                             </c:if>
     
@@ -164,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
                                         <c:if test="${!pagehelper.isLastPage}">
                                             <li>
-                                                <a href="muserBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
+                                                <a href="companyBackground.action?recordCantID=${canteenItems.cantID}&pageNum=${pagehelper.nextPage}&pageSize=${pagehelper.pageSize}">下一页</a>
                                             </li>
                                         </c:if>
                                     </ul>
@@ -183,6 +181,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
    new mlPushMenu( document.getElementById( 'mp-menu' ), document.getElementById( 'trigger' ) );
 </script>
-<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
 </body>
 </html>

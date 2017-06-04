@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<form id="listFrom" name="listFrom" class="form-horizontal" action="campusRecordExportToExcel.action" method="post">																		
 						<div class=" newcustom" style="margin-top:77px" >
 						<div class="form-group">
-							<div class="col-xs-8">    
+							<div class="col-xs-9">    
 	                            <!-- 选择食堂所属校区 -->
 	                            <select class="form-control" name="campusID">
 	                             	<option value="">请选择食堂所属校区</option>
@@ -94,13 +94,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                             	    </c:forEach>
 	                            </select>
 	                        </div>
-	                        <div class="col-xs-4">
+	                        <div class="col-xs-3">
 								<button type="button" class="btn btn-success" onclick="findCampusRecord()">搜索</button> 
 							</div> 
 	                    </div>
 	                    <br><br>
 	                    <div class="form-group">
-	                        <div class="col-xs-8">
+	                        <div class="col-xs-9">
 								<div class="input-group" style="width: 240px; margin-left: 0px;">
 								    <input type="text" class="form-control date-picker" id="dateTimeRange"/>
 								    <span class="input-group-addon">
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								    <input type="hidden" name="endTime" id="endTime"  />								    
 								</div>
 							</div>											
-							<div class="col-xs-4">
+							<div class="col-xs-3">
 								<button onclick="exportExcel()" class="btn btn-primary">导出</button>
 							</div>  
 						</div>
@@ -143,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 							<div>
                                 <div class="message">
-                                    <p class="text-center">
+                                    <p class="text-center" style="color:black">
                                         共<b>${pagehelper.total}</b>条记录，当前显示第&nbsp;<b>${pagehelper.pageNum}/${pagehelper.pages}</b>&nbsp;页
                                     </p>
                                 </div>
